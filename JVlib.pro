@@ -129,6 +129,7 @@ SOURCES     += main.cpp \
 	toneEFX/set_toneEFX_initial.cpp \
 	toneEFX/toneEFX.cpp \
 	toneEFX/toneEFX_slots.cpp \
+	toneENV/create_toneENV_actions.cpp \
 	toneENV/set_toneENV_initial.cpp \
 	toneENV/toneENV_slots.cpp \
 	save_dialog/create_save_dialog_actions.cpp \

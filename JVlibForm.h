@@ -1081,7 +1081,7 @@ private:
   
   // for toneENV.cpp
   inline void ToneENVStdUpdate(int, int);
-//  void createToneENVactions();
+  void createToneENVactions();
   void setToneENVParms(int);
   void ToneTVF_enable(bool);
   

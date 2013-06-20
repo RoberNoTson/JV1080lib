@@ -51,7 +51,6 @@ void JVlibForm::setToneENVParms(int val) {
   }	// end Perf mode
   else if(state_table->patch_mode) 
   {	// Patch mode
-
     ToneTVA_Time1_select->setValue(active_area->active_patch_patch.patch_tone[tn].A_ENV_time[0]);
     ToneTVA_Time2_select->setValue(active_area->active_patch_patch.patch_tone[tn].A_ENV_time[1]);
     ToneTVA_Time3_select->setValue(active_area->active_patch_patch.patch_tone[tn].A_ENV_time[2]);

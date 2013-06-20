@@ -72,7 +72,7 @@ void JVlibForm::setInitial() {
   
   createMenuActions();
   createSysActions();
-//  createToneENVactions();
+  createToneENVactions();
 
   readConfigFile();
   db_connect(db_name, db_user);
