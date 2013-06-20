@@ -1,0 +1,31 @@
+// create_menu_actions.cpp
+#include	"JVlibForm.h"
+#include	<QtGui>
+
+void JVlibForm::createMenuActions() {
+  PortBox = new QComboBox();
+  PortBox->clear();
+  PortBox->setMaxVisibleItems(10);
+  
+  getPort();
+  QWidgetAction *PortList = new QWidgetAction(menuMIDI_Port);
+  PortList->setDefaultWidget(PortBox);
+  menuMIDI_Port->removeAction(actionSelectPort);
+  menuMIDI_Port->addAction(PortList);
+  memset(MIDI_dev,0,sizeof(MIDI_dev));
+  
+  connect(JVlibForm::actionOpen, SIGNAL(triggered()), this, SLOT(open()));
+  connect(JVlibForm::action_Save, SIGNAL(triggered()), this, SLOT(save()));
+  connect(JVlibForm::actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
+  connect(JVlibForm::actionE_xit, SIGNAL(triggered()), this, SLOT(close()));
+  connect(JVlibForm::action_About, SIGNAL(triggered()), this, SLOT(about()));
+  connect(JVlibForm::action_Help_Manual, SIGNAL(triggered()), this, SLOT(HelpDoc()));
+  connect(JVlibForm::PortBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedPort()));
+  connect(JVlibForm::action_Configuration, SIGNAL(triggered()), this, SLOT(slotConfig()));
+  connect(JVlibForm::action_Offline, SIGNAL(triggered()), this, SLOT(slotOffline()));
+  connect(JVlibForm::actionCopy, SIGNAL(triggered()), this, SLOT(slotactionCopy()));
+  connect(JVlibForm::actionWrite, SIGNAL(triggered()), this, SLOT(slotactionWrite()));
+  connect(JVlibForm::actionBulk_Dump, SIGNAL(triggered()), this, SLOT(slotactionBulk_Dump()));
+  connect(JVlibForm::actionWhats_This, SIGNAL(activated()), this, SLOT(slotactionWhats_This()));
+  connect(JVlibForm::actionAbout_QT, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+}	// end createActions

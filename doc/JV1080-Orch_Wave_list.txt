@@ -1,0 +1,174 @@
+1,Vl Sect A
+2,Vl Sect B
+3,Vl Sect C
+4,Va Sect A
+5,Va Sect B
+6,Va Sect C
+7,Vc Sect A
+8,Vc Sect B
+9,Vc Sect C
+10,Cb Sect
+11,Multi STR A
+12,Multi STR B
+13,Multi STR C
+14,Vl Sect Lp
+15,Va Sect Lp
+16,Vc Sect Lp
+17,Cb Sect Lp
+18,Mulit STR Lp
+19,Vl Solo A
+20,Vl Solo B
+21,Vl Solo C
+22,Va Solo A
+23,Va Solo B
+24,Va Solo C
+25,Vc Solo A
+26,Vc Solo B
+27,Vc Solo C
+28,Cb Solo
+29,Multi Solo 1
+30,Multi Solo 2
+31,Vls Spicc A
+32,Vls Spicc B
+33,Vls Spicc C
+34,Vas Spicc A
+35,Vas Spicc B
+36,Vas Spicc C
+37,Vcs Spicc A
+38,Vcs Spicc B
+39,Vcs Spicc C
+40,Cbs Spicc A
+41,Cbs Spicc B
+42,Cbs Spicc C
+43,Multi Spicc
+44,VlSolo Spicc
+45,VcSolo Spicc
+46,MultSl Spicc
+47,STR Attack
+48,Pizzicato 1
+49,Pizzicato 2
+50,Piccolo
+51,Oboe 1A
+52,Oboe 1B
+53,Oboe 1C
+54,Oboe 2A
+55,Oboe 2B
+56,Oboe 2C
+57,Eng.Horn A
+58,Eng.Horn B
+59,Eng.Horn C
+60,Clarinet
+61,Bs Clarint
+62,Multi Cla
+63,Bassoon
+64,Multi Reed
+65,Tnr.Recorder
+66,F.Horn Solo
+67,F.Horn Sect1
+68,F.Horn Sect2
+69,F.Horn Mute
+70,Trumpet 2
+71,Flugelhorn
+72,Cornet
+73,HarmonMute2A
+74,HarmonMute2B
+75,HarmonMute2C
+76,Solo Tb A
+77,Solo Tb B
+78,Solo Tb C
+79,Bass Tb
+80,Tb Sect
+81,Tuba
+82,BRS Ensemble
+83,Brass ff
+84,Full Orch.
+85,Orch Hit Maj
+86,Orch Hit Min
+87,Orch Hit Dim
+88,Choir A
+89,Choir B
+90,Choir C
+91,F.Hrn Sc1 Lp
+92,F.Hrn Sc2 Lp
+93,F.Hrn MuteLp
+94,Tb Sect Lp
+95,BRS Ens Lp
+96,ff Brass Lp
+97,Full Orch Lp
+98,Breath Wind
+99,Breath Atack
+100,Breath Whisl
+101,Breath Hrmon
+102,EuroPiano pA
+103,EuroPiano pB
+104,EuroPiano pC
+105,EuroPiano fA
+106,EuroPiano fB
+107,EuroPiano fC
+108,Harpsichord
+109,Celesta A
+110,Celesta B
+111,Celesta C
+112,Harp A
+113,Harp B
+114,Harp C
+115,Glockenspiel
+116,Xylophone
+117,Bass Marimba
+118,TubularBells
+119,Church Bells
+120,Timpani p
+121,Timpani f
+122,Timp Roll p
+123,Timp Roll f
+124,Concert SNR1
+125,Concert SNR2
+126,Concert SNR3
+127,SNR Roll
+128,Concert BD 1
+129,Concert BD 2
+130,Concert BD 3
+131,BD Roll
+132,Crash Cymbal
+133,Crash Cym Lp
+134,Cymbal Hit
+135,Tam Tam
+136,Gong
+137,Perc Hit 1
+138,Perc Hit 2
+139,Triangle
+140,Castanets 1
+141,Castanets 2
+142,Slapstick
+143,Ratchet
+144,Sleigh Bell
+145,Tambourine
+146,Wind Chime 2
+147,Rev Hit Maj
+148,Rev Hit Min
+149,Rev Hit Dim
+150,REV Bell
+151,REV Timp 1
+152,REV Timp 2
+153,REV SNR 1
+154,REV SNR 2
+155,REV SNR 3
+156,REV BD 1
+157,REV BD 2
+158,REV BD 3
+159,REV BD Roll
+160,REV Crash
+161,REV Cym Hit
+162,REV Tam Tam
+163,REV Gong
+164,REV PercHit1
+165,REV PercHit2
+166,REV Casta 1
+167,REV Casta 2
+168,REV S.Stick
+169,REV Sleigh
+170,REV Tamb
+171,SNR Set
+172,Perc Set 1
+173,Perc Set 2
+174,Perc Set 3

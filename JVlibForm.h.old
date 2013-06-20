@@ -1,0 +1,1109 @@
+#ifndef JVlibForm_H
+#define JVlibForm_H
+
+#include	<QtGui>
+#include	<QtGui/QMainWindow>
+#include	<QtSql>
+#include	<QThread>
+#include	"ui_JVlib.h"
+#include	"ui_Save_Dialog.h"
+#include	"JV-struct-defs.h"
+#include	"State_Table.h"
+#include	<alsa/asoundlib.h>
+#include	<iostream>
+
+#ifndef MAX_RETRIES
+#define	MAX_RETRIES 4	//number of times to retry after a timeout
+#endif
+#ifndef MAX_DEVICES
+#define	MAX_DEVICES 16
+#endif
+#ifndef JV_REQ
+#define JV_REQ 0x11
+#endif
+#ifndef JV_UPD
+#define JV_UPD 0x12
+#endif
+
+
+QT_BEGIN_NAMESPACE
+class QAction;
+class QMenu;
+class QDialog;
+QT_END_NAMESPACE
+
+class Save_Dialog: public QDialog, private Ui::Save_Dialog
+{
+  Q_OBJECT
+public:
+  Save_Dialog();
+  
+private slots:
+  void slotSaveDialog_accept();
+  void slotSaveDialog_cancel();
+  void slotSaveDialog_help();
+  void slotSave_System(bool);
+  void slotSave_Performance(bool);
+  void slotSave_Patch(bool);
+  void slotSave_Rhythm(bool);
+  void slotSave_Tuning(bool);
+  void slotSave_UserPerformance(bool);
+  void slotSave_UserPatch(bool);
+  void slotSave_UserRhythm(bool);
+  void slotSave_UserDump(bool);
+  
+private:
+  void createSaveDialogActions();
+};
+
+class JVlibForm : public QMainWindow, private Ui::JVlibForm
+{
+  friend class Save_Dialog;
+  
+  Q_OBJECT
+
+public:
+  JVlibForm();
+  ~JVlibForm();
+
+signals:
+  void	noteval(const QString *);
+  
+protected:
+  void closeEvent(QCloseEvent *event);
+
+private slots:
+  // for menubar.cpp
+  void open();
+  bool save();
+  bool saveAs();
+  void about();
+  void selectedPort();
+  void HelpDoc();
+  void slotConfig();
+  void slotOffline();
+  void slotactionCopy();
+  void slotactionWrite();
+  void slotactionBulk_Dump(); 
+  void slotactionWhats_This();
+  QString funcNoteCalc(int);
+  QString Pan2Deg(int);
+  
+  // for System tab
+  void slotSysSetPerf();
+  void slotSysSetPatch();
+  void slotSysSetPerformanceMode();
+  void slotSysSetPatchMode();
+  void slotSysSetGmMode();
+  void on_SysMode_select_currentIndexChanged(int);
+  int on_System_Sync_button_clicked();
+  void on_SysPerfNumber_valueChanged(int);
+  void on_SysClock_select_currentIndexChanged(int);
+  void on_SysTapControl_select_currentIndexChanged(int);
+  void on_SysHoldControl_select_currentIndexChanged(int);
+  void on_SysPeakControl_select_currentIndexChanged(int);
+  void on_SysVolumeControl_select_currentIndexChanged(int);
+  void on_SysAftertouchControl_select_currentIndexChanged(int);
+  void on_SysPatchRecvChannel_select_valueChanged(int);
+  void on_SysControlRecvChannel_select_valueChanged(int);
+  void on_System_Upload_button_clicked();
+  void on_System_LoadData_button_clicked();
+  void on_System_SaveData_button_clicked();
+  void on_EFX_switch_stateChanged(int);
+  void on_Chorus_switch_stateChanged(int);
+  void on_Reverb_switch_stateChanged(int);
+  void on_PatchRemain_switch_stateChanged(int);
+  void on_AcceptProgramChg_switch_stateChanged(int);
+  void on_AcceptBankSel_switch_stateChanged(int);
+  void on_AcceptControlChange_switch_stateChanged(int);
+  void on_AcceptModulation_switch_stateChanged(int);
+  void on_AcceptVolumeChg_switch_stateChanged(int);
+  void on_AcceptHold1Chg_switch_stateChanged(int);
+  void on_AcceptBender_switch_stateChanged(int);
+  void on_AcceptAftertouch_switch_stateChanged(int);
+  void on_SysPreviewMode_switch_toggled(bool);
+  void on_SysPreviewNote1_select_valueChanged(int);
+  void on_SysPreviewNote2_select_valueChanged(int);
+  void on_SysPreviewNote3_select_valueChanged(int);
+  void on_SysPreviewNote4_select_valueChanged(int);
+  void on_SysPreviewNote1_volume_valueChanged(int);
+  void on_SysPreviewNote2_volume_valueChanged(int);
+  void on_SysPreviewNote3_volume_valueChanged(int);
+  void on_SysPreviewNote4_volume_valueChanged(int);
+  void on_SysTestTone_button_clicked(bool);
+  void on_SysPlayMidi_button_clicked();
+  void on_SysPanic_button_clicked();
+  void on_MainTabWidget_currentChanged(int);
+
+  // for Performance tab
+//  void slotPerfSetPerf();
+  void on_PerfGroup_select_currentIndexChanged(int);
+  void on_PerfNumber_select_valueChanged(int);
+  void on_PerfSync_button_clicked();
+  void on_PerfReverbTime_select_valueChanged(int);
+  void on_PerfReverbFeedback_select_valueChanged(int);
+  void on_PerfReverbLevel_select_valueChanged(int);
+  void on_PerfChorusLevel_select_valueChanged(int);
+  void on_PerfChorusRate_select_valueChanged(int);
+  void on_PerfChorusDepth_select_valueChanged(int);
+  void on_PerfChorusPreDelay_select_valueChanged(int);
+  void on_PerfChorusFeedback_select_valueChanged(int);
+  void on_PerfDefaultTempo_select_valueChanged(int);
+  void on_PerfReverbHiFreqDamp_select_currentIndexChanged(int);
+  void on_PerfReverbType_select_currentIndexChanged(int);
+  void on_PerfChorusOutput_select_currentIndexChanged(int);
+  void on_PerfName_edit_editingFinished();
+  
+  // for Parts tab
+  void on_PartsRangeLimitEnable_select_toggled(bool);
+  void slotPart1Transpose(int);
+  void slotPart1TuneAdj(int);
+  void slotPart1VoiceReserve(int);
+  void slotPart1LowLimit(int);
+  void slotPart1HighLimit(int);
+  void slotPart1SetPatch();
+  void slotPart1SetLevel(int);
+  void slotPart1SetPan(int);
+  void slotPart1SetChorusSend(int);
+  void slotPart1SetReverbSend(int);
+  void slotPart1SetOutputLevel(int);
+  void slotPart1SetReceiveMidi(bool);
+  void slotPart1SetReceivePrgChg(bool);
+  void slotPart1SetReceiveVolume(bool);
+  void slotPart1SetReceiveHold(bool);
+  void slotPart1SetOutputSelect(int);
+  void slotPart1SetMidiChannel(int);
+  void slotPart1TestTone(bool);
+  void slotPart2Transpose(int);
+  void slotPart2TuneAdj(int);
+  void slotPart2VoiceReserve(int);
+  void slotPart2LowLimit(int);
+  void slotPart2HighLimit(int);
+  void slotPart2SetPatch();
+  void slotPart2SetLevel(int);
+  void slotPart2SetPan(int);
+  void slotPart2SetChorusSend(int);
+  void slotPart2SetReverbSend(int);
+  void slotPart2SetOutputLevel(int);
+  void slotPart2SetReceiveMidi(bool);
+  void slotPart2SetReceivePrgChg(bool);
+  void slotPart2SetReceiveVolume(bool);
+  void slotPart2SetReceiveHold(bool);
+  void slotPart2SetOutputSelect(int);
+  void slotPart2SetMidiChannel(int);
+  void slotPart2TestTone(bool);
+  void slotPart3Transpose(int);
+  void slotPart3TuneAdj(int);
+  void slotPart3VoiceReserve(int);
+  void slotPart3LowLimit(int);
+  void slotPart3HighLimit(int);
+  void slotPart3SetPatch();
+  void slotPart3SetLevel(int);
+  void slotPart3SetPan(int);
+  void slotPart3SetChorusSend(int);
+  void slotPart3SetReverbSend(int);
+  void slotPart3SetOutputLevel(int);
+  void slotPart3SetReceiveMidi(bool);
+  void slotPart3SetReceivePrgChg(bool);
+  void slotPart3SetReceiveVolume(bool);
+  void slotPart3SetReceiveHold(bool);
+  void slotPart3SetOutputSelect(int);
+  void slotPart3SetMidiChannel(int);
+  void slotPart3TestTone(bool);
+  void slotPart4Transpose(int);
+  void slotPart4TuneAdj(int);
+  void slotPart4VoiceReserve(int);
+  void slotPart4LowLimit(int);
+  void slotPart4HighLimit(int);
+  void slotPart4SetPatch();
+  void slotPart4SetLevel(int);
+  void slotPart4SetPan(int);
+  void slotPart4SetChorusSend(int);
+  void slotPart4SetReverbSend(int);
+  void slotPart4SetOutputLevel(int);
+  void slotPart4SetReceiveMidi(bool);
+  void slotPart4SetReceivePrgChg(bool);
+  void slotPart4SetReceiveVolume(bool);
+  void slotPart4SetReceiveHold(bool);
+  void slotPart4SetOutputSelect(int);
+  void slotPart4SetMidiChannel(int);
+  void slotPart4TestTone(bool);
+  void slotPart5Transpose(int);
+  void slotPart5TuneAdj(int);
+  void slotPart5VoiceReserve(int);
+  void slotPart5LowLimit(int);
+  void slotPart5HighLimit(int);
+  void slotPart5SetPatch();
+  void slotPart5SetLevel(int);
+  void slotPart5SetPan(int);
+  void slotPart5SetChorusSend(int);
+  void slotPart5SetReverbSend(int);
+  void slotPart5SetOutputLevel(int);
+  void slotPart5SetReceiveMidi(bool);
+  void slotPart5SetReceivePrgChg(bool);
+  void slotPart5SetReceiveVolume(bool);
+  void slotPart5SetReceiveHold(bool);
+  void slotPart5SetOutputSelect(int);
+  void slotPart5SetMidiChannel(int);
+  void slotPart5TestTone(bool);
+  
+  void slotPart6Transpose(int);
+  void slotPart6TuneAdj(int);
+  void slotPart6VoiceReserve(int);
+  void slotPart6LowLimit(int);
+  void slotPart6HighLimit(int);
+  void slotPart6SetPatch();
+  void slotPart6SetLevel(int);
+  void slotPart6SetPan(int);
+  void slotPart6SetChorusSend(int);
+  void slotPart6SetReverbSend(int);
+  void slotPart6SetOutputLevel(int);
+  void slotPart6SetReceiveMidi(bool);
+  void slotPart6SetReceivePrgChg(bool);
+  void slotPart6SetReceiveVolume(bool);
+  void slotPart6SetReceiveHold(bool);
+  void slotPart6SetOutputSelect(int);
+  void slotPart6SetMidiChannel(int);
+  void slotPart6TestTone(bool);
+  
+  void slotPart7Transpose(int);
+  void slotPart7TuneAdj(int);
+  void slotPart7VoiceReserve(int);
+  void slotPart7LowLimit(int);
+  void slotPart7HighLimit(int);
+  void slotPart7SetPatch();
+  void slotPart7SetLevel(int);
+  void slotPart7SetPan(int);
+  void slotPart7SetChorusSend(int);
+  void slotPart7SetReverbSend(int);
+  void slotPart7SetOutputLevel(int);
+  void slotPart7SetReceiveMidi(bool);
+  void slotPart7SetReceivePrgChg(bool);
+  void slotPart7SetReceiveVolume(bool);
+  void slotPart7SetReceiveHold(bool);
+  void slotPart7SetOutputSelect(int);
+  void slotPart7SetMidiChannel(int);
+  void slotPart7TestTone(bool);
+  
+  void slotPart8Transpose(int);
+  void slotPart8TuneAdj(int);
+  void slotPart8VoiceReserve(int);
+  void slotPart8LowLimit(int);
+  void slotPart8HighLimit(int);
+  void slotPart8SetPatch();
+  void slotPart8SetLevel(int);
+  void slotPart8SetPan(int);
+  void slotPart8SetChorusSend(int);
+  void slotPart8SetReverbSend(int);
+  void slotPart8SetOutputLevel(int);
+  void slotPart8SetReceiveMidi(bool);
+  void slotPart8SetReceivePrgChg(bool);
+  void slotPart8SetReceiveVolume(bool);
+  void slotPart8SetReceiveHold(bool);
+  void slotPart8SetOutputSelect(int);
+  void slotPart8SetMidiChannel(int);
+  void slotPart8TestTone(bool);
+  
+  void slotPart9Transpose(int);
+  void slotPart9TuneAdj(int);
+  void slotPart9VoiceReserve(int);
+  void slotPart9LowLimit(int);
+  void slotPart9HighLimit(int);
+  void slotPart9SetPatch();
+  void slotPart9SetLevel(int);
+  void slotPart9SetPan(int);
+  void slotPart9SetChorusSend(int);
+  void slotPart9SetReverbSend(int);
+  void slotPart9SetOutputLevel(int);
+  void slotPart9SetReceiveMidi(bool);
+  void slotPart9SetReceivePrgChg(bool);
+  void slotPart9SetReceiveVolume(bool);
+  void slotPart9SetReceiveHold(bool);
+  void slotPart9SetOutputSelect(int);
+  void slotPart9SetMidiChannel(int);
+  void slotPart9TestTone(bool);
+  
+  void slotPart10Transpose(int);
+  void slotPart10TuneAdj(int);
+  void slotPart10VoiceReserve(int);
+  void slotPart10LowLimit(int);
+  void slotPart10HighLimit(int);
+  void slotPart10SetPatch();
+  void slotPart10SetLevel(int);
+  void slotPart10SetPan(int);
+  void slotPart10SetChorusSend(int);
+  void slotPart10SetReverbSend(int);
+  void slotPart10SetOutputLevel(int);
+  void slotPart10SetReceiveMidi(bool);
+  void slotPart10SetReceivePrgChg(bool);
+  void slotPart10SetReceiveVolume(bool);
+  void slotPart10SetReceiveHold(bool);
+  void slotPart10SetOutputSelect(int);
+  void slotPart10SetMidiChannel(int);
+  void slotPart10TestTone(bool);
+  
+  void slotPart11Transpose(int);
+  void slotPart11TuneAdj(int);
+  void slotPart11VoiceReserve(int);
+  void slotPart11LowLimit(int);
+  void slotPart11HighLimit(int);
+  void slotPart11SetPatch();
+  void slotPart11SetLevel(int);
+  void slotPart11SetPan(int);
+  void slotPart11SetChorusSend(int);
+  void slotPart11SetReverbSend(int);
+  void slotPart11SetOutputLevel(int);
+  void slotPart11SetReceiveMidi(bool);
+  void slotPart11SetReceivePrgChg(bool);
+  void slotPart11SetReceiveVolume(bool);
+  void slotPart11SetReceiveHold(bool);
+  void slotPart11SetOutputSelect(int);
+  void slotPart11SetMidiChannel(int);
+  void slotPart11TestTone(bool);
+  
+  void slotPart12Transpose(int);
+  void slotPart12TuneAdj(int);
+  void slotPart12VoiceReserve(int);
+  void slotPart12LowLimit(int);
+  void slotPart12HighLimit(int);
+  void slotPart12SetPatch();
+  void slotPart12SetLevel(int);
+  void slotPart12SetPan(int);
+  void slotPart12SetChorusSend(int);
+  void slotPart12SetReverbSend(int);
+  void slotPart12SetOutputLevel(int);
+  void slotPart12SetReceiveMidi(bool);
+  void slotPart12SetReceivePrgChg(bool);
+  void slotPart12SetReceiveVolume(bool);
+  void slotPart12SetReceiveHold(bool);
+  void slotPart12SetOutputSelect(int);
+  void slotPart12SetMidiChannel(int);
+  void slotPart12TestTone(bool);
+  
+  void slotPart13Transpose(int);
+  void slotPart13TuneAdj(int);
+  void slotPart13VoiceReserve(int);
+  void slotPart13LowLimit(int);
+  void slotPart13HighLimit(int);
+  void slotPart13SetPatch();
+  void slotPart13SetLevel(int);
+  void slotPart13SetPan(int);
+  void slotPart13SetChorusSend(int);
+  void slotPart13SetReverbSend(int);
+  void slotPart13SetOutputLevel(int);
+  void slotPart13SetReceiveMidi(bool);
+  void slotPart13SetReceivePrgChg(bool);
+  void slotPart13SetReceiveVolume(bool);
+  void slotPart13SetReceiveHold(bool);
+  void slotPart13SetOutputSelect(int);
+  void slotPart13SetMidiChannel(int);
+  void slotPart13TestTone(bool);
+  
+  void slotPart14Transpose(int);
+  void slotPart14TuneAdj(int);
+  void slotPart14VoiceReserve(int);
+  void slotPart14LowLimit(int);
+  void slotPart14HighLimit(int);
+  void slotPart14SetPatch();
+  void slotPart14SetLevel(int);
+  void slotPart14SetPan(int);
+  void slotPart14SetChorusSend(int);
+  void slotPart14SetReverbSend(int);
+  void slotPart14SetOutputLevel(int);
+  void slotPart14SetReceiveMidi(bool);
+  void slotPart14SetReceivePrgChg(bool);
+  void slotPart14SetReceiveVolume(bool);
+  void slotPart14SetReceiveHold(bool);
+  void slotPart14SetOutputSelect(int);
+  void slotPart14SetMidiChannel(int);
+  void slotPart14TestTone(bool);
+  
+  void slotPart15Transpose(int);
+  void slotPart15TuneAdj(int);
+  void slotPart15VoiceReserve(int);
+  void slotPart15LowLimit(int);
+  void slotPart15HighLimit(int);
+  void slotPart15SetPatch();
+  void slotPart15SetLevel(int);
+  void slotPart15SetPan(int);
+  void slotPart15SetChorusSend(int);
+  void slotPart15SetReverbSend(int);
+  void slotPart15SetOutputLevel(int);
+  void slotPart15SetReceiveMidi(bool);
+  void slotPart15SetReceivePrgChg(bool);
+  void slotPart15SetReceiveVolume(bool);
+  void slotPart15SetReceiveHold(bool);
+  void slotPart15SetOutputSelect(int);
+  void slotPart15SetMidiChannel(int);
+  void slotPart15TestTone(bool);
+  
+  void slotPart16Transpose(int);
+  void slotPart16TuneAdj(int);
+  void slotPart16VoiceReserve(int);
+  void slotPart16LowLimit(int);
+  void slotPart16HighLimit(int);
+  void slotPart16SetPatch();
+  void slotPart16SetLevel(int);
+  void slotPart16SetPan(int);
+  void slotPart16SetChorusSend(int);
+  void slotPart16SetReverbSend(int);
+  void slotPart16SetOutputLevel(int);
+  void slotPart16SetReceiveMidi(bool);
+  void slotPart16SetReceivePrgChg(bool);
+  void slotPart16SetReceiveVolume(bool);
+  void slotPart16SetReceiveHold(bool);
+  void slotPart16SetOutputSelect(int);
+  void slotPart16SetMidiChannel(int);
+  void slotPart16TestTone(bool);
+
+  // for EFX tab
+  void slotPerfEFXsource(int);
+  void slotPerfEFXtype(int);
+  void slotPatchEFXtype(int);
+  void slotEFXoutput(int);
+  void slotEFXreverbSend(int);
+  void slotEFXchorusSend(int);
+  void slotEFXoutputLevel(int);
+  void slotEFXcontrol1Depth(int);
+  void slotEFXcontrol2Depth(int);
+  void slotEFXcontrolSource1(int);
+  void slotEFXcontrolSource2(int);
+  void slotEFXparm1(int);
+  void slotEFXparm2(int);
+  void slotEFXparm3(int);
+  void slotEFXparm4(int);
+  void slotEFXparm5(int);
+  void slotEFXparm6(int);
+  void slotEFXparm7(int);
+  void slotEFXparm8(int);
+  void slotEFXparm9(int);
+  void slotEFXparmA(int);
+  void slotEFXparmB(int);
+  void slotEFXparmC(int);
+  
+  // for Patch tab
+  void on_Patch_Sync_button_clicked();
+  void on_Patch_Group_select_currentIndexChanged(int);
+  void on_Patch_Number_select_valueChanged(int);
+  void on_Patch_Name_edit_editingFinished();
+  void on_Patch_Level_select_valueChanged(int);
+  void on_Patch_Pan_select_valueChanged(int);
+  void on_Patch_AnalogFeel_select_valueChanged(int);
+  void on_Patch_PortamentoTime_select_valueChanged(int);
+  void on_Patch_BenderDown_select_valueChanged(int);
+  void on_Patch_BenderUp_select_valueChanged(int);
+  void on_Patch_HoldPeak_select_currentIndexChanged(int);
+  void on_Patch_C1_HoldPeak_select_currentIndexChanged(int);
+  void on_Patch_C2_HoldPeak_select_currentIndexChanged(int);
+  void on_Patch_C3_HoldPeak_select_currentIndexChanged(int);
+  void on_Patch_Struct12_select_valueChanged(int);
+  void on_Patch_Booster12_select_valueChanged(int);
+  void on_Patch_Struct34_select_valueChanged(int);
+  void on_Patch_Booster34_select_valueChanged(int);
+  void on_Patch_Tone1_enable_toggled(bool);
+  void on_Patch_Tone2_enable_toggled(bool);
+  void on_Patch_Tone3_enable_toggled(bool);
+  void on_Patch_Tone4_enable_toggled(bool);
+  void slotPatch_DefaultTempo(int);
+  void on_Patch_VoicePriority_switch_toggled(bool);
+  void on_Patch_VoiceMode_switch_toggled(bool);
+  void on_Patch_PortamentoEnable_switch_toggled(bool);
+  void on_Patch_PortamentoMode_switch_toggled(bool);
+  void on_Patch_PortamentoType_switch_toggled(bool);
+  void on_Patch_PortamentoStart_switch_toggled(bool);
+  void on_Patch_TestTone_switch_toggled(bool);
+  void on_Patch_PerfPartNum_select_currentIndexChanged(int);
+  void on_Patch_VelocityRange_enable_toggled(bool);
+  void on_Patch_ControlSource2_select_currentIndexChanged(int);
+  void on_Patch_ControlSource3_select_currentIndexChanged(int);
+  void on_Patch_SoloLegato_enable_toggled(bool);
+  
+  // for PatchEFX tab
+  void on_PatchEFX_ReverbHiFreqDamp_select_currentIndexChanged(int);
+  void on_PatchEFX_ReverbLevel_select_valueChanged(int);
+  void on_PatchEFX_ReverbTime_select_valueChanged(int);
+  void on_PatchEFX_ReverbType_select_currentIndexChanged(int);
+  void on_PatchEFX_ReverbFeedback_select_valueChanged(int);
+  void on_PatchEFX_ChorusLevel_select_valueChanged(int);
+  void on_PatchEFX_ChorusRate_select_valueChanged(int);
+  void on_PatchEFX_ChorusDepth_select_valueChanged(int);
+  void on_PatchEFX_ChorusPreDelay_select_valueChanged(int);
+  void on_PatchEFX_ChorusFeedback_select_valueChanged(int);
+  void on_PatchEFX_ChorusOutput_select_currentIndexChanged(int);
+  void on_PatchEFX_Control1Source_select_currentIndexChanged(int);
+  void on_PatchEFX_Control2Source_select_currentIndexChanged(int);
+  void on_PatchEFX_Control1Depth_select_valueChanged(int);
+  void on_PatchEFX_Control2Depth_select_valueChanged(int);
+
+  // for Tone tab
+  void on_ToneSync_button_clicked();
+  void on_Tone_ToneNumber_select_valueChanged();
+  void on_Tone_Number_select_valueChanged(int);
+  void on_Tone_Group_select_currentIndexChanged(int);
+  void on_Tone_InstrFamily_select_currentIndexChanged();
+  void on_Tone_WaveChooser_select_currentIndexChanged();
+  void on_Tone_Output_select_currentIndexChanged(int);
+  void on_Tone_C1D1_select_currentIndexChanged(int);
+  void on_Tone_C1D2_select_currentIndexChanged(int);
+  void on_Tone_C1D3_select_currentIndexChanged(int);
+  void on_Tone_C1D4_select_currentIndexChanged(int);
+  void on_Tone_C2D1_select_currentIndexChanged(int);
+  void on_Tone_C2D2_select_currentIndexChanged(int);
+  void on_Tone_C2D3_select_currentIndexChanged(int);
+  void on_Tone_C2D4_select_currentIndexChanged(int);
+  void on_Tone_C3D1_select_currentIndexChanged(int);
+  void on_Tone_C3D2_select_currentIndexChanged(int);
+  void on_Tone_C3D3_select_currentIndexChanged(int);
+  void on_Tone_C3D4_select_currentIndexChanged(int);
+  void on_Tone_WaveGain_select_currentIndexChanged(int);
+  void on_Tone_DelayMode_select_currentIndexChanged(int);
+  void on_Tone_ChorusSend_select_valueChanged(int);
+  void on_Tone_ReverbSend_select_valueChanged(int);
+  void on_Tone_OutputLevel_select_valueChanged(int);
+  void on_Tone_Level_select_valueChanged(int);
+  void on_Tone_VeloXfadeDepth_select_valueChanged(int);
+  void on_Tone_VeloLowerRange_select_valueChanged(int);
+  void on_Tone_DelayTime_select_valueChanged(int);
+  void on_Tone_VeloUpperRange_select_valueChanged(int);
+  void on_Tone_C1D1Depth_select_valueChanged(int);
+  void on_Tone_C1D2Depth_select_valueChanged(int);
+  void on_Tone_C1D3Depth_select_valueChanged(int);
+  void on_Tone_C1D4Depth_select_valueChanged(int);
+  void on_Tone_C2D1Depth_select_valueChanged(int);
+  void on_Tone_C2D2Depth_select_valueChanged(int);
+  void on_Tone_C2D3Depth_select_valueChanged(int);
+  void on_Tone_C2D4Depth_select_valueChanged(int);
+  void on_Tone_C3D1Depth_select_valueChanged(int);
+  void on_Tone_C3D2Depth_select_valueChanged(int);
+  void on_Tone_C3D3Depth_select_valueChanged(int);
+  void on_Tone_C3D4Depth_select_valueChanged(int);
+  void on_Tone_ReceiveVolume_enable_toggled(bool);
+  void on_Tone_ReceiveHold_enable_toggled(bool);
+  void on_Tone_ReceiveReDamper_enable_toggled(bool);
+  void on_Tone_ReceiveBender_enable_toggled(bool);
+  void on_Tone_FXM_enable_toggled(bool);
+  void on_Tone_FXMColor_select_currentIndexChanged(int);
+  void on_Tone_FXMDepth_select_currentIndexChanged(int);
+  
+  // for toneEFX tab
+  void on_ToneEFX_LFO1FadeTime_select_valueChanged(int);
+  void on_ToneEFX_LFO2FadeTime_select_valueChanged(int);
+  void on_ToneEFX_LFO1Delay_select_valueChanged(int);
+  void on_ToneEFX_LFO1Rate_select_valueChanged(int);
+  void on_ToneEFX_LFO2Rate_select_valueChanged(int);
+  void on_ToneEFX_LFO2Delay_select_valueChanged(int);
+  void on_ToneEFX_LFO1KeyTrigger_enable_toggled(bool);
+  void on_ToneEFX_LFO2KeyTrigger_enable_toggled(bool);
+  void on_ToneEFX_LFO1LevelOffset_select_currentIndexChanged(int);
+  void on_ToneEFX_LFO2LevelOffset_select_currentIndexChanged(int);
+  void on_ToneEFX_LF01Waveform_select_currentIndexChanged(int);
+  void on_ToneEFX_LFO1FadeMode_select_currentIndexChanged(int);
+  void on_ToneEFX_LFO1ExtSync_select_currentIndexChanged(int);
+  void on_ToneEFX_LF02Waveform_select_currentIndexChanged(int);
+  void on_ToneEFX_LFO2FadeMode_select_currentIndexChanged(int);
+  void on_ToneEFX_LFO2ExtSync_select_currentIndexChanged(int);
+  void on_ToneEFX_PanControl_select_currentIndexChanged(int);
+  void on_ToneEFX_Pan_select_valueChanged(int);
+  void on_ToneEFX_PanKeyFollow_select_currentIndexChanged(int);
+  void on_ToneEFX_PanRandDepth_select_valueChanged(int);
+  void on_ToneEFX_AltPan_select_valueChanged(int);
+  void on_ToneEFX_PanLFO1Depth_select_valueChanged(int);
+  void on_ToneEFX_PanLFO2Depth_select_valueChanged(int);
+
+  // for ToneENV tab
+  void on_ToneTVA_Time1_select_valueChanged(int);
+  void on_ToneTVA_Time2_select_valueChanged(int);
+  void on_ToneTVA_Time3_select_valueChanged(int);
+  void on_ToneTVA_Time4_select_valueChanged(int);
+  void on_ToneTVA_Lvl1_select_valueChanged(int);
+  void on_ToneTVA_Lvl2_select_valueChanged(int);
+  void on_ToneTVA_Lvl3_select_valueChanged(int);
+  void on_ToneTVA_LFO1Depth_select_valueChanged(int);
+  void on_ToneTVA_LFO2Depth_select_valueChanged(int);
+  void on_ToneTVA_VelocSens_select_valueChanged(int);
+  void on_ToneTVA_BiasPoint_select_valueChanged(int);
+  void on_ToneTVA_BiasDirection_select_currentIndexChanged(int);
+  void on_ToneTVA_Time1Sens_select_currentIndexChanged(int);
+  void on_ToneTVA_Time4Sens_select_currentIndexChanged(int);
+  void on_ToneTVA_VelocityCurve_select_currentIndexChanged(int);
+  void on_ToneTVA_TimeKeyfollow_select_currentIndexChanged(int);
+  void on_ToneTVA_BiasLvl_select_currentIndexChanged(QString);
+  void on_ToneTVF_Time1_select_valueChanged(int);
+  void on_ToneTVF_Time2_select_valueChanged(int);
+  void on_ToneTVF_Time3_select_valueChanged(int);
+  void on_ToneTVF_Time4_select_valueChanged(int);
+  void on_ToneTVF_Lvl1_select_valueChanged(int);
+  void on_ToneTVF_Lvl2_select_valueChanged(int);
+  void on_ToneTVF_Lvl3_select_valueChanged(int);
+  void on_ToneTVF_Lvl4_select_valueChanged(int);
+  void on_ToneTVF_LFO1Depth_select_valueChanged(int);
+  void on_ToneTVF_LFO2Depth_select_valueChanged(int);
+  void on_ToneTVF_VelocSens_select_valueChanged(int);
+  void on_ToneTVF_ResVelocSens_select_valueChanged(int);
+  void on_ToneTVF_Resonance_select_valueChanged(int);
+  void on_ToneTVF_Depth_select_valueChanged(int);
+  void on_ToneTVF_TimeKeyfollow_select_currentIndexChanged(int);
+  void on_ToneTVF_Time1Sens_select_currentIndexChanged(int);
+  void on_ToneTVF_Time4Sens_select_currentIndexChanged(int);
+  void on_ToneTVF_VelocityCurve_select_currentIndexChanged(int);
+  void on_ToneTVF_FilterType_select_currentIndexChanged(int);
+  void on_ToneTVF_CutoffKeyfollow_select_currentIndexChanged(int);
+  void on_ToneTVF_CutoffFreq_select_valueChanged(int);
+  
+  // for Pitch tab
+  void on_Pitch_StretchTuning_select_valueChanged(int);
+  void on_Pitch_HighLimit_select_valueChanged(int);
+  void on_Pitch_LowLimit_select_valueChanged(int);
+  void on_Pitch_TimeKeyfollow_select_currentIndexChanged(int);
+  void on_Pitch_RandPitchDepth_select_currentIndexChanged(int);
+  void on_Pitch_Depth_select_valueChanged(int);
+  void on_Pitch_TuneAdj_select_valueChanged(int);
+  void on_Pitch_Transpose_select_valueChanged(int);
+  void on_Pitch_OctaveShift_select_currentIndexChanged(int);
+  void on_Pitch_KeyFollow_select_currentIndexChanged(int);
+  void on_Pitch_Time1_select_valueChanged(int);
+  void on_Pitch_Time2_select_valueChanged(int);
+  void on_Pitch_Time3_select_valueChanged(int);
+  void on_Pitch_Time4_select_valueChanged(int);
+  void on_Pitch_Lvl1_select_valueChanged(int);
+  void on_Pitch_Lvl2_select_valueChanged(int);
+  void on_Pitch_Lvl3_select_valueChanged(int);
+  void on_Pitch_Lvl4_select_valueChanged(int);
+  void on_Pitch_LFO1Depth_select_valueChanged(int);
+  void on_Pitch_LFO2Depth_select_valueChanged(int);
+  void on_Pitch_VelocSens_select_valueChanged(int);
+  void on_Pitch_Time1Sens_select_currentIndexChanged(int);
+  void on_Pitch_Time4Sens_select_currentIndexChanged(int);
+  
+  // for Tuning tab
+  void on_Tuning_ScaleTuning_enable_toggled(bool);
+  void on_Tuning_Sync_button_clicked();
+  void on_Tuning_PartTune_select_valueChanged(int);
+  void on_Tuning_MasterTune_select_valueChanged(double);
+  void slotTuning_TempButtons(int);
+  void on_Tuning_LoadCustomTemp_button_clicked();
+  void on_Tuning_SaveCustomTemp_button_clicked();
+  void on_Tuning_BaseKey_select_currentIndexChanged(int);
+  void on_Tuning_PartTuneA_select_valueChanged(int);
+  void on_Tuning_PartTuneAs_select_valueChanged(int);
+  void on_Tuning_PartTuneB_select_valueChanged(int);
+  void on_Tuning_PartTuneC_select_valueChanged(int);
+  void on_Tuning_PartTuneCs_select_valueChanged(int);
+  void on_Tuning_PartTuneD_select_valueChanged(int);
+  void on_Tuning_PartTuneDs_select_valueChanged(int);
+  void on_Tuning_PartTuneE_select_valueChanged(int);
+  void on_Tuning_PartTuneF_select_valueChanged(int);
+  void on_Tuning_PartTuneFs_select_valueChanged(int);
+  void on_Tuning_PartTuneG_select_valueChanged(int);
+  void on_Tuning_PartTuneGs_select_valueChanged(int);
+  void Tuning_QueryTemp(int);
+  void Tuning_setScaleTuning(int);
+  
+  // for Rhythm tab
+  void on_Rhythm_Sync_button_clicked();
+  void on_Rhythm_EnvMode_select_toggled(bool);
+  void on_Rhythm_Note_enable_toggled(bool);
+  void on_Rhythm_Hold_enable_toggled(bool);
+  void on_Rhythm_Volume_enable_toggled(bool);
+  void on_Rhythm_WaveGroup_select_currentIndexChanged(int);
+  void on_Rhythm_WaveGain_select_currentIndexChanged(int);
+  void on_Rhythm_Output_select_currentIndexChanged(int);
+  void on_Rhythm_PanControl_select_currentIndexChanged(int);
+  void on_Rhythm_RandPitchDepth_select_currentIndexChanged(int);
+  void on_Rhythm_TVAVelTimeSens_select_currentIndexChanged(int);
+  void on_Rhythm_TVFFilterType_select_currentIndexChanged(int);
+  void on_Rhythm_TVFVelTimeSens_select_currentIndexChanged(int);
+  void on_Rhythm_WaveNumber_select_valueChanged(int);
+  void on_Rhythm_MuteGroup_select_valueChanged(int);
+  void on_Rhythm_PanRandDepth_select_valueChanged(int);
+  void on_Rhythm_PitchDepth_select_valueChanged(int);
+  void on_Rhythm_TVFDepth_select_valueChanged(int);
+  void on_Rhythm_KeyPress_select_valueChanged(int);
+  void on_Rhythm_OutputLevel_select_valueChanged(int);
+  void on_Rhythm_ChorusSend_select_valueChanged(int);
+  void on_Rhythm_ReverbSend_select_valueChanged(int);
+  void on_Rhythm_Pan_select_valueChanged(int);
+  void on_Rhythm_AltPan_select_valueChanged(int);
+  void on_Rhythm_PitchTime1_select_valueChanged(int);
+  void on_Rhythm_PitchTime2_select_valueChanged(int);
+  void on_Rhythm_PitchTime3_select_valueChanged(int);
+  void on_Rhythm_PitchTime4_select_valueChanged(int);
+  void on_Rhythm_PitchLvl1_select_valueChanged(int);
+  void on_Rhythm_PitchLvl2_select_valueChanged(int);
+  void on_Rhythm_PitchLvl3_select_valueChanged(int);
+  void on_Rhythm_PitchLvl4_select_valueChanged(int);
+  void on_Rhythm_PitchVelocSens_select_valueChanged(int);
+  void on_Rhythm_TVATime1_select_valueChanged(int);
+  void on_Rhythm_TVATime2_select_valueChanged(int);
+  void on_Rhythm_TVATime3_select_valueChanged(int);
+  void on_Rhythm_TVATime4_select_valueChanged(int);
+  void on_Rhythm_TVALvl1_select_valueChanged(int);
+  void on_Rhythm_TVALvl2_select_valueChanged(int);
+  void on_Rhythm_TVALvl3_select_valueChanged(int);
+  void on_Rhythm_TVAVelocSens_select_valueChanged(int);
+  void on_Rhythm_TVFTime1_select_valueChanged(int);
+  void on_Rhythm_TVFTime2_select_valueChanged(int);
+  void on_Rhythm_TVFTime3_select_valueChanged(int);
+  void on_Rhythm_TVFTime4_select_valueChanged(int);
+  void on_Rhythm_TVFLvl2_select_valueChanged(int);
+  void on_Rhythm_TVFLvl3_select_valueChanged(int);
+  void on_Rhythm_TVFLvl4_select_valueChanged(int);
+  void on_Rhythm_TVFLvl1_select_valueChanged(int);
+  void on_Rhythm_TVFResVelocSens_select_valueChanged(int);
+  void on_Rhythm_TVFCutoffFreq_select_valueChanged(int);
+  void on_Rhythm_TVFResonance_select_valueChanged(int);
+  void on_Rhythm_TVFVelocSens_select_valueChanged(int);
+  void on_Rhythm_SoundingPitch_select_valueChanged(int);
+  void on_Rhythm_BenderRange_select_valueChanged(int);
+  void on_Rhythm_PitchVeloTime_select_currentIndexChanged(int);
+  void on_Rhythm_ToneLevel_select_valueChanged(int);
+  void on_Rhythm_TuneAdj_select_valueChanged(int);
+  void on_Rhythm_TestTone_switch_clicked(bool);
+  
+private:
+  // shared variables
+  QString curFile;
+  QVBoxLayout *PortBoxLayout;
+  QComboBox *PortBox;
+  QGraphicsScene *scene1;
+  QGraphicsScene *scene2;
+  QGraphicsScene *scene3;
+  QGraphicsScene *scene4;
+  QGraphicsScene *scene5;
+  QGraphicsScene *scene6;
+  QGraphicsScene *scene7;
+  QGraphicsScene *scene8;
+  QGraphicsScene *scene9;
+  QGraphicsScene *scene10;
+  snd_rawmidi_t *midiInHandle;
+  snd_rawmidi_t *midiOutHandle;
+  struct SYSTEM_AREA *system_area;
+  struct ACTIVE_AREA *active_area;
+  static struct SYSTEM_AREA *sys_area;
+  static struct ACTIVE_AREA *act_area;
+  static struct STATE_TABLE *state_table;
+  int debug;
+  QSqlDatabase mysql;
+  static QSqlDatabase db_mysql;
+  
+  QGraphicsScene *ToneTVA_Env_scene;
+  QPen ToneEnv_dotLine;
+  QPen ToneEnv_redLine;
+  QGraphicsSimpleTextItem *ToneTVA_Env_OffText;
+  QGraphicsSimpleTextItem *ToneTVA_Env_t1Text;
+  QGraphicsSimpleTextItem *ToneTVA_Env_t2Text;
+  QGraphicsSimpleTextItem *ToneTVA_Env_t3Text;
+  QGraphicsSimpleTextItem *ToneTVA_Env_t4Text;
+  QGraphicsSimpleTextItem *ToneTVA_Env_sndText;
+  QLineF ToneTVA_Env_t1;
+  QLineF ToneTVA_Env_t2;
+  QLineF ToneTVA_Env_t3;
+  QLineF ToneTVA_Env_t4;
+  QLineF ToneTVA_Env_sustain;
+  QLineF ToneTVA_Env_offLine;
+  QLineF ToneTVA_Env_t1Mark;
+  QLineF ToneTVA_Env_t2Mark;
+  QLineF ToneTVA_Env_t3Mark;
+  QLineF ToneTVA_Env_t4Mark;
+  QGraphicsLineItem *ToneTVA_Env_ptrT1;
+  QGraphicsLineItem *ToneTVA_Env_ptrT3;
+  QGraphicsLineItem *ToneTVA_Env_ptrT4;
+  QGraphicsLineItem *ToneTVA_Env_ptrT2;
+  QGraphicsLineItem *ToneTVA_Env_ptrSustain;
+  
+  QGraphicsScene *ToneTVA_Bias_scene;
+  QLine ToneTVA_Bias_bpMark;
+  QLine ToneTVA_Bias_HiLine;
+  QLine ToneTVA_Bias_LowLine;
+  QGraphicsLineItem *ToneTVA_Bias_ptrHiLine;
+  QGraphicsLineItem *ToneTVA_Bias_ptrLowLine;
+  QGraphicsLineItem *ToneTVA_Bias_ptrbpMark;
+  QGraphicsSimpleTextItem *ToneTVA_Bias_bpText;
+
+  QGraphicsScene *ToneTVF_Env_scene;
+  QGraphicsSimpleTextItem *ToneTVF_Env_OffText;
+  QGraphicsSimpleTextItem *ToneTVF_Env_t1Text;
+  QGraphicsSimpleTextItem *ToneTVF_Env_t2Text;
+  QGraphicsSimpleTextItem *ToneTVF_Env_t3Text;
+  QGraphicsSimpleTextItem *ToneTVF_Env_t4Text;
+  QGraphicsSimpleTextItem *ToneTVF_Env_sndText;
+  QLineF ToneTVF_Env_t1;
+  QLineF ToneTVF_Env_t2;
+  QLineF ToneTVF_Env_t3;
+  QLineF ToneTVF_Env_t4;
+  QLineF ToneTVF_Env_sustain;
+  QLineF ToneTVF_Env_offLine;
+  QLineF ToneTVF_Env_t1Mark;
+  QLineF ToneTVF_Env_t2Mark;
+  QLineF ToneTVF_Env_t3Mark;
+  QLineF ToneTVF_Env_t4Mark;
+  QGraphicsLineItem *ToneTVF_Env_ptrT1;
+  QGraphicsLineItem *ToneTVF_Env_ptrT3;
+  QGraphicsLineItem *ToneTVF_Env_ptrT4;
+  QGraphicsLineItem *ToneTVF_Env_ptrT2;
+  QGraphicsLineItem *ToneTVF_Env_ptrSustain;
+
+  QGraphicsScene *Pitch_Env_scene;
+  QPen Pitch_dotLine;
+  QPen Pitch_redLine;
+  QGraphicsSimpleTextItem *Pitch_Env_OffText;
+  QGraphicsSimpleTextItem *Pitch_Env_t1Text;
+  QGraphicsSimpleTextItem *Pitch_Env_t2Text;
+  QGraphicsSimpleTextItem *Pitch_Env_t3Text;
+  QGraphicsSimpleTextItem *Pitch_Env_t4Text;
+  QGraphicsSimpleTextItem *Pitch_Env_sndText;
+  QLineF Pitch_Env_t1;
+  QLineF Pitch_Env_t2;
+  QLineF Pitch_Env_t3;
+  QLineF Pitch_Env_t4;
+  QLineF Pitch_Env_sustain;
+  QLineF Pitch_Env_offLine;
+  QLineF Pitch_Env_t1Mark;
+  QLineF Pitch_Env_t2Mark;
+  QLineF Pitch_Env_t3Mark;
+  QLineF Pitch_Env_t4Mark;
+  QGraphicsLineItem *Pitch_Env_ptrT1;
+  QGraphicsLineItem *Pitch_Env_ptrT3;
+  QGraphicsLineItem *Pitch_Env_ptrT4;
+  QGraphicsLineItem *Pitch_Env_ptrT2;
+  QGraphicsLineItem *Pitch_Env_ptrSustain;
+  
+  // generic functions
+  void setInitial();
+  int  sysex_get(unsigned char *, char *);
+  int  sysex_send(unsigned char *, int);
+  int  change_send(unsigned char *, int);
+  void createStatusBar();
+  void close_ports();
+  int  open_ports();
+  short chksum(unsigned char *, int);
+  int hexdump(unsigned char *, int);
+  int db_connect(const QString, const QString);
+  void	readConfigFile();
+
+  // for menubar.cpp
+  void createMenuActions();
+  bool maybeSave();
+  void loadFile(const QString&);
+  bool saveFile(const QString&);
+  void setCurrentFile(const QString&);
+  QString strippedName(const QString&);
+  
+  // for system.cpp
+  void getPort();
+  void setSysSingleValue(int, int);
+  void downloadClicked();
+  void setSystemParms();
+  void getSysPerfName();
+  void getSysPatchName();
+  void setSysGmMode(bool);
+  char MIDI_dev[32];
+  char  sysex_get_data[5];
+  char  sysex_send_data[5];
+  void EnableSys(bool);
+  QString NoteName(int);
+  void createSysActions();
+  
+  // for performance.cpp
+  void EnablePerf(bool);
+  void setPerfSingleValue(int, int);
+  void getActivePerfCommon();
+  void getActivePerfPatches();
+  void getActivePatchNames();
+  void getActivePatchMode();
+  void setPerfParms();
+  void enable_4(bool);
+  void enable_6(bool);
+  void enable_7(bool);
+  void enable_8(bool);
+  void enable_9(bool);
+  void enable_A(bool);
+  void enable_B(bool);
+  void enable_C(bool);
+  
+  // for EFX.cpp
+  void createEFXactions();
+  void setPerfEFXparms();
+  void setPatchEFXparms();
+  void displayEFXparms();
+  void EFX01stereoEQ();
+  void EFX02overdrive();
+  void EFX03distortion();
+  void EFX04phaser();
+  void EFX05spectrum();
+  void EFX06enhancer();
+  void EFX07autoWah();
+  void EFX08rotary();
+  void EFX09compressor();
+  void EFX10limiter();
+  void EFX11HexaChorus();
+  void EFX12TremoloChorus();
+  void EFX13Space_D();
+  void EFX14StereoChorus();
+  void EFX15StereoFlanger();
+  void EFX16StepFlanger();
+  void EFX17StereoDelay();
+  void EFX18ModulationDelay();
+  void EFX19TripleTapDelay();
+  void EFX20QuadrupleTapDelay();
+  void EFX21TimeControlDelay();
+  void EFX22VoicePitchShifter();
+  void EFX23FeedbackPitchShifter();
+  void EFX24Reverb();
+  void EFX25GateReverb();
+  void EFX26OverdriveSeriesChorus();
+  void EFX27OverdriveSeriesFlanger();
+  void EFX28OverdriveSeriesDelay();
+  void EFX29DistortionSeriesChorus();
+  void EFX30DistortionSeriesFlanger();
+  void EFX31DistortionSeriesDelay();
+  void EFX32EnhancerSeriesChorus();
+  void EFX33EnhancerSeriesFlanger();
+  void EFX34EnhancerSeriesDelay();
+  void EFX35ChorusSeriesDelay();
+  void EFX36FlangerSeriesDelay();
+  void EFX37ChorusSeriesFlanger();
+  void EFX38ChorusParallelDelay();
+  void EFX39FlangerParallelDelay();
+  void EFX40ChorusParallelFlanger();
+
+  void setEFXdisplayParm_1();
+  void setEFXdisplayParm_2();
+  void setEFXdisplayParm_3();
+  void setEFXdisplayParm_4();
+  void setEFXdisplayParm_5();
+  void setEFXdisplayParm_6();
+  void setEFXdisplayParm_7();
+  void setEFXdisplayParm_8();
+  void setEFXdisplayParm_9();
+  void setEFXdisplayParm_A();
+  void setEFXdisplayParm_B();
+  void setEFXdisplayParm_C();
+  
+  // for parts.cpp
+  void EnableParts(bool);
+  void setPartsParms();
+  void setPart1_Parms();
+  void setPart2_Parms();
+  void setPart3_Parms();
+  void setPart4_Parms();
+  void setPart5_Parms();
+  void setPart6_Parms();
+  void setPart7_Parms();
+  void setPart8_Parms();
+  void setPart9_Parms();
+  void setPart10_Parms();
+  void setPart11_Parms();
+  void setPart12_Parms();
+  void setPart13_Parms();
+  void setPart14_Parms();
+  void setPart15_Parms();
+  void setPart16_Parms();
+  void setPartSingleValue(int,int,int);
+  void createPartActions();
+  QString getPartPatchName(int);
+  
+  int Part1PartNum();
+  void Part1_SetPatchMax();
+  QString Part1_getPatchName(int);
+  int Part2PartNum();
+  void Part2_SetPatchMax();
+  QString Part2_getPatchName(int);
+  int Part3PartNum();
+  void Part3_SetPatchMax();
+  QString Part3_getPatchName(int);
+  int Part4PartNum();
+  void Part4_SetPatchMax();
+  QString Part4_getPatchName(int);
+  int Part5PartNum();
+  void Part5_SetPatchMax();
+  QString Part5_getPatchName(int);
+  int Part6PartNum();
+  void Part6_SetPatchMax();
+  QString Part6_getPatchName(int);
+  int Part7PartNum();
+  void Part7_SetPatchMax();
+  QString Part7_getPatchName(int);
+  int Part8PartNum();
+  void Part8_SetPatchMax();
+  QString Part8_getPatchName(int);
+  int Part9PartNum();
+  void Part9_SetPatchMax();
+  QString Part9_getPatchName(int);
+  int Part10PartNum();
+  void Part10_SetPatchMax();
+  QString Part10_getPatchName(int);
+  int Part11PartNum();
+  void Part11_SetPatchMax();
+  QString Part11_getPatchName(int);
+  int Part12PartNum();
+  void Part12_SetPatchMax();
+  QString Part12_getPatchName(int);
+  int Part13PartNum();
+  void Part13_SetPatchMax();
+  QString Part13_getPatchName(int);
+  int Part14PartNum();
+  void Part14_SetPatchMax();
+  QString Part14_getPatchName(int);
+  int Part15PartNum();
+  void Part15_SetPatchMax();
+  QString Part15_getPatchName(int);
+  int Part16PartNum();
+  void Part16_SetPatchMax();
+  QString Part16_getPatchName(int);
+  
+  // for patch.cpp
+  void EnablePatch(bool);
+  void createPatchActions();
+  void setPatchParms(int);
+  void setPatchSingleValue(int, int);
+  void Patch_setPatchMax();
+
+  // for tone.cpp
+  inline void ToneStdUpdate(int, int);
+  void setToneSingleValue(int, int, int);
+  QString WaveName_query();
+  void createToneActions();
+  void setToneParms(int);
+  void Enable_Tone(bool);
+  void setWaveChooser();
+  
+  // for toneEFX.cpp
+  inline void ToneEFXStdUpdate(int, int);
+  void setToneEFXParms(int);
+  void Enable_ToneEFX(bool);
+  
+  // for toneENV.cpp
+  inline void ToneENVStdUpdate(int, int);
+  void setToneENVParms(int);
+  void ToneTVF_enable(bool);
+  
+  // for Pitch
+  inline void PitchStdUpdate(int, int);
+  void createPitchActions();
+  void setPitchParms(int);
+
+  // for Tuning
+  inline void TuningStdUpdate(int, int);
+  void setScaleSingleValue(int, int);
+  void createTuningActions();
+  void setScaleTunings(int);
+  int get_scales();
+  QButtonGroup *Tuning_ButtonGroup;
+  QByteArray Tuning_currentTuning;
+  void Tuning_BulkUpdate(int, int, int);
+
+  // for Rhythm
+  bool getActiveRhythm();
+  inline void RhythmStdUpdate(int, int);
+  void createRhythmActions();
+  void setRhythmParms(int);
+  QString RhythmName_query();
+  void Rhythm_EnableAll(bool);
+  
+  // for Config_Dialog
+  
+  
+};	// end class JVlibForm
+
+#endif

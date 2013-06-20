@@ -1,0 +1,348 @@
+# System controls
+panel_mode	Performance, Patch, GM
+perf_num	User 1-32, Card 1-32, PresetA 1-32, PresetB 1-32
+patch_group	User/Card/Preset, DataCard, Expansion
+patch_group_id	0-127
+patch_num	1-255
+master_tune	A=427.4 - 452.6 (0-126), A440=64/0x40
+scale_tune_switch	Off, On
+EFX_switch	Off, On 
+chorus_switch	Off, On 
+reverb_switch	Off, On 
+patch_remain	Off, On 
+clock_source	Internal, Midi
+tap_control_source	Off, Hold-1, Sostenuto, Soft, Hold-2
+hold_control_source	Off, Hold-1, Sostenuto, Soft, Hold-2
+peak_control_source	Off, Hold-1, Sostenuto, Soft, Hold-2
+volume_control_source	Volume, Volume/Exp
+aftertouch_control_source	ChannelAfter, PolyAfter, Both
+sys__control_source_1	CC 0-95, Bender, Aftertouch
+sys__control_source_2	CC 0-95, Bender, Aftertouch
+receive_program_change	Off, On 
+receive_bank_select	Off, On 
+receive_control_change	Off, On 
+receive_modulation	Off, On 
+receive_volume		Off, On 
+receive_hold_1		Off, On 
+receive_bender		Off, On 
+receive_aftertouch	Off, On 
+control_channel		1-16, Off (0-16)
+patch_receive_channel	1-16 (0-15)
+rhythm_edit_source	Panel, Panel/Midi
+preview_mode		Single, Chord
+preview_key_set_1	C1 - G9 (0-127)
+preview_velocity_set_1	Off, 1-127
+preview_key_set_2	C1 - G9 (0-127)
+preview_velocity_set_2	Off, 1-127
+preview_key_set_3	C1 - G9 (0-127)
+preview_velocity_set_3	Off, 1-127
+preview_key_set_4	C1 - G9 (0-127)
+preview_velocity_set_4	Off, 1-127
+
+# Scale tuning
+C	-64 to +63 (0-127)
+Cis	-64 to +63 (0-127)
+D	-64 to +63 (0-127)
+Dis	-64 to +63 (0-127)
+E	-64 to +63 (0-127)
+F	-64 to +63 (0-127)
+Fis	-64 to +63 (0-127)
+G	-64 to +63 (0-127)
+Gis	-64 to +63 (0-127)
+A	-64 to +63 (0-127)
+Ais	-64 to +63 (0-127)
+B	-64 to +63 (0-127)
+
+#Performance controls
+Name		12 characters
+EFX_source	Perform, 1-9, 11-16 (0-16)
+EFX_type	0-39
+EFX_parameter[1]	32-127
+EFX_parameter[2-12]	0-127
+EFX_output	Mix, Output-1, Output-2
+EFX_output_level	0-127
+EFX_chorus_send_level	0-127
+EFX_reverb_send_level	0-127
+EFX_control_src_1	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch
+EFX_control_depth_1	-63 to +63 (0-126)
+EFX_control_src_2	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch
+EFX_control_depth_2	-63 to +63 (0-126)
+chorus_level	0-127
+chorus_rate	0-127
+chorus_depth	0-127
+chorus_pre_delay	0-127
+chorus_feedback	0-127
+chorus_output	Mix, Reverb, Both
+reverb_type	Room1, Room2, Stage1, Stage2, Hall1, Hall2, Delay, Pan/Delay
+reverb_level	0-127
+reverb_time	0-127
+reverb_HF_damp	200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, Bypass
+reverb_feedback	0-127
+default_tempo	20 - 250
+key_range_switch	Off, On
+voice_reserve[1-16]	0-64
+
+#Performance Part Controls
+MIDI_receive	Off, On
+MIDI_channel	1 - 16
+patch_group	User/Card/Preset, DataCard, Expansion
+patch_group_id	0-127
+patch_num	1 - 253 (0-254)
+level		0-127
+pan		L64 to R63 (0-127)
+coarse_tune	-48 to +48 (0-96)
+fine_tune	-50 to +50 (0-100)
+output		Mix, EFX, Output1, Output2, Patch
+output_level	0-127
+chorus_send_level	0-127
+reverb_send_level	0-127
+receive_program_change	Off, On
+receive_volume	Off, On
+receive_hold_1	Off, On
+key_range_lower	C1 - G9 (0-127)
+key_range_upper	C1 - G9 (0-127)
+
+#Patch Controls
+Name		12 characters
+EFX_type	0-39
+EFX_parameter[1-12]	0-127
+EFX_output	Mix, Output-1, Output-2
+EFX_output_level	0-127
+EFX_chorus_send_level	0-127
+EFX_reverb_send_level	0-127
+EFX_control_src_1	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch
+EFX_control_depth_1	-63 to +63 (0-126)
+EFX_control_src_2	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch
+EFX_control_depth_2	-63 to +63 (0-126)
+chorus_level	0-127
+chorus_rate	0-127
+chorus_depth	0-127
+chorus_pre_delay	0-127
+chorus_feedback	0-127
+chorus_output	Mix, Reverb, Both
+reverb_type	Room1, Room2, Stage1, Stage2, Hall1, Hall2, Delay, Pan/Delay
+reverb_level	0-127
+reverb_time	0-127
+reverb_HF_damp	200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300, 8000, Bypass
+reverb_feedback	0-127
+default_tempo	20 - 250
+level		0-127
+pan		L64 to R63 (0-127)
+analog_feel_depth	0-127
+bender_up	0-12
+bender_down	0 to -48 (0-48)
+key_mode	Poly, Solo
+solo_legato	Off, On
+portamento_switch	Off, On
+portamento_mode		Normal, Legato
+portamento_type		Rate, Time
+portamento_start	Pitch, Note
+portamento_time		0-127
+control_source_2	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch, LFO1, LFO2, Velocity, KeyFollow, PlayMate
+control_source_3	Off, Sys-Ctrl-1, Sys-Ctrl-2, Modulation, Breath, Foot, Volume, Pan, Expression, Bender, Aftertouch, LFO1, LFO2, Velocity, KeyFollow, PlayMate
+EFX_control_hold/peak	Off, Hold, Peak
+control_1_hold/peak	Off, Hold, Peak
+control_2_hold/peak	Off, Hold, Peak
+control_3_hold/peak	Off, Hold, Peak
+velocity_range_switch	Off, On
+octave_shift		-3 to +3 (0-6)
+stretch_tune_depth	Off, 1 - 3
+voice_priority		Last, Loudest
+structure_type_1-2	1 to 10 (0-9)
+booster_level_1-2	0, +6, +12, +18
+structure_type_3-4	1 to 10 (0-9)
+booster_level_3-4	0, +6, +12, +18
+
+#Patch tone controls
+tone_switch	Off, On
+wave_group	Internal, DataCard, Expansion
+wave_group_id	0-127
+wave_num	1-255 (0-254)
+wave_gain	-6, 0, +6, +12
+FXM_switch	Off, On	
+FXM_color	1 - 4 (0-3)
+FXM_depth	1 - 16 (0-15)
+tone_delay_mode		Normal, Hold, KeyInterval, ClockSync, TapSync, KeyOffNormal, KeyOffDecay
+tone_delay_time		0-127
+veloc_xfade_depth	0-127
+veloc_range_lower	0-127
+veloc_range_upper	0-127
+key_range_lower	C1 - G9 (0-127)
+key_range_upper	C1 - G9 (0-127)
+redamper_control	Off, On
+volume_control_switch	Off, On
+hold_1_control		Off, On
+bender_control		Off, On
+pan_control	Off, Continuous, KeyOn
+cont_1_dest_1	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_1_depth_1	-63 to +63 (0-126)
+cont_1_dest_2	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_1_depth_2	-63 to +63 (0-126)
+cont_1_dest_3	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_1_depth_3	-63 to +63 (0-126)
+cont_1_dest_4	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_1_depth_4	-63 to +63 (0-126)
+cont_2_dest_1	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_2_depth_1	-63 to +63 (0-126)
+cont_2_dest_2	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_2_depth_2	-63 to +63 (0-126)
+cont_2_dest_3	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_2_depth_3	-63 to +63 (0-126)
+cont_2_dest_4	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_2_depth_4	-63 to +63 (0-126)
+cont_3_dest_1	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_3_depth_1	-63 to +63 (0-126)
+cont_3_dest_2	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_3_depth_2	-63 to +63 (0-126)
+cont_3_dest_3	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_3_depth_3	-63 to +63 (0-126)
+cont_3_dest_4	Off, PCH, Cut, Res, Lev, Pan, Mix, Chorus, Reverb, PL1, PL2, FL1, FL2, AL1, AL2, pL1, pL2, L1R, L2R
+cont_3_depth_4	-63 to +63 (0-126)
+LFO_1_waveform	Delta, Sine, Sawtooth, Square, Trapezoidal, Sample&Hold, Random, Chaotic
+LFO_1_key_trigger	Off, On
+LFO_1_rate	0-127
+LFO_1_level_offset	-100, -50, 0, +50, +100
+LFO_1_delay_time	0-127
+LFO_1_fade_mode		OnIn, OnOut, OffIn, OffOut
+LFO_1_fade_time		0-127
+LFO_1_ext_sync	Off, Clock, Tap
+LFO_2_waveform	Delta, Sine, Sawtooth, Square, Trapezoidal, Sample&Hold, Random, Chaotic
+LFO_2_key_trigger	Off, On
+LFO_2_rate	0-127
+LFO_2_level_offset	-100, -50, 0, +50, +100
+LFO_2_delay_time	0-127
+LFO_2_fade_mode		OnIn, OnOut, OffIn, OffOut
+LFO_2_fade_time		0-127
+LFO_2_ext_sync	Off, Clock, Tap
+coarse_tune	-48 to +48 (0-96)
+fine_tune	-50 to +50 (0-100)
+random_pitch_depth	0,1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,1100,1200
+pitch_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+P_ENV_depth	-12 to +12 (0-24)
+P_ENV_veloc_sens	-100 to +150 (0-125)
+P_ENV_veloc_time1_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+P_ENV_veloc_time4_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+P_ENV_veloc_time_keyfollow		-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+P_ENV_time1	0-127
+P_ENV_time2	0-127
+P_ENV_time3	0-127
+P_ENV_time4	0-127
+P_ENV_level1	-63 to +63 (0-126)
+P_ENV_level2	-63 to +63 (0-126)
+P_ENV_level3	-63 to +63 (0-126)
+P_ENV_level4	-63 to +63 (0-126)
+pitch_LFO_1_depth	-63 to +63 (0-126)
+pitch_LFO_2_depth	-63 to +63 (0-126)
+filter_type	Off, LoPass, BandPass, HighPass, Peaking
+cutoff_freq	0-127
+cutoff_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+resonance	0-127
+resonance_veloc_sens	-100 to +150 (0-125)
+F_ENV_depth	-63 to +63 (0-126)
+F_ENV_veloc_curve	1 to 7 (0-6)
+F_ENV_veloc_sens	-100 to +150 (0-125)
+F_ENV_veloc_time_1_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+F_ENV_veloc_time_4_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+F_ENV_time_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+F_ENV_time1	0-127
+F_ENV_time2	0-127
+F_ENV_time3	0-127
+F_ENV_time4	0-127
+F_ENV_level1	-63 to +63 (0-126)
+F_ENV_level2	-63 to +63 (0-126)
+F_ENV_level3	-63 to +63 (0-126)
+F_ENV_level4	-63 to +63 (0-126)
+filter_LFO_1_depth	-63 to +63 (0-126)
+filter_LFO_2_depth	-63 to +63 (0-126)
+tone_level	0-127
+bias_direction	Lower, Upper, Lower/Upper, All
+bias_point	C1 to G9 (0-127)
+bias_level	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+A_ENV_veloc_curve	1 to 7 (0-6)
+A_ENV_veloc_sens	-100 to +150 (0-125)
+A_ENV_veloc_time_1_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+A_ENV_veloc_time_4_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+A_ENV_time_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+A_ENV_time1	0-127
+A_ENV_time2	0-127
+A_ENV_time3	0-127
+A_ENV_time4	0-127
+A_ENV_level1	-63 to +63 (0-126)
+A_ENV_level2	-63 to +63 (0-126)
+A_ENV_level3	-63 to +63 (0-126)
+A_ENV_level4	-63 to +63 (0-126)
+amplitude_LFO_1_depth	-63 to +63 (0-126)
+amplitude_LFO_2_depth	-63 to +63 (0-126)
+tone_pan	L64 to R63 (0-127)
+pan_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+random_pan_depth	0-63
+alt_pan_depth	L63 to R63 (1-127)
+pan_LFO_1_depth	-63 to +63 (0-126)
+pan_LFO_2_depth	-63 to +63 (0-126)
+output_assign	Mix, EFX, Output1, Output2		
+output_level	0-127
+chorus_level	0-127
+reverb_level	0-127
+
+# Rhythm controls
+name	12 characters
+
+# Rhythm Note controls
+tone_switch	Off, On
+wave_group	Internal, DataCard, Expansion
+wave_group_id	0-127
+wave_num	1-255 (0-254)
+wave_gain	-6, 0, +6, +12
+bender_range	0-12
+mute_group	Off, 1-31
+envelope_mode	No-sustain, Sustain
+volume_control	Off, On
+hold_1_control	Off, On
+pan_control	Off, Continuous, KeyOn
+source_key	C1 to G9 (0-127)
+fine_tune	-50 to +50 (0-100)
+random_pitch_depth	0,1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000,1100,1200
+P_ENV_depth	-12 to +12 (0-24)
+P_ENV_veloc_sens	-100 to +150 (0-125)
+P_ENV_veloc_time_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+P_ENV_time1	0-127
+P_ENV_time2	0-127
+P_ENV_time3	0-127
+P_ENV_time4	0-127
+P_ENV_level1	-63 to +63 (0-126)
+P_ENV_level2	-63 to +63 (0-126)
+P_ENV_level3	-63 to +63 (0-126)
+P_ENV_level4	-63 to +63 (0-126)
+filter_type	Off, LoPass, BandPass, HighPass, Peaking
+cutoff_freq	0-127
+resonance	0-127
+resonance_veloc_sens	-100 to +150 (0-125)
+F_ENV_depth	-63 to +63 (0-126)
+F_ENV_veloc_sens	-100 to +150 (0-125)
+F_ENV_veloc_time_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+F_ENV_time1	0-127
+F_ENV_time2	0-127
+F_ENV_time3	0-127
+F_ENV_time4	0-127
+F_ENV_level1	-63 to +63 (0-126)
+F_ENV_level2	-63 to +63 (0-126)
+F_ENV_level3	-63 to +63 (0-126)
+F_ENV_level4	-63 to +63 (0-126)
+tone_level	0-127
+A_ENV_veloc_sens	-100 to +150 (0-125)
+A_ENV_veloc_time_sens	-100,-70,-50,-40,-30,-20,-10,0,+10,+20,+30,+40,+50,+70,+100
+A_ENV_time_keyfollow	-100,-70,-50,-30,-10,0,+10,+20,+30,+40,+50,+70,+100,+120,+150,+200
+A_ENV_time1	0-127
+A_ENV_time2	0-127
+A_ENV_time3	0-127
+A_ENV_time4	0-127
+A_ENV_level1	-63 to +63 (0-126)
+A_ENV_level2	-63 to +63 (0-126)
+A_ENV_level3	-63 to +63 (0-126)
+tone_pan	L64 to R63 (0-127)
+random_pan_depth	0-63
+alt_pan_depth		L63 to R63 (1-127)
+output_assign	Mix, EFX, Output1, Output2		
+output_level	0-127
+chorus_level	0-127
+reverb_level	0-127

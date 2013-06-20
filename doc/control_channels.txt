@@ -1,0 +1,32 @@
+# Control Change Numbers, standard MIDI implementation
+0	bank select
+1	modulation
+2	breath
+3
+4	foot type
+5	portamento time
+6	data entry LSB
+7	volume
+8	balance
+9
+10	pan
+11	expression
+
+32	bank select
+
+38	data entry MSB
+
+64	hold 1
+65	portamento
+66	sostenuto
+67	soft pedal
+68
+69	hold 2
+
+84	portamento control
+
+91	reverb
+
+93	chorus
+100	RPN LSB
+101	RPN MSB

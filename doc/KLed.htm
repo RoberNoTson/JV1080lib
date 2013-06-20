@@ -1,0 +1,329 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>class KLed</title>
+
+<meta name="Generator" content="KDOC ">
+</head>
+<body alink="#ffffff" bgcolor="#ffffff" link="#0000ff" text="#000000" vlink="#000099">
+<table width="100%" border="0">
+<tbody><tr>
+<td>
+	<table border="0">
+		<tbody><tr><td cellspacing="10" align="left" valign="top">
+		<h1>class KLed</h1>
+		</td>
+		<td colspan="1" align="right" valign="top">An LED widget.
+ <small><a href="#longdesc">More...</a></small></td></tr>
+	</tbody></table>
+	<hr>
+	<table border="0">
+		<tbody><tr><th>Definition</th><td><code>#include &lt;<a href="http://api.kde.org/2.0-api/classref/kdeui/kled_h.html">kled.h</a>&gt;</code></td></tr>
+<tr><th>Inherits</th><td><a href="http://doc.trolltech.com/qwidget.html">QWidget</a> <small>(qt)</small> <small>[public ]</small></td></tr>
+<tr><th><a href="http://api.kde.org/2.0-api/classref/kdeui/full-list-KLed.html">List of all Methods</a></th></tr>
+	</tbody></table>
+	</td>
+<td align="right"><table border="0"><tbody><tr><td><small><a href="http://api.kde.org/2.0-api/classref/kdeui/index-long.html">Annotated List</a></small></td></tr>
+<tr><td><small><a href="http://api.kde.org/2.0-api/classref/kdeui/header-list.html">Files</a></small></td></tr>
+<tr><td><small><a href="http://api.kde.org/2.0-api/classref/kdeui/all-globals.html">Globals</a></small></td></tr>
+<tr><td><small><a href="http://api.kde.org/2.0-api/classref/kdeui/hier.html">Hierarchy</a></small></td></tr>
+<tr><td><small><a href="http://api.kde.org/2.0-api/classref/kdeui/index.html">Index</a></small></td></tr>
+</tbody></table></td></tr></tbody></table>
+<h4>Public Types</h4><ul><li>enum <a href="#ref1">State</a> { Off, On };
+}
+</li>
+<li>enum <a href="#ref2">Shape</a> { Rectangular, Circular };
+}
+</li>
+<li>enum <a href="#ref3">Look</a> { Flat, Raised, Sunken };
+}
+</li>
+</ul><h4>Public Methods</h4><ul><li>&nbsp;<b><a href="#ref4">KLed</a></b> (<a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0) 
+</li>
+<li>&nbsp;<b><a href="#ref5">KLed</a></b> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a> &amp;col=Qt::green, <a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0) 
+</li>
+<li>&nbsp;<b><a href="#ref6">KLed</a></b> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a>&amp; col, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#State">KLed::State</a> st, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#Look">KLed::Look</a> look, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#Shape">KLed::Shape</a> shape,         <a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0) 
+</li>
+<li>&nbsp;<b><a href="#ref7">~KLed</a></b> () 
+</li>
+<li>State &nbsp;<b><a href="#ref8">state</a></b> ()  const
+</li>
+<li>Shape &nbsp;<b><a href="#ref9">shape</a></b> ()  const
+</li>
+<li>const <a href="http://doc.trolltech.com/qcolor.html">QColor</a> &nbsp;<b><a href="#ref10">color</a></b> ()  const
+</li>
+<li>Look &nbsp;<b><a href="#ref11">look</a></b> ()  const
+</li>
+<li>int &nbsp;<b><a href="#ref12">darkFactor</a></b> ()  const
+</li>
+<li>void &nbsp;<b><a href="#ref13">setState</a></b> ( State state ) 
+</li>
+<li>void &nbsp;<b><a href="#ref14">setShape</a></b> (Shape s) 
+</li>
+<li>void &nbsp;<b><a href="#ref15">toggleState</a></b> () 
+</li>
+<li>void &nbsp;<b><a href="#ref16">setColor</a></b> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a>&amp; color) 
+</li>
+<li>void &nbsp;<b><a href="#ref17">setDarkFactor</a></b> (int darkfactor) 
+</li>
+<li>void &nbsp;<b><a href="#ref18">setLook</a></b> ( Look look ) 
+</li>
+</ul><h4>Public Slots</h4><ul><li>void &nbsp;<b><a href="#ref19">toggle</a></b> () 
+</li>
+<li>void &nbsp;<b><a href="#ref20">on</a></b> () 
+</li>
+<li>void &nbsp;<b><a href="#ref21">off</a></b> () 
+</li>
+</ul><h4>Protected Methods</h4><ul><li>virtual  void &nbsp;<b><a href="#ref22">paintFlat</a></b> () 
+</li>
+<li>virtual  void &nbsp;<b><a href="#ref23">paintRound</a></b> () 
+</li>
+<li>virtual  void &nbsp;<b><a href="#ref24">paintSunken</a></b> () 
+</li>
+<li>virtual  void &nbsp;<b><a href="#ref25">paintRect</a></b> () 
+</li>
+<li>virtual  void &nbsp;<b><a href="#ref26">paintRectFrame</a></b> (bool raised) 
+</li>
+</ul><hr><h2><a name="longdesc">Detailed Description</a></h2><p> 
+ Display a round  or rectangular light emitting diode.
+</p>
+<p> It is configurable to five colors, the two on/off states and three
+ styles (or "looks");
+</p>
+<p> It may display itself in a performant flat view, a round view with
+ light spot or a round view sunken in the screen.
+</p>
+<p></p>
+<a name="State"></a><a name="ref1"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>enum <strong>State</strong> { Off, On };
+}
+</td><td align="right"><h3><strong>State</strong></h3></td></tr></tbody></table><p></p><p>
+ Status of the light is on/off.
+</p>
+<a name="Shape"></a><a name="ref2"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>enum <strong>Shape</strong> { Rectangular, Circular };
+}
+</td><td align="right"><h3><strong>Shape</strong></h3></td></tr></tbody></table><p></p><p> 
+ Shades of the lamp.
+</p>
+<a name="Look"></a><a name="ref3"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>enum <strong>Look</strong> { Flat, Raised, Sunken };
+}
+</td><td align="right"><h3><strong>Look</strong></h3></td></tr></tbody></table><p></p><p>
+ Display a flat, round or sunken LED.
+</p>
+<p> Displaying the LED flat is less time and color consuming,
+ but not so nice to see.
+</p>
+<p> The sunken LED itself is (certainly) smaller than the round LED
+ because of the 3 shading circles and is
+ most time consuming. Makes sense for LED &gt; 15x15 pixels.
+</p>
+<p></p>
+
+<h3>Timings:
+ ( AMD K5/133, Diamond Stealth 64 PCI Graphics, widgetsize 29x29 )
+</h3>
+<p>
+</p>
+
+<ul>
+<li>flat Approximately 0.7 msec per paint 
+</li>
+<li>round Approximately 2.9 msec per paint
+</li>
+<li>sunken Approximately 3.3 msec per paint
+</li>
+</ul>
+
+<p>
+</p>
+<p> The widget will be updated on the next repaining event.
+</p>
+<p></p>
+<a name="KLed"></a><a name="ref4"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>&nbsp;<strong>KLed</strong> (<a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0)
+<br></td><td align="right"><h3><strong>KLed</strong></h3></td></tr></tbody></table><p></p><p>
+ Constructs a green, round LED widget which will initially
+ be turned on.
+   </p>
+<a name="KLed"></a><a name="ref5"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>&nbsp;<strong>KLed</strong> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a> &amp;col=Qt::green, <a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0)
+<br></td><td align="right"><h3><strong>KLed</strong></h3></td></tr></tbody></table><p></p><p>
+ Constructor with the ledcolor, the parent widget, and the name.
+</p>
+<p> The State will be defaulted On and the Look round.
+</p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>ledcolor</i></td><td align="left" valign="top">Initial color of the LED.
+</td></tr>
+<tr><td align="left" valign="top"><i>parent</i></td><td align="left" valign="top">Will be handed over to QWidget.
+</td></tr>
+<tr><td align="left" valign="top"><i>name</i></td><td align="left" valign="top">Will be handed over to QWidget.
+</td></tr>
+</tbody></table></p>
+<a name="KLed"></a><a name="ref6"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>&nbsp;<strong>KLed</strong> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a>&amp; col, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#State">KLed::State</a> st, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#Look">KLed::Look</a> look, <a href="http://api.kde.org/2.0-api/classref/kdeui/KLed.html#Shape">KLed::Shape</a> shape,         <a href="http://doc.trolltech.com/qwidget.html">QWidget</a> *parent=0, const char *name=0)
+<br></td><td align="right"><h3><strong>KLed</strong></h3></td></tr></tbody></table><p></p><p>
+ Constructor with the ledcolor, ledstate, ledlook,
+ the parent widget, and the name.
+</p>
+<p> Differs from above only in the parameters, which configure all settings.
+</p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>ledcolor</i></td><td align="left" valign="top">Initial color of the LED.
+</td></tr>
+<tr><td align="left" valign="top"><i>state</i></td><td align="left" valign="top">Sets the State.
+</td></tr>
+<tr><td align="left" valign="top"><i>look</i></td><td align="left" valign="top">Sets the Look.
+</td></tr>
+<tr><td align="left" valign="top"><i>parent</i></td><td align="left" valign="top">Will be handed over to QWidget.
+</td></tr>
+<tr><td align="left" valign="top"><i>name</i></td><td align="left" valign="top">Will be handed over to QWidget.
+</td></tr>
+</tbody></table></p>
+<a name="~KLed"></a><a name="ref7"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~KLed</strong> ()
+<br></td><td align="right"><h3><strong>~KLed</strong></h3></td></tr></tbody></table><p></p><p>
+ Destructor
+</p>
+<a name="state"></a><a name="ref8"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>State &nbsp;<strong>state</strong> ()
+<br></td><td align="right"><h3><strong>state</strong></h3></td></tr></tbody></table><p> <small>[const]</small></p><p>
+ Hand back the current state of the widget (on/off).
+</p>
+<p></p>
+<p><b>See also</b>: State</p>
+<a name="shape"></a><a name="ref9"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>Shape &nbsp;<strong>shape</strong> ()
+<br></td><td align="right"><h3><strong>shape</strong></h3></td></tr></tbody></table><p> <small>[const]</small></p><a name="color"></a><a name="ref10"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>const <a href="http://doc.trolltech.com/qcolor.html">QColor</a> &nbsp;<strong>color</strong> ()
+<br></td><td align="right"><h3><strong>color</strong></h3></td></tr></tbody></table><p> <small>[const]</small></p><p>
+ Hand back the color of the widget
+</p>
+<p></p>
+<p><b>See also</b>: Color</p>
+<a name="look"></a><a name="ref11"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>Look &nbsp;<strong>look</strong> ()
+<br></td><td align="right"><h3><strong>look</strong></h3></td></tr></tbody></table><p> <small>[const]</small></p><p>
+ Hand back the look of the widget.
+</p>
+<p></p>
+<p><b>See also</b>: Look</p>
+<a name="darkFactor"></a><a name="ref12"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>int &nbsp;<strong>darkFactor</strong> ()
+<br></td><td align="right"><h3><strong>darkFactor</strong></h3></td></tr></tbody></table><p> <small>[const]</small></p><p>
+ hands back the factor to darken the LED.
+</p>
+<p></p>
+<p><b>See also</b>: setDarkFactor()</p>
+<a name="setState"></a><a name="ref13"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setState</strong> ( State state )
+<br></td><td align="right"><h3><strong>setState</strong></h3></td></tr></tbody></table><p></p><p>
+ Sets the state of the widget to On or Off.
+</p>
+<p> The widget will be painted immediately.
+</p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>state</i></td><td align="left" valign="top">The LED state: on or off.
+</td></tr>
+</tbody></table></p>
+<p><b>See also</b>: on(), off(), toggle(), toggleState()</p>
+<a name="setShape"></a><a name="ref14"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setShape</strong> (Shape s)
+<br></td><td align="right"><h3><strong>setShape</strong></h3></td></tr></tbody></table><p></p><p> Set the shape. </p>
+<a name="toggleState"></a><a name="ref15"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggleState</strong> ()
+<br></td><td align="right"><h3><strong>toggleState</strong></h3></td></tr></tbody></table><p></p><p>
+ Toggle the state of the LED from Off to On and vice versa.
+</p>
+<p> The widget will be repainted when returning to the main
+ event loop.
+</p>
+<a name="setColor"></a><a name="ref16"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setColor</strong> (const <a href="http://doc.trolltech.com/qcolor.html">QColor</a>&amp; color)
+<br></td><td align="right"><h3><strong>setColor</strong></h3></td></tr></tbody></table><p></p><p>
+ Set the color of the widget.
+ The Color is shown with the KLed::On state.
+ The KLed::Off state is shown with QColor.dark() method
+</p>
+<p> The widget calls the update() method, so it will
+ be updated when entering the main event loop.
+</p>
+<p></p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>color</i></td><td align="left" valign="top">New color of the LED.
+</td></tr>
+</tbody></table></p>
+<p><b>See also</b>: Color</p>
+<a name="setDarkFactor"></a><a name="ref17"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setDarkFactor</strong> (int darkfactor)
+<br></td><td align="right"><h3><strong>setDarkFactor</strong></h3></td></tr></tbody></table><p></p><p>
+ Set the factor to darken the LED in OFF state.
+ Same as <a href="http://doc.trolltech.com/qcolor.html#13553b">QColor::dark</a>().
+ "darkfactor should be greater than 100, else the LED gets lighter
+ in OFF state.
+ Defaults to 300.
+</p>
+<p></p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>darkfactor</i></td><td align="left" valign="top">sets the factor to darken the LED.
+</td></tr>
+</tbody></table></p>
+<p><b>See also</b>: <a href="http://doc.trolltech.com/qcolor.html">QColor</a></p>
+<a name="setLook"></a><a name="ref18"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setLook</strong> ( Look look )
+<br></td><td align="right"><h3><strong>setLook</strong></h3></td></tr></tbody></table><p></p><p>
+ Set the look of the widget.
+</p>
+<p> The look may be flat, round or sunken.
+ The widget calls the update() method, so it will
+ be updated when entering the main event loop.
+</p>
+<p></p>
+<p></p>
+<p><b>Parameters</b>:<table cellpadding="5" border="0">
+<tbody><tr><td align="left" valign="top"><i>look</i></td><td align="left" valign="top">New look of the LED.
+</td></tr>
+</tbody></table></p>
+<p><b>See also</b>: Look</p>
+<a name="toggle"></a><a name="ref19"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggle</strong> ()
+<br></td><td align="right"><h3><strong>toggle</strong></h3></td></tr></tbody></table><p> <small>[slot]</small></p><p>
+ Toggle the state of the led from Off to On or vice versa.
+</p>
+<p> The widget repaints itself immediately.
+   </p>
+<a name="on"></a><a name="ref20"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>on</strong> ()
+<br></td><td align="right"><h3><strong>on</strong></h3></td></tr></tbody></table><p> <small>[slot]</small></p><p>
+ Sets the state of the widget to On.
+</p>
+<p> The widget will be painted immediately.
+</p>
+<p><b>See also</b>: off(), toggle(), toggleState(), setState()</p>
+<a name="off"></a><a name="ref21"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>off</strong> ()
+<br></td><td align="right"><h3><strong>off</strong></h3></td></tr></tbody></table><p> <small>[slot]</small></p><p>
+ Sets the state of the widget to Off.
+</p>
+<p> The widget will be painted immediately.
+</p>
+<p><b>See also</b>: on(), toggle(), toggleState(), setState()</p>
+<a name="paintFlat"></a><a name="ref22"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>paintFlat</strong> ()
+<br></td><td align="right"><h3><strong>paintFlat</strong></h3></td></tr></tbody></table><p> <small>[protected:
+ virtual]</small></p><p>
+ Paints a circular, flat LED.
+   </p>
+<a name="paintRound"></a><a name="ref23"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>paintRound</strong> ()
+<br></td><td align="right"><h3><strong>paintRound</strong></h3></td></tr></tbody></table><p> <small>[protected:
+ virtual]</small></p><p>
+ Paints a circular, raised LED.
+   </p>
+<a name="paintSunken"></a><a name="ref24"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>paintSunken</strong> ()
+<br></td><td align="right"><h3><strong>paintSunken</strong></h3></td></tr></tbody></table><p> <small>[protected:
+ virtual]</small></p><p>
+ Paints a circular, sunken LED.
+   </p>
+<a name="paintRect"></a><a name="ref25"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>paintRect</strong> ()
+<br></td><td align="right"><h3><strong>paintRect</strong></h3></td></tr></tbody></table><p> <small>[protected:
+ virtual]</small></p><p>
+ Paints a rectangular, flat LED.
+   </p>
+<a name="paintRectFrame"></a><a name="ref26"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>paintRectFrame</strong> (bool raised)
+<br></td><td align="right"><h3><strong>paintRectFrame</strong></h3></td></tr></tbody></table><p> <small>[protected:
+ virtual]</small></p><p>
+ Paints a rectangular LED, either raised or 
+ sunken, depending on its argument.
+   </p>
+<a name="paintEvent"></a><a name="ref27"></a><table width="100%"><tbody><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>paintEvent</strong> ( <a href="http://doc.trolltech.com/qpaintevent.html">QPaintEvent</a> * )
+<br></td><td align="right"><h3><strong>paintEvent</strong></h3></td></tr></tbody></table><p> <small>[protected:
+]</small></p><p>
+   </p>
+<p>Reimplemented from <a href="http://doc.trolltech.com/qwidget.html#ef2069">QWidget</a> for internal purposes..</p>
+<hr><ul><li><i>Author</i>: Joerg Habenicht, Richard J. Moore (rich@kde.org) 1998, 1999
+ </li><li><i>Generated</i>: dfaure on Tue Feb 27 12:46:33 2001, using kdoc 2.0a50.</li></ul>
+</body></html>

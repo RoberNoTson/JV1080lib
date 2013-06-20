@@ -1,0 +1,67 @@
+PR-A (Preset A Bank)
+01,House Set
+02,Analectro
+03,Anatronic
+04,Tekno Pop 1
+05,Tekno Pop 2
+06,Hard Core
+07,Hi Energy
+08,Pop Dance
+09,Acid Set
+10,Ambient Set
+11,Electro Pop
+12,Pop Set 1
+13,Pop Set 2
+14,Pop Set 3
+15,Pop Set 4
+16,L.A. Ballad
+17,Hip Hop Set
+18,Funk Rock
+19,Funk Fusion
+20,Heavy Metal
+21,Heavy Kids
+22,Latin Set
+23,BrazilianSet
+24,New Age 1
+25,New Age 2
+26,Orchestra
+27,Concerto
+28,Film Score 1
+29,Film Score 2
+30,Symphonic
+31,Chamber Set
+32,Baroque Set
+
+PR-B (Preset B Bank)
+01,Africa
+02,World Ethnic
+03,Asian Ethnic
+04,Asian Band
+05,60’s Set
+06,Blues Band
+07,Country Band
+08,Folk Set
+09,Reggae Band
+10,FunkWah Band
+11,Funkin’Phaze
+12,Zydeco Band
+13,New Orleans
+14,Dixieland
+15,Big Band Set
+16,Cont.Jazz 1
+17,Cont.Jazz 2
+18,Ac.Jazz Set
+19,Gospel Set
+20,All Strings
+21,All Brass
+22,All Piano 1
+23,All Piano 2
+24,All Keyboard
+25,All Organ
+26,All Winds
+27,All Bells
+28,Mlt & Perc
+29,All Seq
+30,All Bass
+31,All Pad
+32,All FX

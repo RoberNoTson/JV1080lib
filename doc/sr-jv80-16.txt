@@ -1,0 +1,267 @@
+                    SR-JV80-16 Orchestral II Expansion Board
+
+This document lists the waveforms and patches available on the Orchestral II
+Expansion board for the Roland JV/XP Series.
+
+
+                               PATCH LIST
+
+001 StStrOrc p/f
+002 StrSwell/Mod
+003 Emotionale
+004 Dynamic Str
+005 Str DownBow
+006 Adagio Str
+007 Dyna Marc
+008 FourSeasons2
+009 StrOrch /Vel
+010 StrOrch p/f
+011 StatelyBrite
+012 RichSymphony
+013 St.StrOrch p
+014 St.StrOrch f
+015 RichStrings2
+016 FullStrings2
+017 MedStr Sect
+018 DynamicRosin
+019 101 Violins
+020 Natural Str
+021 Fast Strings
+022 Fat Marcato
+023 Strtk 2
+024 DecayStrings
+025 Piano Str
+026 PyanniString
+027 Pno/Hrp Str
+028 Quartet
+029 Solo&Acomp
+030 Vln&Vcl
+031 Chamber Str
+032 St.Cellos
+033 String Duet
+034 Vln&Vla Atk
+035 Stratovolo
+036 Vienna Solo
+037 Alternate Bow
+038 TronStrings2
+039 Tape Orchest
+040 Reverse Str
+041 SoloViolin 1
+042 SoloViolin 2
+043 Fiddle Spicc
+044 FdlGliss Vsw
+045 BariolageVln
+046 SadSolo Vln
+047 Chorus Vln 2
+048 Stereo Vln 2
+049 Agitato Vln2
+050 Solo Cello 
+051 Dry Cello
+052 Solo Vc 3
+053 Chorus Cello2
+054 Strings&Horns
+055 FullOrchest2
+056 FilmOrchst p
+057 FilmOrchst m
+058 St.Orch Uni
+059 Horns/ String
+060 Woody Orch
+061 Orch Ens
+062 Orch Unif
+063 Orch Brass 1
+064 Orch Brass2
+065 GRAND Orch
+066 Last Nboel
+067 Celtic Ensbl
+068 Harp & Flute
+069 Celesta&Flt
+070 Prokofiev
+071 Mass In Cee
+072 St.OrchBrass
+073 Dyn HornSect
+074 FrenchyHornz
+075 Simple Hornz
+076 Large Horns
+077 Fr.Horn pf
+078 Fr.Horn sfz2
+079 2xFr.Horns
+080 Uni Hrns Duo
+081 Swell-brass
+082 Solo Fr.Hrn1
+083 Solo Fr.Hrn2
+084 Medieval OYA
+085 Orch Horns
+086 Brass Ens 9
+087 BrassAttack2
+088 Full Brass 1
+089 Full Brass2
+090 Horn Accomp
+091 Mood Brass 
+092 Trumpet Ens
+093 3 Trumpets2
+094 Centurions
+095 Real Trumpet
+096 Jazz Trumpet
+097 Trumpet 3
+098 Trumpet 5
+099 El bono
+100 Solo Tb 5
+101 Solo Tb 6
+102 Solo Tb 7 
+103 Trombone atm
+104 ConcertFlute
+105 Flute 2
+106 Flute 3
+107 Flute 4
+108 AmbientFlute
+109 Jig Flute
+110 Piccolo 2
+111 Piccolo 3
+112 PiccoloFlt 2
+113 Dyno Celt
+114 CelticFlt 1
+115 CelticFlt 2
+116 Celt Fl Trio
+117 TinWhistle 1
+118 TinWhistle 2
+119 TinWhistle 3
+120 Celtic Whisl
+121 Sinking Duo
+122 Beret
+123 Hill&Sheeps1
+124 Hill&Sheeps2
+125 HilandChurch
+126 C PentaPipe
+127 UileanPipe
+128 Celt/Uillean
+129 Celt/Fiddle
+130 Oboe Vsw
+131 Oboe 6
+132 Oboe 7
+133 Clarinet 3
+134 English Hrn4
+135 English Hrn5
+136 Bassoon 3
+137 Bassoon 4
+138 Bassoon 5
+139 Oboe / E.Horn
+140 DelicateWood
+141 Oboe/Clari
+142 Jig Duo
+143 St.Bousouki
+144 Bousouki 1
+145 Bouski/Strum
+146 Bousouki 2
+147 Mafioso
+148 String'O Fun
+149 BosoukiDream
+150 St.Harp
+151 Harp Vsw
+152 Clear Harp
+153 African Harp
+154 Rich Harp
+155 Harp 3
+156 Harp PF
+157 MelancolyHrp
+158 CelticHarp 1
+159 CelticHarp 2
+160 Clarsah Harp
+161 ElectraHarp
+162 ArpeggiHarp
+163 Harp Gliss
+164 St.Cymbalon
+165 Cymbalon
+166 Cymbalon Duo
+167 Bohemian
+168 Child's Toy
+169 Xman Piano
+170 OnReflection
+171 Harmonium 1
+172 Harmonium 2
+173 St.Music Box
+174 Old Mechanic
+175 Secret Garden
+176 Music Box
+177 Victoriana
+178 Meditation
+179 TubulaBells3
+180 TubulaBells4
+181 TubulaBells5
+182 ChurchBells4
+183 BelfryChime2
+184 ChurchBells5
+185 HappyXmas!
+186 Sweet Dreams
+187 Huge Bells
+188 Glocken 3
+189 Mmms & Aaahs
+190 Pure Voices
+191 CelticSpirit
+192 Fem Ahs
+193 Perc DigiVox
+194 Fates
+195 Aah:VelScoop
+196 Heaven'sVox1
+197 Heaven'sVox2
+198 Mmh vox 1
+199 Mmms & Aaahs
+200 Mmh Vox 2
+201 StChr Mm/ Ah
+202 Umms & Aahs
+203 Humming Chrs
+204 Ether Choir
+205 SndtrkVoices
+206 WinterChoir2
+207 BreathVoices
+208 Fair...like!
+209 She Breathes
+210 Movin'Vowels
+211 Onya Vox
+212 Vox Ghost
+213 Spectral Mmh
+214 Soft Mover
+215 Analogue?
+216 Dark Knight
+217 Xreeds
+218 C.Harp/Pad
+219 Phaze Strings
+220 Phaze Choirs
+221 Dreamsequenz
+222 Waterworld
+223 Midnight
+224 Colombus
+225 Titan
+226 Interspace
+227 fountains
+228 SteppedGliss
+229 Your Mission
+230 Mondo Hit
+231 Orch Hit 1
+232 big Hit
+233 Orch Hit 2
+234 Orch FX
+235 HorrorHit C4
+236 Dyna Timps
+237 Timpani 5
+238 Dark Drums
+239 St.Bodhran
+240 Bodhran Vel
+241 CrazyBodhran
+242 Bodhran Vel
+243 Percussn Mix
+244 Wind Chimes3
+245 Jingle Bell
+246 Finger Cym
+247 Cym Scrape
+248 Tuned Block 1
+249 Tuned Block 2
+250 Tuned block 3
+251 Grongkas
+252 Orch Snare
+253 Snr Roll Vsw
+254 OrchSnr Menu
+255 Orch BassDrm
+256 OrchDrm Menu
+
+This information is Copyright (C) 1998,99 by Roland Corporation.
+All rights reserved.

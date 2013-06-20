@@ -1,0 +1,512 @@
+1,64voicePiano,PR-A
+2,Bright Piano,PR-A
+3,Classique,PR-A
+4,Nice Piano,PR-A
+5,Piano Thang,PR-A
+6,Power Grand,PR-A
+7,House Piano,PR-A
+8,E.Grand,PR-A
+9,MIDIed Grand,PR-A
+10,Piano Blend,PR-A
+11,West Coast,PR-A
+12,PianoStrings,PR-A
+13,Bs/Pno+Brs,PR-A
+14,Waterhodes,PR-A
+15,S.A.E.P.,PR-A
+16,SA Rhodes 1,PR-A
+17,SA Rhodes 2,PR-A
+18,Stiky Rhodes,PR-A
+19,Dig Rhodes,PR-A
+20,Nylon EPiano,PR-A
+21,Nylon Rhodes,PR-A
+22,Rhodes Mix,PR-A
+23,PsychoRhodes,PR-A
+24,Tremo Rhodes,PR-A
+25,MK-80 Rhodes,PR-A
+26,MK-80 Phaser,PR-A
+27,Delicate EP,PR-A
+28,Octa Rhodes1,PR-A
+29,Octa Rhodes2,PR-A
+30,JV Rhodes+,PR-A
+31,EP+Mod Pad,PR-A
+32,Mr.Mellow,PR-A
+33,Comp Clav,PR-A
+34,Klavinet,PR-A
+35,Winger Clav,PR-A
+36,Phaze Clav 1,PR-A
+37,Phaze Clav 2,PR-A
+38,Phuzz Clav,PR-A
+39,Chorus Clav,PR-A
+40,Claviduck,PR-A
+41,Velo-Rez Clv,PR-A
+42,Clavicembalo,PR-A
+43,Analog Clav1,PR-A
+44,Analog Clav2,PR-A
+45,Metal Clav,PR-A
+46,Full Stops,PR-A
+47,Ballad B,PR-A
+48,Mellow Bars,PR-A
+49,AugerMentive,PR-A
+50,Perky B,PR-A
+51,The Big Spin,PR-A
+52,Gospel Spin,PR-A
+53,Roller Spin,PR-A
+54,Rocker Spin,PR-A
+55,Tone Wh.Solo,PR-A
+56,Purple Spin,PR-A
+57,60’s LeadORG,PR-A
+58,Assalt Organ,PR-A
+59,D-50 Organ,PR-A
+60,Cathedral,PR-A
+61,Church Pipes,PR-A
+62,Poly Key,PR-A
+63,Poly Saws,PR-A
+64,Poly Pulse,PR-A
+65,Dual Profs,PR-A
+66,Saw Mass,PR-A
+67,Poly Split,PR-A
+68,Poly Brass,PR-A
+69,Stackoid,PR-A
+70,Poly Rock,PR-A
+71,D-50 Stack,PR-A
+72,Fantasia JV,PR-A
+73,Jimmee Dee,PR-A
+74,Heavenals,PR-A
+75,Mallet Pad,PR-A
+76,Huff N Stuff,PR-A
+77,Puff 1080,PR-A
+78,BellVox 1080,PR-A
+79,Fantasy Vox,PR-A
+80,Square Keys,PR-A
+81,Childlike,PR-A
+82,Music Box,PR-A
+83,Toy Box,PR-A
+84,Wave Bells,PR-A
+85,Tria Bells,PR-A
+86,Beauty Bells,PR-A
+87,Music Bells,PR-A
+88,Pretty Bells,PR-A
+89,Pulse Key,PR-A
+90,Wide Tubular,PR-A
+91,AmbienceVibe,PR-A
+92,Warm Vibes,PR-A
+93,Dyna Marimba,PR-A
+94,Bass Marimba,PR-A
+95,Nomad Perc,PR-A
+96,Ethno Metals,PR-A
+97,Islands Mlt,PR-A
+98,Steelin Keys,PR-A
+99,Steel Drums,PR-A
+100,Voicey Pizz,PR-A
+101,Sitar,PR-A
+102,Drone Split,PR-A
+103,Ethnopluck,PR-A
+104,Jamisen,PR-A
+105,Dulcimer,PR-A
+106,East Melody,PR-A
+107,MandolinTrem,PR-A
+108,Nylon Gtr,PR-A
+109,Gtr Strings,PR-A
+110,Steel Away,PR-A
+111,Heavenly Gtr,PR-A
+112,12str Gtr 1,PR-A
+113,12str Gtr 2,PR-A
+114,Jz Gtr Hall,PR-A
+115,LetterFrmPat,PR-A
+116,Jazz Scat,PR-A
+117,Lounge Gig,PR-A
+118,JC Strat,PR-A
+119,Twin Strats,PR-A
+120,JV Strat,PR-A
+121,Syn Strat,PR-A
+122,Rotary Gtr,PR-A
+123,Muted Gtr,PR-A
+124,SwitchOnMute,PR-A
+125,Power Trip,PR-A
+126,Crunch Split,PR-A
+127,Rezodrive,PR-A
+128,RockYurSocks,PR-A
+1,Dist Gtr 1,PR-B
+2,Dist Gtr 2,PR-B
+3,R&R Chunk,PR-B
+4,Phripphuzz,PR-B
+5,Grungeroni,PR-B
+6,Black Widow,PR-B
+7,Velo-Wah Gtr,PR-B
+8,Mod-Wah Gtr,PR-B
+9,Pick Bass,PR-B
+10,Hip Bass,PR-B
+11,Perc.Bass,PR-B
+12,Homey Bass,PR-B
+13,Finger Bass,PR-B
+14,Nylon Bass,PR-B
+15,Ac.Upright,PR-B
+16,Wet Fretls,PR-B
+17,Fretls Dry,PR-B
+18,Slap Bass 1,PR-B
+19,Slap Bass 2,PR-B
+20,Slap Bass 3,PR-B
+21,Slap Bass 4,PR-B
+22,4 Pole Bass,PR-B
+23,Tick Bass,PR-B
+24,House Bass,PR-B
+25,Mondo Bass,PR-B
+26,Clk AnalogBs,PR-B
+27,Bass In Face,PR-B
+28,101 Bass,PR-B
+29,Noiz Bass,PR-B
+30,Super Jup Bs,PR-B
+31,Occitan Bass,PR-B
+32,Hugo Bass,PR-B
+33,Multi Bass,PR-B
+34,Moist Bass,PR-B
+35,BritelowBass,PR-B
+36,Untamed Bass,PR-B
+37,Rubber Bass,PR-B
+38,Stereoww Bs,PR-B
+39,Wonder Bass,PR-B
+40,Deep Bass,PR-B
+41,Super JX Bs,PR-B
+42,W<RED>-Bass,PR-B
+43,HI-Ring Bass,PR-B
+44,Euro Bass,PR-B
+45,SinusoidRave,PR-B
+46,Alternative,PR-B
+47,Acid Line,PR-B
+48,Auto TB-303,PR-B
+49,Hihat Tekno,PR-B
+50,Velo Tekno 1,PR-B
+51,Raggatronic,PR-B
+52,Blade Racer,PR-B
+53,S&H Pad,PR-B
+54,Syncrosonix,PR-B
+55,Fooled Again,PR-B
+56,Alive,PR-B
+57,Velo Tekno 2,PR-B
+58,Rezoid,PR-B
+59,Raverborg,PR-B
+60,Blow Hit,PR-B
+61,Hammer Bell,PR-B
+62,Seq Mallet,PR-B
+63,Intentions,PR-B
+64,Pick It,PR-B
+65,Analog Seq,PR-B
+66,Impact Vox,PR-B
+67,TeknoSoloVox,PR-B
+68,X-Mod Man,PR-B
+69,Paz <==> Zap,PR-B
+70,4 Hits 4 You,PR-B
+71,Impact,PR-B
+72,Phase Hit,PR-B
+73,Tekno Hit 1,PR-B
+74,Tekno Hit 2,PR-B
+75,Tekno Hit 3,PR-B
+76,Reverse Hit,PR-B
+77,SquareLead 1,PR-B
+78,SquareLead 2,PR-B
+79,You and Luck,PR-B
+80,Belly Lead,PR-B
+81,WhistlinAtom,PR-B
+82,Edye Boost,PR-B
+83,MG Solo,PR-B
+84,FXM Saw Lead,PR-B
+85,Sawteeth,PR-B
+86,Smoothe,PR-B
+87,MG Lead,PR-B
+88,MG Interval,PR-B
+89,Pulse Lead 1,PR-B
+90,Pulse Lead 2,PR-B
+91,Little Devil,PR-B
+92,Loud SynLead,PR-B
+93,Analog Lead,PR-B
+94,5th Lead,PR-B
+95,Flute,PR-B
+96,Piccolo,PR-B
+97,VOX Flute,PR-B
+98,Air Lead,PR-B
+99,Pan Pipes,PR-B
+100,Airplaaane,PR-B
+101,Taj Mahal,PR-B
+102,Raya Shaku,PR-B
+103,Oboe mf,PR-B
+104,Oboe Express,PR-B
+105,Clarinet mp,PR-B
+106,ClariExpress,PR-B
+107,Mitzva Split,PR-B
+108,ChamberWinds,PR-B
+109,ChamberWoods,PR-B
+110,Film Orch,PR-B
+111,Sop.Sax mf,PR-B
+112,Alto Sax,PR-B
+113,AltoLead Sax,PR-B
+114,Tenor Sax,PR-B
+115,Baritone Sax,PR-B
+116,Take A Tenor,PR-B
+117,Sax Section,PR-B
+118,Bigband Sax,PR-B
+119,Harmonica,PR-B
+120,Harmo Blues,PR-B
+121,BluesHarp,PR-B
+122,Hillbillys,PR-B
+123,French Bags,PR-B
+124,Majestic Tpt,PR-B
+125,Voluntare,PR-B
+126,2Trumpets,PR-B
+127,Tpt Sect,PR-B
+128,Mute TP mod,PR-B
+1,Harmon Mute,PR-C
+2,Tp&Sax Sect,PR-C
+3,Sax+Tp+Tb,PR-C
+4,Brass Sect,PR-C
+5,Trombone,PR-C
+6,Hybrid Bones,PR-C
+7,Noble Horns,PR-C
+8,Massed Horns,PR-C
+9,Horn Swell,PR-C
+10,Brass It!,PR-C
+11,Brass Attack,PR-C
+12,Archimede,PR-C
+13,Rugby Horn,PR-C
+14,MKS-80 Brass,PR-C
+15,True ANALOG,PR-C
+16,Dark Vox,PR-C
+17,RandomVowels,PR-C
+18,Angels Sing,PR-C
+19,Pvox Oooze,PR-C
+20,Longing...,PR-C
+21,Arasian Morn,PR-C
+22,Beauty Vox,PR-C
+23,Mary-AnneVox,PR-C
+24,Belltree Vox,PR-C
+25,Vox Panner,PR-C
+26,Spaced Voxx,PR-C
+27,Glass Voices,PR-C
+28,Tubular Vox,PR-C
+29,Velo Voxx,PR-C
+30,Wavox,PR-C
+31,Doos,PR-C
+32,Synvox Comps,PR-C
+33,Vocal Oohz,PR-C
+34,LFO Vox,PR-C
+35,St.Strings,PR-C
+36,Warm Strings,PR-C
+37,Somber Str,PR-C
+38,Marcato,PR-C
+39,Bright Str,PR-C
+40,String Ens,PR-C
+41,TremoloStrng,PR-C
+42,Chambers,PR-C
+43,ViolinCello,PR-C
+44,Symphonique,PR-C
+45,Film Octaves,PR-C
+46,Film Layers,PR-C
+47,Bass Pizz,PR-C
+48,Real Pizz,PR-C
+49,Harp On It,PR-C
+50,Harp,PR-C
+51,JP-8 Str 1,PR-C
+52,JP-8 Str 2,PR-C
+53,E-Motion Pad,PR-C
+54,JP-8 Str 3,PR-C
+55,Vintage Orch,PR-C
+56,JUNO Strings,PR-C
+57,Gigantalog,PR-C
+58,PWM Strings,PR-C
+59,Warmth,PR-C
+60,ORBit Pad,PR-C
+61,Deep Strings,PR-C
+62,Pulsify,PR-C
+63,Pulse Pad,PR-C
+64,Greek Power,PR-C
+65,Harmonicum,PR-C
+66,D-50 Heaven,PR-C
+67,Afro Horns,PR-C
+68,Pop Pad,PR-C
+69,Dreamesque,PR-C
+70,Square Pad,PR-C
+71,JP-8 Hollow,PR-C
+72,JP-8Haunting,PR-C
+73,Heirborne,PR-C
+74,Hush Pad,PR-C
+75,Jet Pad 1,PR-C
+76,Jet Pad 2,PR-C
+77,Phaze Pad,PR-C
+78,Phaze Str,PR-C
+79,Jet Str Ens,PR-C
+80,Pivotal Pad,PR-C
+81,3D Flanged,PR-C
+82,Fantawine,PR-C
+83,Glassy Pad,PR-C
+84,Moving Glass,PR-C
+85,Glasswaves,PR-C
+86,Shiny Pad,PR-C
+87,ShiftedGlass,PR-C
+88,Chime Pad,PR-C
+89,Spin Pad,PR-C
+90,Rotary Pad,PR-C
+91,Dawn 2 Dusk,PR-C
+92,Aurora,PR-C
+93,Strobe Mode,PR-C
+94,Albion,PR-C
+95,Running Pad,PR-C
+96,Stepped Pad,PR-C
+97,Random Pad,PR-C
+98,SoundtrkDANC,PR-C
+99,Flying Waltz,PR-C
+100,Vanishing,PR-C
+101,5th Sweep,PR-C
+102,Phazweep,PR-C
+103,Big BPF,PR-C
+104,MG Sweep,PR-C
+105,CeremonyTimp,PR-C
+106,Dyno Toms,PR-C
+107,Sands ofTime,PR-C
+108,Inertia,PR-C
+109,Vektogram,PR-C
+110,Crash Pad,PR-C
+111,Feedback VOX,PR-C
+112,Cascade,PR-C
+113,Shattered,PR-C
+114,NextFrontier,PR-C
+115,Pure Tibet,PR-C
+116,Chime Wash,PR-C
+117,Night Shade,PR-C
+118,Tortured,PR-C
+119,Dissimilate,PR-C
+120,Dunes,PR-C
+121,Ocean Floor,PR-C
+122,Cyber Space,PR-C
+123,Biosphere,PR-C
+124,Variable Run,PR-C
+125,Ice Hall,PR-C
+126,ComputerRoom,PR-C
+127,Inverted,PR-C
+128,Terminate,PR-C
+1,Piano 1,PR-D
+2,Piano 2,PR-D
+3,Piano 3,PR-D
+4,Honky-tonk,PR-D
+5,E.Piano 1,PR-D
+6,E.Piano 2,PR-D
+7,Harpsichord,PR-D
+8,Clav.,PR-D
+9,Celesta,PR-D
+10,Glockenspiel,PR-D
+11,Music Box,PR-D
+12,Vibraphone,PR-D
+13,Marimba,PR-D
+14,Xylophone,PR-D
+15,Tubular-bell,PR-D
+16,Santur,PR-D
+17,Organ 1,PR-D
+18,Organ 2,PR-D
+19,Organ 3,PR-D
+20,Church Org.1,PR-D
+21,Reed Organ,PR-D
+22,Accordion Fr,PR-D
+23,Harmonica,PR-D
+24,Bandoneon,PR-D
+25,Nylon-str.Gt,PR-D
+26,Steel-str.Gt,PR-D
+27,Jazz Gt.,PR-D
+28,Clean Gt.,PR-D
+29,Muted Gt.,PR-D
+30,Overdrive Gt,PR-D
+31,DistortionGt,PR-D
+32,Gt.Harmonics,PR-D
+33,Acoustic Bs.,PR-D
+34,Fingered Bs.,PR-D
+35,Picked Bs.,PR-D
+36,Fretless Bs.,PR-D
+37,Slap Bass 1,PR-D
+38,Slap Bass 2,PR-D
+39,Synth Bass 1,PR-D
+40,Synth Bass 2,PR-D
+41,Violin,PR-D
+42,Viola,PR-D
+43,Cello,PR-D
+44,Contrabass,PR-D
+45,Tremolo Str,PR-D
+46,PizzicatoStr,PR-D
+47,Harp,PR-D
+48,Timpani,PR-D
+49,Strings,PR-D
+50,Slow Strings,PR-D
+51,Syn.Strings1,PR-D
+52,Syn.Strings2,PR-D
+53,Choir Aahs,PR-D
+54,Voice Oohs,PR-D
+55,SynVox,PR-D
+56,OrchestraHit,PR-D
+57,Trumpet,PR-D
+58,Trombone,PR-D
+59,Tuba,PR-D
+60,MutedTrumpet,PR-D
+61,French Horn,PR-D
+62,Brass 1,PR-D
+63,Synth Brass1,PR-D
+64,Synth Brass2,PR-D
+65,Soprano Sax,PR-D
+66,Alto Sax,PR-D
+67,Tenor Sax,PR-D
+68,Baritone Sax,PR-D
+69,Oboe,PR-D
+70,English Horn,PR-D
+71,Bassoon,PR-D
+72,Clarinet,PR-D
+73,Piccolo,PR-D
+74,Flute,PR-D
+75,Recorder,PR-D
+76,Pan Flute,PR-D
+77,Bottle Blow,PR-D
+78,Shakuhachi,PR-D
+79,Whistle,PR-D
+80,Ocarina,PR-D
+81,Square Wave,PR-D
+82,Saw Wave,PR-D
+83,Syn.Calliope,PR-D
+84,Chiffer Lead,PR-D
+85,Charang,PR-D
+86,Solo Vox,PR-D
+87,5th Saw Wave,PR-D
+88,Bass & Lead,PR-D
+89,Fantasia,PR-D
+90,Warm Pad,PR-D
+91,Polysynth,PR-D
+92,Space Voice,PR-D
+93,Bowed Glass,PR-D
+94,Metal Pad,PR-D
+95,Halo Pad,PR-D
+96,Sweep Pad,PR-D
+97,Ice Rain,PR-D
+98,Soundtrack,PR-D
+99,Crystal,PR-D
+100,Atmosphere,PR-D
+101,Brightness,PR-D
+102,Goblin,PR-D
+103,Echo Drops,PR-D
+104,Star Theme,PR-D
+105,Sitar,PR-D
+106,Banjo,PR-D
+107,Shamisen,PR-D
+108,Koto,PR-D
+109,Kalimba,PR-D
+110,Bag Pipe,PR-D
+111,Fiddle,PR-D
+112,Shanai,PR-D
+113,Tinkle Bell,PR-D
+114,Agogo,PR-D
+115,Steel Drums,PR-D
+116,Woodblock,PR-D
+117,Taiko,PR-D
+118,Melo. Tom 1,PR-D
+119,Synth Drum,PR-D
+120,Reverse Cym.,PR-D
+121,Gt.FretNoise,PR-D
+122,Breath Noise,PR-D
+123,Seashore,PR-D
+124,Bird,PR-D
+125,Telephone 1,PR-D
+126,Helicopter,PR-D
+127,Applause,PR-D
+128,Gun Shot,PR-D
