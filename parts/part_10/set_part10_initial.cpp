@@ -22,7 +22,7 @@ void JVlibForm::setPart10_Parms() {
   Part10_Transpose_select->setValue(active_area->active_performance.perf_part[9].coarse_tune-48);
   Part10_Transpose_display->display(active_area->active_performance.perf_part[9].coarse_tune-48);
   Part10_TuneAdj_select->setValue(active_area->active_performance.perf_part[9].fine_tune-50);
-  Part10_VoiceReserve_select->setValue(active_area->active_performance.perf_common.voice_reserve[0]);
+  Part10_VoiceReserve_select->setValue(active_area->active_performance.perf_common.voice_reserve[9]);
   Part10_LowLimit_select->setValue(active_area->active_performance.perf_part[9].key_lower);
   Part10_HighLimit_select->setValue(active_area->active_performance.perf_part[9].key_upper);
   Part10_ReceiveMidi_enable->setChecked(active_area->active_performance.perf_part[9].MIDI_receive);
@@ -37,26 +37,20 @@ void JVlibForm::setPart10_Parms() {
     case 0x01:  // User
       Part10_PatchGroup_select->setCurrentIndex(0);
       break;
-    case 0x02:  // Exp A
+    case 0x03:  // Preset A
 	Part10_PatchGroup_select->setCurrentIndex(1);
 	break;
-    case 0x03:  // Preset A
+    case 0x04:  // Preset B
 	Part10_PatchGroup_select->setCurrentIndex(2);
 	break;
-    case 0x04:  // Preset B
+    case 0x05:  // Preset C
 	Part10_PatchGroup_select->setCurrentIndex(3);
 	break;
-    case 0x05:  // Preset C
+    case 0x06:  // Preset D
 	Part10_PatchGroup_select->setCurrentIndex(4);
 	break;
-    case 0x06:  // Preset D
-	Part10_PatchGroup_select->setCurrentIndex(5);
-	break;
     case 0x10:  // Exp B
-	Part10_PatchGroup_select->setCurrentIndex(6);
-	break;
-    case 0x62:  // Exp C
-	Part10_PatchGroup_select->setCurrentIndex(7);
+	Part10_PatchGroup_select->setCurrentIndex(5);
 	break;
     default:
 	Part10_PatchGroup_select->setCurrentIndex(0);

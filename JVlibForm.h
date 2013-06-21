@@ -1006,6 +1006,7 @@ private:
   void setPart15_Parms();
   void setPart16_Parms();
   void setPartSingleValue(int,int,int);
+  void setVoiceCounters();
   void createPartActions();
   QString getPartPatchName(int);
   int toggleControlChannel(int);

@@ -28,8 +28,8 @@ void JVlibForm::setPartsParms() {
   setPart14_Parms();
   setPart15_Parms();
   setPart16_Parms();
+  setVoiceCounters();
   Patch_Sync_button->setEnabled(true);
-//  Patch_PerfPartNum_select->setValue(1);
   if (Patch_PerfPartNum_select->itemText(0)=="0")
     Patch_PerfPartNum_select->removeItem(0);
   Patch_PerfPartNum_select->setCurrentIndex(0);

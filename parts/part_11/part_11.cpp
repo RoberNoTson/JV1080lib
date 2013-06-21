@@ -91,6 +91,7 @@ void JVlibForm::on_Part11_HighLimit_select_valueChanged(int val) {
   setPartSingleValue(10, 0x12, val);
 }
 void JVlibForm::on_Part11_VoiceReserve_select_valueChanged(int val) { 
+  setVoiceCounters();
   setPerfSingleValue(0x30+10,val);
 }
 

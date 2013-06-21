@@ -47,7 +47,8 @@ void::JVlibForm::setPitchParms(int val) {
   Pitch_Time2_select->setValue(1);
   Pitch_Time3_select->setValue(1);
   Pitch_Time4_select->setValue(1);
-  int tn = (val?val-1:0);
+//  int tn = (val?val-1:0);
+  int tn = (Tone_ToneNumber_select->value()-1);
   if (val) {	// set Pitch for specified part number (val)
     int pn = val-1;
     Pitch_StretchTuning_select->setValue(active_area->active_perf_patch[pn].patch_common.stretch_tune_depth);
@@ -105,7 +106,8 @@ void::JVlibForm::setPitchParms(int val) {
   }
   Pitch_HighLimit_display->setText(funcNoteCalc(Pitch_HighLimit_select->value()));
   Pitch_LowLimit_display->setText(funcNoteCalc(Pitch_LowLimit_select->value()));
-
+  Pitch_TuneAdj_display->display(Pitch_TuneAdj_select->value());
+  Pitch_Transpose_display->display(Pitch_Transpose_select->value());
   if (state_table->updates_enabled) state_table->updates_enabled=false;
   on_Pitch_TimeKeyfollow_select_currentIndexChanged(Pitch_TimeKeyfollow_select->currentIndex());
   on_Pitch_KeyFollow_select_currentIndexChanged(Pitch_KeyFollow_select->currentIndex());

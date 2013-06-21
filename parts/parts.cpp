@@ -81,3 +81,23 @@ int JVlibForm::toggleControlChannel(int val) {
   }
   return 0;
 }	// end toggleControlChannel
+
+void JVlibForm::setVoiceCounters() {
+  Parts_ReservedVoices_display->display(Part1_VoiceReserve_select->value()+
+    Part2_VoiceReserve_select->value()+
+    Part3_VoiceReserve_select->value()+
+    Part4_VoiceReserve_select->value()+
+    Part5_VoiceReserve_select->value()+
+    Part6_VoiceReserve_select->value()+
+    Part7_VoiceReserve_select->value()+
+    Part8_VoiceReserve_select->value()+
+    Part9_VoiceReserve_select->value()+
+    Part10_VoiceReserve_select->value()+
+    Part11_VoiceReserve_select->value()+
+    Part12_VoiceReserve_select->value()+
+    Part13_VoiceReserve_select->value()+
+    Part14_VoiceReserve_select->value()+
+    Part15_VoiceReserve_select->value()+
+    Part16_VoiceReserve_select->value());
+  Parts_AvaliableVoices_display->display(64 - Parts_ReservedVoices_display->intValue()); 
+}

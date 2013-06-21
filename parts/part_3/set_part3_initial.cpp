@@ -22,7 +22,7 @@ void JVlibForm::setPart3_Parms() {
   Part3_Transpose_select->setValue(active_area->active_performance.perf_part[2].coarse_tune-48);
   Part3_Transpose_display->display(active_area->active_performance.perf_part[2].coarse_tune-48);
   Part3_TuneAdj_select->setValue(active_area->active_performance.perf_part[2].fine_tune-50);
-  Part3_VoiceReserve_select->setValue(active_area->active_performance.perf_common.voice_reserve[0]);
+  Part3_VoiceReserve_select->setValue(active_area->active_performance.perf_common.voice_reserve[2]);
   Part3_LowLimit_select->setValue(active_area->active_performance.perf_part[2].key_lower);
   Part3_HighLimit_select->setValue(active_area->active_performance.perf_part[2].key_upper);
   Part3_ReceiveMidi_enable->setChecked(active_area->active_performance.perf_part[2].MIDI_receive);
