@@ -494,7 +494,7 @@ void JVlibForm::on_Patch_ControlSource3_select_currentIndexChanged(int val) {
 }
 void JVlibForm::on_Patch_VelocityRange_enable_toggled(bool val) {
   if (state_table->updates_enabled) {
-    if (SysMode_select->currentIndex() == 0)
+    if (state_table->perf_mode)
       active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.velocity_range = val;
     else
       active_area->active_patch_patch.patch_common.velocity_range = val;

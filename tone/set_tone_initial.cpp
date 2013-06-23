@@ -8,11 +8,11 @@ void JVlibForm::setToneParms(int val) {
   // (int val) is either 1-16 for the Patch_PerfPartNumber or 0 for Patch mode.
   // Also sets ToneENV, ToneEFX and Pitch parms
   int tn = Tone_ToneNumber_select->value()-1;
+//printf("Setting parms for Tone # %d\n", tn+1);
+
   // set Performance mode patch data
   if (state_table->perf_mode && val) {
     int pn = val-1;
-    Tone_Number_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].wave_num_low + 
-      (active_area->active_perf_patch[pn].patch_tone[tn].wave_num_high*16)+1);
     // Tone_Group
     switch(active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id) {
       case 0x01:
@@ -29,6 +29,30 @@ void JVlibForm::setToneParms(int val) {
 	Tone_Group_select->setCurrentIndex(4);
 	break;
     }	// end Switch
+  if (state_table->db_connect) {
+    // set wave_list maximum Number
+    QSqlQuery query(mysql);
+    query.prepare("Select number from wave_list where group_area = ?");
+    query.bindValue(0, Tone_Group_select->currentText());
+    if (query.exec() == false) {
+      puts("Query exec failed in on_Tone_Group_select_currentIndexChanged");
+      QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(query.executedQuery()));
+      query.finish();
+      return;
+    }
+    if (query.size()==0) {
+      puts("0 rows found in on_Tone_Group_select_currentIndexChanged"); 
+      QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(query.executedQuery()));
+      query.finish();
+      return;
+    }
+    Tone_Number_select->setMaximum((int)query.size());
+    query.finish();
+  }	// end db_connect
+
+//printf("Tone_Number Wave value is %d, wave_group_id is %2x\n",active_area->active_perf_patch[pn].patch_tone[tn].wave_num_low+(active_area->active_perf_patch[pn].patch_tone[tn].wave_num_high*16)+1, active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id);
+    Tone_Number_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].wave_num_low + 
+      (active_area->active_perf_patch[pn].patch_tone[tn].wave_num_high*16)+1);
     // set various switches
     Tone_Output_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].output);
     Tone_C1D1_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].cont_1_dest_1);
@@ -137,30 +161,10 @@ void JVlibForm::setToneParms(int val) {
     Tone_FXMColor_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].FXM_color);
     Tone_FXMDepth_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].FXM_depth);
   }	// end set Patch Mode patch
- 
+  
   on_Tone_DelayTime_select_valueChanged(Tone_DelayTime_select->value());	// initialze Tone_DelayTime_display
-  if (state_table->db_connect) {
-    // set Number maximum
-    QSqlQuery query(mysql);
-    query.prepare("Select number from wave_list where group_area = ?");
-    query.bindValue(0, Tone_Group_select->currentText());
-    if (query.exec() == false) {
-      puts("Query exec failed in on_Tone_Group_select_currentIndexChanged");
-      QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(query.executedQuery()));
-      query.finish();
-      return;
-    }
-    if (query.size()==0) {
-      puts("0 rows found in on_Tone_Group_select_currentIndexChanged"); 
-      QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(query.executedQuery()));
-      query.finish();
-      return;
-    }
-    Tone_Number_select->setMaximum((int)query.size());
-    query.finish();
-  }	// end db_connect
-
-  Tone_WaveName_display->setText(WaveName_query());
+ 
+//  Tone_WaveName_display->setText(WaveName_query());
   Tone_InstrFamily_select->setCurrentIndex(-1);
   setWaveChooser();
   setToneEFXParms(val);

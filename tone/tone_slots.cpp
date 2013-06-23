@@ -11,6 +11,7 @@ void JVlibForm::on_ToneSync_button_clicked() {
 
 void JVlibForm::on_Tone_WaveChooser_select_currentIndexChanged(int val) {
   if (val<0) return;	// all entries were removed
+//printf("WaveChooser new Index = %d\n", val);
   if (state_table->updates_enabled) {
     QString buf = Tone_WaveChooser_select->currentText().section(" ",-3,-2);
 //printf("WaveChooser selection %s\n",buf.toAscii().data());
@@ -105,6 +106,7 @@ void JVlibForm::on_Tone_InstrFamily_select_currentIndexChanged(int val) {
 }	// end on_Tone_InstrFamily_select_currentIndexChanged
 
 void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
+//printf("New Tone Group Index is %d\n", val);
   if (state_table->updates_enabled) {
     int tn = Tone_ToneNumber_select->value() - 1;
     int pn = 0;
@@ -205,6 +207,7 @@ void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
 }	// end on_Tone_Group_select_currentIndexChanged
 
 void JVlibForm::on_Tone_Number_select_valueChanged(int val) {
+//printf("New Tone Wave Number is %d\n",val);
   if (state_table->updates_enabled) {
     int tn = Tone_ToneNumber_select->value() - 1;
     int pn = state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;

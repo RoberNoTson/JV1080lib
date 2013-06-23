@@ -9,8 +9,8 @@ void JVlibForm::PitchStdUpdate(int offset, int val) {
   if (state_table->updates_enabled) {
     bool *ptr;
     int tn = Tone_ToneNumber_select->value() - 1;
-    if (SysMode_select->currentIndex()==0)
-      ptr = &active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()-1].patch_tone[tn].tone;
+    if (state_table->perf_mode)
+      ptr = &active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_tone[tn].tone;
     else
       ptr = &active_area->active_patch_patch.patch_tone[tn].tone;
     ptr[offset] = val;
@@ -21,8 +21,8 @@ void JVlibForm::PitchStdUpdate(int offset, int val) {
 
 void JVlibForm::on_Pitch_StretchTuning_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
-    if (SysMode_select->currentIndex()==0)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()-1].patch_common.stretch_tune_depth = val;
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.stretch_tune_depth = val;
     else
       active_area->active_patch_patch.patch_common.stretch_tune_depth = val;
     if (state_table->jv_connect) 
@@ -141,8 +141,8 @@ on_Pitch_Lvl1_select_valueChanged(Pitch_Lvl1_select->value());
 
 void JVlibForm::on_Pitch_OctaveShift_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
-    if (SysMode_select->currentIndex()==0)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()-1].patch_common.octave_shift = val;
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.octave_shift = val;
     else
       active_area->active_patch_patch.patch_common.octave_shift = val;
     if (state_table->jv_connect) 

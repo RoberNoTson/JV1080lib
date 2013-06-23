@@ -8,7 +8,7 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
   if (state_table->jv_connect && state_table->updates_enabled) {
   memset(buf,0,sizeof(buf));
   buf[4] = JV_UPD;
-  if (SysMode_select->currentIndex()==1)
+  if (state_table->patch_mode)
     buf[7] = 0x20;
   else
     buf[7] = 0x10 + Tuning_PartTune_select->value() - 1;

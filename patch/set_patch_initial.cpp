@@ -359,7 +359,7 @@ void::JVlibForm::setPatchParms(int val) {
 
 // Enable controls as needed
   Patch_SoloLegato_enable->setEnabled(Patch_VoiceMode_switch->isChecked());  
-  Patch_PerfPartNum_select->setEnabled(SysMode_select->currentIndex()==0?true:false);
+  Patch_PerfPartNum_select->setEnabled(state_table->perf_mode?true:false);
 
   switch(Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()) {
     case 0:

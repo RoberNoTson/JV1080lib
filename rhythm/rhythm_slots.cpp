@@ -3,7 +3,7 @@
 #include        <QtGui>
 
 void JVlibForm::RhythmStdUpdate(int offset, int val) {
-  if (SysMode_select->currentIndex()!=0) return;
+  if (!state_table->perf_mode) return;
   if (state_table->updates_enabled) {
     int tn = Rhythm_KeyPress_select->value();
     bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;

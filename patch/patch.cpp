@@ -186,8 +186,8 @@ void JVlibForm::setPatchSingleValue(int addr, int val) {
   if (state_table->jv_connect && state_table->updates_enabled) {
     unsigned char buf[12];
     buf[4] = JV_UPD;
-    buf[5] = (SysMode_select->currentIndex()==0?0x02:0x03);	// are we in Perf or Patch mode?
-    buf[6] = 0x00 + (SysMode_select->currentIndex()==0?Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()-1 : 0);	// select the Perf Part, if in that mode
+    buf[5] = (state_table->perf_mode?0x02:0x03);	// are we in Perf or Patch mode?
+    buf[6] = 0x00 + (state_table->perf_mode?Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
     buf[7] = 0x00;
     buf[8] = addr;
     buf[9] = val;
