@@ -7,12 +7,10 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
     getActivePerfPatches();
-    setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);
-    setPitchParms(Patch_PerfPartNum_select->currentIndex()+1);
+    setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
   } else {
     getActivePatchMode();
-    setPatchParms(0);
-    setPitchParms(0);
+    setPatchParms(0);	// will also set Tone, Pitch, etc.
   }
   EnablePatch(true);
   state_table->updates_enabled=true;

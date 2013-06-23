@@ -42,12 +42,11 @@ void::JVlibForm::setPitchParms(int val) {
   JVlibForm::Pitch_Env_display->setScene(Pitch_Env_scene);
   JVlibForm::Pitch_Env_display->show();
 
-  state_table->updates_enabled = false;
+//  state_table->updates_enabled = false;
   Pitch_Time1_select->setValue(1);
   Pitch_Time2_select->setValue(1);
   Pitch_Time3_select->setValue(1);
   Pitch_Time4_select->setValue(1);
-//  int tn = (val?val-1:0);
   int tn = (Tone_ToneNumber_select->value()-1);
   if (val) {	// set Pitch for specified part number (val)
     int pn = val-1;
@@ -112,5 +111,5 @@ void::JVlibForm::setPitchParms(int val) {
   on_Pitch_TimeKeyfollow_select_currentIndexChanged(Pitch_TimeKeyfollow_select->currentIndex());
   on_Pitch_KeyFollow_select_currentIndexChanged(Pitch_KeyFollow_select->currentIndex());
   
-  state_table->updates_enabled = true;
+//  state_table->updates_enabled = true;
 }	// end setPitchParms

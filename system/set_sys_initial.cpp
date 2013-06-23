@@ -152,7 +152,18 @@ void JVlibForm::setSystemParms() {
     slotSysSetPatchMode();
   } else 
     return;
-//  setScaleTunings(SysPerfNumber->value());
+  // setup Tone_InstrFamily list
+  if (state_table->db_connect) {
+    Tone_WaveChooser_select->clear();
+    QSqlQuery query("Select distinct(Instruments) from wave_list",mysql);
+    Tone_InstrFamily_select->blockSignals(true);
+    Tone_InstrFamily_select->clear();
+    while (query.next())
+      Tone_InstrFamily_select->insertItem(0,query.value(0).toString());
+    Tone_InstrFamily_select->blockSignals(false);
+    query.finish();
+  }
+
   System_PlayMidi_status->off();
   state_table->updates_enabled = true;
   state_table->system_sync = true;

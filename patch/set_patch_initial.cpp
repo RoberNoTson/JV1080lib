@@ -102,13 +102,25 @@ void::JVlibForm::setPatchParms(int val) {
   PatchEFX_ReverbType_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_common.reverb_type);
   PatchEFX_ReverbHiFreqDamp_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_common.reverb_HF_damp);
   PatchEFX_ChorusOutput_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_common.chorus_output);
-  switch(active_area->active_perf_patch[pn].patch_tone[0].wave_group_id) {
+  Tone_ToneNumber_select->setMaximum(Patch_Tone4_enable->isChecked() ?
+    4:Patch_Tone3_enable->isChecked() ?
+      3:Patch_Tone2_enable->isChecked() ? 2:1);
+  Tone_ToneNumber_select->setValue(Patch_Tone1_enable->isChecked() ?
+    1:Patch_Tone2_enable->isChecked() ?
+      2:Patch_Tone3_enable->isChecked() ?
+	3:Patch_Tone4_enable->isChecked() ? 4:1);
+  int tn = Tone_ToneNumber_select->value()-1;
+  
+  Tone_Number_select->blockSignals(true);
+  Tone_Number_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].wave_num_low+(active_area->active_perf_patch[pn].patch_tone[tn].wave_num_high * 16) + 1);
+  Tone_Number_select->blockSignals(false);
+  switch(active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id) {
     case 0x01:
     default:
      Tone_Group_select->setCurrentIndex(0);
      break;
     case 0x02:
-      Tone_Group_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[0].wave_group==0?1:2);
+      Tone_Group_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].wave_group==0?1:2);
       break;
     case 0x10:
       Tone_Group_select->setCurrentIndex(3);
@@ -117,8 +129,6 @@ void::JVlibForm::setPatchParms(int val) {
       Tone_Group_select->setCurrentIndex(4);
       break;
     }
-    Tone_Number_select->setValue(active_area->active_perf_patch[pn].patch_tone[0].wave_num_low+(active_area->active_perf_patch[pn].patch_tone[0].wave_num_high * 16) + 1);
-  
  }	// end Performance mode settings 
  else 
  {	// Patch mode settings
@@ -224,13 +234,21 @@ void::JVlibForm::setPatchParms(int val) {
   PatchEFX_ReverbType_select->setCurrentIndex(active_area->active_patch_patch.patch_common.reverb_type);
   PatchEFX_ReverbHiFreqDamp_select->setCurrentIndex(active_area->active_patch_patch.patch_common.reverb_HF_damp);
   PatchEFX_ChorusOutput_select->setCurrentIndex(active_area->active_patch_patch.patch_common.chorus_output);
-  switch(active_area->active_patch_patch.patch_tone[0].wave_group_id) {
+  Tone_ToneNumber_select->setMaximum(Patch_Tone4_enable->isChecked() ?
+    4:Patch_Tone3_enable->isChecked() ?
+      3:Patch_Tone2_enable->isChecked() ? 2:1);
+  Tone_ToneNumber_select->setValue(Patch_Tone1_enable->isChecked() ?
+    1:Patch_Tone2_enable->isChecked() ?
+      2:Patch_Tone3_enable->isChecked() ?
+	3:Patch_Tone4_enable->isChecked() ? 4:1);
+  int tn = Tone_ToneNumber_select->value()-1;
+  switch(active_area->active_patch_patch.patch_tone[tn].wave_group_id) {
     case 0x01:
     default:
      Tone_Group_select->setCurrentIndex(0);
      break;
     case 0x02:
-      Tone_Group_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[0].wave_group==0 ? 1 : 2);
+      Tone_Group_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].wave_group==0 ? 1 : 2);
       break;
     case 0x10:
       Tone_Group_select->setCurrentIndex(3);
@@ -239,8 +257,8 @@ void::JVlibForm::setPatchParms(int val) {
       Tone_Group_select->setCurrentIndex(4);
       break;
   }
-  Tone_Number_select->setValue(active_area->active_patch_patch.patch_tone[0].wave_num_low+(active_area->active_patch_patch.patch_tone[0].wave_num_high * 16) + 1);
-  setPerfEFXparms();
+  Tone_Number_select->setValue(active_area->active_patch_patch.patch_tone[tn].wave_num_low+(active_area->active_patch_patch.patch_tone[tn].wave_num_high * 16) + 1);
+//  setPatchEFXparms();
  }	// end Patch mode settings
  
 //--------------------------------------------------------------------------------------------------
@@ -426,9 +444,7 @@ void::JVlibForm::setPatchParms(int val) {
   Tone_PatchName_display->setText(Patch_Name_edit->text());
   Tone_PatchGroup_display->setText(Patch_Group_select->currentText());
   Tone_PatchNumber_display->setText(QString::number(Patch_Number_select->value()));
-  Tone_ToneNumber_select->setValue(Patch_Tone1_enable->isChecked()?1:Patch_Tone2_enable->isChecked()?2:Patch_Tone3_enable->isChecked()?3:Patch_Tone4_enable->isChecked()?4:1);
-  Tone_ToneNumber_select->setMaximum(Patch_Tone4_enable->isChecked()?4:Patch_Tone3_enable->isChecked()?3:Patch_Tone2_enable->isChecked()?2:1);
-  Tone_WaveName_display->setText(WaveName_query());
+//  Tone_WaveName_display->setText(WaveName_query());
   // set EFX parms
   setPatchEFXparms();
   setToneParms(val);
@@ -436,4 +452,3 @@ void::JVlibForm::setPatchParms(int val) {
   state_table->patch_sync = true;
   state_table->updates_enabled = true;
 }	// end setPatchParms
-

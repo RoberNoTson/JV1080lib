@@ -177,7 +177,7 @@ void JVlibForm::getActivePatchMode() {
   state_table->patch_modified = false;
   state_table->patch_sync = true;
   statusbar->showMessage("Active Patch Loaded");
-  setToneParms(0);
+//  setToneParms(0);
   Enable_Tone(true);
 }	// end getActivePatcheModePatch
 

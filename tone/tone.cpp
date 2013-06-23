@@ -7,47 +7,53 @@ void JVlibForm::setWaveChooser() {
   // then fill WaveChooser based on that index value and point to the matching index
    QSqlQuery WaveQuery(mysql);
    QString buf = "";
-   WaveQuery.prepare("Select Instruments from wave_list where group_area = ? and number = ?");
-   switch(Tone_Group_select->currentIndex()) {
-     case 0:
-       WaveQuery.bindValue(0, "Internal A");
-       break;
-     case 1:
-       WaveQuery.bindValue(0, "Internal B");
-       break;
-     case 2:
-       WaveQuery.bindValue(0, "Expansion A");
-       break;
-     case 3:
-       WaveQuery.bindValue(0, "Expansion B");
-       break;
-     case 4:
-       WaveQuery.bindValue(0, "Expansion C");
-       break;
-     default:
-       printf("Error! Tone_Group_select currentIndex is %d\n",Tone_Group_select->currentIndex());
-       return;
-       break;       
-   }       
+   WaveQuery.prepare("Select distinct(Instruments) from wave_list where group_area = ? and number = ?");
+   WaveQuery.bindValue(0, Tone_Group_select->currentText());
    WaveQuery.bindValue(1, Tone_Number_select->value());
+//printf("setWaveChooser bound group_area = %s and number = %d\n",WaveQuery.boundValue(0).toByteArray().data(), WaveQuery.boundValue(1).toInt());
+   // run the Query
    if (WaveQuery.exec() == false) {
      puts("Query exec failed in setWaveChooser");
+     QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
      return;
    }
    if (WaveQuery.size()==0) {
-         puts("0 rows found in setWaveChooser()"); 
-	 return;
+      puts("0 rows found in setWaveChooser()"); 
+      QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
+      return;
    }
+   if (WaveQuery.size()>1) {
+        puts("Too many rows found in setWaveChooser()"); 
+	QMessageBox::critical(this, "JVlib", QString("Too many rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
+	return;
+   }
+//printf("setWaveChooser queried for %s\n",WaveQuery.lastQuery().toAscii().data());
    WaveQuery.first();
    buf = WaveQuery.value(0).toString();
    WaveQuery.finish();
+   
+//printf("WaveChooser setting Instrument family to %s\n",buf.toAscii().data());
    // setting the index will call on_Tone_InstrFamily_select_currentIndexChanged() to fill Tone_WaveChooser_select with valid waves from the database
-   Tone_InstrFamily_select->setCurrentIndex(Tone_InstrFamily_select->findText(buf));
+   int x = Tone_InstrFamily_select->findText(buf);
+   if (x < 0) {
+     puts("setWaveChooser did not find InstrFamily");
+     QMessageBox::critical(this, "JVlib", QString("Text NOT FOUND in setWaveChooser\n%1") .arg(buf));
+     return;     
+   }
+   Tone_InstrFamily_select->setCurrentIndex(x);
+//printf("WaveChooser set InstrFam index to %d\n",x);
+
    // set WaveChooser to the entry matching the displayed Tone_Group/Number
    buf = Tone_Group_select->currentText()+QString(" ")+QString::number(Tone_Number_select->value());
-//printf("WaveChooser searching for %s\n",(char *) buf.toAscii().constData());
-   int x = Tone_WaveChooser_select->findText(buf, Qt::MatchContains);
-   if (x<0) puts("Index NOT FOUND in setWaveChooser");
+//printf("searching WaveChooser for %s\n",buf.toAscii().data());
+   
+   x = Tone_WaveChooser_select->findText(buf, Qt::MatchEndsWith);
+   if (x<0) {
+     puts("setWaveChooser did not find requested text");
+     QMessageBox::critical(this, "JVlib", QString("Text NOT FOUND in setWaveChooser\n%1") .arg(buf));
+     return;
+   }
+//printf("WaveChooser setting its Index to %d\n", x);
    // have to block the SIGNAL when we set WaveChooser to prevent an infinite loop
    Tone_WaveChooser_select->blockSignals(true);
    Tone_WaveChooser_select->setCurrentIndex(x);
@@ -59,34 +65,17 @@ QString JVlibForm::WaveName_query() {
    QSqlQuery WaveQuery(mysql);
    QString buf = "";
    WaveQuery.prepare("Select name from wave_list where group_area = ? and number = ?");
-   switch(Tone_Group_select->currentIndex()) {
-     case 0:
-       WaveQuery.bindValue(0, "Internal A");
-       break;
-     case 1:
-       WaveQuery.bindValue(0, "Internal B");
-       break;
-     case 2:
-       WaveQuery.bindValue(0, "Expansion A");
-       break;
-     case 3:
-       WaveQuery.bindValue(0, "Expansion B");
-       break;
-     case 4:
-       WaveQuery.bindValue(0, "Expansion C");
-       break;
-     default:
-       WaveQuery.bindValue(0, "Internal A");
-       break;       
-   }       
+   WaveQuery.bindValue(0, Tone_Group_select->currentText());
    WaveQuery.bindValue(1, Tone_Number_select->value());
    if (WaveQuery.exec() == false) {
      puts("Query exec failed");
+     QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
      return buf;
    }
    if (WaveQuery.size()==0) {
-         puts("0 rows found in WaveName_query"); 
-	 return buf;
+        puts("0 rows found in WaveName_query");
+	QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
+	return buf;
    }
    WaveQuery.first();
    buf = WaveQuery.value(0).toString();
