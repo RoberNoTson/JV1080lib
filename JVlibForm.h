@@ -852,6 +852,7 @@ private:
   QGraphicsScene *Pitch_Env_scene;
   QPen Pitch_dotLine;
   QPen Pitch_redLine;
+  QPen Pitch_blackLine;
   QGraphicsSimpleTextItem *Pitch_Env_OffText;
   QGraphicsSimpleTextItem *Pitch_Env_t1Text;
   QGraphicsSimpleTextItem *Pitch_Env_t2Text;
@@ -928,7 +929,6 @@ private:
   void enable_C(bool);
   
   // for EFX.cpp
-//  void createEFXactions();
   void setPerfEFXparms();
   void setPatchEFXparms();
   void displayEFXparms();
@@ -1061,7 +1061,6 @@ private:
   
   // for patch.cpp
   void EnablePatch(bool);
-//  void createPatchActions();
   void setPatchParms(int);
   void setPatchSingleValue(int, int);
   void Patch_setPatchMax();
@@ -1094,7 +1093,6 @@ private:
   // for Tuning
   inline void TuningStdUpdate(int, int);
   void setScaleSingleValue(int, int);
-//  void createTuningActions();
   void setScaleTunings(int);
   int get_scales();
   QButtonGroup *Tuning_ButtonGroup;

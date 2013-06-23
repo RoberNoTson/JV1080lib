@@ -5,10 +5,6 @@
 #include	<QtGui>
 
 void JVlibForm::createSysActions() {
-  connect(JVlibForm::SysPerfSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPerf()));
-//  connect(JVlibForm::SysPatchNumber, SIGNAL(valueChanged(int)), this, SLOT(slotSysSetPatch()));
-  connect(JVlibForm::SysPatchSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPatch()));
-  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
   // set up Patch Structure graphics
   scene1 = new QGraphicsScene();
   scene2 = new QGraphicsScene();
@@ -30,7 +26,12 @@ void JVlibForm::createSysActions() {
   scene8->addPixmap(QPixmap(":/res/Struct_Type8.png"));
   scene9->addPixmap(QPixmap(":/res/Struct_Type9.png"));
   scene10->addPixmap(QPixmap(":/res/Struct_Type10.png"));
+  
   Pitch_Env_scene = new QGraphicsScene;
+  ToneTVA_Bias_scene = new QGraphicsScene;
+  ToneTVA_Env_scene = new QGraphicsScene;
+  ToneTVF_Env_scene = new QGraphicsScene;
+  
   Tuning_ButtonGroup = new QButtonGroup();
   Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);
   Tuning_ButtonGroup->addButton(Tuning_JustTemp_button,1);
@@ -41,6 +42,7 @@ void JVlibForm::createSysActions() {
   Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,6);
   Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,7);
   Tuning_currentTuning.fill(0x40, 12);
+  
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));
   connect(JVlibForm::PerfEFXsource_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPerfEFXsource(int)));
   connect(JVlibForm::PerfEFXtype_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPerfEFXtype(int)));
@@ -87,5 +89,9 @@ void JVlibForm::createSysActions() {
   connect(JVlibForm::PatchEFX_parmA_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmA(int)));
   connect(JVlibForm::PatchEFX_parmB_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmB(int)));
   connect(JVlibForm::PatchEFX_parmC_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmC(int)));
+  
+  connect(JVlibForm::SysPerfSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPerf()));
+  connect(JVlibForm::SysPatchSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPatch()));
+  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
 }	// end createSysActions
 

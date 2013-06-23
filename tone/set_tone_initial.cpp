@@ -164,7 +164,6 @@ void JVlibForm::setToneParms(int val) {
   
   on_Tone_DelayTime_select_valueChanged(Tone_DelayTime_select->value());	// initialze Tone_DelayTime_display
  
-//  Tone_WaveName_display->setText(WaveName_query());
   Tone_InstrFamily_select->setCurrentIndex(-1);
   setWaveChooser();
   setToneEFXParms(val);
