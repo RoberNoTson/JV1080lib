@@ -1,0 +1,47 @@
+General
+  - change refs from SysMode_select to state_table->perf_mode/patch_mode
+  - initialize part_sync entries in state_table
+
+System_tab
+  - Load Data function/button
+  - Update Synth function/button
+  - Play MIDI function
+
+Performance_tab
+
+PerfParts_tab
+  - update state_table->partX_sync status when a part is changed
+  - turn off Patch Sync light when a different Part patch is selected
+
+Patch_tab
+  - turn off Patch Sync light when a different patch is selected
+
+Rhythm_tab
+
+PatchEFX_tab
+  - add PatchPlay button
+
+Tone_tab
+  - add PatchPlay button
+
+ToneEFX_tab
+  - add displays for Patch/Tone#
+  - add PatchPlay button
+
+ToneTVF_tab
+  - add displays for Patch/Tone#
+  - add PatchPlay button
+
+ToneTVA_tab
+  - add displays for Patch/Tone#
+  - add PatchPlay button
+
+Pitch_tab
+  - add displays for Patch/Tone#
+  - add PatchPlay button
+
+Tuning_tab
+  - recognize existing tunings
+  - save custom tuning
+  - load saved tuning data
+

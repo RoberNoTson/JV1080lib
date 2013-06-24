@@ -94,7 +94,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -5395,7 +5395,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -5643,6 +5643,9 @@
             <property name="maximum">
              <number>127</number>
             </property>
+            <property name="pageStep">
+             <number>10</number>
+            </property>
             <property name="value">
              <number>64</number>
             </property>
@@ -5858,8 +5861,14 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
+            </property>
+            <property name="notchTarget">
+             <double>12.000000000000000</double>
             </property>
            </widget>
            <widget class="QLCDNumber" name="Part1_Transpose_display">
@@ -6702,6 +6711,9 @@
             <property name="maximum">
              <number>127</number>
             </property>
+            <property name="pageStep">
+             <number>10</number>
+            </property>
             <property name="value">
              <number>64</number>
             </property>
@@ -6916,6 +6928,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -7966,6 +7981,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -9014,6 +9032,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -10064,6 +10085,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -11112,6 +11136,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -12162,6 +12189,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -13210,6 +13240,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -14260,6 +14293,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -15309,6 +15345,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -16347,6 +16386,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -17397,6 +17439,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -18445,6 +18490,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -19495,6 +19543,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -20544,6 +20595,9 @@
             <property name="singleStep">
              <number>1</number>
             </property>
+            <property name="pageStep">
+             <number>12</number>
+            </property>
             <property name="tracking">
              <bool>false</bool>
             </property>
@@ -21592,6 +21646,9 @@
             </property>
             <property name="singleStep">
              <number>1</number>
+            </property>
+            <property name="pageStep">
+             <number>12</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
