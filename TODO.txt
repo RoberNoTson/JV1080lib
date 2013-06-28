@@ -1,13 +1,18 @@
 General
-  - change refs from SysMode_select to state_table->perf_mode/patch_mode
+  - change remaining refs from SysMode_select to state_table->perf_mode/patch_mode
   - initialize part_sync entries in state_table
+  - Configuration screen function
+  - fill in Tool Tips and What Is text for all controls
+  - context sensitive Help docs
 
 System_tab
+  - System_Sync LED
   - Load Data function/button
   - Update Synth function/button
   - Play MIDI function
 
 Performance_tab
+  -
 
 PerfParts_tab
   - update state_table->partX_sync status when a part is changed
@@ -15,30 +20,29 @@ PerfParts_tab
 
 Patch_tab
   - turn off Patch Sync light when a different patch is selected
+  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
 
 Rhythm_tab
+  -
 
 PatchEFX_tab
-  - add PatchPlay button
+  -
 
 Tone_tab
-  - add PatchPlay button
+  -
 
 ToneEFX_tab
   - add displays for Patch/Tone#
-  - add PatchPlay button
 
 ToneTVF_tab
   - add displays for Patch/Tone#
-  - add PatchPlay button
+  - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
 
 ToneTVA_tab
   - add displays for Patch/Tone#
-  - add PatchPlay button
 
 Pitch_tab
   - add displays for Patch/Tone#
-  - add PatchPlay button
 
 Tuning_tab
   - recognize existing tunings

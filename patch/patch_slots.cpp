@@ -854,19 +854,22 @@ void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
 void JVlibForm::on_Patch_TestTone_switch_toggled(bool val) {
   if (state_table->jv_connect) {
   unsigned char buf[6];
-  int pn = state_table->perf_mode ? (Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt() - 1) : 0;
+  int pn = state_table->perf_mode ? (Patch_PerfPartNum_select->currentIndex()) : 0;
   if (val) {
-    buf[0] = 0x90 + active_area->active_performance.perf_part[pn].MIDI_channel;
+    buf[0] = 0x90 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel);
     buf[1] = SysPreviewNote1_select->value();
     buf[2] = SysPreviewNote1_volume->value();
     if (open_ports() == EXIT_FAILURE) return;
     if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
     close_ports();
   } else {
-    buf[0] = 0xB0 + active_area->active_performance.perf_part[pn].MIDI_channel;
+    buf[0] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel);
     buf[1] = 0x7B;
     buf[2] = 0;
-    buf[3] = 0xB0 + active_area->active_performance.perf_part[pn].MIDI_channel;
+    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel);
     buf[4] = 0x79;
     buf[5] = 0;
   if (open_ports() == EXIT_FAILURE) return;

@@ -168,5 +168,6 @@ void JVlibForm::setSystemParms() {
   state_table->updates_enabled = true;
   state_table->system_sync = true;
   state_table->system_modified = false;
+  System_Sync_status->on();
 }	// end setSystemParms
 

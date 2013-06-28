@@ -169,6 +169,10 @@ void JVlibForm::setToneParms(int val) {
   setToneEFXParms(val);
   setToneENVParms(val);
   setPitchParms(val);
+  ToneEFX_ToneNumber_display->setText(Tone_ToneNumber_select->text());
+  ToneTVF_ToneNumber_display->setText(Tone_ToneNumber_select->text());
+  ToneTVA_ToneNumber_display->setText(Tone_ToneNumber_select->text());
+  Pitch_ToneNumber_display->setText(Tone_ToneNumber_select->text());
   state_table->tone_modified = false;
   Enable_Tone(true);
 }	// end setToneParms

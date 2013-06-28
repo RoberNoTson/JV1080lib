@@ -444,7 +444,18 @@ void::JVlibForm::setPatchParms(int val) {
   Tone_PatchName_display->setText(Patch_Name_edit->text());
   Tone_PatchGroup_display->setText(Patch_Group_select->currentText());
   Tone_PatchNumber_display->setText(QString::number(Patch_Number_select->value()));
-//  Tone_WaveName_display->setText(WaveName_query());
+  ToneEFX_PatchName_display->setText(Tone_PatchName_display->text());
+  ToneEFX_PatchGroup_display->setText(Tone_PatchGroup_display->text());
+  ToneEFX_PatchNumber_display->setText(Tone_PatchNumber_display->text());
+  ToneTVF_PatchName_display->setText(Tone_PatchName_display->text());
+  ToneTVF_PatchGroup_display->setText(Tone_PatchGroup_display->text());
+  ToneTVF_PatchNumber_display->setText(Tone_PatchNumber_display->text());
+  ToneTVA_PatchName_display->setText(Tone_PatchName_display->text());
+  ToneTVA_PatchGroup_display->setText(Tone_PatchGroup_display->text());
+  ToneTVA_PatchNumber_display->setText(Tone_PatchNumber_display->text());
+  Pitch_PatchName_display->setText(Tone_PatchName_display->text());
+  Pitch_PatchGroup_display->setText(Tone_PatchGroup_display->text());
+  Pitch_PatchNumber_display->setText(Tone_PatchNumber_display->text());
   // set EFX parms
   setPatchEFXparms();
   setToneParms(val);

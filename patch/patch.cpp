@@ -38,6 +38,8 @@ void JVlibForm::EnablePatch(bool val) {
   PatchEFX_EFX_groupBox->setEnabled(val);
   PatchEFX_Reverb_box->setEnabled(val);
   PatchEFX_Chorus_box->setEnabled(val);
+  PatchEFX_TestTone_switch->setEnabled(val);
+  PatchEFX_TestTone_switch->setChecked(false);
   ToneSync_button->setEnabled(val);
   Tuning_Sync_button->setEnabled(val);
   MainTabWidget->setTabEnabled(5,val);

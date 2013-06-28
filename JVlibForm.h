@@ -463,6 +463,7 @@ private slots:
   void on_Part16_TestTone_switch_toggled(bool);
 
   // for EFX tab
+  void on_PatchEFX_TestTone_switch_toggled(bool);
   void slotPerfEFXsource(int);
   void slotPerfEFXtype(int);
   void slotPatchEFXtype(int);
@@ -542,6 +543,7 @@ private slots:
   void on_PatchEFX_Control2Depth_select_valueChanged(int);
 
   // for Tone tab
+  void on_Tone_TestTone_switch_toggled(bool);
   void on_ToneSync_button_clicked();
   void on_Tone_ToneNumber_select_valueChanged();
   void on_Tone_Number_select_valueChanged(int);
@@ -592,6 +594,7 @@ private slots:
   void on_Tone_FXMDepth_select_currentIndexChanged(int);
   
   // for toneEFX tab
+  void on_ToneEFX_TestTone_switch_toggled(bool);
   void on_ToneEFX_LFO1FadeTime_select_valueChanged(int);
   void on_ToneEFX_LFO2FadeTime_select_valueChanged(int);
   void on_ToneEFX_LFO1Delay_select_valueChanged(int);
@@ -617,6 +620,8 @@ private slots:
   void on_ToneEFX_PanLFO2Depth_select_valueChanged(int);
 
   // for ToneENV tab
+  void on_ToneTVF_TestTone_switch_toggled(bool);
+  void on_ToneTVA_TestTone_switch_toggled(bool);
   void on_ToneTVA_Time1_select_valueChanged(int);
   void on_ToneTVA_Time2_select_valueChanged(int);
   void on_ToneTVA_Time3_select_valueChanged(int);
@@ -657,6 +662,7 @@ private slots:
   void on_ToneTVF_CutoffFreq_select_valueChanged(int);
   
   // for Pitch tab
+  void on_Pitch_TestTone_switch_toggled(bool);
   void on_Pitch_StretchTuning_select_valueChanged(int);
   void on_Pitch_HighLimit_select_valueChanged(int);
   void on_Pitch_LowLimit_select_valueChanged(int);

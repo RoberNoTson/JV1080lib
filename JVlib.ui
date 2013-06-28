@@ -352,7 +352,7 @@
          <x>10</x>
          <y>20</y>
          <width>241</width>
-         <height>190</height>
+         <height>181</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_37">
@@ -1761,8 +1761,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>480</y>
+        <x>660</x>
+        <y>440</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -1781,7 +1781,7 @@
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>510</y>
+        <y>520</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -2022,6 +2022,38 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="KLed" name="System_Sync_status">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>440</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="state">
+       <enum>KLed::Off</enum>
+      </property>
+      <property name="color">
+       <color alpha="249">
+        <red>25</red>
+        <green>113</green>
+        <blue>255</blue>
+       </color>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Performance_tab">
@@ -30403,6 +30435,28 @@
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="PatchEFX_TestTone_switch">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>10</y>
+        <width>90</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+      </property>
+      <property name="text">
+       <string notr="true">Play Patch</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="Tone_tab">
      <attribute name="title">
@@ -33297,7 +33351,7 @@
        <property name="geometry">
         <rect>
          <x>680</x>
-         <y>10</y>
+         <y>50</y>
          <width>120</width>
          <height>26</height>
         </rect>
@@ -33929,6 +33983,28 @@
         <string notr="true">Velocity Lower Range</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="Tone_TestTone_switch">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>710</x>
+         <y>10</y>
+         <width>90</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+       </property>
+       <property name="text">
+        <string notr="true">Play Patch</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="layoutWidget_265">
       <property name="geometry">
@@ -34048,7 +34124,7 @@
       <property name="geometry">
        <rect>
         <x>410</x>
-        <y>10</y>
+        <y>50</y>
         <width>411</width>
         <height>491</height>
        </rect>
@@ -34951,7 +35027,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>10</y>
+        <y>50</y>
         <width>411</width>
         <height>491</height>
        </rect>
@@ -35425,6 +35501,165 @@
         </item>
        </layout>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="ToneEFX_TestTone_switch">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>10</y>
+        <width>90</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+      </property>
+      <property name="text">
+       <string notr="true">Play Patch</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_291">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>172</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_48">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_294">
+         <property name="text">
+          <string notr="true"> Patch Group</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="ToneEFX_PatchGroup_display">
+         <property name="text">
+          <string notr="true"/>
+         </property>
+         <property name="maxLength">
+          <number>12</number>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_294">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>10</y>
+        <width>91</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_49">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_296">
+         <property name="text">
+          <string>Number</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="ToneEFX_PatchNumber_display">
+         <property name="text">
+          <string notr="true"/>
+         </property>
+         <property name="maxLength">
+          <number>4</number>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_296">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>10</y>
+        <width>135</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_50">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_306">
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="ToneEFX_PatchName_display">
+         <property name="text">
+          <string notr="true"/>
+         </property>
+         <property name="maxLength">
+          <number>12</number>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>10</y>
+        <width>87</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_51">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_305">
+         <property name="text">
+          <string>Tone # </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="ToneEFX_ToneNumber_display">
+         <property name="maximumSize">
+          <size>
+           <width>41</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="text">
+          <string notr="true"/>
+         </property>
+         <property name="maxLength">
+          <number>4</number>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="ToneTVF_tab">
@@ -36383,8 +36618,8 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>20</y>
+         <x>160</x>
+         <y>60</y>
          <width>173</width>
          <height>28</height>
         </rect>
@@ -36813,6 +37048,165 @@
        <property name="scaledContents">
         <bool>true</bool>
        </property>
+      </widget>
+      <widget class="QPushButton" name="ToneTVF_TestTone_switch">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>670</x>
+         <y>20</y>
+         <width>90</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+       </property>
+       <property name="text">
+        <string notr="true">Play Patch</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_295">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>20</y>
+         <width>91</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_52">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_307">
+          <property name="text">
+           <string>Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVF_PatchNumber_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_297">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>20</y>
+         <width>135</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_53">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_308">
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVF_PatchName_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_298">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>172</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_75">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_309">
+          <property name="text">
+           <string notr="true"> Patch Group</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVF_PatchGroup_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_8">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>20</y>
+         <width>87</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_76">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_310">
+          <property name="text">
+           <string>Tone # </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVF_ToneNumber_display">
+          <property name="maximumSize">
+           <size>
+            <width>41</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>
@@ -37421,8 +37815,8 @@
       <widget class="QLabel" name="label_275">
        <property name="geometry">
         <rect>
-         <x>350</x>
-         <y>40</y>
+         <x>240</x>
+         <y>60</y>
          <width>101</width>
          <height>16</height>
         </rect>
@@ -37434,8 +37828,8 @@
       <widget class="QLabel" name="label_276">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>40</y>
+         <x>90</x>
+         <y>60</y>
          <width>101</width>
          <height>16</height>
         </rect>
@@ -38142,6 +38536,165 @@
         <string notr="true">Bias Point</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="ToneTVA_TestTone_switch">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>670</x>
+         <y>20</y>
+         <width>90</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+       </property>
+       <property name="text">
+        <string notr="true">Play Patch</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_307">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>30</y>
+         <width>91</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_77">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_311">
+          <property name="text">
+           <string>Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVA_PatchNumber_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_310">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>30</y>
+         <width>135</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_78">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_312">
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVA_PatchName_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_311">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>172</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_79">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_313">
+          <property name="text">
+           <string notr="true"> Patch Group</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVA_PatchGroup_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_9">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>30</y>
+         <width>87</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_80">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_370">
+          <property name="text">
+           <string>Tone # </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ToneTVA_ToneNumber_display">
+          <property name="maximumSize">
+           <size>
+            <width>41</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Pitch_tab">
@@ -38152,9 +38705,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>0</y>
         <width>801</width>
-        <height>601</height>
+        <height>621</height>
        </rect>
       </property>
       <property name="title">
@@ -38164,7 +38717,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
+         <y>70</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38206,7 +38759,7 @@
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>50</y>
+         <y>70</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38248,7 +38801,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>50</y>
+         <y>70</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38290,7 +38843,7 @@
        <property name="geometry">
         <rect>
          <x>340</x>
-         <y>50</y>
+         <y>70</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38332,7 +38885,7 @@
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>100</y>
+         <y>120</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38377,7 +38930,7 @@
        <property name="geometry">
         <rect>
          <x>340</x>
-         <y>100</y>
+         <y>120</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38422,7 +38975,7 @@
        <property name="geometry">
         <rect>
          <x>230</x>
-         <y>100</y>
+         <y>120</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38467,7 +39020,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>100</y>
+         <y>120</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -38602,7 +39155,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>50</y>
          <width>61</width>
          <height>23</height>
         </rect>
@@ -38690,7 +39243,7 @@
        <property name="geometry">
         <rect>
          <x>290</x>
-         <y>30</y>
+         <y>50</y>
          <width>101</width>
          <height>16</height>
         </rect>
@@ -38703,7 +39256,7 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>30</y>
+         <y>50</y>
          <width>101</width>
          <height>16</height>
         </rect>
@@ -38716,7 +39269,7 @@
        <property name="geometry">
         <rect>
          <x>390</x>
-         <y>30</y>
+         <y>50</y>
          <width>61</width>
          <height>23</height>
         </rect>
@@ -38804,14 +39357,20 @@
        <property name="geometry">
         <rect>
          <x>470</x>
-         <y>30</y>
+         <y>50</y>
          <width>141</width>
-         <height>52</height>
+         <height>43</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_179">
         <item row="0" column="0" rowspan="2">
          <widget class="QDial" name="Pitch_VelocSens_select">
+          <property name="maximumSize">
+           <size>
+            <width>74</width>
+            <height>39</height>
+           </size>
+          </property>
           <property name="minimum">
            <number>-100</number>
           </property>
@@ -38838,6 +39397,12 @@
         </item>
         <item row="1" column="1">
          <widget class="QLCDNumber" name="Pitch_VelocSens_display">
+          <property name="maximumSize">
+           <size>
+            <width>61</width>
+            <height>23</height>
+           </size>
+          </property>
           <property name="smallDecimalPoint">
            <bool>true</bool>
           </property>
@@ -38964,7 +39529,7 @@
        <property name="geometry">
         <rect>
          <x>460</x>
-         <y>90</y>
+         <y>100</y>
          <width>182</width>
          <height>26</height>
         </rect>
@@ -39147,8 +39712,8 @@
       <widget class="QLCDNumber" name="Pitch_Transpose_display">
        <property name="geometry">
         <rect>
-         <x>730</x>
-         <y>60</y>
+         <x>750</x>
+         <y>90</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -39163,8 +39728,8 @@
       <widget class="QLabel" name="label_211">
        <property name="geometry">
         <rect>
-         <x>620</x>
-         <y>30</y>
+         <x>640</x>
+         <y>60</y>
          <width>71</width>
          <height>31</height>
         </rect>
@@ -39182,8 +39747,8 @@
       <widget class="QDial" name="Pitch_TuneAdj_select">
        <property name="geometry">
         <rect>
-         <x>690</x>
-         <y>30</y>
+         <x>710</x>
+         <y>60</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -39210,8 +39775,8 @@
       <widget class="QLCDNumber" name="Pitch_TuneAdj_display">
        <property name="geometry">
         <rect>
-         <x>730</x>
-         <y>30</y>
+         <x>750</x>
+         <y>60</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -39229,8 +39794,8 @@
       <widget class="QLabel" name="label_212">
        <property name="geometry">
         <rect>
-         <x>630</x>
-         <y>60</y>
+         <x>650</x>
+         <y>90</y>
          <width>61</width>
          <height>31</height>
         </rect>
@@ -39245,8 +39810,8 @@
       <widget class="QDial" name="Pitch_Transpose_select">
        <property name="geometry">
         <rect>
-         <x>690</x>
-         <y>60</y>
+         <x>710</x>
+         <y>90</y>
          <width>41</width>
          <height>31</height>
         </rect>
@@ -39277,7 +39842,7 @@
        <property name="geometry">
         <rect>
          <x>410</x>
-         <y>340</y>
+         <y>350</y>
          <width>311</width>
          <height>25</height>
         </rect>
@@ -39318,7 +39883,7 @@
        <property name="geometry">
         <rect>
          <x>720</x>
-         <y>370</y>
+         <y>380</y>
          <width>41</width>
          <height>22</height>
         </rect>
@@ -39346,7 +39911,7 @@
        <property name="geometry">
         <rect>
          <x>720</x>
-         <y>340</y>
+         <y>350</y>
          <width>41</width>
          <height>22</height>
         </rect>
@@ -39371,7 +39936,7 @@
        <property name="geometry">
         <rect>
          <x>410</x>
-         <y>370</y>
+         <y>380</y>
          <width>311</width>
          <height>25</height>
         </rect>
@@ -39519,7 +40084,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>330</y>
+         <y>350</y>
          <width>122</width>
          <height>26</height>
         </rect>
@@ -39636,7 +40201,7 @@
       <widget class="QWidget" name="layoutWidget_254">
        <property name="geometry">
         <rect>
-         <x>620</x>
+         <x>500</x>
          <y>130</y>
          <width>138</width>
          <height>26</height>
@@ -39725,7 +40290,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>150</y>
+         <y>170</y>
          <width>441</width>
          <height>181</height>
         </rect>
@@ -39760,6 +40325,165 @@
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
+      </widget>
+      <widget class="QPushButton" name="Pitch_TestTone_switch">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>690</x>
+         <y>20</y>
+         <width>90</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
+       </property>
+       <property name="text">
+        <string notr="true">Play Patch</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_312">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>20</y>
+         <width>91</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_81">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_371">
+          <property name="text">
+           <string>Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="Pitch_PatchNumber_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_313">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>20</y>
+         <width>135</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_82">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_372">
+          <property name="text">
+           <string>Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="Pitch_PatchName_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_314">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>172</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_83">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_373">
+          <property name="text">
+           <string notr="true"> Patch Group</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="Pitch_PatchGroup_display">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>12</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_10">
+       <property name="geometry">
+        <rect>
+         <x>410</x>
+         <y>20</y>
+         <width>87</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <layout class="QFormLayout" name="formLayout_84">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_374">
+          <property name="text">
+           <string>Tone # </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="Pitch_ToneNumber_display">
+          <property name="maximumSize">
+           <size>
+            <width>41</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>

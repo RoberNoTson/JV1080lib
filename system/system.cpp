@@ -94,7 +94,9 @@ void JVlibForm::setSysGmMode(bool GM) {
 }	// end setSysGmMode
 
 void JVlibForm::setSysSingleValue(int addr, int val) {
-  if (state_table->jv_connect && state_table->updates_enabled) {
+if (state_table->updates_enabled) {
+  state_table->system_modified = true;
+  if (state_table->jv_connect) {
     unsigned char buf[12];
     memset(buf,0,sizeof(buf));
     buf[4] = JV_UPD;
@@ -108,14 +110,17 @@ void JVlibForm::setSysSingleValue(int addr, int val) {
       return;
     }
     close_ports();
-    state_table->system_modified = true;
- }	// end jv_connect
+  }	// end jv_connect
+  else  {	// System settings modified but synth not updated
+    System_Sync_status->off();
+  }
 }
+}	// end setSysSingleValue
 
 void JVlibForm::EnableSys(bool val) {
   // called from slotDownloadClicked after a valid port is selected and System Common is downloaded
-  state_table->system_modified = false;
-  state_table->system_sync = true;
+//  state_table->system_modified = false;
+//  state_table->system_sync = true;
   SysSwitchBox->setEnabled(val);
   SysPreviewBox->setEnabled(val);
   SysSourceBox->setEnabled(val);
@@ -126,7 +131,7 @@ void JVlibForm::EnableSys(bool val) {
   System_Sync_button->setEnabled(val);
   SysPlayMidi_button->setEnabled(val);
   Tuning_MasterTune_select->setEnabled(val);
-  if (SysMode_select->currentIndex() == 0) {
+  if (state_table->perf_mode) {
     SysPerformance_box->setEnabled(val);
     SysPerfName->setEnabled(val);
     SysPerfNumber->setEnabled(val);
@@ -143,7 +148,7 @@ void JVlibForm::EnableSys(bool val) {
     Patch_Number_select->setEnabled(!val);
     Patch_Name_edit->setEnabled(!val);
   }
-  else if (SysMode_select->currentIndex() == 1) {
+  else if (state_table->patch_mode) {
     SysPerformance_box->setEnabled(!val);
     SysPerfName->setEnabled(!val);
     SysPerfNumber->setEnabled(!val);
