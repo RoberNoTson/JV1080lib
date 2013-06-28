@@ -32,17 +32,17 @@ Tone_tab
   -
 
 ToneEFX_tab
-  - add displays for Patch/Tone#
+  -
 
 ToneTVF_tab
-  - add displays for Patch/Tone#
+  -
   - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
 
 ToneTVA_tab
-  - add displays for Patch/Tone#
+  -
 
 Pitch_tab
-  - add displays for Patch/Tone#
+  -
 
 Tuning_tab
   - recognize existing tunings
