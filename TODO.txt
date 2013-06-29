@@ -7,8 +7,9 @@ General
 
 System_tab
   - System_Sync LED
-  - Load Data function/button
-  - Update Synth function/button
+  - "Load Data" function/button
+  - "Save Data" button, add bulk-dump options
+  - "Upload" to Synth function/button
   - Play MIDI function
 
 Performance_tab
@@ -23,7 +24,9 @@ Patch_tab
   - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
 
 Rhythm_tab
-  -
+  - enable/disable Play button relative to Sync status
+  - update Group/Number/Name based on Part 10 values even when not Sync'd
+  - can Pitch, TVA, TVF use the same tabs as other patches?
 
 PatchEFX_tab
   -
@@ -32,17 +35,20 @@ Tone_tab
   -
 
 ToneEFX_tab
-  -
+  - LFO1/2 Delay/Fade graphics should be dynamic
+  - Pan Keyfollow graphic needs improvement
 
 ToneTVF_tab
-  -
+  - Time Keyfollow graphic needs to match actual range of values (-100 to +100)
   - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
+  - Cutoff Keyfollow graphic looks cheesy, use dynamic view
 
 ToneTVA_tab
-  -
+  - Time Keyfollow graphic needs improvement
 
 Pitch_tab
-  -
+  - Pitch Keyfollow graphic needs improvement
+  - Time Keyfollow graphic needs improvement
 
 Tuning_tab
   - recognize existing tunings
