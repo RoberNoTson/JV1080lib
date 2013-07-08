@@ -40,11 +40,13 @@ private:
     QGraphicsSimpleTextItem *EffectText;
     inline void setOffIn();
     inline void setOffOut();
+    void FillEffect();
 
 private slots:
+    void on_Waveform_select_currentIndexChanged(int index);
     void on_FadeMode_select_currentIndexChanged(int index);
-    void on_Rate_select_valueChanged(int value);
-    void on_Depth_select_valueChanged(int value);
+    void on_Rate_select_valueChanged();
+    void on_Depth_select_valueChanged();
     void on_Fade_select_valueChanged(int value);
     void on_Delay_select_valueChanged(int value);
 };

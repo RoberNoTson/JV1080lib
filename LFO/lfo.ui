@@ -153,6 +153,9 @@
       <height>64</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
    </widget>
    <widget class="QLCDNumber" name="lcdNumber_4">
     <property name="geometry">
@@ -219,6 +222,56 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QComboBox" name="Waveform_select">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>170</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Delta</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sine</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sawtooth</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Square</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Trapezoid</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sample/Hold</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Random</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Chaotic</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
