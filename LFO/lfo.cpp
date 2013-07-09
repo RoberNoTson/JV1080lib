@@ -60,8 +60,8 @@ void LFO::FillEffect() {
         for (int n=0;n<Xcross.size()-1;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = n ? (Xcross[n]>FadeEndLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta) : 96;
-            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta;
+            newY1 = n ? (Xcross[n]>FadeEndLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta-1) : 96;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta-1;
             dummy = scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
@@ -69,8 +69,8 @@ void LFO::FillEffect() {
         for (int n=1;n<Xcross.size()-1;n+=2) {
             newX1 = (Xcross[n]+Xcross[n-1])/2;
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = Xcross[n]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta;
-            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectDownLine.y1()+1 : DownSlope*newX2+DownBeta;
+            newY1 = Xcross[n]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta-1;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
             dummy = scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
@@ -87,8 +87,8 @@ void LFO::FillEffect() {
         for (int n=0;n<Xcross.size()-1;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = n ? (Xcross[n]>FadeEndLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta) : 96;
-            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta;
+            newY1 = n ? (Xcross[n]<FadeStartLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta-1) : 96;
+            newY2 = Xcross[n+1]<FadeStartLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta-1;
             dummy = scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
@@ -96,8 +96,8 @@ void LFO::FillEffect() {
         for (int n=1;n<Xcross.size()-1;n+=2) {
             newX1 = (Xcross[n]+Xcross[n-1])/2;
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = Xcross[n]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta;
-            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectDownLine.y1()+1 : DownSlope*newX2+DownBeta;
+            newY1 = Xcross[n]<FadeStartLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta-1;
+            newY2 = Xcross[n+1]<FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
             dummy = scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
@@ -129,11 +129,13 @@ LFO::LFO(QWidget *parent) :
     // fake set_initial_values section for testing
     ui->Depth_select->blockSignals(true);
     ui->Depth_select->setValue(64);
+    ui->Depth_display->display(64);
     ui->Depth_select->blockSignals(false);
     ui->Rate_select ->setValue(64);
     ui->FadeMode_select->setCurrentIndex(0);
     ui->Fade_select->blockSignals(true);
     ui->Fade_select->setValue(64);
+    ui->Fade_display->display(64);
     ui->Fade_select->blockSignals(false);
     ui->Delay_select->setValue(64);
 }
