@@ -38,9 +38,16 @@ void LFO::FillEffect() {
         dummy = WaveLines.takeFirst();
         scene->removeItem(dummy);
     }
-    if (ui->Rate_select->value()) {
-    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
+  if (ui->Rate_select->value()) {
+    QPen WavePen(Qt::darkGreen);
+    qreal newX1, newX2, newY1, newY2;
     qreal spacer;
+    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
+    qreal UpSlope = (FadeUpLine.y2()-FadeUpLine.y1()) / (FadeUpLine.x2()-FadeUpLine.x1());
+    qreal DownSlope = (FadeDownLine.y2()-FadeDownLine.y1()) / (FadeDownLine.x2()-FadeDownLine.x1());
+    qreal UpBeta = FadeUpLine.y2() - (UpSlope*FadeUpLine.x2());
+    qreal DownBeta = FadeDownLine.y2() - (DownSlope*FadeDownLine.x2());
+
     switch(ui->FadeMode_select->currentIndex()) {
       case 0:
       case 2:
@@ -49,6 +56,24 @@ void LFO::FillEffect() {
             Xcross << spacer;
             spacer += WaveFreq;
             if (spacer > 140) break;
+        }        
+        for (int n=0;n<Xcross.size()-1;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = n ? (Xcross[n]>FadeEndLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta) : 96;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<Xcross.size()-1;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = Xcross[n]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectDownLine.y1()+1 : DownSlope*newX2+DownBeta;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
         }
         break;
       case 1:
@@ -59,19 +84,26 @@ void LFO::FillEffect() {
             spacer += WaveFreq;
             if (spacer > FadeEndLine.x1()) break;
         }
+        for (int n=0;n<Xcross.size()-1;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = n ? (Xcross[n]>FadeEndLine.x1() ? EffectDownLine.y1()-1:DownSlope*newX1+DownBeta) : 96;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<Xcross.size()-1;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = Xcross[n]>FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX1+UpBeta;
+            newY2 = Xcross[n+1]>FadeEndLine.x1() ? EffectDownLine.y1()+1 : DownSlope*newX2+DownBeta;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
         break;
     } // end switch
-    QPen WavePen(Qt::darkGreen);
-    for (int x=0;x<Xcross.size()-1;x+=2) {
-        dummy = scene->addLine(x==0?Xcross[x]:(Xcross[x]+Xcross[x-1])/2, x==0?96:Xcross[x]>FadeEndLine.x1()?EffectDownLine.y1()-1:102 , (Xcross[x]+Xcross[x+1])/2, Xcross[x+1]>FadeEndLine.x1()?EffectUpLine.y1()+1:90);
-        dummy->setPen(WavePen);
-        WaveLines << dummy;
-    }
-    for (int x=1;x<Xcross.size()-1;x+=2) {
-        dummy = scene->addLine((Xcross[x]+Xcross[x-1])/2, Xcross[x]>FadeEndLine.x1()?EffectUpLine.y1()-1:90, (Xcross[x]+Xcross[x+1])/2, Xcross[x+1]>FadeEndLine.x1()?EffectDownLine.y1()+1:102);
-        dummy->setPen(WavePen);
-        WaveLines << dummy;
-    }
   } // end if Rate>0
 }   // end FillEffect
 
@@ -95,11 +127,15 @@ LFO::LFO(QWidget *parent) :
     ui->LFO_display->fitInView(0,0,80,35);
     ui->LFO_display->show();
     // fake set_initial_values section for testing
+    ui->Depth_select->blockSignals(true);
     ui->Depth_select->setValue(64);
+    ui->Depth_select->blockSignals(false);
     ui->Rate_select ->setValue(64);
     ui->FadeMode_select->setCurrentIndex(0);
-    ui->Delay_select->setValue(64);
+    ui->Fade_select->blockSignals(true);
     ui->Fade_select->setValue(64);
+    ui->Fade_select->blockSignals(false);
+    ui->Delay_select->setValue(64);
 }
 
 LFO::~LFO()
