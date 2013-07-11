@@ -96,7 +96,7 @@ void LFO::FillEffect() {
       case 1:
       case 3:
         spacer = 11;
-        for (int x=1;x<=FadeEndLine.x1()/WaveFreq;x++) {
+        for (int x=0;x<=FadeEndLine.x1()/WaveFreq;x++) {
             Xcross << spacer;
             spacer += WaveFreq;
             if (spacer > FadeEndLine.x1()+1) break;
