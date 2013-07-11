@@ -36,6 +36,7 @@ Tone_tab
 
 ToneEFX_tab
   - LFO1/2 Delay/Fade graphics should be dynamic
+  - LFO1/2 origin selection switch (TVA,TVF,PAN,PITCH)
   - Pan Keyfollow graphic needs improvement
 
 ToneTVF_tab
