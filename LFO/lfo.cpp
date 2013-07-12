@@ -17,136 +17,6 @@ QPen LFO::blackLine(Qt::black, 0);
 QPen LFO::dotLine(Qt::DotLine);
 QPen LFO::redLine(Qt::red, 0);
 
-void LFO::setOffIn() {
-    OffLine.setLine(30,10,30,160);
-    ptrOffLine = scene->addLine(OffLine,dotLine);
-    OffText = scene->addSimpleText("Off");
-    OffText->setPos(30,164);
-}
-void LFO::setOffOut() {
-    OffLine.setLine(42,10,42,160);
-    ptrOffLine = scene->addLine(OffLine,dotLine);
-    OffText = scene->addSimpleText("Off");
-    OffText->setPos(40,164);
-}
-void LFO::FillEffect() {
-    static QList<qreal> Xcross;
-    static QList<QGraphicsLineItem *> WaveLines;
-    if (!Xcross.isEmpty()) Xcross.clear();
-    QGraphicsLineItem *dummy;
-    while (!WaveLines.isEmpty()) {
-        dummy = WaveLines.takeFirst();
-        scene->removeItem(dummy);
-    }
-  if (ui->Rate_select->value()) {
-    QPen WavePen(Qt::darkGreen);
-    qreal newX1, newX2, newY1, newY2;
-    qreal spacer;
-    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
-    qreal UpSlope = FadeUpLine.dy() / FadeUpLine.dx();
-    qreal DownSlope = FadeDownLine.dy() / FadeDownLine.dx();
-    qreal UpBeta = FadeUpLine.y2() - (UpSlope*FadeUpLine.x2());
-    qreal DownBeta = FadeDownLine.y2() - (DownSlope*FadeDownLine.x2());
-    int L;
-    switch(ui->FadeMode_select->currentIndex()) {
-      case 0:
-      case 2:
-        spacer = FadeStartLine.x1()+1;
-        for (int x=0;x<=140/WaveFreq;x++) {
-            Xcross << spacer;
-            spacer += WaveFreq;
-            if (spacer > 141) break;
-        }        
-        L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
-            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
-            newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=FadeEndLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
-            if (newY1 >= EffectDownLine.y1()) newY1 = EffectDownLine.y1()-1;
-            if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
-            if (!n) newY1 = 96;
-            newY2 = newX2>=FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
-            if (newY2 <= EffectUpLine.y1()) newY2 = EffectUpLine.y1()+1;
-            if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
-            dummy = scene->addLine(newX1, newY1, newX2, newY2);
-            dummy->setPen(WavePen);
-            WaveLines << dummy;
-        }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
-            newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
-            if (newY1 <= EffectUpLine.y1()) newY1 = EffectUpLine.y1()+1;
-            if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
-            newY2 = newX2>=FadeEndLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
-            if (newY2 >= EffectDownLine.y1()) newY2 = EffectDownLine.y1()-1;
-            if (newY2 >= DownSlope*newX2+DownBeta) newY2 = DownSlope*newX2+DownBeta-1;
-            dummy = scene->addLine(newX1, newY1, newX2, newY2);
-            dummy->setPen(WavePen);
-            WaveLines << dummy;
-        }
-        newX1 = Xcross[L] - (WaveFreq/2);
-        newX2 = 140;
-        newY1 = Xcross.size()%2 ?EffectDownLine.y2()-1:EffectUpLine.y2()-1;
-        newY2 = 96;
-        dummy = scene->addLine(newX1, newY1, newX2, newY2);
-        dummy->setPen(WavePen);
-        WaveLines << dummy;
-        break;
-      case 1:
-      case 3:
-        spacer = 11;
-        for (int x=0;x<=FadeEndLine.x1()/WaveFreq;x++) {
-            Xcross << spacer;
-            spacer += WaveFreq;
-            if (spacer > FadeEndLine.x1()+1) break;
-        }
-        L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
-            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
-            newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1<=FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
-            if (newY1 >= EffectDownLine.y1()) newY1 = EffectDownLine.y1()-1;
-            if (!n) newY1 = 96;
-            newY2 = newX2<=FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
-            if (newY2 <= EffectUpLine.y1()) newY2 = EffectUpLine.y1()+1;
-            dummy = scene->addLine(newX1, newY1, newX2, newY2);
-            dummy->setPen(WavePen);
-            WaveLines << dummy;
-        }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
-            newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1<=FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
-            if (newY1 <= EffectUpLine.y1()) newY1 = EffectUpLine.y1()+1;
-            newY2 = newX2<=FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
-            if (newY2 >= EffectDownLine.y1()) newY2 = EffectDownLine.y1()-1;
-            dummy = scene->addLine(newX1, newY1, newX2, newY2);
-            dummy->setPen(WavePen);
-            WaveLines << dummy;
-        }
-        newX1 = Xcross[L] - (WaveFreq/2);
-        newX2 = newX1 + (WaveFreq/2);
-        if (Xcross.size()%2) {
-            newY1 = newX1<FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
-            newY2 = newX2 > FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : EffectUpLine.y1()+1;
-        }
-        else {
-            newY1 = newX1<FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
-            newY2 = newX2 > FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : EffectDownLine.y2()-1;
-        }
-        if (newX2>= FadeEndLine.x1()) {
-            newX2 = FadeEndLine.x1()-1;
-            newY2 = 96;
-        }
-        dummy = scene->addLine(newX1, newY1, newX2, newY2);
-        dummy->setPen(WavePen);
-        WaveLines << dummy;
-        break;
-    } // end switch
-  } // end if Rate>0
-}   // end FillEffect
-
 LFO::LFO(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::LFO)
@@ -324,3 +194,133 @@ void LFO::on_Waveform_select_currentIndexChanged(int index)
         break;
     }   // end switch
 }   // end on_Waveform_select_currentIndexChanged
+
+void LFO::setOffIn() {
+    OffLine.setLine(30,10,30,160);
+    ptrOffLine = scene->addLine(OffLine,dotLine);
+    OffText = scene->addSimpleText("Off");
+    OffText->setPos(30,164);
+}
+void LFO::setOffOut() {
+    OffLine.setLine(42,10,42,160);
+    ptrOffLine = scene->addLine(OffLine,dotLine);
+    OffText = scene->addSimpleText("Off");
+    OffText->setPos(40,164);
+}
+void LFO::FillEffect() {
+    static QList<qreal> Xcross;
+    static QList<QGraphicsLineItem *> WaveLines;
+    if (!Xcross.isEmpty()) Xcross.clear();
+    QGraphicsLineItem *dummy;
+    while (!WaveLines.isEmpty()) {
+        dummy = WaveLines.takeFirst();
+        scene->removeItem(dummy);
+    }
+  if (ui->Rate_select->value()) {
+    QPen WavePen(Qt::darkGreen);
+    qreal newX1, newX2, newY1, newY2;
+    qreal spacer;
+    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
+    qreal UpSlope = FadeUpLine.dy() / FadeUpLine.dx();
+    qreal DownSlope = FadeDownLine.dy() / FadeDownLine.dx();
+    qreal UpBeta = FadeUpLine.y2() - (UpSlope*FadeUpLine.x2());
+    qreal DownBeta = FadeDownLine.y2() - (DownSlope*FadeDownLine.x2());
+    int L;
+    switch(ui->FadeMode_select->currentIndex()) {
+      case 0:
+      case 2:
+        spacer = FadeStartLine.x1()+1;
+        for (int x=0;x<=140/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > 141) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=FadeEndLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= EffectDownLine.y1()) newY1 = EffectDownLine.y1()-1;
+            if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2>=FadeEndLine.x1() ? EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
+            if (newY2 <= EffectUpLine.y1()) newY2 = EffectUpLine.y1()+1;
+            if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=FadeEndLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= EffectUpLine.y1()) newY1 = EffectUpLine.y1()+1;
+            if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
+            newY2 = newX2>=FadeEndLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= EffectDownLine.y1()) newY2 = EffectDownLine.y1()-1;
+            if (newY2 >= DownSlope*newX2+DownBeta) newY2 = DownSlope*newX2+DownBeta-1;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = 140;
+        newY1 = Xcross.size()%2 ?EffectDownLine.y2()-1:EffectUpLine.y2()-1;
+        newY2 = 96;
+        dummy = scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+      case 1:
+      case 3:
+        spacer = 11;
+        for (int x=0;x<=FadeEndLine.x1()/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > FadeEndLine.x1()+1) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= EffectDownLine.y1()) newY1 = EffectDownLine.y1()-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2<=FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
+            if (newY2 <= EffectUpLine.y1()) newY2 = EffectUpLine.y1()+1;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= EffectUpLine.y1()) newY1 = EffectUpLine.y1()+1;
+            newY2 = newX2<=FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= EffectDownLine.y1()) newY2 = EffectDownLine.y1()-1;
+            dummy = scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = newX1 + (WaveFreq/2);
+        if (Xcross.size()%2) {
+            newY1 = newX1<FadeStartLine.x1() ? EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : EffectUpLine.y1()+1;
+        }
+        else {
+            newY1 = newX1<FadeStartLine.x1() ? EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : EffectDownLine.y2()-1;
+        }
+        if (newX2>= FadeEndLine.x1()) {
+            newX2 = FadeEndLine.x1()-1;
+            newY2 = 96;
+        }
+        dummy = scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+    } // end switch
+  } // end if Rate>0
+}   // end FillEffect
