@@ -26,6 +26,7 @@ void JVlibForm::LFO2_setOffOut() {
     LFO2_OffText = LFO2_scene->addSimpleText("Off");
     LFO2_OffText->setPos(40,164);
 }
+
 void JVlibForm::LFO1_FillEffect() {
     static QList<qreal> Xcross;
     static QList<QGraphicsLineItem *> WaveLines;
@@ -45,6 +46,21 @@ void JVlibForm::LFO1_FillEffect() {
     qreal UpBeta = LFO1_FadeUpLine.y2() - (UpSlope*LFO1_FadeUpLine.x2());
     qreal DownBeta = LFO1_FadeDownLine.y2() - (DownSlope*LFO1_FadeDownLine.x2());
     int L;
+    int thisDepth = 0;
+    switch(ToneEFX_LFO1Target_select->currentIndex()) {
+      case 0:
+	thisDepth = Pitch_LFO1Depth_select->value();
+	break;
+      case 1:
+	thisDepth = ToneEFX_PanLFO1Depth_select->value();
+	break;
+      case 2:
+	thisDepth = ToneTVA_LFO1Depth_select->value();
+	break;
+      case 3:
+	thisDepth = ToneTVF_LFO1Depth_select->value();
+	break;
+    }
     switch(ToneEFX_LFO1FadeMode_select->currentIndex()) {
       case 0:
       case 2:
@@ -55,24 +71,29 @@ void JVlibForm::LFO1_FillEffect() {
             if (spacer > 141) break;
         }
         L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
+        for (int n=(thisDepth>0?0:1);n<L;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (!n)
+	      newY1 = 96;
+	    else
+	      newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
             if (newY1 >= LFO1_EffectDownLine.y1()) newY1 = LFO1_EffectDownLine.y1()-1;
             if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
-            if (!n) newY1 = 96;
-            newY2 = newX2>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
+            newY2 = newX2>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta+1;
             if (newY2 <= LFO1_EffectUpLine.y1()) newY2 = LFO1_EffectUpLine.y1()+1;
             if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
             dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
         }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
+        for (int n=(thisDepth>0?1:0);n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (!n)
+	      newY1 = 96;
+	    else
+	      newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
             if (newY1 <= LFO1_EffectUpLine.y1()) newY1 = LFO1_EffectUpLine.y1()+1;
             if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
             newY2 = newX2>=LFO1_FadeEndLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
@@ -84,7 +105,10 @@ void JVlibForm::LFO1_FillEffect() {
         }
         newX1 = Xcross[L] - (WaveFreq/2);
         newX2 = 140;
-        newY1 = Xcross.size()%2 ?LFO1_EffectDownLine.y2()-1:LFO1_EffectUpLine.y2()-1;
+	if (thisDepth>0)
+	  newY1 = Xcross.size()%2 ?LFO1_EffectDownLine.y2()-1:LFO1_EffectUpLine.y2()+1;
+	else
+	  newY1 = Xcross.size()%2 ?LFO1_EffectUpLine.y2()+1 : LFO1_EffectDownLine.y2()-1;
         newY2 = 96;
         dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
         dummy->setPen(WavePen);
@@ -99,21 +123,26 @@ void JVlibForm::LFO1_FillEffect() {
             if (spacer > LFO1_FadeEndLine.x1()+1) break;
         }
         L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
+        for (int n=(thisDepth>0?0:1);n<L;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1<=LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (!n) 
+	      newY1 = 96;
+	    else
+	      newY1 = newX1<=LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
             if (newY1 >= LFO1_EffectDownLine.y1()) newY1 = LFO1_EffectDownLine.y1()-1;
-            if (!n) newY1 = 96;
-            newY2 = newX2<=LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
+            newY2 = newX2<=LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta+1;
             if (newY2 <= LFO1_EffectUpLine.y1()) newY2 = LFO1_EffectUpLine.y1()+1;
             dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
         }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
+        for (int n=(thisDepth>0?1:0);n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
+            if (!n) 
+	      newY1 = 96;
+	    else
             newY1 = newX1<=LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
             if (newY1 <= LFO1_EffectUpLine.y1()) newY1 = LFO1_EffectUpLine.y1()+1;
             newY2 = newX2<=LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
@@ -124,16 +153,30 @@ void JVlibForm::LFO1_FillEffect() {
         }
         newX1 = Xcross[L] - (WaveFreq/2);
         newX2 = newX1 + (WaveFreq/2);
-        if (Xcross.size()%2) {
-            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
-            newY2 = newX2 > LFO1_FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : LFO1_EffectUpLine.y1()+1;
-        }
-        else {
-            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
-            newY2 = newX2 > LFO1_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO1_EffectDownLine.y2()-1;
-        }
         if (newX2>= LFO1_FadeEndLine.x1()) {
             newX2 = LFO1_FadeEndLine.x1()-1;
+	}	
+	if (thisDepth>0) {
+	  if (Xcross.size()%2) {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? UpSlope*newX2+UpBeta+1 : LFO1_EffectUpLine.y1()+1;
+	  }
+	  else {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO1_EffectDownLine.y2()-1;
+	  }
+	}
+	else {	  
+	  if (Xcross.size()%2) {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? UpSlope*newX2+UpBeta+1 : LFO1_EffectUpLine.y1()+1;
+	  }
+	  else {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO1_EffectDownLine.y2()-1;
+	  }
+	}
+        if (newX2>= LFO1_FadeEndLine.x1()) {
             newY2 = 96;
         }
         dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
@@ -163,6 +206,21 @@ void JVlibForm::LFO2_FillEffect() {
     qreal UpBeta = LFO2_FadeUpLine.y2() - (UpSlope*LFO2_FadeUpLine.x2());
     qreal DownBeta = LFO2_FadeDownLine.y2() - (DownSlope*LFO2_FadeDownLine.x2());
     int L;
+    int thisDepth = 0;
+    switch(ToneEFX_LFO2Target_select->currentIndex()) {
+      case 0:
+	thisDepth = Pitch_LFO2Depth_select->value();
+	break;
+      case 1:
+	thisDepth = ToneEFX_PanLFO2Depth_select->value();
+	break;
+      case 2:
+	thisDepth = ToneTVA_LFO2Depth_select->value();
+	break;
+      case 3:
+	thisDepth = ToneTVF_LFO2Depth_select->value();
+	break;
+    }
     switch(ToneEFX_LFO2FadeMode_select->currentIndex()) {
       case 0:
       case 2:
@@ -173,24 +231,29 @@ void JVlibForm::LFO2_FillEffect() {
             if (spacer > 141) break;
         }
         L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
+        for (int n=(thisDepth>0?0:1);n<L;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (!n) 
+	      newY1 = 96;
+	    else
+	      newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
             if (newY1 >= LFO2_EffectDownLine.y1()) newY1 = LFO2_EffectDownLine.y1()-1;
             if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
-            if (!n) newY1 = 96;
-            newY2 = newX2>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
+            newY2 = newX2>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta+1;
             if (newY2 <= LFO2_EffectUpLine.y1()) newY2 = LFO2_EffectUpLine.y1()+1;
             if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
             dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
         }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
+        for (int n=(thisDepth>0?1:0);n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (!n) 
+	      newY1 = 96;
+	    else
+	      newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
             if (newY1 <= LFO2_EffectUpLine.y1()) newY1 = LFO2_EffectUpLine.y1()+1;
             if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
             newY2 = newX2>=LFO2_FadeEndLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
@@ -202,7 +265,10 @@ void JVlibForm::LFO2_FillEffect() {
         }
         newX1 = Xcross[L] - (WaveFreq/2);
         newX2 = 140;
-        newY1 = Xcross.size()%2 ?LFO2_EffectDownLine.y2()-1:LFO2_EffectUpLine.y2()-1;
+	if (thisDepth>0)
+	  newY1 = Xcross.size()%2 ?LFO2_EffectDownLine.y2()-1:LFO2_EffectUpLine.y2()+1;
+	else
+	  newY1 = Xcross.size()%2 ?LFO2_EffectUpLine.y2()+1 : LFO2_EffectDownLine.y2()-1;
         newY2 = 96;
         dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
         dummy->setPen(WavePen);
@@ -217,22 +283,27 @@ void JVlibForm::LFO2_FillEffect() {
             if (spacer > LFO2_FadeEndLine.x1()+1) break;
         }
         L = Xcross.size() - 1;
-        for (int n=0;n<L;n+=2) {
+        for (int n=(thisDepth>0?0:1);n<L;n+=2) {
             newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (!n) 
+	      newY1 = 96;
+	    else
+	      newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
             if (newY1 >= LFO2_EffectDownLine.y1()) newY1 = LFO2_EffectDownLine.y1()-1;
-            if (!n) newY1 = 96;
             newY2 = newX2<=LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
             if (newY2 <= LFO2_EffectUpLine.y1()) newY2 = LFO2_EffectUpLine.y1()+1;
             dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
             dummy->setPen(WavePen);
             WaveLines << dummy;
         }
-        for (int n=1;n<L;n+=2) {
-            newX1 = (Xcross[n]+Xcross[n-1])/2;
+        for (int n=(thisDepth>0?1:0);n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
             newX2 = (Xcross[n]+Xcross[n+1])/2;
-            newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (!n) 
+	      newY1 = 96;
+	    else
+	      newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
             if (newY1 <= LFO2_EffectUpLine.y1()) newY1 = LFO2_EffectUpLine.y1()+1;
             newY2 = newX2<=LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
             if (newY2 >= LFO2_EffectDownLine.y1()) newY2 = LFO2_EffectDownLine.y1()-1;
@@ -242,14 +313,26 @@ void JVlibForm::LFO2_FillEffect() {
         }
         newX1 = Xcross[L] - (WaveFreq/2);
         newX2 = newX1 + (WaveFreq/2);
-        if (Xcross.size()%2) {
+	if (thisDepth>0) {
+	  if (Xcross.size()%2) {
             newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
-            newY2 = newX2 > LFO2_FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : LFO2_EffectUpLine.y1()+1;
-        }
-        else {
+            newY2 = newX2 > LFO2_FadeStartLine.x1() ? UpSlope*newX2+UpBeta+1 : LFO2_EffectUpLine.y1()+1;
+	  }
+	  else {
             newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
             newY2 = newX2 > LFO2_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO2_EffectDownLine.y2()-1;
-        }
+	  }
+	}
+	else {	  
+	  if (Xcross.size()%2) {
+            newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > LFO2_FadeStartLine.x1() ? UpSlope*newX2+UpBeta+1 : LFO2_EffectUpLine.y1()+1;
+	  }
+	  else {
+            newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > LFO2_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO2_EffectDownLine.y2()-1;
+	  }
+	}
         if (newX2>= LFO2_FadeEndLine.x1()) {
             newX2 = LFO2_FadeEndLine.x1()-1;
             newY2 = 96;
@@ -416,7 +499,6 @@ void JVlibForm::on_ToneEFX_LFO1KeyTrigger_enable_toggled(bool val) {
 }
 void JVlibForm::on_ToneEFX_LFO1Rate_select_valueChanged(int val) {
   QString buf;
-
   if (ToneEFX_LFO1ExtSync_select->currentIndex()>0) {
     if (val<49) {
       buf = QString::number(val*2);
@@ -745,7 +827,7 @@ void JVlibForm::on_ToneEFX_LFO2FadeMode_select_currentIndexChanged(int val) {
 
 void JVlibForm::on_ToneEFX_LFO2FadeTime_select_valueChanged(int val) {
     static QGraphicsLineItem *ptrFadeEndLine;
-    qreal FadeVal = val/3 + LFO1_FadeStartLine.x2();
+    qreal FadeVal = val/3 + LFO2_FadeStartLine.x2();
     if (ptrFadeEndLine) {
         LFO2_scene->removeItem(ptrFadeEndLine);
         ptrFadeEndLine = 0;
@@ -825,6 +907,8 @@ void JVlibForm::on_ToneEFX_LFO2ExtSync_select_currentIndexChanged(int val) {
 }	// end on_ToneEFX_LFO2ExtSync_select_currentIndexChanged
 
 void JVlibForm::on_ToneEFX_LFO1Target_select_currentIndexChanged() {
+    on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
 }
 void JVlibForm::on_ToneEFX_LFO2Target_select_currentIndexChanged() {
+    on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
 }
