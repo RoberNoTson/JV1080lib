@@ -1,5 +1,6 @@
-#include "lfo.h"
-#include "ui_lfo.h"
+#include "LFO/lfo.h"
+#include "./lfo.h"
+
 QLineF LFO::FadeUpLine(0,0,0,0);
 QLineF LFO::FadeDownLine(0,0,0,0);
 QLineF LFO::EffectUpLine(0,0,0,0);
@@ -16,12 +17,15 @@ QGraphicsScene *LFO::scene = 0;
 QPen LFO::blackLine(Qt::black, 0);
 QPen LFO::dotLine(Qt::DotLine);
 QPen LFO::redLine(Qt::red, 0);
+int LFO::thisRate = 0;
+int LFO::thisDepth = 0;
+int LFO::thisFadeMode = 0;
+int LFO::thisFade = 0;
+int LFO::thisDelay = 0;
 
-LFO::LFO(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::LFO)
+LFO::LFO(QGraphicsView *LFO_display, QWidget *parent) :
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
     scene = new QGraphicsScene;
     dotLine.setColor(Qt::blue);
     scene->setSceneRect(0, 0, 256, 192);
@@ -33,26 +37,14 @@ LFO::LFO(QWidget *parent) :
     FadeText = 0;
     DelayText = 0;
     EffectText = 0;
-    ui->LFO_display->setScene(scene);
-    ui->LFO_display->fitInView(0,0,80,35);
-    ui->LFO_display->show();
-    // fake set_initial_values section for testing
-    ui->Depth_select->blockSignals(true);
-    ui->Depth_select->setValue(127);
-    ui->Depth_display->display(127);
-    ui->Depth_select->blockSignals(false);
-    ui->Rate_select ->setValue(64);
-    ui->FadeMode_select->setCurrentIndex(0);
-    ui->Fade_select->blockSignals(true);
-    ui->Fade_select->setValue(64);
-    ui->Fade_display->display(64);
-    ui->Fade_select->blockSignals(false);
-    ui->Delay_select->setValue(64);
+    LFO_display->setScene(scene);
+    LFO_display->fitInView(0,0,80,35);
+    LFO_display->show();
 }
 
 LFO::~LFO()
 {
-    delete ui;
+
 }
 
 void LFO::on_Delay_select_valueChanged(int value)
@@ -68,7 +60,7 @@ void LFO::on_Delay_select_valueChanged(int value)
         DelayText = 0;
     }
     if (value) DelayText = scene->addSimpleText(value>50?"Dly":"D");
-    switch(ui->FadeMode_select->currentIndex()) {
+    switch(thisFadeMode) {
     case 0:   // On-In
     case 1:
         DelayVal += 10;
@@ -89,7 +81,7 @@ void LFO::on_Delay_select_valueChanged(int value)
       break;
     } // end switch
     ptrFadeStartLine = scene->addLine(FadeStartLine,dotLine);
-    on_Fade_select_valueChanged(ui->Fade_select->value());
+    on_Fade_select_valueChanged(thisFade);
 }   // end on_Delay_select_valueChanged
 
 void LFO::on_Fade_select_valueChanged(int value)
@@ -122,18 +114,18 @@ void LFO::on_Fade_select_valueChanged(int value)
     }
     FadeEndLine.setLine(FadeVal,10,FadeVal,160);
     ptrFadeEndLine = scene->addLine(FadeEndLine,dotLine);
-    switch(ui->FadeMode_select->currentIndex()) {
+    switch(thisFadeMode) {
       case 0:
       case 2:
-          FadeUpLine.setLine(FadeStartLine.x1(), 96, FadeEndLine.x1(), 96-(ui->Depth_select->value()/2));
-          FadeDownLine.setLine(FadeStartLine.x1(), 96, FadeEndLine.x1(), 96+(ui->Depth_select->value()/2));
+          FadeUpLine.setLine(FadeStartLine.x1(), 96, FadeEndLine.x1(), 96-(thisDepth/2));
+          FadeDownLine.setLine(FadeStartLine.x1(), 96, FadeEndLine.x1(), 96+(thisDepth/2));
           EffectUpLine.setLine(FadeEndLine.x2(), FadeUpLine.y2(), 140, FadeUpLine.y2());
           EffectDownLine.setLine(FadeEndLine.x2(), FadeDownLine.y2(), 140, FadeDownLine.y2());
           break;
       case 1:
       case 3:
-          FadeUpLine.setLine(FadeStartLine.x1(), 96-(ui->Depth_select->value()/2), FadeEndLine.x1(), 96);
-          FadeDownLine.setLine(FadeStartLine.x1(), 96+(ui->Depth_select->value()/2), FadeEndLine.x1(), 96);
+          FadeUpLine.setLine(FadeStartLine.x1(), 96-(thisDepth/2), FadeEndLine.x1(), 96);
+          FadeDownLine.setLine(FadeStartLine.x1(), 96+(thisDepth/2), FadeEndLine.x1(), 96);
           EffectUpLine.setLine(10, FadeUpLine.y1(), FadeStartLine.x1(), FadeUpLine.y1());
           EffectDownLine.setLine(10, FadeDownLine.y1(), FadeStartLine.x1(), FadeDownLine.y1());
           break;
@@ -146,13 +138,13 @@ void LFO::on_Fade_select_valueChanged(int value)
     ptrFadeDown = scene->addLine(FadeDownLine,redLine);
     ptrEffectUp = scene->addLine(EffectUpLine,redLine);
     ptrEffectDown = scene->addLine(EffectDownLine,redLine);
-    on_Waveform_select_currentIndexChanged(ui->Waveform_select->currentIndex());
     FillEffect();
 }   // end on_Fade_select_valueChanged
 
 void LFO::on_Depth_select_valueChanged()
 {
-    on_Delay_select_valueChanged(ui->Delay_select->value());
+    on_Delay_select_valueChanged(thisDelay);
+//    on_Delay_select_valueChanged(ui->Delay_select->value());
 }   // end on_Depth_select_valueChanged
 
 void LFO::on_FadeMode_select_currentIndexChanged(int index)
@@ -165,35 +157,14 @@ void LFO::on_FadeMode_select_currentIndexChanged(int index)
     }
     if (index == 2) setOffIn();
     if (index == 3) setOffOut();
-    on_Delay_select_valueChanged(ui->Delay_select->value());
+    on_Delay_select_valueChanged(thisDelay);
 }   // end on_FadeMode_select_currentIndexChanged
 
 void LFO::on_Rate_select_valueChanged()
 {
-    on_Delay_select_valueChanged(ui->Delay_select->value());
+    on_Delay_select_valueChanged(thisDelay);
+//    on_Delay_select_valueChanged(ui->Delay_select->value());
 }   // end on_Rate_select_valueChanged
-
-void LFO::on_Waveform_select_currentIndexChanged(int index)
-{
-    switch(index) {
-    case 0: // Delta
-        break;
-    case 1: // Sine
-        break;
-    case 2: // Sawtooth
-        break;
-    case 3: // Square
-        break;
-    case 4: // Trapezoid
-        break;
-    case 5: // Sample/Hold
-        break;
-    case 6: // Random
-        break;
-    case 7: // Chaotic
-        break;
-    }   // end switch
-}   // end on_Waveform_select_currentIndexChanged
 
 void LFO::setOffIn() {
     OffLine.setLine(30,10,30,160);
@@ -216,17 +187,20 @@ void LFO::FillEffect() {
         dummy = WaveLines.takeFirst();
         scene->removeItem(dummy);
     }
-  if (ui->Rate_select->value()) {
+//  if (ui->Rate_select->value()) {
+  if (thisRate) {
     QPen WavePen(Qt::darkGreen);
     qreal newX1, newX2, newY1, newY2;
     qreal spacer;
-    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
+//    qreal WaveFreq =  35 - (ui->Rate_select->value()/4);
+    qreal WaveFreq =  35 - (thisRate/4);
     qreal UpSlope = FadeUpLine.dy() / FadeUpLine.dx();
     qreal DownSlope = FadeDownLine.dy() / FadeDownLine.dx();
     qreal UpBeta = FadeUpLine.y2() - (UpSlope*FadeUpLine.x2());
     qreal DownBeta = FadeDownLine.y2() - (DownSlope*FadeDownLine.x2());
     int L;
-    switch(ui->FadeMode_select->currentIndex()) {
+//    switch(ui->FadeMode_select->currentIndex()) {
+    switch(thisFadeMode) {
       case 0:
       case 2:
         spacer = FadeStartLine.x1()+1;

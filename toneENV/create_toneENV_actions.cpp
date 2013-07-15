@@ -3,28 +3,28 @@
 #include        <QtGui>
 
 void JVlibForm::createToneENVactions() {
-  QPen ToneEnv_blackLine(Qt::black, 0);
-  ToneEnv_redLine.setColor(Qt::red);
-  ToneEnv_dotLine.setStyle(Qt::DotLine);
-  ToneEnv_dotLine.setColor(Qt::blue);
+  blackLine.setColor(Qt::black);
+  redLine.setColor(Qt::red);
+  dotLine.setStyle(Qt::DotLine);
+  dotLine.setColor(Qt::blue);
   
   ToneTVA_Bias_ptrbpMark = 0;
   ToneTVA_Bias_ptrHiLine = 0;
   ToneTVA_Bias_ptrLowLine = 0;
   ToneTVA_Bias_scene->setSceneRect(0, 0, 325, 135);
-  ToneTVA_Bias_scene->addLine(40, 65, 295, 65, ToneEnv_blackLine);     // X axis
-  ToneTVA_Bias_scene->addLine(40, 10, 40, 118, ToneEnv_blackLine);    // Y axis
-  ToneTVA_Bias_scene->addLine(295, 10, 295, 118, ToneEnv_blackLine);    // Y2 axis
+  ToneTVA_Bias_scene->addLine(40, 65, 295, 65, blackLine);     // X axis
+  ToneTVA_Bias_scene->addLine(40, 10, 40, 118, blackLine);    // Y axis
+  ToneTVA_Bias_scene->addLine(295, 10, 295, 118, blackLine);    // Y2 axis
   ToneTVA_Bias_scene->addSimpleText("Level")->setPos(3,45);
   ToneTVA_Bias_scene->addSimpleText("+100")->setPos(5,10);
   ToneTVA_Bias_scene->addSimpleText("-100")->setPos(5,100);
   ToneTVA_Bias_bpMark.setLine(104,20,104,150);
   ToneTVA_Bias_LowLine.setLine(40, 65, ToneTVA_Bias_bpMark.x1(),65);
-  ToneTVA_Bias_ptrLowLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_LowLine,ToneEnv_redLine);
+  ToneTVA_Bias_ptrLowLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_LowLine,redLine);
   ToneTVA_Bias_HiLine.setLine(ToneTVA_Bias_bpMark.x1(),65,295,65);
-  ToneTVA_Bias_ptrHiLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_HiLine,ToneEnv_redLine);
+  ToneTVA_Bias_ptrHiLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_HiLine,redLine);
   ToneTVA_Bias_bpMark.setLine((64*2)+40,10,(64*2)+40,115);
-  ToneTVA_Bias_ptrbpMark = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_bpMark,ToneEnv_dotLine);
+  ToneTVA_Bias_ptrbpMark = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_bpMark,dotLine);
   ToneTVA_Bias_bpText = ToneTVA_Bias_scene->addSimpleText("C 4");
   ToneTVA_Bias_bpText->setPos(ToneTVA_Bias_bpMark.x1(), 120);
   JVlibForm::ToneTVA_BiasPoint_display->setScene(ToneTVA_Bias_scene);
@@ -37,10 +37,10 @@ void JVlibForm::createToneENVactions() {
   QLineF ToneTVA_Env_t2Mark(30,0,30,-63);
   QLineF ToneTVA_Env_t3Mark(30,0,30,-63);
   QLineF ToneTVA_Env_t4Mark(380,0,380,-63);
-  ToneTVA_Env_scene->addLine(10, 0, 394, 0, ToneEnv_blackLine);     // X axis
-  ToneTVA_Env_scene->addLine(10, 0, 10, -63, ToneEnv_blackLine);    // Y axis
-  ToneTVA_Env_scene->addLine(30,8,30,-63,ToneEnv_dotLine);   // Note-On line
-  ToneTVA_Env_scene->addLine(ToneTVA_Env_offLine,ToneEnv_dotLine);
+  ToneTVA_Env_scene->addLine(10, 0, 394, 0, blackLine);     // X axis
+  ToneTVA_Env_scene->addLine(10, 0, 10, -63, blackLine);    // Y axis
+  ToneTVA_Env_scene->addLine(30,8,30,-63,dotLine);   // Note-On line
+  ToneTVA_Env_scene->addLine(ToneTVA_Env_offLine,dotLine);
   ToneTVA_Env_scene->addSimpleText("Level")->setPos(-20,-35);
   ToneTVA_Env_scene->addSimpleText("127")->setPos(-12,-60);
   ToneTVA_Env_scene->addSimpleText("0")->setPos(0,-10);
@@ -68,10 +68,10 @@ void JVlibForm::createToneENVactions() {
   QLineF ToneTVF_Env_t2Mark(50,20,50,150);
   QLineF ToneTVF_Env_t3Mark(50,20,50,150);
   QLineF ToneTVF_Env_t4Mark(375,20,374,150);
-  ToneTVF_Env_scene->addLine(40, 90, 380, 90, ToneEnv_blackLine);     // X axis
-  ToneTVF_Env_scene->addLine(40, 20, 40, 157, ToneEnv_blackLine);    // Y axis
-  ToneTVF_Env_scene->addLine(50,20,50,158,ToneEnv_dotLine);   // Note-On line
-  ToneTVF_Env_scene->addLine(ToneTVF_Env_offLine,ToneEnv_dotLine);
+  ToneTVF_Env_scene->addLine(40, 90, 380, 90, blackLine);     // X axis
+  ToneTVF_Env_scene->addLine(40, 20, 40, 157, blackLine);    // Y axis
+  ToneTVF_Env_scene->addLine(50,20,50,158,dotLine);   // Note-On line
+  ToneTVF_Env_scene->addLine(ToneTVF_Env_offLine,dotLine);
   ToneTVF_Env_scene->addSimpleText("Cutoff\nFreq")->setPos(3,55);
   ToneTVF_Env_scene->addSimpleText("+")->setPos(30,20);
   ToneTVF_Env_scene->addSimpleText("-")->setPos(30,140);
@@ -100,23 +100,19 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Time3_select->setValue(1);
   ToneTVA_Time4_select->setValue(1);
 
-  QPen Pitch_blackLine(Qt::black, 0);
   QLineF Pitch_Env_t4(384,0,384,0);
   QLineF Pitch_Env_offLine(374,90,374,90);
   QLineF Pitch_Env_t1Mark(50,20,50,150);
   QLineF Pitch_Env_t2Mark(50,20,50,150);
   QLineF Pitch_Env_t3Mark(50,20,50,150);
   QLineF Pitch_Env_t4Mark(374,20,374,150);
-  Pitch_redLine.setColor(Qt::red);
-  Pitch_dotLine.setStyle(Qt::DotLine);
-  Pitch_dotLine.setColor(Qt::blue);
   Pitch_Env_scene->setSceneRect(0, 0, 425, 175);
   JVlibForm::Pitch_Env_display->setScene(Pitch_Env_scene);
   JVlibForm::Pitch_Env_display->show();
-  Pitch_Env_scene->addLine(40, 90, 380, 90, Pitch_blackLine);     // X axis
-  Pitch_Env_scene->addLine(40, 20, 40, 157, Pitch_blackLine);    // Y axis
-  Pitch_Env_scene->addLine(50,20,50,158,Pitch_dotLine);   // Note-On line
-  Pitch_Env_scene->addLine(Pitch_Env_offLine,Pitch_dotLine);
+  Pitch_Env_scene->addLine(40, 90, 380, 90, blackLine);     // X axis
+  Pitch_Env_scene->addLine(40, 20, 40, 157, blackLine);    // Y axis
+  Pitch_Env_scene->addLine(50,20,50,158,dotLine);   // Note-On line
+  Pitch_Env_scene->addLine(Pitch_Env_offLine,dotLine);
   Pitch_Env_scene->addSimpleText("Pitch")->setPos(3,55);
   Pitch_Env_scene->addSimpleText("+")->setPos(30,20);
   Pitch_Env_scene->addSimpleText("-")->setPos(30,140);
@@ -138,4 +134,40 @@ void JVlibForm::createToneENVactions() {
   Pitch_Time2_select->setValue(1);
   Pitch_Time3_select->setValue(1);
   Pitch_Time4_select->setValue(1);
+  
+  LFO1_scene->setSceneRect(0, 0, 256, 192);
+  LFO1_scene->addLine(10, 192/2, 140, 192/2, blackLine);     // X axis
+  LFO1_scene->addLine(10,10,10,160,dotLine);   // Note-On line
+  QGraphicsSimpleTextItem *LFO1_OnText = LFO1_scene->addSimpleText("On");
+  LFO1_OnText->setPos(8,164);
+  LFO1_OffText = 0;
+  LFO1_FadeText = 0;
+  LFO1_DelayText = 0;
+  LFO1_EffectText = 0;
+  LFO1_ptrFadeUp = 0;
+  LFO1_ptrFadeDown = 0;
+  LFO1_ptrEffectUp = 0;
+  LFO1_ptrEffectDown = 0;
+  LFO1_ptrOffLine = 0;
+  ToneEFX_LFO1_graph->setScene(LFO1_scene);
+  ToneEFX_LFO1_graph->fitInView(0,0,80,35);
+  ToneEFX_LFO1_graph->show();
+  LFO2_scene->setSceneRect(0, 0, 256, 192);
+  LFO2_scene->addLine(10, 192/2, 140, 192/2, blackLine);     // X axis
+  LFO2_scene->addLine(10,10,10,160,dotLine);   // Note-On line
+  QGraphicsSimpleTextItem *LFO2_OnText = LFO2_scene->addSimpleText("On");
+  LFO2_OnText->setPos(8,164);
+  LFO2_OffText = 0;
+  LFO2_FadeText = 0;
+  LFO2_DelayText = 0;
+  LFO2_EffectText = 0;
+  LFO2_ptrFadeUp = 0;
+  LFO2_ptrFadeDown = 0;
+  LFO2_ptrEffectUp = 0;
+  LFO2_ptrEffectDown = 0;
+  LFO2_ptrOffLine = 0;
+  ToneEFX_LFO2_graph->setScene(LFO2_scene);
+  ToneEFX_LFO2_graph->fitInView(0,0,80,35);
+  ToneEFX_LFO2_graph->show();
+
 }

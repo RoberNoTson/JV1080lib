@@ -31,6 +31,8 @@ void JVlibForm::createSysActions() {
   ToneTVA_Bias_scene = new QGraphicsScene;
   ToneTVA_Env_scene = new QGraphicsScene;
   ToneTVF_Env_scene = new QGraphicsScene;
+  LFO1_scene = new QGraphicsScene;
+  LFO2_scene = new QGraphicsScene;
   
   Tuning_ButtonGroup = new QButtonGroup();
   Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);

@@ -66,12 +66,7 @@ void::JVlibForm::setToneEFXParms(int val) {
  }	// end IF...ELSE patch
 
   if (state_table->updates_enabled) state_table->updates_enabled=false;
-  on_ToneEFX_LFO1Rate_select_valueChanged(ToneEFX_LFO1Rate_select->value());
-  on_ToneEFX_LFO2Rate_select_valueChanged(ToneEFX_LFO2Rate_select->value());
-  on_ToneEFX_LFO1FadeMode_select_currentIndexChanged(ToneEFX_LFO1FadeMode_select->currentIndex());
-  on_ToneEFX_LFO2FadeMode_select_currentIndexChanged(ToneEFX_LFO2FadeMode_select->currentIndex());
   on_ToneEFX_PanKeyFollow_select_currentIndexChanged(ToneEFX_PanKeyFollow_select->currentIndex());
   on_ToneEFX_Pan_select_valueChanged(ToneEFX_Pan_select->value());
   on_ToneEFX_AltPan_select_valueChanged(ToneEFX_AltPan_select->value());
-  
 }	// end setToneEFXParms

@@ -2,6 +2,266 @@
 #include        "JVlibForm.h"
 #include        <QtGui>
 
+void JVlibForm::LFO1_setOffIn() {
+    LFO1_OffLine.setLine(30,10,30,160);
+    LFO1_ptrOffLine = LFO1_scene->addLine(LFO1_OffLine,dotLine);
+    LFO1_OffText = LFO1_scene->addSimpleText("Off");
+    LFO1_OffText->setPos(30,164);
+}
+void JVlibForm::LFO1_setOffOut() {
+    LFO1_OffLine.setLine(42,10,42,160);
+    LFO1_ptrOffLine = LFO1_scene->addLine(LFO1_OffLine,dotLine);
+    LFO1_OffText = LFO1_scene->addSimpleText("Off");
+    LFO1_OffText->setPos(40,164);
+}
+void JVlibForm::LFO2_setOffIn() {
+    LFO2_OffLine.setLine(30,10,30,160);
+    LFO2_ptrOffLine = LFO2_scene->addLine(LFO2_OffLine,dotLine);
+    LFO2_OffText = LFO2_scene->addSimpleText("Off");
+    LFO2_OffText->setPos(30,164);
+}
+void JVlibForm::LFO2_setOffOut() {
+    LFO2_OffLine.setLine(42,10,42,160);
+    LFO2_ptrOffLine = LFO2_scene->addLine(LFO2_OffLine,dotLine);
+    LFO2_OffText = LFO2_scene->addSimpleText("Off");
+    LFO2_OffText->setPos(40,164);
+}
+void JVlibForm::LFO1_FillEffect() {
+    static QList<qreal> Xcross;
+    static QList<QGraphicsLineItem *> WaveLines;
+    if (!Xcross.isEmpty()) Xcross.clear();
+    QGraphicsLineItem *dummy;
+    while (!WaveLines.isEmpty()) {
+        dummy = WaveLines.takeFirst();
+        LFO1_scene->removeItem(dummy);
+    }
+  if (ToneEFX_LFO1Rate_select->value()) {
+    QPen WavePen(Qt::darkGreen);
+    qreal newX1, newX2, newY1, newY2;
+    qreal spacer;
+    qreal WaveFreq =  35 - (ToneEFX_LFO1Rate_select->value()/4);
+    qreal UpSlope = LFO1_FadeUpLine.dy() / LFO1_FadeUpLine.dx();
+    qreal DownSlope = LFO1_FadeDownLine.dy() / LFO1_FadeDownLine.dx();
+    qreal UpBeta = LFO1_FadeUpLine.y2() - (UpSlope*LFO1_FadeUpLine.x2());
+    qreal DownBeta = LFO1_FadeDownLine.y2() - (DownSlope*LFO1_FadeDownLine.x2());
+    int L;
+    switch(ToneEFX_LFO1FadeMode_select->currentIndex()) {
+      case 0:
+      case 2:
+        spacer = LFO1_FadeStartLine.x1()+1;
+        for (int x=0;x<=140/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > 141) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= LFO1_EffectDownLine.y1()) newY1 = LFO1_EffectDownLine.y1()-1;
+            if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
+            if (newY2 <= LFO1_EffectUpLine.y1()) newY2 = LFO1_EffectUpLine.y1()+1;
+            if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
+            dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=LFO1_FadeEndLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= LFO1_EffectUpLine.y1()) newY1 = LFO1_EffectUpLine.y1()+1;
+            if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
+            newY2 = newX2>=LFO1_FadeEndLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= LFO1_EffectDownLine.y1()) newY2 = LFO1_EffectDownLine.y1()-1;
+            if (newY2 >= DownSlope*newX2+DownBeta) newY2 = DownSlope*newX2+DownBeta-1;
+            dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = 140;
+        newY1 = Xcross.size()%2 ?LFO1_EffectDownLine.y2()-1:LFO1_EffectUpLine.y2()-1;
+        newY2 = 96;
+        dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+      case 1:
+      case 3:
+        spacer = 11;
+        for (int x=0;x<=LFO1_FadeEndLine.x1()/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > LFO1_FadeEndLine.x1()+1) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= LFO1_EffectDownLine.y1()) newY1 = LFO1_EffectDownLine.y1()-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2<=LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
+            if (newY2 <= LFO1_EffectUpLine.y1()) newY2 = LFO1_EffectUpLine.y1()+1;
+            dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= LFO1_EffectUpLine.y1()) newY1 = LFO1_EffectUpLine.y1()+1;
+            newY2 = newX2<=LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= LFO1_EffectDownLine.y1()) newY2 = LFO1_EffectDownLine.y1()-1;
+            dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = newX1 + (WaveFreq/2);
+        if (Xcross.size()%2) {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : LFO1_EffectUpLine.y1()+1;
+        }
+        else {
+            newY1 = newX1<LFO1_FadeStartLine.x1() ? LFO1_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > LFO1_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO1_EffectDownLine.y2()-1;
+        }
+        if (newX2>= LFO1_FadeEndLine.x1()) {
+            newX2 = LFO1_FadeEndLine.x1()-1;
+            newY2 = 96;
+        }
+        dummy = LFO1_scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+    } // end switch
+  } // end if Rate>0
+}   // end LFO1_FillEffect
+
+void JVlibForm::LFO2_FillEffect() {
+    static QList<qreal> Xcross;
+    static QList<QGraphicsLineItem *> WaveLines;
+    if (!Xcross.isEmpty()) Xcross.clear();
+    QGraphicsLineItem *dummy;
+    while (!WaveLines.isEmpty()) {
+        dummy = WaveLines.takeFirst();
+        LFO2_scene->removeItem(dummy);
+    }
+  if (ToneEFX_LFO2Rate_select->value()) {
+    QPen WavePen(Qt::darkGreen);
+    qreal newX1, newX2, newY1, newY2;
+    qreal spacer;
+    qreal WaveFreq =  35 - (ToneEFX_LFO2Rate_select->value()/4);
+    qreal UpSlope = LFO2_FadeUpLine.dy() / LFO2_FadeUpLine.dx();
+    qreal DownSlope = LFO2_FadeDownLine.dy() / LFO2_FadeDownLine.dx();
+    qreal UpBeta = LFO2_FadeUpLine.y2() - (UpSlope*LFO2_FadeUpLine.x2());
+    qreal DownBeta = LFO2_FadeDownLine.y2() - (DownSlope*LFO2_FadeDownLine.x2());
+    int L;
+    switch(ToneEFX_LFO2FadeMode_select->currentIndex()) {
+      case 0:
+      case 2:
+        spacer = LFO2_FadeStartLine.x1()+1;
+        for (int x=0;x<=140/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > 141) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= LFO2_EffectDownLine.y1()) newY1 = LFO2_EffectDownLine.y1()-1;
+            if (newY1 >= DownSlope*newX2+DownBeta) newY1 = DownSlope*newX2+DownBeta-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()-1 : UpSlope*newX2+UpBeta+1;
+            if (newY2 <= LFO2_EffectUpLine.y1()) newY2 = LFO2_EffectUpLine.y1()+1;
+            if (newY2 < UpSlope*newX2+UpBeta) newY2 = UpSlope*newX2+UpBeta+1;
+            dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1>=LFO2_FadeEndLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= LFO2_EffectUpLine.y1()) newY1 = LFO2_EffectUpLine.y1()+1;
+            if (newY1 <= UpSlope*newX2+UpBeta) newY1 = UpSlope*newX2+UpBeta+1;
+            newY2 = newX2>=LFO2_FadeEndLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= LFO2_EffectDownLine.y1()) newY2 = LFO2_EffectDownLine.y1()-1;
+            if (newY2 >= DownSlope*newX2+DownBeta) newY2 = DownSlope*newX2+DownBeta-1;
+            dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = 140;
+        newY1 = Xcross.size()%2 ?LFO2_EffectDownLine.y2()-1:LFO2_EffectUpLine.y2()-1;
+        newY2 = 96;
+        dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+      case 1:
+      case 3:
+        spacer = 11;
+        for (int x=0;x<=LFO2_FadeEndLine.x1()/WaveFreq;x++) {
+            Xcross << spacer;
+            spacer += WaveFreq;
+            if (spacer > LFO2_FadeEndLine.x1()+1) break;
+        }
+        L = Xcross.size() - 1;
+        for (int n=0;n<L;n+=2) {
+            newX1 = n ? (Xcross[n]+Xcross[n-1])/2 : Xcross[n];
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta+1;
+            if (newY1 >= LFO2_EffectDownLine.y1()) newY1 = LFO2_EffectDownLine.y1()-1;
+            if (!n) newY1 = 96;
+            newY2 = newX2<=LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX2+UpBeta-1;
+            if (newY2 <= LFO2_EffectUpLine.y1()) newY2 = LFO2_EffectUpLine.y1()+1;
+            dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        for (int n=1;n<L;n+=2) {
+            newX1 = (Xcross[n]+Xcross[n-1])/2;
+            newX2 = (Xcross[n]+Xcross[n+1])/2;
+            newY1 = newX1<=LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            if (newY1 <= LFO2_EffectUpLine.y1()) newY1 = LFO2_EffectUpLine.y1()+1;
+            newY2 = newX2<=LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX2+DownBeta-1;
+            if (newY2 >= LFO2_EffectDownLine.y1()) newY2 = LFO2_EffectDownLine.y1()-1;
+            dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+            dummy->setPen(WavePen);
+            WaveLines << dummy;
+        }
+        newX1 = Xcross[L] - (WaveFreq/2);
+        newX2 = newX1 + (WaveFreq/2);
+        if (Xcross.size()%2) {
+            newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectDownLine.y1()-1 : DownSlope*newX1+DownBeta-1;
+            newY2 = newX2 > LFO2_FadeStartLine.x1() ? UpSlope*newX2+UpBeta-1 : LFO2_EffectUpLine.y1()+1;
+        }
+        else {
+            newY1 = newX1<LFO2_FadeStartLine.x1() ? LFO2_EffectUpLine.y1()+1 : UpSlope*newX1+UpBeta+1;
+            newY2 = newX2 > LFO2_FadeStartLine.x1() ? DownSlope*newX2+DownBeta-1 : LFO2_EffectDownLine.y2()-1;
+        }
+        if (newX2>= LFO2_FadeEndLine.x1()) {
+            newX2 = LFO2_FadeEndLine.x1()-1;
+            newY2 = 96;
+        }
+        dummy = LFO2_scene->addLine(newX1, newY1, newX2, newY2);
+        dummy->setPen(WavePen);
+        WaveLines << dummy;
+        break;
+    } // end switch
+  } // end if Rate>0
+}   // end LFO2_FillEffect
+
 void JVlibForm::ToneEFXStdUpdate(int offset, int val) {
   if (state_table->updates_enabled) {
     char *ptr;
@@ -123,7 +383,7 @@ void JVlibForm::on_ToneEFX_PanKeyFollow_select_currentIndexChanged(int val) {
   }	// end Switch
   ToneEFX_PanKeyfollow_pixmap->setPixmap(modepic);
   ToneEFXStdUpdate(0x78, val);
-}
+}	// end on_ToneEFX_PanKeyFollow_select_currentIndexChanged
 void JVlibForm::on_ToneEFX_PanRandDepth_select_valueChanged(int val) {
   ToneEFXStdUpdate(0x79, val);
 }
@@ -137,9 +397,15 @@ void JVlibForm::on_ToneEFX_AltPan_select_valueChanged(int val) {
   ToneEFXStdUpdate(0x7A, val);
 }
 void JVlibForm::on_ToneEFX_PanLFO1Depth_select_valueChanged(int val) {
+  if (ToneEFX_LFO1Target_select->currentIndex() == 1) {
+    on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
+  }
   ToneEFXStdUpdate(0x7B, val+63);
 }
 void JVlibForm::on_ToneEFX_PanLFO2Depth_select_valueChanged(int val) {
+  if (ToneEFX_LFO2Target_select->currentIndex() == 1) {
+    on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
+  }
   ToneEFXStdUpdate(0x7C, val+63);
 }
 void JVlibForm::on_ToneEFX_LF01Waveform_select_currentIndexChanged(int val) {
@@ -150,6 +416,7 @@ void JVlibForm::on_ToneEFX_LFO1KeyTrigger_enable_toggled(bool val) {
 }
 void JVlibForm::on_ToneEFX_LFO1Rate_select_valueChanged(int val) {
   QString buf;
+
   if (ToneEFX_LFO1ExtSync_select->currentIndex()>0) {
     if (val<49) {
       buf = QString::number(val*2);
@@ -202,6 +469,9 @@ void JVlibForm::on_ToneEFX_LFO1Rate_select_valueChanged(int val) {
     buf = QString::number(val);
   }
   ToneEFX_LFO1Rate_display->setText(buf);
+  if (ToneEFX_LFO1Target_select->currentIndex() == 1) {
+    on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
+  }
   ToneEFXStdUpdate(0x2F, val);
 }	// end on_ToneEFX_LFO1Rate_select_valueChanged
 
@@ -209,37 +479,139 @@ void JVlibForm::on_ToneEFX_LFO1LevelOffset_select_currentIndexChanged(int val) {
   ToneEFXStdUpdate(0x30, val);
 }
 void JVlibForm::on_ToneEFX_LFO1Delay_select_valueChanged(int val) {
-  ToneEFXStdUpdate(0x31, val);
-}
-void JVlibForm::on_ToneEFX_LFO1FadeMode_select_currentIndexChanged(int val) {
-  QPixmap modepic;
-  switch(val) {
-    case 0:
-      modepic.load(":/res/LFOon_in.png");
-      break;
+    static QGraphicsLineItem *ptrFadeStartLine;
+    qreal DelayVal = val/3;
+    if (ptrFadeStartLine) {
+        LFO1_scene->removeItem(ptrFadeStartLine);
+        ptrFadeStartLine = 0;
+    }
+    if (LFO1_DelayText) {
+        LFO1_scene->removeItem(LFO1_DelayText);
+        LFO1_DelayText = 0;
+    }
+    if (val) LFO1_DelayText = LFO1_scene->addSimpleText(val>50?"Dly":"D");
+    switch(ToneEFX_LFO1FadeMode_select->currentIndex()) {
+    case 0:   // On-In
     case 1:
-      modepic.load(":/res/LFOon_out.png");
+        DelayVal += 10;
+        LFO1_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO1_DelayText) LFO1_DelayText->setPos(val>50 ? LFO1_FadeStartLine.x1()/2 : LFO1_FadeStartLine.x1()/2+5,5);
+        break;
+    case 2:   // Off-In
+        if (!LFO1_ptrOffLine) LFO1_setOffIn();
+        DelayVal += LFO1_OffLine.x1();
+        LFO1_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO1_DelayText) LFO1_DelayText->setPos((LFO1_FadeStartLine.x1()+LFO1_OffLine.x1())/2-10,5);
       break;
-    case 2:
-      modepic.load(":/res/LFOoff_in.png");
+    case 3:   // Off-Out
+        if (!LFO1_ptrOffLine) LFO1_setOffOut();
+        DelayVal += LFO1_OffLine.x1();
+        LFO1_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO1_DelayText) LFO1_DelayText->setPos((LFO1_FadeStartLine.x1()+LFO1_OffLine.x1())/2-10,5);
       break;
-    case 3:
-      modepic.load(":/res/LFOoff_out.png");
-      break;
-  }
-  ToneEFX_LFO1_Mode_picture->setPixmap(modepic);
+    } // end switch
+    ptrFadeStartLine = LFO1_scene->addLine(LFO1_FadeStartLine,dotLine);
+    if (state_table->updates_enabled) {
+      state_table->updates_enabled = false;
+      on_ToneEFX_LFO1FadeTime_select_valueChanged(ToneEFX_LFO1FadeTime_select->value());
+      state_table->updates_enabled = true;
+    } else {
+      on_ToneEFX_LFO1FadeTime_select_valueChanged(ToneEFX_LFO1FadeTime_select->value());
+    }      
+  ToneEFXStdUpdate(0x31, val);
+}	// end on_ToneEFX_LFO1Delay_select_valueChanged
+void JVlibForm::on_ToneEFX_LFO1FadeMode_select_currentIndexChanged(int val) {
+    if (LFO1_ptrOffLine) {
+        LFO1_scene->removeItem(LFO1_ptrOffLine);
+        LFO1_ptrOffLine = 0;
+        LFO1_scene->removeItem(LFO1_OffText);
+        LFO1_OffText = 0;
+    }
+    if (val == 2) LFO1_setOffIn();
+    if (val == 3) LFO1_setOffOut();
+    if (state_table->updates_enabled) {
+      state_table->updates_enabled = false;
+      on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
+      state_table->updates_enabled = true;
+    } else {
+      on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
+    }
   ToneEFXStdUpdate(0x32, val);
-}
+}	// end on_ToneEFX_LFO1FadeMode_select_currentIndexChanged
 void JVlibForm::on_ToneEFX_LFO1FadeTime_select_valueChanged(int val) {
+    static QGraphicsLineItem *ptrFadeEndLine;
+    qreal FadeVal = val/3 + LFO1_FadeStartLine.x2();
+    if (ptrFadeEndLine) {
+        LFO1_scene->removeItem(ptrFadeEndLine);
+        ptrFadeEndLine = 0;
+    }
+    if (LFO1_FadeText) {
+        LFO1_scene->removeItem(LFO1_FadeText);
+        LFO1_FadeText = 0;
+    }
+    if (LFO1_ptrFadeUp) {
+        LFO1_scene->removeItem(LFO1_ptrFadeUp);
+        LFO1_ptrFadeUp = 0;
+    }
+    if (LFO1_ptrFadeDown) {
+        LFO1_scene->removeItem(LFO1_ptrFadeDown);
+        LFO1_ptrFadeDown = 0;
+    }
+    if (LFO1_ptrEffectUp) {
+        LFO1_scene->removeItem(LFO1_ptrEffectUp);
+        LFO1_ptrEffectUp = 0;
+    }
+    if (LFO1_ptrEffectDown) {
+        LFO1_scene->removeItem(LFO1_ptrEffectDown);
+        LFO1_ptrEffectDown = 0;
+    }
+    LFO1_FadeEndLine.setLine(FadeVal,10,FadeVal,160);
+    ptrFadeEndLine = LFO1_scene->addLine(LFO1_FadeEndLine,dotLine);
+    int thisDepth = 0;
+    switch(ToneEFX_LFO1Target_select->currentIndex()) {
+      case 0:
+	thisDepth = Pitch_LFO1Depth_select->value();
+	break;
+      case 1:
+	thisDepth = ToneEFX_PanLFO1Depth_select->value();
+	break;
+      case 2:
+	thisDepth = ToneTVA_LFO1Depth_select->value();
+	break;
+      case 3:
+	thisDepth = ToneTVF_LFO1Depth_select->value();
+	break;
+    }
+    switch(ToneEFX_LFO1FadeMode_select->currentIndex()) {
+      case 0:
+      case 2:
+          LFO1_FadeUpLine.setLine(LFO1_FadeStartLine.x1(), 96, LFO1_FadeEndLine.x1(), 96-abs(thisDepth));
+          LFO1_FadeDownLine.setLine(LFO1_FadeStartLine.x1(), 96, LFO1_FadeEndLine.x1(), 96+abs(thisDepth));
+          LFO1_EffectUpLine.setLine(LFO1_FadeEndLine.x2(), LFO1_FadeUpLine.y2(), 140, LFO1_FadeUpLine.y2());
+          LFO1_EffectDownLine.setLine(LFO1_FadeEndLine.x2(), LFO1_FadeDownLine.y2(), 140, LFO1_FadeDownLine.y2());
+          break;
+      case 1:
+      case 3:
+          LFO1_FadeUpLine.setLine(LFO1_FadeStartLine.x1(), 96-abs(thisDepth), LFO1_FadeEndLine.x1(), 96);
+          LFO1_FadeDownLine.setLine(LFO1_FadeStartLine.x1(), 96+abs(thisDepth), LFO1_FadeEndLine.x1(), 96);
+          LFO1_EffectUpLine.setLine(10, LFO1_FadeUpLine.y1(), LFO1_FadeStartLine.x1(), LFO1_FadeUpLine.y1());
+          LFO1_EffectDownLine.setLine(10, LFO1_FadeDownLine.y1(), LFO1_FadeStartLine.x1(), LFO1_FadeDownLine.y1());
+          break;
+    } // end switch
+    if (val) {
+        LFO1_FadeText = LFO1_scene->addSimpleText(val>50?"Fade":"F");
+        LFO1_FadeText->setPos(val>50 ? (LFO1_FadeEndLine.x1()+LFO1_FadeStartLine.x1())/2-10 : (LFO1_FadeEndLine.x1()+LFO1_FadeStartLine.x1())/2,5);
+    }
+    LFO1_ptrFadeUp = LFO1_scene->addLine(LFO1_FadeUpLine,redLine);
+    LFO1_ptrFadeDown = LFO1_scene->addLine(LFO1_FadeDownLine,redLine);
+    LFO1_ptrEffectUp = LFO1_scene->addLine(LFO1_EffectUpLine,redLine);
+    LFO1_ptrEffectDown = LFO1_scene->addLine(LFO1_EffectDownLine,redLine);
+    LFO1_FillEffect();
   ToneEFXStdUpdate(0x33, val);
-}
+}	// end on_ToneEFX_LFO1FadeTime_select_valueChanged
+
 void JVlibForm::on_ToneEFX_LFO1ExtSync_select_currentIndexChanged(int val) {
-  if (state_table->updates_enabled) {
-    state_table->updates_enabled=false;
-    on_ToneEFX_LFO1Rate_select_valueChanged(ToneEFX_LFO1Rate_select->value());
-    state_table->updates_enabled=true;
     ToneEFXStdUpdate(0x34, val);
-  }
 }
 void JVlibForm::on_ToneEFX_LF02Waveform_select_currentIndexChanged(int val) {
   ToneEFXStdUpdate(0x35, val);
@@ -301,6 +673,9 @@ void JVlibForm::on_ToneEFX_LFO2Rate_select_valueChanged(int val) {
     buf = QString::number(val);
   }
   ToneEFX_LFO2Rate_display->setText(buf);
+  if (ToneEFX_LFO2Target_select->currentIndex() == 1) {
+    on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
+  }
   ToneEFXStdUpdate(0x37, val);
 }	// end on_ToneEFX_LFO2Rate_select_valueChanged
 
@@ -308,30 +683,138 @@ void JVlibForm::on_ToneEFX_LFO2LevelOffset_select_currentIndexChanged(int val) {
   ToneEFXStdUpdate(0x38, val);
 }
 void JVlibForm::on_ToneEFX_LFO2Delay_select_valueChanged(int val) {
+    static QGraphicsLineItem *ptrFadeStartLine;
+    qreal DelayVal = val/3;
+    if (ptrFadeStartLine) {
+        LFO2_scene->removeItem(ptrFadeStartLine);
+        ptrFadeStartLine = 0;
+    }
+    if (LFO2_DelayText) {
+        LFO2_scene->removeItem(LFO2_DelayText);
+        LFO2_DelayText = 0;
+    }
+    if (val) LFO2_DelayText = LFO2_scene->addSimpleText(val>50?"Dly":"D");
+    switch(ToneEFX_LFO2FadeMode_select->currentIndex()) {
+    case 0:   // On-In
+    case 1:
+        DelayVal += 10;
+        LFO2_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO2_DelayText) LFO2_DelayText->setPos(val>50 ? LFO2_FadeStartLine.x1()/2 : LFO2_FadeStartLine.x1()/2+5,5);
+        break;
+    case 2:   // Off-In
+        if (!LFO2_ptrOffLine) LFO2_setOffIn();
+        DelayVal += LFO2_OffLine.x1();
+        LFO2_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO2_DelayText) LFO2_DelayText->setPos((LFO2_FadeStartLine.x1()+LFO2_OffLine.x1())/2-10,5);
+      break;
+    case 3:   // Off-Out
+        if (!LFO2_ptrOffLine) LFO2_setOffOut();
+        DelayVal += LFO2_OffLine.x1();
+        LFO2_FadeStartLine.setLine(DelayVal,10,DelayVal,160);
+        if (LFO2_DelayText) LFO2_DelayText->setPos((LFO2_FadeStartLine.x1()+LFO2_OffLine.x1())/2-10,5);
+      break;
+    } // end switch
+    ptrFadeStartLine = LFO2_scene->addLine(LFO2_FadeStartLine,dotLine);
+    if (state_table->updates_enabled) {
+      state_table->updates_enabled = false;
+      on_ToneEFX_LFO2FadeTime_select_valueChanged(ToneEFX_LFO2FadeTime_select->value());
+      state_table->updates_enabled = true;
+    } else {
+      on_ToneEFX_LFO2FadeTime_select_valueChanged(ToneEFX_LFO2FadeTime_select->value());
+    }      
   ToneEFXStdUpdate(0x39, val);
 }
 void JVlibForm::on_ToneEFX_LFO2FadeMode_select_currentIndexChanged(int val) {
-  QPixmap modepic;
-  switch(val) {
-    case 0:
-      modepic.load(":/res/LFOon_in.png");
-      break;
-    case 1:
-      modepic.load(":/res/LFOon_out.png");
-      break;
-    case 2:
-      modepic.load(":/res/LFOoff_in.png");
-      break;
-    case 3:
-      modepic.load(":/res/LFOoff_out.png");
-      break;
-  }
-  ToneEFX_LFO2_Mode_picture->setPixmap(modepic);
+    if (LFO2_ptrOffLine) {
+        LFO2_scene->removeItem(LFO2_ptrOffLine);
+        LFO2_ptrOffLine = 0;
+        LFO2_scene->removeItem(LFO2_OffText);
+        LFO2_OffText = 0;
+    }
+    if (val == 2) LFO2_setOffIn();
+    if (val == 3) LFO2_setOffOut();
+    if (state_table->updates_enabled) {
+      state_table->updates_enabled = false;
+      on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
+      state_table->updates_enabled = true;
+    } else {
+      on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
+    }
   ToneEFXStdUpdate(0x3A, val);
-}
+}	// end on_ToneEFX_LFO2FadeMode_select_currentIndexChanged
+
 void JVlibForm::on_ToneEFX_LFO2FadeTime_select_valueChanged(int val) {
+    static QGraphicsLineItem *ptrFadeEndLine;
+    qreal FadeVal = val/3 + LFO1_FadeStartLine.x2();
+    if (ptrFadeEndLine) {
+        LFO2_scene->removeItem(ptrFadeEndLine);
+        ptrFadeEndLine = 0;
+    }
+    if (LFO2_FadeText) {
+        LFO2_scene->removeItem(LFO2_FadeText);
+        LFO2_FadeText = 0;
+    }
+    if (LFO2_ptrFadeUp) {
+        LFO2_scene->removeItem(LFO2_ptrFadeUp);
+        LFO2_ptrFadeUp = 0;
+    }
+    if (LFO2_ptrFadeDown) {
+        LFO2_scene->removeItem(LFO2_ptrFadeDown);
+        LFO2_ptrFadeDown = 0;
+    }
+    if (LFO2_ptrEffectUp) {
+        LFO2_scene->removeItem(LFO2_ptrEffectUp);
+        LFO2_ptrEffectUp = 0;
+    }
+    if (LFO2_ptrEffectDown) {
+        LFO2_scene->removeItem(LFO2_ptrEffectDown);
+        LFO2_ptrEffectDown = 0;
+    }
+    LFO2_FadeEndLine.setLine(FadeVal,10,FadeVal,160);
+    ptrFadeEndLine = LFO2_scene->addLine(LFO2_FadeEndLine,dotLine);
+    int thisDepth = 0;
+    switch(ToneEFX_LFO2Target_select->currentIndex()) {
+      case 0:
+	thisDepth = Pitch_LFO2Depth_select->value();
+	break;
+      case 1:
+	thisDepth = ToneEFX_PanLFO2Depth_select->value();
+	break;
+      case 2:
+	thisDepth = ToneTVA_LFO2Depth_select->value();
+	break;
+      case 3:
+	thisDepth = ToneTVF_LFO2Depth_select->value();
+	break;
+    }
+    switch(ToneEFX_LFO2FadeMode_select->currentIndex()) {
+      case 0:
+      case 2:
+          LFO2_FadeUpLine.setLine(LFO2_FadeStartLine.x1(), 96, LFO2_FadeEndLine.x1(), 96-abs(thisDepth));
+          LFO2_FadeDownLine.setLine(LFO2_FadeStartLine.x1(), 96, LFO2_FadeEndLine.x1(), 96+abs(thisDepth));
+          LFO2_EffectUpLine.setLine(LFO2_FadeEndLine.x2(), LFO2_FadeUpLine.y2(), 140, LFO2_FadeUpLine.y2());
+          LFO2_EffectDownLine.setLine(LFO2_FadeEndLine.x2(), LFO2_FadeDownLine.y2(), 140, LFO2_FadeDownLine.y2());
+          break;
+      case 1:
+      case 3:
+          LFO2_FadeUpLine.setLine(LFO2_FadeStartLine.x1(), 96-abs(thisDepth), LFO2_FadeEndLine.x1(), 96);
+          LFO2_FadeDownLine.setLine(LFO2_FadeStartLine.x1(), 96+abs(thisDepth), LFO2_FadeEndLine.x1(), 96);
+          LFO2_EffectUpLine.setLine(10, LFO2_FadeUpLine.y1(), LFO2_FadeStartLine.x1(), LFO2_FadeUpLine.y1());
+          LFO2_EffectDownLine.setLine(10, LFO2_FadeDownLine.y1(), LFO2_FadeStartLine.x1(), LFO2_FadeDownLine.y1());
+          break;
+    } // end switch
+    if (val) {
+        LFO2_FadeText = LFO2_scene->addSimpleText(val>50?"Fade":"F");
+        LFO2_FadeText->setPos(val>50 ? (LFO2_FadeEndLine.x1()+LFO2_FadeStartLine.x1())/2-10 : (LFO2_FadeEndLine.x1()+LFO2_FadeStartLine.x1())/2,5);
+    }
+    LFO2_ptrFadeUp = LFO2_scene->addLine(LFO2_FadeUpLine,redLine);
+    LFO2_ptrFadeDown = LFO2_scene->addLine(LFO2_FadeDownLine,redLine);
+    LFO2_ptrEffectUp = LFO2_scene->addLine(LFO2_EffectUpLine,redLine);
+    LFO2_ptrEffectDown = LFO2_scene->addLine(LFO2_EffectDownLine,redLine);
+    LFO2_FillEffect();
   ToneEFXStdUpdate(0x3B, val);
-}
+}	// end on_ToneEFX_LFO2FadeTime_select_valueChanged
+
 void JVlibForm::on_ToneEFX_LFO2ExtSync_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
     state_table->updates_enabled=false;
@@ -339,6 +822,9 @@ void JVlibForm::on_ToneEFX_LFO2ExtSync_select_currentIndexChanged(int val) {
     state_table->updates_enabled=true;
     ToneEFXStdUpdate(0x3C, val);
   }
+}	// end on_ToneEFX_LFO2ExtSync_select_currentIndexChanged
+
+void JVlibForm::on_ToneEFX_LFO1Target_select_currentIndexChanged() {
 }
-
-
+void JVlibForm::on_ToneEFX_LFO2Target_select_currentIndexChanged() {
+}

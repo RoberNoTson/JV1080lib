@@ -69,11 +69,10 @@ void JVlibForm::setInitial() {
   state_table->jv_connect = false;	// ONLINE
   state_table->updates_enabled = false;
   createStatusBar();
-  
   createMenuActions();
   createSysActions();
   createToneENVactions();
-
+  
   readConfigFile();
   db_connect(db_name, db_user);
   // try to copy System data from the synth

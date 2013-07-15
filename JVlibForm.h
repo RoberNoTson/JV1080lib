@@ -25,7 +25,6 @@
 #define JV_UPD 0x12
 #endif
 
-
 QT_BEGIN_NAMESPACE
 class QAction;
 class QMenu;
@@ -594,6 +593,8 @@ private slots:
   void on_Tone_FXMDepth_select_currentIndexChanged(int);
   
   // for toneEFX tab
+  void on_ToneEFX_LFO1Target_select_currentIndexChanged();
+  void on_ToneEFX_LFO2Target_select_currentIndexChanged();
   void on_ToneEFX_TestTone_switch_toggled(bool);
   void on_ToneEFX_LFO1FadeTime_select_valueChanged(int);
   void on_ToneEFX_LFO2FadeTime_select_valueChanged(int);
@@ -797,10 +798,11 @@ private:
   int debug;
   QSqlDatabase mysql;
   static QSqlDatabase db_mysql;
+  QPen dotLine;
+  QPen redLine;
+  QPen blackLine;
   
   QGraphicsScene *ToneTVA_Env_scene;
-  QPen ToneEnv_dotLine;
-  QPen ToneEnv_redLine;
   QGraphicsSimpleTextItem *ToneTVA_Env_OffText;
   QGraphicsSimpleTextItem *ToneTVA_Env_t1Text;
   QGraphicsSimpleTextItem *ToneTVA_Env_t2Text;
@@ -856,9 +858,6 @@ private:
   QGraphicsLineItem *ToneTVF_Env_ptrSustain;
 
   QGraphicsScene *Pitch_Env_scene;
-  QPen Pitch_dotLine;
-  QPen Pitch_redLine;
-  QPen Pitch_blackLine;
   QGraphicsSimpleTextItem *Pitch_Env_OffText;
   QGraphicsSimpleTextItem *Pitch_Env_t1Text;
   QGraphicsSimpleTextItem *Pitch_Env_t2Text;
@@ -881,6 +880,48 @@ private:
   QGraphicsLineItem *Pitch_Env_ptrT2;
   QGraphicsLineItem *Pitch_Env_ptrSustain;
   
+  QLineF LFO1_FadeUpLine;
+  QLineF LFO1_FadeDownLine;
+  QLineF LFO1_EffectUpLine;
+  QLineF LFO1_EffectDownLine;
+  QLineF LFO1_FadeStartLine;
+  QLineF LFO1_FadeEndLine;
+  QLineF LFO1_OffLine;
+  QGraphicsLineItem *LFO1_ptrFadeUp;
+  QGraphicsLineItem *LFO1_ptrFadeDown;
+  QGraphicsLineItem *LFO1_ptrEffectUp;
+  QGraphicsLineItem *LFO1_ptrEffectDown;
+  QGraphicsLineItem *LFO1_ptrOffLine;
+  QGraphicsSimpleTextItem *LFO1_OffText;
+  QGraphicsSimpleTextItem *LFO1_DelayText;
+  QGraphicsSimpleTextItem *LFO1_FadeText;
+  QGraphicsSimpleTextItem *LFO1_EffectText;
+  inline void LFO1_setOffIn();
+  inline void LFO1_setOffOut();
+  void LFO1_FillEffect();
+  QGraphicsScene *LFO1_scene;
+  
+  QLineF LFO2_FadeUpLine;
+  QLineF LFO2_FadeDownLine;
+  QLineF LFO2_EffectUpLine;
+  QLineF LFO2_EffectDownLine;
+  QLineF LFO2_FadeStartLine;
+  QLineF LFO2_FadeEndLine;
+  QLineF LFO2_OffLine;
+  QGraphicsLineItem *LFO2_ptrFadeUp;
+  QGraphicsLineItem *LFO2_ptrFadeDown;
+  QGraphicsLineItem *LFO2_ptrEffectUp;
+  QGraphicsLineItem *LFO2_ptrEffectDown;
+  QGraphicsLineItem *LFO2_ptrOffLine;
+  QGraphicsSimpleTextItem *LFO2_OffText;
+  QGraphicsSimpleTextItem *LFO2_DelayText;
+  QGraphicsSimpleTextItem *LFO2_FadeText;
+  QGraphicsSimpleTextItem *LFO2_EffectText;
+  inline void LFO2_setOffIn();
+  inline void LFO2_setOffOut();
+  void LFO2_FillEffect();
+  QGraphicsScene *LFO2_scene;
+
   // generic functions
   void setInitial();
   int  sysex_get(unsigned char *, char *);
@@ -1114,7 +1155,6 @@ private:
   void Rhythm_EnableAll(bool);
   
   // for Config_Dialog
-  
   
 };	// end class JVlibForm
 
