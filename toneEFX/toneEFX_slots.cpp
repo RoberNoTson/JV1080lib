@@ -551,9 +551,7 @@ void JVlibForm::on_ToneEFX_LFO1Rate_select_valueChanged(int val) {
     buf = QString::number(val);
   }
   ToneEFX_LFO1Rate_display->setText(buf);
-  if (ToneEFX_LFO1Target_select->currentIndex() == 1) {
-    on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
-  }
+  on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());
   ToneEFXStdUpdate(0x2F, val);
 }	// end on_ToneEFX_LFO1Rate_select_valueChanged
 
@@ -755,9 +753,7 @@ void JVlibForm::on_ToneEFX_LFO2Rate_select_valueChanged(int val) {
     buf = QString::number(val);
   }
   ToneEFX_LFO2Rate_display->setText(buf);
-  if (ToneEFX_LFO2Target_select->currentIndex() == 1) {
-    on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
-  }
+  on_ToneEFX_LFO2Delay_select_valueChanged(ToneEFX_LFO2Delay_select->value());
   ToneEFXStdUpdate(0x37, val);
 }	// end on_ToneEFX_LFO2Rate_select_valueChanged
 
