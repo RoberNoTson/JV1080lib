@@ -35,10 +35,9 @@ Tone_tab
 
 ToneEFX_tab
   - Add waveform types to LFO graphic
-  - Pan Keyfollow graphic needs improvement
 
 ToneTVF_tab
-  - Time Keyfollow graphic needs to match actual range of values (-100 to +100)
+  - Time Keyfollow graphic needs improvement
   - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
   - Cutoff Keyfollow graphic looks cheesy, use dynamic view
 

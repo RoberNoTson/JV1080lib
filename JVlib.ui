@@ -35327,28 +35327,6 @@
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="ToneEFX_PanKeyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>320</y>
-         <width>381</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_0.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget_292">
        <property name="geometry">
         <rect>
@@ -35372,71 +35350,11 @@
            <string notr="true">Allow Pan to change based on Note pitch - higher notes to the right, lower to the left.Normal setting is 0.</string>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>0</number>
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+50</string>
+            <string>+100</string>
            </property>
           </item>
           <item>
@@ -35446,22 +35364,67 @@
           </item>
           <item>
            <property name="text">
-            <string>+100</string>
+            <string>+50</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>+120</string>
+            <string>+40</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>+150</string>
+            <string>+30</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>+200</string>
+            <string>+20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-40</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -35622,6 +35585,34 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QGraphicsView" name="ToneEFX_PanKeyFollow_view">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>330</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
       </widget>
      </widget>
      <widget class="QPushButton" name="ToneEFX_TestTone_switch">

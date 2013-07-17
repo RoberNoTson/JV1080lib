@@ -169,5 +169,31 @@ void JVlibForm::createToneENVactions() {
   ToneEFX_LFO2_graph->setScene(LFO2_scene);
   ToneEFX_LFO2_graph->fitInView(0,0,80,35);
   ToneEFX_LFO2_graph->show();
+  
+  ToneEFX_PanKeyFollow_scene->setSceneRect(0, 0, 370, 130);
+  ToneEFX_PanKeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  ToneEFX_PanKeyFollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  ToneEFX_PanKeyFollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C-1")->setPos(10,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C0")->setPos(43,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C1")->setPos(76,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C2")->setPos(109,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C3")->setPos(142,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C4")->setPos(175,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C5")->setPos(208,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C6")->setPos(241,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C7")->setPos(274,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C8")->setPos(307,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("C9")->setPos(340,125);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("+100")->setPos(348,2);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("+50")->setPos(358,19);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("+20")->setPos(358,37);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("0")->setPos(372,54);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("-20")->setPos(358,70);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("-50")->setPos(358,91);
+  ToneEFX_PanKeyFollow_scene->addSimpleText("-100")->setPos(350,109);
+  ToneEFX_PanKeyFollow_view->setScene(ToneEFX_PanKeyFollow_scene);
+  ToneEFX_PanKeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  ToneEFX_PanKeyFollow_view->show();
 
 }

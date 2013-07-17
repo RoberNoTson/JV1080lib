@@ -33,7 +33,7 @@ void::JVlibForm::setToneEFXParms(int val) {
   ToneEFX_PanLFO1Depth_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].pan_LFO_1_depth-63);
   ToneEFX_PanLFO2Depth_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].pan_LFO_2_depth-63);
   ToneEFX_PanRandDepth_select->setValue(active_area->active_perf_patch[pn].patch_tone[tn].random_pan_depth);
-  ToneEFX_PanKeyFollow_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].pan_keyfollow);
+  ToneEFX_PanKeyFollow_select->setCurrentIndex(abs(14-active_area->active_perf_patch[pn].patch_tone[tn].pan_keyfollow));
   
  } else {		// Patch mode patch 
   // QDial
@@ -62,7 +62,7 @@ void::JVlibForm::setToneEFXParms(int val) {
   ToneEFX_PanLFO1Depth_select->setValue(active_area->active_patch_patch.patch_tone[tn].pan_LFO_1_depth-63);
   ToneEFX_PanLFO2Depth_select->setValue(active_area->active_patch_patch.patch_tone[tn].pan_LFO_2_depth-63);
   ToneEFX_PanRandDepth_select->setValue(active_area->active_patch_patch.patch_tone[tn].random_pan_depth);
-  ToneEFX_PanKeyFollow_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].pan_keyfollow);
+  ToneEFX_PanKeyFollow_select->setCurrentIndex(abs(14-active_area->active_patch_patch.patch_tone[tn].pan_keyfollow));
  }	// end IF...ELSE patch
 
   if (state_table->updates_enabled) state_table->updates_enabled=false;

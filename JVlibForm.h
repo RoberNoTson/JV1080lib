@@ -922,6 +922,8 @@ private:
   void LFO2_FillEffect();
   QGraphicsScene *LFO2_scene;
 
+  QGraphicsScene *ToneEFX_PanKeyFollow_scene;
+  
   // generic functions
   void setInitial();
   int  sysex_get(unsigned char *, char *);

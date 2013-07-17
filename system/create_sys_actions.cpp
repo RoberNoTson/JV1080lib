@@ -33,6 +33,7 @@ void JVlibForm::createSysActions() {
   ToneTVF_Env_scene = new QGraphicsScene;
   LFO1_scene = new QGraphicsScene;
   LFO2_scene = new QGraphicsScene;
+  ToneEFX_PanKeyFollow_scene = new QGraphicsScene;
   
   Tuning_ButtonGroup = new QButtonGroup();
   Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);
