@@ -14,7 +14,7 @@ void JVlibForm::EFX06enhancer() {
   enable_B(false);
   enable_C(false);
 
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparm1_label->setText(QString("Sensitivity"));
     PerfEFXparm1_select->setRange(0, 127);
     PerfEFXparm1_select->setValue(active_area->active_performance.perf_common.EFX_parameter[0]);

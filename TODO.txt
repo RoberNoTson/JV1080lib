@@ -1,5 +1,4 @@
 General
-  - change remaining refs from SysMode_select to state_table->perf_mode/patch_mode
   - initialize part_sync entries in state_table
   - Configuration screen function
   - fill in Tool Tips and What Is text for all controls
@@ -29,14 +28,13 @@ Rhythm_tab
   - can Pitch, TVA, TVF use the same tabs as other patches?
 
 PatchEFX_tab
-  -
+  - fix Parm 11 ghost values
 
 Tone_tab
   -
 
 ToneEFX_tab
-  - LFO1/2 Delay/Fade graphics should be dynamic
-    - Reverse fill direction for Depth<0 vs Depth>0
+  - Add waveform types to LFO graphic
   - Pan Keyfollow graphic needs improvement
 
 ToneTVF_tab

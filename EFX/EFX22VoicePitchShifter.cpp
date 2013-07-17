@@ -14,7 +14,7 @@ void JVlibForm::EFX22VoicePitchShifter() {
       enable_B(true);
       enable_C(true);
 
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
       EFXparm1_label->setText(QString("Mode"));
       PerfEFXparm1_select->setRange(0, 4);
       PerfEFXparm1_select->setValue(active_area->active_performance.perf_common.EFX_parameter[0]);

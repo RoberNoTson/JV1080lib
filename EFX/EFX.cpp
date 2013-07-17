@@ -5,7 +5,7 @@
 #include	"EFX.h"
 
 void JVlibForm::enable_4(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparm4_label->setEnabled(val);
     PerfEFXparm4_select->setEnabled(val);
     PerfEFXparm4_display->setEnabled(val);
@@ -25,7 +25,7 @@ void JVlibForm::enable_4(bool val) {
   }
 } // end enable_4
 void JVlibForm::enable_6(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparm6_label->setEnabled(val);
     PerfEFXparm6_select->setEnabled(val);
     PerfEFXparm6_display->setEnabled(val);
@@ -45,7 +45,7 @@ void JVlibForm::enable_6(bool val) {
   }
 } // end enable_6
 void JVlibForm::enable_7(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
   EFXparm7_label->setEnabled(val);
   PerfEFXparm7_select->setEnabled(val);
   PerfEFXparm7_display->setEnabled(val);
@@ -65,7 +65,7 @@ void JVlibForm::enable_7(bool val) {
   }
 } // end enable_7
 void JVlibForm::enable_8(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
   EFXparm8_label->setEnabled(val);
   PerfEFXparm8_select->setEnabled(val);
   PerfEFXparm8_display->setEnabled(val);
@@ -85,7 +85,7 @@ void JVlibForm::enable_8(bool val) {
   }
 } // end enable_8
 void JVlibForm::enable_9(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
   EFXparm9_label->setEnabled(val);
   PerfEFXparm9_select->setEnabled(val);
   PerfEFXparm9_display->setEnabled(val);
@@ -106,7 +106,7 @@ void JVlibForm::enable_9(bool val) {
 } // end enable_9
 
 void JVlibForm::enable_A(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
   EFXparmA_label->setEnabled(val);
   PerfEFXparmA_select->setEnabled(val);
   PerfEFXparmA_display->setEnabled(val);
@@ -127,7 +127,7 @@ void JVlibForm::enable_A(bool val) {
 } // end enable_A
 
 void JVlibForm::enable_B(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparmB_label->setEnabled(val);
     PerfEFXparmB_select->setEnabled(val);
     PerfEFXparmB_display->setEnabled(val);
@@ -148,7 +148,7 @@ void JVlibForm::enable_B(bool val) {
 } // end enable_B
 
 void JVlibForm::enable_C(bool val) {
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
   EFXparmC_label->setEnabled(val);
   PerfEFXparmC_select->setEnabled(val);
   PerfEFXparmC_display->setEnabled(val);

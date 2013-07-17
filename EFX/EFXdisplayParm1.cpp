@@ -7,7 +7,6 @@
 #include        <QtGui>
 
 void JVlibForm::setEFXdisplayParm_1() {
-//  switch(SysMode_select->currentIndex()==0 ? PerfEFXtype_select->currentIndex() : PatchEFX_Type_select->currentIndex()) {
   switch(MainTabWidget->currentIndex()==1 ? PerfEFXtype_select->currentIndex() : PatchEFX_Type_select->currentIndex()) {
     case 0:	// Stereo EQ
       if (MainTabWidget->currentIndex()==1)

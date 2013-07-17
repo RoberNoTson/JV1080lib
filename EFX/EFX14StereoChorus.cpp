@@ -13,7 +13,7 @@ void JVlibForm::EFX14StereoChorus() {
   enable_B(true);
   enable_C(false);
 
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparm1_label->setText(QString("Filter Type"));
     PerfEFXparm1_select->setRange(0, 2);
     PerfEFXparm1_select->setValue(active_area->active_performance.perf_common.EFX_parameter[0]);

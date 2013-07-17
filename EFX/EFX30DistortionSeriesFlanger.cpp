@@ -14,7 +14,7 @@ void JVlibForm::EFX30DistortionSeriesFlanger() {
       enable_B(false);
       enable_C(false);
       
-  if (SysMode_select->currentIndex()==0 && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
+  if (state_table->perf_mode && MainTabWidget->currentIndex()==1) {	// get Performance EFX settings
     EFXparm1_label->setText(QString("Drive"));
     PerfEFXparm1_select->setRange(0, 127);
     PerfEFXparm1_select->setValue(active_area->active_performance.perf_common.EFX_parameter[0]);
@@ -44,7 +44,7 @@ void JVlibForm::EFX30DistortionSeriesFlanger() {
     if (MainTabWidget->currentIndex()>1) {		// PatchEFX tab settings for either Perf or Patch
     int pn = 0;
     int val = Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt();
-    if (SysMode_select->currentIndex()==0) 
+    if (state_table->perf_mode) 
       pn = val-1;
     PatchEFX_parm1_label->setText(QString("Drive"));
     PatchEFX_parm1_select->setRange(0, 127);
