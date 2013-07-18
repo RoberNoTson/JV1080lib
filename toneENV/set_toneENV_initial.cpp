@@ -36,8 +36,8 @@ void JVlibForm::setToneENVParms(int val) {
     ToneTVA_Time1Sens_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].A_ENV_veloc_time_1_sens);
     ToneTVA_Time4Sens_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].A_ENV_veloc_time_4_sens);
     ToneTVA_VelocityCurve_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].A_ENV_veloc_curve);
-    ToneTVA_TimeKeyfollow_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].A_ENV_time_keyfollow);
-    ToneTVF_TimeKeyfollow_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].F_ENV_time_keyfollow);
+    ToneTVA_TimeKeyfollow_select->setCurrentIndex(14-active_area->active_perf_patch[pn].patch_tone[tn].A_ENV_time_keyfollow);
+    ToneTVF_TimeKeyfollow_select->setCurrentIndex(14-active_area->active_perf_patch[pn].patch_tone[tn].F_ENV_time_keyfollow);
     
     ToneTVA_BiasLvl_select->setCurrentIndex(14-active_area->active_perf_patch[pn].patch_tone[tn].bias_level);
     
@@ -80,8 +80,8 @@ void JVlibForm::setToneENVParms(int val) {
     ToneTVA_Time1Sens_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].A_ENV_veloc_time_1_sens);
     ToneTVA_Time4Sens_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].A_ENV_veloc_time_4_sens);
     ToneTVA_VelocityCurve_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].A_ENV_veloc_curve);
-    ToneTVA_TimeKeyfollow_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].A_ENV_time_keyfollow);
-    ToneTVF_TimeKeyfollow_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].F_ENV_time_keyfollow);
+    ToneTVA_TimeKeyfollow_select->setCurrentIndex(14-active_area->active_patch_patch.patch_tone[tn].A_ENV_time_keyfollow);
+    ToneTVF_TimeKeyfollow_select->setCurrentIndex(14-active_area->active_patch_patch.patch_tone[tn].F_ENV_time_keyfollow);
     ToneTVA_BiasLvl_select->setCurrentIndex(14-active_area->active_patch_patch.patch_tone[tn].bias_level);
     ToneTVA_BiasDirection_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].bias_direction);
     ToneTVF_Time1Sens_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].F_ENV_veloc_time_1_sens);
@@ -92,4 +92,6 @@ void JVlibForm::setToneENVParms(int val) {
   }	// end if Patch_mode
   ToneTVF_enable(ToneTVF_FilterType_select->currentIndex()==0?false:true);
   on_ToneTVA_BiasDirection_select_currentIndexChanged(ToneTVA_BiasDirection_select->currentIndex());
+  on_ToneTVA_TimeKeyfollow_select_currentIndexChanged(ToneTVA_TimeKeyfollow_select->currentIndex());
+  on_ToneTVF_TimeKeyfollow_select_currentIndexChanged(ToneTVF_TimeKeyfollow_select->currentIndex());
 }	// end setToneENVParms

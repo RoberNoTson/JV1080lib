@@ -94,7 +94,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>10</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -36706,28 +36706,6 @@
         <string>Velocity Curve</string>
        </property>
       </widget>
-      <widget class="QLabel" name="ToneENV_TimeKeyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>430</x>
-         <y>450</y>
-         <width>381</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_0.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget18">
        <property name="geometry">
         <rect>
@@ -36999,9 +36977,9 @@
       <widget class="QWidget" name="layoutWidget_99">
        <property name="geometry">
         <rect>
-         <x>650</x>
+         <x>630</x>
          <y>420</y>
-         <width>153</width>
+         <width>173</width>
          <height>26</height>
         </rect>
        </property>
@@ -37009,7 +36987,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_301">
           <property name="text">
-           <string>Time KeyFollow</string>
+           <string>EnvTime KeyFollow</string>
           </property>
          </widget>
         </item>
@@ -37321,6 +37299,34 @@
         </item>
        </layout>
       </widget>
+      <widget class="QGraphicsView" name="ToneTVF_TimeKeyFollow_view">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>450</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="ToneTVA_tab">
@@ -37332,8 +37338,8 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>781</width>
-        <height>581</height>
+        <width>811</width>
+        <height>611</height>
        </rect>
       </property>
       <property name="toolTip">
@@ -38102,9 +38108,9 @@
       <widget class="QWidget" name="layoutWidget_183">
        <property name="geometry">
         <rect>
-         <x>610</x>
-         <y>310</y>
-         <width>156</width>
+         <x>110</x>
+         <y>380</y>
+         <width>176</width>
          <height>26</height>
         </rect>
        </property>
@@ -38112,7 +38118,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_279">
           <property name="text">
-           <string>Time Key Follow</string>
+           <string>EnvTime Key Follow</string>
           </property>
          </widget>
         </item>
@@ -38206,8 +38212,8 @@
       <widget class="QWidget" name="layoutWidget_185">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>310</y>
+         <x>420</x>
+         <y>380</y>
          <width>189</width>
          <height>26</height>
         </rect>
@@ -38347,7 +38353,7 @@
          <x>10</x>
          <y>190</y>
          <width>441</width>
-         <height>111</height>
+         <height>181</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -38359,13 +38365,13 @@
        <property name="minimumSize">
         <size>
          <width>441</width>
-         <height>111</height>
+         <height>181</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>441</width>
-         <height>111</height>
+         <height>181</height>
         </size>
        </property>
        <property name="focusPolicy">
@@ -38381,33 +38387,11 @@
         <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
       </widget>
-      <widget class="QLabel" name="ToneTVA_TimeKeyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>350</y>
-         <width>381</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_0.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
       <widget class="QWidget" name="layoutWidget21">
        <property name="geometry">
         <rect>
-         <x>220</x>
-         <y>310</y>
+         <x>620</x>
+         <y>380</y>
          <width>134</width>
          <height>26</height>
         </rect>
@@ -38513,9 +38497,9 @@
       <widget class="QGraphicsView" name="ToneTVA_BiasPoint_display">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>350</y>
-         <width>351</width>
+         <x>390</x>
+         <y>410</y>
+         <width>381</width>
          <height>141</height>
         </rect>
        </property>
@@ -38527,13 +38511,13 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>351</width>
+         <width>381</width>
          <height>141</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>351</width>
+         <width>381</width>
          <height>141</height>
         </size>
        </property>
@@ -38565,8 +38549,8 @@
       <widget class="QLabel" name="label_21">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>530</y>
+         <x>490</x>
+         <y>570</y>
          <width>211</width>
          <height>31</height>
         </rect>
@@ -38587,8 +38571,8 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>500</y>
+         <x>460</x>
+         <y>550</y>
          <width>261</width>
          <height>20</height>
         </rect>
@@ -38639,8 +38623,8 @@
       <widget class="QLabel" name="label_287">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>540</y>
+         <x>390</x>
+         <y>550</y>
          <width>56</width>
          <height>16</height>
         </rect>
@@ -38807,6 +38791,34 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QGraphicsView" name="ToneTVA_TimeKeyFollow_view">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>410</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
       </widget>
      </widget>
     </widget>
@@ -39178,7 +39190,7 @@
        <property name="geometry">
         <rect>
          <x>500</x>
-         <y>280</y>
+         <y>290</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -39226,7 +39238,7 @@
        <property name="geometry">
         <rect>
          <x>650</x>
-         <y>280</y>
+         <y>290</y>
          <width>111</width>
          <height>52</height>
         </rect>
@@ -39558,76 +39570,11 @@
            <string notr="true">Normal setting is +100%. Changes how high the pitch rises when an Octave shift is invoked.</string>
           </property>
           <property name="currentIndex">
-           <number>12</number>
+           <number>3</number>
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>+120</string>
+            <string>+200</string>
            </property>
           </item>
           <item>
@@ -39637,7 +39584,72 @@
           </item>
           <item>
            <property name="text">
-            <string>+200</string>
+            <string>+120</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+100</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+40</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>+10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -40095,9 +40107,9 @@
       <widget class="QWidget" name="layoutWidget_139">
        <property name="geometry">
         <rect>
-         <x>620</x>
+         <x>600</x>
          <y>410</y>
-         <width>153</width>
+         <width>173</width>
          <height>26</height>
         </rect>
        </property>
@@ -40105,7 +40117,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_249">
           <property name="text">
-           <string>Time KeyFollow</string>
+           <string>EnvTime KeyFollow</string>
           </property>
          </widget>
         </item>
@@ -40236,9 +40248,27 @@
         <rect>
          <x>10</x>
          <y>440</y>
-         <width>371</width>
-         <height>161</height>
+         <width>381</width>
+         <height>141</height>
         </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
        </property>
        <property name="frameShape">
         <enum>QFrame::Panel</enum>
@@ -40320,8 +40350,8 @@
       <widget class="QWidget" name="layoutWidget_254">
        <property name="geometry">
         <rect>
-         <x>500</x>
-         <y>130</y>
+         <x>620</x>
+         <y>140</y>
          <width>138</width>
          <height>26</height>
         </rect>
@@ -40359,7 +40389,7 @@
        <property name="geometry">
         <rect>
          <x>500</x>
-         <y>160</y>
+         <y>170</y>
          <width>261</width>
          <height>111</height>
         </rect>
@@ -40381,28 +40411,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="Pitch_TimeKeyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>440</y>
-         <width>371</width>
-         <height>161</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_0.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
        </property>
       </widget>
       <widget class="QGraphicsView" name="Pitch_Env_display">
@@ -40603,6 +40611,34 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QGraphicsView" name="Pitch_TimeKeyFollow_view">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>440</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
       </widget>
      </widget>
     </widget>

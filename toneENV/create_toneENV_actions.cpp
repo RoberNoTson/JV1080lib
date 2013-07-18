@@ -8,28 +8,6 @@ void JVlibForm::createToneENVactions() {
   dotLine.setStyle(Qt::DotLine);
   dotLine.setColor(Qt::blue);
   
-  ToneTVA_Bias_ptrbpMark = 0;
-  ToneTVA_Bias_ptrHiLine = 0;
-  ToneTVA_Bias_ptrLowLine = 0;
-  ToneTVA_Bias_scene->setSceneRect(0, 0, 325, 135);
-  ToneTVA_Bias_scene->addLine(40, 65, 295, 65, blackLine);     // X axis
-  ToneTVA_Bias_scene->addLine(40, 10, 40, 118, blackLine);    // Y axis
-  ToneTVA_Bias_scene->addLine(295, 10, 295, 118, blackLine);    // Y2 axis
-  ToneTVA_Bias_scene->addSimpleText("Level")->setPos(3,45);
-  ToneTVA_Bias_scene->addSimpleText("+100")->setPos(5,10);
-  ToneTVA_Bias_scene->addSimpleText("-100")->setPos(5,100);
-  ToneTVA_Bias_bpMark.setLine(104,20,104,150);
-  ToneTVA_Bias_LowLine.setLine(40, 65, ToneTVA_Bias_bpMark.x1(),65);
-  ToneTVA_Bias_ptrLowLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_LowLine,redLine);
-  ToneTVA_Bias_HiLine.setLine(ToneTVA_Bias_bpMark.x1(),65,295,65);
-  ToneTVA_Bias_ptrHiLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_HiLine,redLine);
-  ToneTVA_Bias_bpMark.setLine((64*2)+40,10,(64*2)+40,115);
-  ToneTVA_Bias_ptrbpMark = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_bpMark,dotLine);
-  ToneTVA_Bias_bpText = ToneTVA_Bias_scene->addSimpleText("C 4");
-  ToneTVA_Bias_bpText->setPos(ToneTVA_Bias_bpMark.x1(), 120);
-  JVlibForm::ToneTVA_BiasPoint_display->setScene(ToneTVA_Bias_scene);
-  JVlibForm::ToneTVA_BiasPoint_display->show();
-  
   ToneTVA_Env_scene->setSceneRect(0, -60, 390, 60);
   QLineF ToneTVA_Env_t4(384,0,384,0);
   QLineF ToneTVA_Env_offLine(384,0,384,-63);
@@ -48,6 +26,8 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Env_scene->addSimpleText("Key-On")->setPos(7,8);
   ToneTVA_Env_OffText = ToneTVA_Env_scene->addSimpleText("Key-Off");
   ToneTVA_Env_OffText->setPos(361,8);
+  JVlibForm::ToneTVA_Env_display->setScene(ToneTVA_Env_scene);
+  JVlibForm::ToneTVA_Env_display->show();
   ToneTVA_Env_ptrT1 = 0;
   ToneTVA_Env_ptrT2 = 0;
   ToneTVA_Env_ptrT3 = 0;
@@ -58,8 +38,6 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Env_t4Text = 0;
   ToneTVA_Env_sndText = 0;
   ToneTVA_Env_ptrSustain = 0;
-  JVlibForm::ToneTVA_Env_display->setScene(ToneTVA_Env_scene);
-  JVlibForm::ToneTVA_Env_display->show();
   
   ToneTVF_Env_scene->setSceneRect(0, 0, 425, 175);
   QLineF ToneTVF_Env_t4(384,0,384,0);
@@ -79,6 +57,8 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Env_scene->addSimpleText("Key-On")->setPos(48,160);
   ToneTVF_Env_OffText = ToneTVF_Env_scene->addSimpleText("Key-Off");
   ToneTVF_Env_OffText->setPos(372,160);
+  JVlibForm::ToneTVF_Env_display->setScene(ToneTVF_Env_scene);
+  JVlibForm::ToneTVF_Env_display->show();
   ToneTVF_Env_ptrT1 = 0;
   ToneTVF_Env_ptrT2 = 0;
   ToneTVF_Env_ptrT3 = 0;
@@ -89,8 +69,6 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Env_t4Text = 0;
   ToneTVF_Env_sndText = 0;
   ToneTVF_Env_ptrSustain = 0;
-  JVlibForm::ToneTVF_Env_display->setScene(ToneTVF_Env_scene);
-  JVlibForm::ToneTVF_Env_display->show();
   ToneTVF_Time1_select->setValue(1);
   ToneTVF_Time2_select->setValue(1);
   ToneTVF_Time3_select->setValue(1);
@@ -100,15 +78,13 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Time3_select->setValue(1);
   ToneTVA_Time4_select->setValue(1);
 
+  Pitch_Env_scene->setSceneRect(0, 0, 425, 175);
   QLineF Pitch_Env_t4(384,0,384,0);
   QLineF Pitch_Env_offLine(374,90,374,90);
   QLineF Pitch_Env_t1Mark(50,20,50,150);
   QLineF Pitch_Env_t2Mark(50,20,50,150);
   QLineF Pitch_Env_t3Mark(50,20,50,150);
   QLineF Pitch_Env_t4Mark(374,20,374,150);
-  Pitch_Env_scene->setSceneRect(0, 0, 425, 175);
-  JVlibForm::Pitch_Env_display->setScene(Pitch_Env_scene);
-  JVlibForm::Pitch_Env_display->show();
   Pitch_Env_scene->addLine(40, 90, 380, 90, blackLine);     // X axis
   Pitch_Env_scene->addLine(40, 20, 40, 157, blackLine);    // Y axis
   Pitch_Env_scene->addLine(50,20,50,158,dotLine);   // Note-On line
@@ -120,6 +96,8 @@ void JVlibForm::createToneENVactions() {
   Pitch_Env_scene->addSimpleText("Key-On")->setPos(48,160);
   Pitch_Env_OffText = Pitch_Env_scene->addSimpleText("Key-Off");
   Pitch_Env_OffText->setPos(372,160);
+  JVlibForm::Pitch_Env_display->setScene(Pitch_Env_scene);
+  JVlibForm::Pitch_Env_display->show();
   Pitch_Env_ptrT1 = 0;
   Pitch_Env_ptrT2 = 0;
   Pitch_Env_ptrT3 = 0;
@@ -140,6 +118,9 @@ void JVlibForm::createToneENVactions() {
   LFO1_scene->addLine(10,10,10,160,dotLine);   // Note-On line
   QGraphicsSimpleTextItem *LFO1_OnText = LFO1_scene->addSimpleText("On");
   LFO1_OnText->setPos(8,164);
+  ToneEFX_LFO1_graph->setScene(LFO1_scene);
+  ToneEFX_LFO1_graph->fitInView(0,0,80,35);
+  ToneEFX_LFO1_graph->show();
   LFO1_OffText = 0;
   LFO1_FadeText = 0;
   LFO1_DelayText = 0;
@@ -149,14 +130,14 @@ void JVlibForm::createToneENVactions() {
   LFO1_ptrEffectUp = 0;
   LFO1_ptrEffectDown = 0;
   LFO1_ptrOffLine = 0;
-  ToneEFX_LFO1_graph->setScene(LFO1_scene);
-  ToneEFX_LFO1_graph->fitInView(0,0,80,35);
-  ToneEFX_LFO1_graph->show();
   LFO2_scene->setSceneRect(0, 0, 256, 192);
   LFO2_scene->addLine(10, 192/2, 140, 192/2, blackLine);     // X axis
   LFO2_scene->addLine(10,10,10,160,dotLine);   // Note-On line
   QGraphicsSimpleTextItem *LFO2_OnText = LFO2_scene->addSimpleText("On");
   LFO2_OnText->setPos(8,164);
+  ToneEFX_LFO2_graph->setScene(LFO2_scene);
+  ToneEFX_LFO2_graph->fitInView(0,0,80,35);
+  ToneEFX_LFO2_graph->show();
   LFO2_OffText = 0;
   LFO2_FadeText = 0;
   LFO2_DelayText = 0;
@@ -166,9 +147,6 @@ void JVlibForm::createToneENVactions() {
   LFO2_ptrEffectUp = 0;
   LFO2_ptrEffectDown = 0;
   LFO2_ptrOffLine = 0;
-  ToneEFX_LFO2_graph->setScene(LFO2_scene);
-  ToneEFX_LFO2_graph->fitInView(0,0,80,35);
-  ToneEFX_LFO2_graph->show();
   
   ToneEFX_PanKeyFollow_scene->setSceneRect(0, 0, 370, 130);
   ToneEFX_PanKeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
@@ -196,4 +174,103 @@ void JVlibForm::createToneENVactions() {
   ToneEFX_PanKeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
   ToneEFX_PanKeyFollow_view->show();
 
+  ToneTVF_TimeKeyFollow_scene->setSceneRect(0, 0, 370, 130);
+  ToneTVF_TimeKeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  ToneTVF_TimeKeyFollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  ToneTVF_TimeKeyFollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C-1")->setPos(10,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C0")->setPos(43,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C1")->setPos(76,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C2")->setPos(109,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C3")->setPos(142,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C4")->setPos(175,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C5")->setPos(208,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C6")->setPos(241,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C7")->setPos(274,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C8")->setPos(307,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("C9")->setPos(340,125);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("+100")->setPos(348,2);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("+50")->setPos(358,19);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("+20")->setPos(358,37);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("0")->setPos(372,54);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("-20")->setPos(358,70);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("-50")->setPos(358,91);
+  ToneTVF_TimeKeyFollow_scene->addSimpleText("-100")->setPos(350,109);
+  ToneTVF_TimeKeyFollow_view->setScene(ToneTVF_TimeKeyFollow_scene);
+  ToneTVF_TimeKeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  ToneTVF_TimeKeyFollow_view->show();
+  
+  ToneTVA_TimeKeyFollow_scene->setSceneRect(0, 0, 370, 130);
+  ToneTVA_TimeKeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  ToneTVA_TimeKeyFollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  ToneTVA_TimeKeyFollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C-1")->setPos(10,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C0")->setPos(43,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C1")->setPos(76,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C2")->setPos(109,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C3")->setPos(142,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C4")->setPos(175,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C5")->setPos(208,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C6")->setPos(241,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C7")->setPos(274,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C8")->setPos(307,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("C9")->setPos(340,125);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("+100")->setPos(348,2);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("+50")->setPos(358,19);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("+20")->setPos(358,37);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("0")->setPos(372,54);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("-20")->setPos(358,70);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("-50")->setPos(358,91);
+  ToneTVA_TimeKeyFollow_scene->addSimpleText("-100")->setPos(350,109);
+  ToneTVA_TimeKeyFollow_view->setScene(ToneTVA_TimeKeyFollow_scene);
+  ToneTVA_TimeKeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  ToneTVA_TimeKeyFollow_view->show();
+  
+  Pitch_TimeKeyFollow_scene->setSceneRect(0, 0, 370, 130);
+  Pitch_TimeKeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  Pitch_TimeKeyFollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  Pitch_TimeKeyFollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  Pitch_TimeKeyFollow_scene->addSimpleText("C-1")->setPos(10,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C0")->setPos(43,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C1")->setPos(76,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C2")->setPos(109,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C3")->setPos(142,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C4")->setPos(175,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C5")->setPos(208,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C6")->setPos(241,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C7")->setPos(274,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C8")->setPos(307,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("C9")->setPos(340,125);
+  Pitch_TimeKeyFollow_scene->addSimpleText("+100")->setPos(348,2);
+  Pitch_TimeKeyFollow_scene->addSimpleText("+50")->setPos(358,19);
+  Pitch_TimeKeyFollow_scene->addSimpleText("+20")->setPos(358,37);
+  Pitch_TimeKeyFollow_scene->addSimpleText("0")->setPos(372,54);
+  Pitch_TimeKeyFollow_scene->addSimpleText("-20")->setPos(358,70);
+  Pitch_TimeKeyFollow_scene->addSimpleText("-50")->setPos(358,91);
+  Pitch_TimeKeyFollow_scene->addSimpleText("-100")->setPos(350,109);
+  Pitch_TimeKeyFollow_view->setScene(Pitch_TimeKeyFollow_scene);
+  Pitch_TimeKeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  Pitch_TimeKeyFollow_view->show();
+
+  ToneTVA_Bias_ptrbpMark = 0;
+  ToneTVA_Bias_ptrHiLine = 0;
+  ToneTVA_Bias_ptrLowLine = 0;
+  ToneTVA_Bias_scene->setSceneRect(0, 0, 325, 135);
+  ToneTVA_Bias_scene->addLine(40, 65, 295, 65, blackLine);     // X axis
+  ToneTVA_Bias_scene->addLine(40, 10, 40, 118, blackLine);    // Y axis
+  ToneTVA_Bias_scene->addLine(295, 10, 295, 118, blackLine);    // Y2 axis
+  ToneTVA_Bias_scene->addSimpleText("Level")->setPos(3,45);
+  ToneTVA_Bias_scene->addSimpleText("+100")->setPos(5,10);
+  ToneTVA_Bias_scene->addSimpleText("-100")->setPos(5,100);
+  ToneTVA_Bias_bpMark.setLine(104,20,104,150);
+  ToneTVA_Bias_LowLine.setLine(40, 65, ToneTVA_Bias_bpMark.x1(),65);
+  ToneTVA_Bias_ptrLowLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_LowLine,redLine);
+  ToneTVA_Bias_HiLine.setLine(ToneTVA_Bias_bpMark.x1(),65,295,65);
+  ToneTVA_Bias_ptrHiLine = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_HiLine,redLine);
+  ToneTVA_Bias_bpMark.setLine((64*2)+40,10,(64*2)+40,115);
+  ToneTVA_Bias_ptrbpMark = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_bpMark,dotLine);
+  ToneTVA_Bias_bpText = ToneTVA_Bias_scene->addSimpleText("C 4");
+  ToneTVA_Bias_bpText->setPos(ToneTVA_Bias_bpMark.x1(), 120);
+  JVlibForm::ToneTVA_BiasPoint_display->setScene(ToneTVA_Bias_scene);
+  JVlibForm::ToneTVA_BiasPoint_display->show();
 }

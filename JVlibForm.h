@@ -824,7 +824,7 @@ private:
   QGraphicsLineItem *ToneTVA_Env_ptrT4;
   QGraphicsLineItem *ToneTVA_Env_ptrT2;
   QGraphicsLineItem *ToneTVA_Env_ptrSustain;
-  
+    
   QGraphicsScene *ToneTVA_Bias_scene;
   QLine ToneTVA_Bias_bpMark;
   QLine ToneTVA_Bias_HiLine;
@@ -833,6 +833,7 @@ private:
   QGraphicsLineItem *ToneTVA_Bias_ptrLowLine;
   QGraphicsLineItem *ToneTVA_Bias_ptrbpMark;
   QGraphicsSimpleTextItem *ToneTVA_Bias_bpText;
+  QGraphicsScene *ToneTVA_TimeKeyFollow_scene;
 
   QGraphicsScene *ToneTVF_Env_scene;
   QGraphicsSimpleTextItem *ToneTVF_Env_OffText;
@@ -856,6 +857,7 @@ private:
   QGraphicsLineItem *ToneTVF_Env_ptrT4;
   QGraphicsLineItem *ToneTVF_Env_ptrT2;
   QGraphicsLineItem *ToneTVF_Env_ptrSustain;
+  QGraphicsScene *ToneTVF_TimeKeyFollow_scene;
 
   QGraphicsScene *Pitch_Env_scene;
   QGraphicsSimpleTextItem *Pitch_Env_OffText;
@@ -879,6 +881,7 @@ private:
   QGraphicsLineItem *Pitch_Env_ptrT4;
   QGraphicsLineItem *Pitch_Env_ptrT2;
   QGraphicsLineItem *Pitch_Env_ptrSustain;
+  QGraphicsScene *Pitch_TimeKeyFollow_scene;
   
   QLineF LFO1_FadeUpLine;
   QLineF LFO1_FadeDownLine;

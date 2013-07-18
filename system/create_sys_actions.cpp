@@ -5,36 +5,6 @@
 #include	<QtGui>
 
 void JVlibForm::createSysActions() {
-  // set up Patch Structure graphics
-  scene1 = new QGraphicsScene();
-  scene2 = new QGraphicsScene();
-  scene3 = new QGraphicsScene();
-  scene4 = new QGraphicsScene();
-  scene5 = new QGraphicsScene();
-  scene6 = new QGraphicsScene();
-  scene7 = new QGraphicsScene();
-  scene8 = new QGraphicsScene();
-  scene9 = new QGraphicsScene();
-  scene10 = new QGraphicsScene();
-  scene1->addPixmap(QPixmap(":/res/Struct_Type1.png"));
-  scene2->addPixmap(QPixmap(":/res/Struct_Type2.png"));
-  scene3->addPixmap(QPixmap(":/res/Struct_Type3.png"));
-  scene4->addPixmap(QPixmap(":/res/Struct_Type4.png"));
-  scene5->addPixmap(QPixmap(":/res/Struct_Type5.png"));
-  scene6->addPixmap(QPixmap(":/res/Struct_Type6.png"));
-  scene7->addPixmap(QPixmap(":/res/Struct_Type7.png"));
-  scene8->addPixmap(QPixmap(":/res/Struct_Type8.png"));
-  scene9->addPixmap(QPixmap(":/res/Struct_Type9.png"));
-  scene10->addPixmap(QPixmap(":/res/Struct_Type10.png"));
-  
-  Pitch_Env_scene = new QGraphicsScene;
-  ToneTVA_Bias_scene = new QGraphicsScene;
-  ToneTVA_Env_scene = new QGraphicsScene;
-  ToneTVF_Env_scene = new QGraphicsScene;
-  LFO1_scene = new QGraphicsScene;
-  LFO2_scene = new QGraphicsScene;
-  ToneEFX_PanKeyFollow_scene = new QGraphicsScene;
-  
   Tuning_ButtonGroup = new QButtonGroup();
   Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);
   Tuning_ButtonGroup->addButton(Tuning_JustTemp_button,1);

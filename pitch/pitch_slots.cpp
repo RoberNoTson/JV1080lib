@@ -82,65 +82,59 @@ void JVlibForm::on_Pitch_HighLimit_select_valueChanged(int val) {
 }
 
 void JVlibForm::on_Pitch_TimeKeyfollow_select_currentIndexChanged(int val) {
-  QPixmap modepic;
+  static QGraphicsLineItem *ptrLine;
+  if (ptrLine) {
+    Pitch_TimeKeyFollow_scene->removeItem(ptrLine);
+    ptrLine = 0;
+  }
   switch(val) {
-    case 0:
-      modepic.load(":/res/keyfollow_d100.png");
-      break;
-    case 1:
-      modepic.load(":/res/keyfollow_d70.png");
-      break;
-    case 2:
-      modepic.load(":/res/keyfollow_d50.png");
-      break;
-    case 3:
-      modepic.load(":/res/keyfollow_d40.png");
-      break;
-    case 4:
-      modepic.load(":/res/keyfollow_d30.png");
-      break;
-    case 5:
-      modepic.load(":/res/keyfollow_d20.png");
-      break;
-    case 6:
-      modepic.load(":/res/keyfollow_d10.png");
-      break;
-    case 7:
-      modepic.load(":/res/keyfollow_0.png");
-      break;
-    case 8:
-      modepic.load(":/res/keyfollow_u10.png");
-      break;
-    case 9:
-      modepic.load(":/res/keyfollow_u20.png");
-      break;
-    case 10:
-      modepic.load(":/res/keyfollow_u30.png");
-      break;
-    case 11:
-      modepic.load(":/res/keyfollow_u40.png");
-      break;
-    case 12:
-      modepic.load(":/res/keyfollow_u50.png");
-      break;
-    case 13:
-      modepic.load(":/res/keyfollow_u70.png");
-      break;
-    case 14:
-      modepic.load(":/res/keyfollow_u100.png");
-      break;
-    case 15:
-      modepic.load(":/res/keyfollow_u120.png");
-      break;
-    case 16:
-      modepic.load(":/res/keyfollow_u150.png");
-      break;
-    case 17:
-      modepic.load(":/res/keyfollow_u200.png");
-      break;
+    case 0: // +100
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,110,345,10,redLine);
+        break;
+    case 1: // +70
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,103,345,17,redLine);
+        break;
+    case 2: // +50
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,95,345,24,redLine);
+        break;
+    case 3: // +40
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,88,345,31,redLine);
+        break;
+    case 4: // +30
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,81,345,38,redLine);
+        break;
+    case 5: // +20
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,74,345,45,redLine);
+        break;
+    case 6: // +10
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,67,345,52,redLine);
+        break;
+    case 7: // 0
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,60,345,60,redLine);
+        break;
+    case 8: // -10
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,52,345,67,redLine);
+        break;
+    case 9: // -20
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,45,345,74,redLine);
+        break;
+    case 10:    // -30
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,38,345,81,redLine);
+        break;
+    case 11:    // -40
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,31,345,88,redLine);
+        break;
+    case 12:    // -50
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,24,345,95,redLine);
+        break;
+    case 13:    // -70
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,17,345,103,redLine);
+        break;
+    case 14:    // -100
+        ptrLine = Pitch_TimeKeyFollow_scene->addLine(10,10,345,110,redLine);
+        break;
   }	// end Switch
-  Pitch_TimeKeyfollow_pixmap->setPixmap(modepic);
-  PitchStdUpdate(0x45, val);
+ PitchStdUpdate(0x45, 14-val);
 }
 void JVlibForm::on_Pitch_Transpose_select_valueChanged(int val) {
   Pitch_Transpose_display->display(val);
@@ -180,56 +174,56 @@ void JVlibForm::on_Pitch_KeyFollow_select_currentIndexChanged(int val) {
   QPixmap modepic;
   switch(val) {
     case 0:
-      modepic.load(":/res/keyfollow_d100.png");
+      modepic.load(":/res/keyfollow_u200.png");
       break;
     case 1:
-      modepic.load(":/res/keyfollow_d70.png");
-      break;
-    case 2:
-      modepic.load(":/res/keyfollow_d50.png");
-      break;
-    case 3:
-      modepic.load(":/res/keyfollow_d30.png");
-      break;
-    case 4:
-      modepic.load(":/res/keyfollow_d10.png");
-      break;
-    case 5:
-      modepic.load(":/res/keyfollow_0.png");
-      break;
-    case 6:
-      modepic.load(":/res/keyfollow_u10.png");
-      break;
-    case 7:
-      modepic.load(":/res/keyfollow_u20.png");
-      break;
-    case 8:
-      modepic.load(":/res/keyfollow_u30.png");
-      break;
-    case 9:
-      modepic.load(":/res/keyfollow_u40.png");
-      break;
-    case 10:
-      modepic.load(":/res/keyfollow_u50.png");
-      break;
-    case 11:
-      modepic.load(":/res/keyfollow_u70.png");
-      break;
-    case 12:
-      modepic.load(":/res/keyfollow_u100.png");
-      break;
-    case 13:
-      modepic.load(":/res/keyfollow_u120.png");
-      break;
-    case 14:
       modepic.load(":/res/keyfollow_u150.png");
       break;
+    case 2:
+      modepic.load(":/res/keyfollow_u120.png");
+      break;
+    case 3:
+      modepic.load(":/res/keyfollow_u100.png");
+      break;
+    case 4:
+      modepic.load(":/res/keyfollow_u70.png");
+      break;
+    case 5:
+      modepic.load(":/res/keyfollow_u50.png");
+      break;
+    case 6:
+      modepic.load(":/res/keyfollow_u40.png");
+      break;
+    case 7:
+      modepic.load(":/res/keyfollow_u30.png");
+      break;
+    case 8:
+      modepic.load(":/res/keyfollow_u20.png");
+      break;
+    case 9:
+      modepic.load(":/res/keyfollow_u10.png");
+      break;
+    case 10:
+      modepic.load(":/res/keyfollow_0.png");
+      break;
+    case 11:
+      modepic.load(":/res/keyfollow_d10.png");
+      break;
+    case 12:
+      modepic.load(":/res/keyfollow_d30.png");
+      break;
+    case 13:
+      modepic.load(":/res/keyfollow_d50.png");
+      break;
+    case 14:
+      modepic.load(":/res/keyfollow_d70.png");
+      break;
     case 15:
-      modepic.load(":/res/keyfollow_u200.png");
+      modepic.load(":/res/keyfollow_d100.png");
       break;
   }	// end Switch
   Pitch_Keyfollow_pixmap->setPixmap(modepic);
-  PitchStdUpdate(0x40, val);
+  PitchStdUpdate(0x40, 15-val);
 }	// end on_Pitch_KeyFollow_select_currentIndexChanged
 
 void JVlibForm::on_Pitch_VelocSens_select_valueChanged(int val) {
