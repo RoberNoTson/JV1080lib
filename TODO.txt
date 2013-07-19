@@ -37,16 +37,14 @@ ToneEFX_tab
   - Add waveform types to LFO graphic
 
 ToneTVF_tab
-  - Time Keyfollow graphic needs improvement
   - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
   - Cutoff Keyfollow graphic looks cheesy, use dynamic view
 
 ToneTVA_tab
-  - Time Keyfollow graphic needs improvement
+  - 
 
 Pitch_tab
   - Pitch Keyfollow graphic needs improvement
-  - Time Keyfollow graphic needs improvement
 
 Tuning_tab
   - recognize existing tunings

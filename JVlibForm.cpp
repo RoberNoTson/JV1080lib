@@ -19,56 +19,8 @@ JVlibForm::JVlibForm() {
   if (state_table->initialized!=true) setInitial();
 }	// end JVlibForm()
 
-void JVlibForm::setInitial() {
-  active_area = new ACTIVE_AREA;
-  system_area = new SYSTEM_AREA;
-  act_area = active_area;
-  sys_area = system_area;
-  setupUi(this);
-  MainTabWidget->setCurrentIndex(0);
-  MainTabWidget->setTabEnabled(1,false);
-  MainTabWidget->setTabEnabled(2,false);
-  MainTabWidget->setTabEnabled(3,false);
-  MainTabWidget->setTabEnabled(4,false);
-  MainTabWidget->setTabEnabled(5,false);
-  MainTabWidget->setTabEnabled(6,false);
-  MainTabWidget->setTabEnabled(7,false);
-  MainTabWidget->setTabEnabled(8,false);
-  MainTabWidget->setTabEnabled(9,false);
-  MainTabWidget->setTabEnabled(10,false);
-  MainTabWidget->setTabEnabled(11,false);
-  state_table->perf_mode = false;
-  state_table->patch_mode = false;
-  state_table->GM_mode = false;
-  state_table->systemTab_enable = false;
-  state_table->system_sync = false;
-  state_table->system_modified = false;
-  state_table->performanceTab_enable = false;
-  state_table->performance_sync = false;
-  state_table->performance_modified = false;
-  state_table->partsTab_enable = false;
-  state_table->parts_modified = false;
-  state_table->patchTab_enable = false;
-  state_table->patch_sync = false;
-  state_table->patch_modified = false;
-  state_table->rhythmTab_enable = false;
-  state_table->rhythm_sync = false;
-  state_table->rhythm_modified = false;
-  state_table->patchEFXTab_enable = false;
-  state_table->toneTab_enable = false;
-  state_table->tone_sync = false;
-  state_table->tone_modified = false;
-  state_table->toneTVFTab_enable = false;
-  state_table->toneTVATab_enable = false;
-  state_table->pitchTab_enable = false;
-  state_table->tuningTab_enable = false;
-  state_table->tuningTab_sync = false;
-  state_table->tuning_modified = false;
-  state_table->midiPorts_open = false;	// PORTS_OPEN
-  state_table->db_connect = false;	// DB_OPEN
-  state_table->jv_connect = false;	// ONLINE
-  state_table->updates_enabled = false;
-    // set up Patch Structure graphics
+void JVlibForm::initGraphics() {
+  // set up Patch Structure graphics
   scene1 = new QGraphicsScene();
   scene2 = new QGraphicsScene();
   scene3 = new QGraphicsScene();
@@ -99,6 +51,64 @@ void JVlibForm::setInitial() {
   ToneTVF_TimeKeyFollow_scene = new QGraphicsScene;
   ToneTVA_TimeKeyFollow_scene = new QGraphicsScene;
   Pitch_TimeKeyFollow_scene = new QGraphicsScene;
+  Pitch_KeyFollow_scene = new QGraphicsScene;
+  ToneTVF_CutoffKeyfollow_scene = new QGraphicsScene;
+}	// end initGraphics
+
+void JVlibForm::initStateTable() {
+  state_table->perf_mode = false;
+  state_table->patch_mode = false;
+  state_table->GM_mode = false;
+  state_table->systemTab_enable = false;
+  state_table->system_sync = false;
+  state_table->system_modified = false;
+  state_table->performanceTab_enable = false;
+  state_table->performance_sync = false;
+  state_table->performance_modified = false;
+  state_table->partsTab_enable = false;
+  state_table->parts_modified = false;
+  state_table->patchTab_enable = false;
+  state_table->patch_sync = false;
+  state_table->patch_modified = false;
+  state_table->rhythmTab_enable = false;
+  state_table->rhythm_sync = false;
+  state_table->rhythm_modified = false;
+  state_table->patchEFXTab_enable = false;
+  state_table->toneTab_enable = false;
+  state_table->tone_sync = false;
+  state_table->tone_modified = false;
+  state_table->toneTVFTab_enable = false;
+  state_table->toneTVATab_enable = false;
+  state_table->pitchTab_enable = false;
+  state_table->tuningTab_enable = false;
+  state_table->tuningTab_sync = false;
+  state_table->tuning_modified = false;
+  state_table->midiPorts_open = false;	// PORTS_OPEN
+  state_table->db_connect = false;	// DB_OPEN
+  state_table->jv_connect = false;	// ONLINE
+  state_table->updates_enabled = false;  
+}	// end initStateTable
+
+void JVlibForm::setInitial() {
+  active_area = new ACTIVE_AREA;
+  system_area = new SYSTEM_AREA;
+  act_area = active_area;
+  sys_area = system_area;
+  setupUi(this);
+  MainTabWidget->setCurrentIndex(0);
+  MainTabWidget->setTabEnabled(1,false);
+  MainTabWidget->setTabEnabled(2,false);
+  MainTabWidget->setTabEnabled(3,false);
+  MainTabWidget->setTabEnabled(4,false);
+  MainTabWidget->setTabEnabled(5,false);
+  MainTabWidget->setTabEnabled(6,false);
+  MainTabWidget->setTabEnabled(7,false);
+  MainTabWidget->setTabEnabled(8,false);
+  MainTabWidget->setTabEnabled(9,false);
+  MainTabWidget->setTabEnabled(10,false);
+  MainTabWidget->setTabEnabled(11,false);
+  initStateTable();
+  initGraphics();
   createStatusBar();
   createMenuActions();
   createSysActions();

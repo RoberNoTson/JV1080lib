@@ -45,7 +45,7 @@ void JVlibForm::setToneENVParms(int val) {
     ToneTVF_Time1Sens_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].F_ENV_veloc_time_1_sens);
     ToneTVF_Time4Sens_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].F_ENV_veloc_time_4_sens);
     ToneTVF_VelocityCurve_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].F_ENV_veloc_curve);
-    ToneTVF_CutoffKeyfollow_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].cutoff_keyfollow);
+    ToneTVF_CutoffKeyfollow_select->setCurrentIndex(15-active_area->active_perf_patch[pn].patch_tone[tn].cutoff_keyfollow);
     ToneTVF_FilterType_select->setCurrentIndex(active_area->active_perf_patch[pn].patch_tone[tn].filter_type);
     
   }	// end Perf mode
@@ -87,11 +87,12 @@ void JVlibForm::setToneENVParms(int val) {
     ToneTVF_Time1Sens_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].F_ENV_veloc_time_1_sens);
     ToneTVF_Time4Sens_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].F_ENV_veloc_time_4_sens);
     ToneTVF_VelocityCurve_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].F_ENV_veloc_curve);
-    ToneTVF_CutoffKeyfollow_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].cutoff_keyfollow);
+    ToneTVF_CutoffKeyfollow_select->setCurrentIndex(15-active_area->active_patch_patch.patch_tone[tn].cutoff_keyfollow);
     ToneTVF_FilterType_select->setCurrentIndex(active_area->active_patch_patch.patch_tone[tn].filter_type);
   }	// end if Patch_mode
   ToneTVF_enable(ToneTVF_FilterType_select->currentIndex()==0?false:true);
   on_ToneTVA_BiasDirection_select_currentIndexChanged(ToneTVA_BiasDirection_select->currentIndex());
   on_ToneTVA_TimeKeyfollow_select_currentIndexChanged(ToneTVA_TimeKeyfollow_select->currentIndex());
   on_ToneTVF_TimeKeyfollow_select_currentIndexChanged(ToneTVF_TimeKeyfollow_select->currentIndex());
+  on_ToneTVF_CutoffKeyfollow_select_currentIndexChanged(ToneTVF_CutoffKeyfollow_select->currentIndex());
 }	// end setToneENVParms

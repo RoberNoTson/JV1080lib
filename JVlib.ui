@@ -94,7 +94,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>10</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -36838,72 +36838,7 @@
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>120</string>
+            <string>200</string>
            </property>
           </item>
           <item>
@@ -36913,7 +36848,72 @@
           </item>
           <item>
            <property name="text">
-            <string>200</string>
+            <string>120</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>100</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>40</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -36997,71 +36997,11 @@
            <string notr="true">Apply filter relative to the pitch being played. When positive, higher pitches = shorter envelope times.</string>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>0</number>
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-70</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-50</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>-10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>10</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>20</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>30</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>40</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>50</string>
+            <string>100</string>
            </property>
           </item>
           <item>
@@ -37071,7 +37011,67 @@
           </item>
           <item>
            <property name="text">
-            <string>100</string>
+            <string>50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>40</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-10</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-30</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-40</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-50</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-70</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -37116,28 +37116,6 @@
        </property>
        <property name="horizontalScrollBarPolicy">
         <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="ToneENV_CutoffKeyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>450</y>
-         <width>381</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_0.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="ToneTVF_TestTone_switch">
@@ -37303,6 +37281,34 @@
        <property name="geometry">
         <rect>
          <x>430</x>
+         <y>450</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+      </widget>
+      <widget class="QGraphicsView" name="ToneTVF_CutoffKeyfollow_view">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
          <y>450</y>
          <width>381</width>
          <height>141</height>
@@ -38128,41 +38134,41 @@
            <string>Vary the envelope relative to C-4. When positive, higher pitches have shorter T2-T4 times.</string>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>0</number>
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
+            <string>+100</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-70</string>
+            <string>+70</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-50</string>
+            <string>+50</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-40</string>
+            <string>+40</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-30</string>
+            <string>+30</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-20</string>
+            <string>+20</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-10</string>
+            <string>+10</string>
            </property>
           </item>
           <item>
@@ -38172,37 +38178,37 @@
           </item>
           <item>
            <property name="text">
-            <string>10</string>
+            <string>-10</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>20</string>
+            <string>-20</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>30</string>
+            <string>-30</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>40</string>
+            <string>-40</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>50</string>
+            <string>-50</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>70</string>
+            <string>-70</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>100</string>
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -40130,41 +40136,41 @@
            <string>Change the Pitch envelope relative to C4. When positive pitches above C4 have shorter T2-T4 times.</string>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>0</number>
           </property>
           <item>
            <property name="text">
-            <string>-100</string>
+            <string>+100</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-70</string>
+            <string>+70</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-50</string>
+            <string>+50</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-40</string>
+            <string>+40</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-30</string>
+            <string>+30</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-20</string>
+            <string>+20</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>-10</string>
+            <string>+-10</string>
            </property>
           </item>
           <item>
@@ -40174,37 +40180,37 @@
           </item>
           <item>
            <property name="text">
-            <string>10</string>
+            <string>-10</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>20</string>
+            <string>-20</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>30</string>
+            <string>-30</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>40</string>
+            <string>-40</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>50</string>
+            <string>-50</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>70</string>
+            <string>-70</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>100</string>
+            <string>-100</string>
            </property>
           </item>
          </widget>
@@ -40242,46 +40248,6 @@
          </widget>
         </item>
        </layout>
-      </widget>
-      <widget class="QLabel" name="Pitch_Keyfollow_pixmap">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>440</y>
-         <width>381</width>
-         <height>141</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>381</width>
-         <height>141</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>381</width>
-         <height>141</height>
-        </size>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::Panel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Sunken</enum>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="JVlibForm.qrc">:/res/keyfollow_u100.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
       </widget>
       <widget class="QWidget" name="layoutWidget_252">
        <property name="geometry">
@@ -40616,6 +40582,34 @@
        <property name="geometry">
         <rect>
          <x>400</x>
+         <y>440</y>
+         <width>381</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>381</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+      </widget>
+      <widget class="QGraphicsView" name="Pitch_KeyFollow_view">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
          <y>440</y>
          <width>381</width>
          <height>141</height>

@@ -38,6 +38,10 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Env_t4Text = 0;
   ToneTVA_Env_sndText = 0;
   ToneTVA_Env_ptrSustain = 0;
+  ToneTVA_Time1_select->setValue(1);
+  ToneTVA_Time2_select->setValue(1);
+  ToneTVA_Time3_select->setValue(1);
+  ToneTVA_Time4_select->setValue(1);
   
   ToneTVF_Env_scene->setSceneRect(0, 0, 425, 175);
   QLineF ToneTVF_Env_t4(384,0,384,0);
@@ -73,10 +77,30 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Time2_select->setValue(1);
   ToneTVF_Time3_select->setValue(1);
   ToneTVF_Time4_select->setValue(1);
-  ToneTVA_Time1_select->setValue(1);
-  ToneTVA_Time2_select->setValue(1);
-  ToneTVA_Time3_select->setValue(1);
-  ToneTVA_Time4_select->setValue(1);
+  ToneTVF_CutoffKeyfollow_scene->setSceneRect(0, 0, 370, 130);
+  ToneTVF_CutoffKeyfollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  ToneTVF_CutoffKeyfollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  ToneTVF_CutoffKeyfollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C-1")->setPos(10,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C0")->setPos(43,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C1")->setPos(76,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C2")->setPos(109,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C3")->setPos(142,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C4")->setPos(175,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C5")->setPos(208,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C6")->setPos(241,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C7")->setPos(274,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C8")->setPos(307,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("C9")->setPos(340,125);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("+200")->setPos(348,2);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("+100")->setPos(352,26);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("+50")->setPos(362,40);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("0")->setPos(375,53);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("-50")->setPos(362,67);
+  ToneTVF_CutoffKeyfollow_scene->addSimpleText("-100")->setPos(352,80);
+  ToneTVF_CutoffKeyfollow_view->setScene(ToneTVF_CutoffKeyfollow_scene);
+  ToneTVF_CutoffKeyfollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  ToneTVF_CutoffKeyfollow_view->show();
 
   Pitch_Env_scene->setSceneRect(0, 0, 425, 175);
   QLineF Pitch_Env_t4(384,0,384,0);
@@ -112,6 +136,30 @@ void JVlibForm::createToneENVactions() {
   Pitch_Time2_select->setValue(1);
   Pitch_Time3_select->setValue(1);
   Pitch_Time4_select->setValue(1);
+  Pitch_KeyFollow_scene->setSceneRect(0, 0, 370, 130);
+  Pitch_KeyFollow_scene->addLine(10, 10, 10, 110, blackLine);     // Y axis
+  Pitch_KeyFollow_scene->addLine(10, 60, 345, 60, blackLine);     // X axis
+  Pitch_KeyFollow_scene->addLine(180,10,180,120,dotLine);   // C4 line
+  Pitch_KeyFollow_scene->addSimpleText("C-1")->setPos(10,125);
+  Pitch_KeyFollow_scene->addSimpleText("C0")->setPos(43,125);
+  Pitch_KeyFollow_scene->addSimpleText("C1")->setPos(76,125);
+  Pitch_KeyFollow_scene->addSimpleText("C2")->setPos(109,125);
+  Pitch_KeyFollow_scene->addSimpleText("C3")->setPos(142,125);
+  Pitch_KeyFollow_scene->addSimpleText("C4")->setPos(175,125);
+  Pitch_KeyFollow_scene->addSimpleText("C5")->setPos(208,125);
+  Pitch_KeyFollow_scene->addSimpleText("C6")->setPos(241,125);
+  Pitch_KeyFollow_scene->addSimpleText("C7")->setPos(274,125);
+  Pitch_KeyFollow_scene->addSimpleText("C8")->setPos(307,125);
+  Pitch_KeyFollow_scene->addSimpleText("C9")->setPos(340,125);
+  Pitch_KeyFollow_scene->addSimpleText("+200")->setPos(348,2);
+  Pitch_KeyFollow_scene->addSimpleText("+100")->setPos(352,26);
+  Pitch_KeyFollow_scene->addSimpleText("+50")->setPos(362,40);
+  Pitch_KeyFollow_scene->addSimpleText("0")->setPos(375,53);
+  Pitch_KeyFollow_scene->addSimpleText("-50")->setPos(362,67);
+  Pitch_KeyFollow_scene->addSimpleText("-100")->setPos(352,80);
+  Pitch_KeyFollow_view->setScene(Pitch_KeyFollow_scene);
+  Pitch_KeyFollow_view->fitInView(0,0,1,22,Qt::KeepAspectRatio);
+  Pitch_KeyFollow_view->show();
   
   LFO1_scene->setSceneRect(0, 0, 256, 192);
   LFO1_scene->addLine(10, 192/2, 140, 192/2, blackLine);     // X axis

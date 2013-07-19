@@ -87,6 +87,8 @@ private slots:
   void slotactionWhats_This();
   QString funcNoteCalc(int);
   QString Pan2Deg(int);
+  void initGraphics();
+  void initStateTable();
   
   // for System tab
   void slotSysSetPerf();
@@ -858,6 +860,7 @@ private:
   QGraphicsLineItem *ToneTVF_Env_ptrT2;
   QGraphicsLineItem *ToneTVF_Env_ptrSustain;
   QGraphicsScene *ToneTVF_TimeKeyFollow_scene;
+  QGraphicsScene *ToneTVF_CutoffKeyfollow_scene;
 
   QGraphicsScene *Pitch_Env_scene;
   QGraphicsSimpleTextItem *Pitch_Env_OffText;
@@ -882,6 +885,7 @@ private:
   QGraphicsLineItem *Pitch_Env_ptrT2;
   QGraphicsLineItem *Pitch_Env_ptrSustain;
   QGraphicsScene *Pitch_TimeKeyFollow_scene;
+  QGraphicsScene *Pitch_KeyFollow_scene;
   
   QLineF LFO1_FadeUpLine;
   QLineF LFO1_FadeDownLine;

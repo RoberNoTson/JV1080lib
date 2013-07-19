@@ -135,62 +135,62 @@ void JVlibForm::on_ToneTVF_CutoffFreq_select_valueChanged(int val) {
 }	// end on_ToneTVF_CutoffFreq_select_valueChanged
 
 void JVlibForm::on_ToneTVF_CutoffKeyfollow_select_currentIndexChanged(int val) {
-  QPixmap modepic;
-  switch(val) {
-    case 0:
-      modepic.load(":/res/keyfollow_d100.png");
-      break;
-    case 1:
-      modepic.load(":/res/keyfollow_d70.png");
-      break;
-    case 2:
-      modepic.load(":/res/keyfollow_d50.png");
-      break;
-    case 3:
-      modepic.load(":/res/keyfollow_d30.png");
-      break;
-    case 4:
-      modepic.load(":/res/keyfollow_d10.png");
-      break;
-    case 5:
-      modepic.load(":/res/keyfollow_0.png");
-      break;
-    case 6:
-      modepic.load(":/res/keyfollow_u10.png");
-      break;
-    case 7:
-      modepic.load(":/res/keyfollow_u20.png");
-      break;
-    case 8:
-      modepic.load(":/res/keyfollow_u30.png");
-      break;
-    case 9:
-      modepic.load(":/res/keyfollow_u40.png");
-      break;
-    case 10:
-      modepic.load(":/res/keyfollow_u50.png");
-      break;
-    case 11:
-      modepic.load(":/res/keyfollow_u70.png");
-      break;
-    case 12:
-      modepic.load(":/res/keyfollow_u100.png");
-      break;
-    case 13:
-      modepic.load(":/res/keyfollow_u120.png");
-      break;
-    case 14:
-      modepic.load(":/res/keyfollow_u150.png");
-      break;
-    case 15:
-      modepic.load(":/res/keyfollow_u200.png");
-      break;
-    default:
-      modepic.load(":/res/keyfollow_0.png");
-      break;
-  }	// end Switch
-  ToneENV_CutoffKeyfollow_pixmap->setPixmap(modepic);
-  ToneENVStdUpdate(0x52, val);
+    static QGraphicsLineItem *ptrLine;
+    if (ptrLine) {
+        ToneTVF_CutoffKeyfollow_scene->removeItem(ptrLine);
+        ptrLine = 0;
+    }
+    switch(val) {
+    case 0: // +200
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,110,345,10,redLine);
+        break;
+    case 1: // +150
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,97.5,345,22.5,redLine);
+        break;
+    case 2: // +120
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,90,345,30,redLine);
+        break;
+    case 3: // +100
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,85,345,35,redLine);
+        break;
+    case 4: // +70
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,77.5,345,42.5,redLine);
+        break;
+    case 5: // +50
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,72.5,345,47.5,redLine);
+        break;
+    case 6: // +40
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,70,345,50,redLine);
+        break;
+    case 7: // +30
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,67.5,345,52.5,redLine);
+        break;
+    case 8: // +20
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,65,345,55,redLine);
+        break;
+    case 9: // +10
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,62.5,345,57.5,redLine);
+        break;
+    case 10:    // 0
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,60,345,60,redLine);
+        break;
+    case 11:    // -10
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,57.5,345,62.5,redLine);
+        break;
+    case 12:    // -30
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,52.5,345,67.5,redLine);
+        break;
+    case 13:    // -50
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,47.5,345,72.5,redLine);
+        break;
+    case 14:    // -70
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,42.5,345,77.5,redLine);
+        break;
+    case 15:    // -100
+        ptrLine = ToneTVF_CutoffKeyfollow_scene->addLine(10,35,345,85,redLine);
+        break;
+    }   // end switch
+  ToneENVStdUpdate(0x52, 15-val);
 }
 void JVlibForm::on_ToneTVF_Resonance_select_valueChanged(int val) {
   // increases velocity of tones nearer the cutoff freq
