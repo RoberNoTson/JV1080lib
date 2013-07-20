@@ -849,6 +849,7 @@ private:
   QLineF ToneTVF_Env_t3;
   QLineF ToneTVF_Env_t4;
   QLineF ToneTVF_Env_sustain;
+  QLineF ToneTVF_Env_cutoff;
   QLineF ToneTVF_Env_offLine;
   QLineF ToneTVF_Env_t1Mark;
   QLineF ToneTVF_Env_t2Mark;
@@ -859,6 +860,7 @@ private:
   QGraphicsLineItem *ToneTVF_Env_ptrT4;
   QGraphicsLineItem *ToneTVF_Env_ptrT2;
   QGraphicsLineItem *ToneTVF_Env_ptrSustain;
+  QGraphicsLineItem *ToneTVF_Env_ptrCutoff;
   QGraphicsScene *ToneTVF_TimeKeyFollow_scene;
   QGraphicsScene *ToneTVF_CutoffKeyfollow_scene;
 

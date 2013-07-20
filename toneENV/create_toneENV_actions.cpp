@@ -26,8 +26,8 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Env_scene->addSimpleText("Key-On")->setPos(7,8);
   ToneTVA_Env_OffText = ToneTVA_Env_scene->addSimpleText("Key-Off");
   ToneTVA_Env_OffText->setPos(361,8);
-  JVlibForm::ToneTVA_Env_display->setScene(ToneTVA_Env_scene);
-  JVlibForm::ToneTVA_Env_display->show();
+  ToneTVA_Env_display->setScene(ToneTVA_Env_scene);
+  ToneTVA_Env_display->show();
   ToneTVA_Env_ptrT1 = 0;
   ToneTVA_Env_ptrT2 = 0;
   ToneTVA_Env_ptrT3 = 0;
@@ -50,7 +50,6 @@ void JVlibForm::createToneENVactions() {
   QLineF ToneTVF_Env_t2Mark(50,20,50,150);
   QLineF ToneTVF_Env_t3Mark(50,20,50,150);
   QLineF ToneTVF_Env_t4Mark(375,20,374,150);
-  ToneTVF_Env_scene->addLine(40, 90, 380, 90, blackLine);     // X axis
   ToneTVF_Env_scene->addLine(40, 20, 40, 157, blackLine);    // Y axis
   ToneTVF_Env_scene->addLine(50,20,50,158,dotLine);   // Note-On line
   ToneTVF_Env_scene->addLine(ToneTVF_Env_offLine,dotLine);
@@ -61,8 +60,8 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Env_scene->addSimpleText("Key-On")->setPos(48,160);
   ToneTVF_Env_OffText = ToneTVF_Env_scene->addSimpleText("Key-Off");
   ToneTVF_Env_OffText->setPos(372,160);
-  JVlibForm::ToneTVF_Env_display->setScene(ToneTVF_Env_scene);
-  JVlibForm::ToneTVF_Env_display->show();
+  ToneTVF_Env_display->setScene(ToneTVF_Env_scene);
+  ToneTVF_Env_display->show();
   ToneTVF_Env_ptrT1 = 0;
   ToneTVF_Env_ptrT2 = 0;
   ToneTVF_Env_ptrT3 = 0;
@@ -73,6 +72,7 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Env_t4Text = 0;
   ToneTVF_Env_sndText = 0;
   ToneTVF_Env_ptrSustain = 0;
+  ToneTVF_Env_ptrCutoff = 0;
   ToneTVF_Time1_select->setValue(1);
   ToneTVF_Time2_select->setValue(1);
   ToneTVF_Time3_select->setValue(1);
@@ -120,8 +120,8 @@ void JVlibForm::createToneENVactions() {
   Pitch_Env_scene->addSimpleText("Key-On")->setPos(48,160);
   Pitch_Env_OffText = Pitch_Env_scene->addSimpleText("Key-Off");
   Pitch_Env_OffText->setPos(372,160);
-  JVlibForm::Pitch_Env_display->setScene(Pitch_Env_scene);
-  JVlibForm::Pitch_Env_display->show();
+  Pitch_Env_display->setScene(Pitch_Env_scene);
+  Pitch_Env_display->show();
   Pitch_Env_ptrT1 = 0;
   Pitch_Env_ptrT2 = 0;
   Pitch_Env_ptrT3 = 0;
@@ -319,6 +319,6 @@ void JVlibForm::createToneENVactions() {
   ToneTVA_Bias_ptrbpMark = ToneTVA_Bias_scene->addLine(ToneTVA_Bias_bpMark,dotLine);
   ToneTVA_Bias_bpText = ToneTVA_Bias_scene->addSimpleText("C 4");
   ToneTVA_Bias_bpText->setPos(ToneTVA_Bias_bpMark.x1(), 120);
-  JVlibForm::ToneTVA_BiasPoint_display->setScene(ToneTVA_Bias_scene);
-  JVlibForm::ToneTVA_BiasPoint_display->show();
+  ToneTVA_BiasPoint_display->setScene(ToneTVA_Bias_scene);
+  ToneTVA_BiasPoint_display->show();
 }

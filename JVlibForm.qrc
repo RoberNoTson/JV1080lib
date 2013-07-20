@@ -38,33 +38,6 @@
     <file>res/Patch_StretchTune2.png</file>
     <file>res/Patch_StretchTune3.png</file>
     <file>res/Patch_StretchTune0.png</file>
-    <file>res/PitchEnv.png</file>
-    <file>res/TVAbiasDirLower.png</file>
-    <file>res/TVAbiasDirUpper.png</file>
-    <file>res/TVAbiasDirLowUp.png</file>
-    <file>res/TVAbiasDirAll.png</file>
-    <file>res/LFOon_in.png</file>
-    <file>res/LFOon_out.png</file>
-    <file>res/LFOoff_in.png</file>
-    <file>res/LFOoff_out.png</file>
-    <file>res/keyfollow_0.png</file>
-    <file>res/keyfollow_u200.png</file>
-    <file>res/keyfollow_u150.png</file>
-    <file>res/keyfollow_u120.png</file>
-    <file>res/keyfollow_u100.png</file>
-    <file>res/keyfollow_u70.png</file>
-    <file>res/keyfollow_u50.png</file>
-    <file>res/keyfollow_u40.png</file>
-    <file>res/keyfollow_u30.png</file>
-    <file>res/keyfollow_u20.png</file>
-    <file>res/keyfollow_u10.png</file>
-    <file>res/keyfollow_d10.png</file>
-    <file>res/keyfollow_d20.png</file>
-    <file>res/keyfollow_d30.png</file>
-    <file>res/keyfollow_d40.png</file>
-    <file>res/keyfollow_d50.png</file>
-    <file>res/keyfollow_d70.png</file>
-    <file>res/keyfollow_d100.png</file>
     <file>res/keyboard.png</file>
   </qresource>
 </RCC>

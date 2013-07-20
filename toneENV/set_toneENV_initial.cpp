@@ -95,4 +95,9 @@ void JVlibForm::setToneENVParms(int val) {
   on_ToneTVA_TimeKeyfollow_select_currentIndexChanged(ToneTVA_TimeKeyfollow_select->currentIndex());
   on_ToneTVF_TimeKeyfollow_select_currentIndexChanged(ToneTVF_TimeKeyfollow_select->currentIndex());
   on_ToneTVF_CutoffKeyfollow_select_currentIndexChanged(ToneTVF_CutoffKeyfollow_select->currentIndex());
+  if (ToneTVF_Env_ptrCutoff) {
+    ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrCutoff);
+    ToneTVF_Env_ptrCutoff = 0;
+  }
+  on_ToneTVF_CutoffFreq_select_valueChanged(ToneTVF_CutoffFreq_select->value());
 }	// end setToneENVParms

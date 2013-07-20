@@ -10,13 +10,16 @@ System_tab
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
   - Play MIDI function
+  - Patch Tempo controls disabled when in Performance mode
 
 Performance_tab
-  -
+  - verify Key Range Upper/Lower cannot cross each other.
+  - voice reserve per part should be locked if it causes the system total to exceed 64
 
 PerfParts_tab
   - update state_table->partX_sync status when a part is changed
   - turn off Patch Sync light when a different Part patch is selected
+  - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
 
 Patch_tab
   - turn off Patch Sync light when a different patch is selected
@@ -37,14 +40,13 @@ ToneEFX_tab
   - Add waveform types to LFO graphic
 
 ToneTVF_tab
-  - add dynamic display for Cutoff freq and Resonance, relative to Filter Type
-  - Cutoff Keyfollow graphic looks cheesy, use dynamic view
+  - add Cutoff freq and Resonance values to dynamic graph, relative to Filter Type
+  - improve Bias keyboard picture
 
 ToneTVA_tab
   - 
 
 Pitch_tab
-  - Pitch Keyfollow graphic needs improvement
 
 Tuning_tab
   - recognize existing tunings

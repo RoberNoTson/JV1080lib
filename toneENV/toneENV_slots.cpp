@@ -2,6 +2,8 @@
 #include        "JVlibForm.h"
 #include        <QtGui>
 
+int ToneTVF_CutoffFreq_value = 90;
+
 void JVlibForm::ToneENVStdUpdate(int offset, int val) {
   if (state_table->updates_enabled) {
     char *ptr;
@@ -32,13 +34,15 @@ void JVlibForm::on_ToneTVF_TestTone_switch_toggled(bool val) {
     buf[0] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
       system_area->sys_common.patch_receive_channel);
     buf[1] = 0x7B;
+//    buf[1] = 0x78;
     buf[2] = 0;
-    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[4] = 0x79;
-    buf[5] = 0;
+//    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+//      system_area->sys_common.patch_receive_channel);
+//    buf[4] = 0x79;
+//    buf[5] = 0;
   if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+//  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+  if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
   close_ports();
   }
   ToneTVF_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
@@ -131,6 +135,14 @@ void JVlibForm::on_ToneTVF_FilterType_select_currentIndexChanged(int val) {
 }
 
 void JVlibForm::on_ToneTVF_CutoffFreq_select_valueChanged(int val) {
+  static QGraphicsLineItem *ptrLine;
+  ToneTVF_CutoffFreq_value = 90 - ((val-63)/2);
+  if (ptrLine) {
+    ToneTVF_Env_scene->removeItem(ptrLine);
+    ptrLine = 0;
+  }
+  ptrLine = ToneTVF_Env_scene->addLine(40, ToneTVF_CutoffFreq_value, 380, ToneTVF_CutoffFreq_value, blackLine);     // Cutoff Freq
+  on_ToneTVF_Time1_select_valueChanged(ToneTVF_Time1_select->value());
   ToneENVStdUpdate(0x51, val);
 }	// end on_ToneTVF_CutoffFreq_select_valueChanged
 
@@ -278,7 +290,7 @@ void JVlibForm::on_ToneTVF_TimeKeyfollow_select_currentIndexChanged(int val) {
 
 void JVlibForm::on_ToneTVF_Time1_select_valueChanged(int val) {
   static QGraphicsLineItem *ptrT1Mark;
-  qreal oldY = ToneTVF_Env_ptrT1?ToneTVF_Env_t1.y2():90;
+  qreal oldY = ToneTVF_Env_ptrT1?ToneTVF_Env_t1.y2():ToneTVF_CutoffFreq_value;
   if (ptrT1Mark) {
       ToneTVF_Env_scene->removeItem(ptrT1Mark);
       ptrT1Mark=0;
@@ -291,7 +303,7 @@ void JVlibForm::on_ToneTVF_Time1_select_valueChanged(int val) {
       ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT1);
       ToneTVF_Env_ptrT1=0;
   }
-  ToneTVF_Env_t1.setLine(50,90,val/2+50,oldY);
+  ToneTVF_Env_t1.setLine(50,ToneTVF_CutoffFreq_value,val/2+50,oldY);
   ToneTVF_Env_ptrT1 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t1,redLine);
   if (val>0) {
     ToneTVF_Env_t1Mark.setLine(ToneTVF_Env_t1.x2(),20,ToneTVF_Env_t1.x2(),157);
@@ -306,24 +318,25 @@ void JVlibForm::on_ToneTVF_Time1_select_valueChanged(int val) {
   } else {
     on_ToneTVF_Time2_select_valueChanged(ToneTVF_Time2_select->value());
   }
+  on_ToneTVF_Lvl1_select_valueChanged(ToneTVF_Lvl1_select->value());
   ToneENVStdUpdate(0x5B, val);
-}
+}	// end on_ToneTVF_Time1_select_valueChanged
 void JVlibForm::on_ToneTVF_Time2_select_valueChanged(int val) {
     static QGraphicsLineItem *ptrT2Mark;
-    qreal oldY2 = ToneTVF_Env_ptrT2?ToneTVF_Env_t2.y2():90;
-    if (ptrT2Mark) {
-        ToneTVF_Env_scene->removeItem(ptrT2Mark);
-        ptrT2Mark=0;
-    }
+    qreal oldY2 = ToneTVF_Env_ptrT2?ToneTVF_Env_t2.y2():ToneTVF_CutoffFreq_value;
     if (ToneTVF_Env_ptrT2) {
         ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT2);
         ToneTVF_Env_ptrT2=0;
+    }
+    if (ptrT2Mark) {
+        ToneTVF_Env_scene->removeItem(ptrT2Mark);
+        ptrT2Mark=0;
     }
     if (ToneTVF_Env_t2Text) {
         ToneTVF_Env_scene->removeItem(ToneTVF_Env_t2Text);
         ToneTVF_Env_t2Text=0;
     }
-    ToneTVF_Env_t2.setLine(ToneTVF_Env_t1.x2(),ToneTVF_Env_t1.y2(),ToneTVF_Env_t1.x2()+val/2,oldY2);
+    ToneTVF_Env_t2.setLine(ToneTVF_Env_t1.x2(), ToneTVF_Env_t1.y2(), ToneTVF_Env_t1.x2()+val/2, oldY2);
     ToneTVF_Env_t2Mark.setLine(ToneTVF_Env_t2.x2(),20,ToneTVF_Env_t2.x2(),157);
     ToneTVF_Env_ptrT2 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t2,redLine);
     if (val>0) {
@@ -339,10 +352,10 @@ void JVlibForm::on_ToneTVF_Time2_select_valueChanged(int val) {
     on_ToneTVF_Time3_select_valueChanged(ToneTVF_Time3_select->value());
   }
   ToneENVStdUpdate(0x5C, val);
-}
+}	// end on_ToneTVF_Time2_select_valueChanged
 void JVlibForm::on_ToneTVF_Time3_select_valueChanged(int val) {
     static QGraphicsLineItem *ptrT3Mark;
-    qreal oldY2 = ToneTVF_Env_ptrT3?ToneTVF_Env_t3.y2():90;
+    qreal oldY2 = ToneTVF_Env_ptrT3?ToneTVF_Env_t3.y2():ToneTVF_CutoffFreq_value;
     if (ptrT3Mark) {
         ToneTVF_Env_scene->removeItem(ptrT3Mark);
         ptrT3Mark=0;
@@ -355,7 +368,7 @@ void JVlibForm::on_ToneTVF_Time3_select_valueChanged(int val) {
         ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT3);
         ToneTVF_Env_ptrT3=0;
     }
-    ToneTVF_Env_t3.setLine(ToneTVF_Env_t2.x2(),ToneTVF_Env_t2.y2(),ToneTVF_Env_t2.x2()+val/2,oldY2);
+    ToneTVF_Env_t3.setLine(ToneTVF_Env_t2.x2(), ToneTVF_Env_t2.y2(), ToneTVF_Env_t2.x2()+val/2, oldY2);
     ToneTVF_Env_t3Mark.setLine(ToneTVF_Env_t3.x2(),20,ToneTVF_Env_t3.x2(),157);
     if (val>0) {
         ToneTVF_Env_ptrT3 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t3,redLine);
@@ -371,11 +384,10 @@ void JVlibForm::on_ToneTVF_Time3_select_valueChanged(int val) {
     on_ToneTVF_Time4_select_valueChanged(ToneTVF_Time4_select->value());
   }
   ToneENVStdUpdate(0x5D, val);
-}
+}	// end on_ToneTVF_Time3_select_valueChanged
 void JVlibForm::on_ToneTVF_Time4_select_valueChanged(int val) {
   static QGraphicsLineItem *ptrT4Mark;
   static QGraphicsLineItem *ptrOffLine;
-
   if (ptrT4Mark) {
       ToneTVF_Env_scene->removeItem(ptrT4Mark);
       ptrT4Mark=0;
@@ -402,11 +414,10 @@ void JVlibForm::on_ToneTVF_Time4_select_valueChanged(int val) {
   }
   ToneTVF_Env_sustain.setLine(ToneTVF_Env_t3.x2(), ToneTVF_Env_t3.y2(), 384-(val/2), ToneTVF_Env_t3.y2());
   ToneTVF_Env_ptrSustain = ToneTVF_Env_scene->addLine(ToneTVF_Env_sustain,redLine);
-  if (ToneTVF_Lvl3_select->value()) {
-    ToneTVF_Env_sndText = ToneTVF_Env_scene->addSimpleText("(sounding)");
-    ToneTVF_Env_sndText->setPos((ToneTVF_Env_sustain.x1()+ToneTVF_Env_sustain.x2())/2-35, ToneTVF_Env_sustain.y1()-20);
-  }
-  ToneTVF_Env_t4.setLine(ToneTVF_Env_sustain.x2(),ToneTVF_Env_sustain.y2(), 384, -(ToneTVF_Lvl4_select->value()/2+90));
+  ToneTVF_Env_sndText = ToneTVF_Env_scene->addSimpleText("(sounding)");
+  ToneTVF_Env_sndText->setPos((ToneTVF_Env_sustain.x1()+ToneTVF_Env_sustain.x2())/2-35, ToneTVF_Env_sustain.y1()-20);
+  ToneTVF_Env_t4.setLine(ToneTVF_Env_sustain.x2(),ToneTVF_Env_sustain.y2(),384,
+    ToneTVF_Depth_select->value()>=0?ToneTVF_CutoffFreq_value+ToneTVF_Lvl4_select->value()/2:ToneTVF_CutoffFreq_value-ToneTVF_Lvl4_select->value()/2);
   ToneTVF_Env_offLine.setLine(ToneTVF_Env_t4.x1(),20,ToneTVF_Env_t4.x1(),157);
   ToneTVF_Env_t4Mark.setLine(ToneTVF_Env_t4.x2(),20,ToneTVF_Env_t4.x2(),157);
   ptrOffLine = ToneTVF_Env_scene->addLine(ToneTVF_Env_offLine,dotLine);
@@ -418,17 +429,25 @@ void JVlibForm::on_ToneTVF_Time4_select_valueChanged(int val) {
       ToneTVF_Env_t4Text->setPos((ToneTVF_Env_t4.x2()+ToneTVF_Env_t4.x1())/2-5,ToneTVF_Env_t4.y1()<ToneTVF_Env_t4.y2()?ToneTVF_Env_t4.y1()-20:ToneTVF_Env_t4.y2()-20);
   }
   ToneENVStdUpdate(0x5E, val);
-}
+}	// end on_ToneTVF_Time4_select_valueChanged
+
 void JVlibForm::on_ToneTVF_Lvl1_select_valueChanged(int val) {
   qreal oldX = ToneTVF_Env_ptrT1?ToneTVF_Env_t1.x2():50;
   if (ToneTVF_Env_ptrT1) {
       ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT1);
       ToneTVF_Env_ptrT1=0;
   }
-  val += fabs(ToneTVF_Depth_select->value());
-  ToneTVF_Env_t1.setLine(50,90,oldX, ToneTVF_Depth_select->value()>=0?90-val/2:90+val/2);
-  ToneTVF_Env_ptrT1 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t1,redLine);
-  if (ToneTVF_Env_t1Text) ToneTVF_Env_t1Text->setPos((ToneTVF_Env_t1.x2()+ToneTVF_Env_t1.x1())/2-5,ToneTVF_Env_t1.y2()-20);
+  int newVal = val + abs(ToneTVF_Depth_select->value());
+  if (ToneTVF_Time1_select->value()>0) {
+  ToneTVF_Env_t1.setLine(50, ToneTVF_CutoffFreq_value, oldX,
+    ToneTVF_Lvl1_select->value()>0 ? (ToneTVF_Depth_select->value()>=0?ToneTVF_CutoffFreq_value-newVal/2:ToneTVF_CutoffFreq_value+newVal/2) : ToneTVF_CutoffFreq_value);
+  } else {
+    ToneTVF_Env_t1.setLine(50, ToneTVF_CutoffFreq_value, oldX,ToneTVF_CutoffFreq_value);
+  }
+  if (ToneTVF_Time1_select->value() && ToneTVF_Depth_select->value()!=0) {
+    ToneTVF_Env_ptrT1 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t1,redLine);
+    if (ToneTVF_Env_t1Text) ToneTVF_Env_t1Text->setPos((ToneTVF_Env_t1.x2()+ToneTVF_Env_t1.x1())/2-5,ToneTVF_Env_t1.y2()-20);
+  }
   if (state_table->updates_enabled == true) {
     state_table->updates_enabled = false;
     on_ToneTVF_Lvl2_select_valueChanged(ToneTVF_Lvl2_select->value());
@@ -439,15 +458,16 @@ void JVlibForm::on_ToneTVF_Lvl1_select_valueChanged(int val) {
   ToneENVStdUpdate(0x5F, val);
 }
 void JVlibForm::on_ToneTVF_Lvl2_select_valueChanged(int val) {
-    qreal oldX = ToneTVF_Env_t2.x2();
+    qreal oldX = ToneTVF_Env_ptrT2?ToneTVF_Env_t2.x2():ToneTVF_CutoffFreq_value;
     if (ToneTVF_Env_ptrT2) {
         ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT2);
         ToneTVF_Env_ptrT2=0;
     }
-  val += fabs(ToneTVF_Depth_select->value());
-  ToneTVF_Env_t2.setLine(ToneTVF_Env_t1.x2(),ToneTVF_Env_t1.y2(),oldX, ToneTVF_Depth_select->value()>=0?90-val/2:90+val/2);
-  ToneTVF_Env_ptrT2 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t2,redLine);
-  if (ToneTVF_Env_t2Text) ToneTVF_Env_t2Text->setPos((ToneTVF_Env_t2.x2()+ToneTVF_Env_t2.x1())/2-5, ToneTVF_Env_t2.y1()<ToneTVF_Env_t2.y2()?ToneTVF_Env_t2.y1()-20:ToneTVF_Env_t2.y2()-20);
+    int newVal = val + abs(ToneTVF_Depth_select->value());
+    ToneTVF_Env_t2.setLine(ToneTVF_Env_t1.x2(), ToneTVF_Env_t1.y2(),oldX, 
+      ToneTVF_Lvl2_select->value()>0 ? (ToneTVF_Depth_select->value()>=0?ToneTVF_CutoffFreq_value-newVal/2:ToneTVF_CutoffFreq_value+newVal/2) : ToneTVF_CutoffFreq_value);
+    ToneTVF_Env_ptrT2 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t2,redLine);
+    if (ToneTVF_Env_t2Text) ToneTVF_Env_t2Text->setPos((ToneTVF_Env_t2.x2()+ToneTVF_Env_t2.x1())/2-5, ToneTVF_Env_t2.y1()<ToneTVF_Env_t2.y2()?ToneTVF_Env_t2.y1()-20:ToneTVF_Env_t2.y2()-20);
   if (state_table->updates_enabled == true) {
     state_table->updates_enabled = false;
     on_ToneTVF_Lvl3_select_valueChanged(ToneTVF_Lvl3_select->value());
@@ -463,10 +483,11 @@ void JVlibForm::on_ToneTVF_Lvl3_select_valueChanged(int val) {
         ToneTVF_Env_scene->removeItem(ToneTVF_Env_ptrT3);
         ToneTVF_Env_ptrT3=0;
     }
-  val += fabs(ToneTVF_Depth_select->value());
-  ToneTVF_Env_t3.setLine(ToneTVF_Env_t2.x2(),ToneTVF_Env_t2.y2(),oldX,ToneTVF_Depth_select->value()>=0?90-val/2:90+val/2);
-  ToneTVF_Env_ptrT3 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t3,redLine);
-  if (ToneTVF_Env_t3Text) ToneTVF_Env_t3Text->setPos((ToneTVF_Env_t3.x2()+ToneTVF_Env_t3.x1())/2-5, ToneTVF_Env_t3.y1()<ToneTVF_Env_t3.y2()?ToneTVF_Env_t3.y1()-20:ToneTVF_Env_t3.y2()-20);
+    int newVal = val + abs(ToneTVF_Depth_select->value());
+    ToneTVF_Env_t3.setLine(ToneTVF_Env_t2.x2(),ToneTVF_Env_t2.y2(),oldX,
+      ToneTVF_Lvl3_select->value()>0 ? (ToneTVF_Depth_select->value()>=0?ToneTVF_CutoffFreq_value-newVal/2:ToneTVF_CutoffFreq_value+newVal/2) : ToneTVF_CutoffFreq_value);
+    ToneTVF_Env_ptrT3 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t3,redLine);
+    if (ToneTVF_Env_t3Text) ToneTVF_Env_t3Text->setPos((ToneTVF_Env_t3.x2()+ToneTVF_Env_t3.x1())/2-5, ToneTVF_Env_t3.y1()<ToneTVF_Env_t3.y2()?ToneTVF_Env_t3.y1()-20:ToneTVF_Env_t3.y2()-20);
   if (state_table->updates_enabled == true) {
     state_table->updates_enabled = false;
     on_ToneTVF_Lvl4_select_valueChanged(ToneTVF_Lvl4_select->value());
@@ -491,15 +512,17 @@ void JVlibForm::on_ToneTVF_Lvl4_select_valueChanged(int val) {
   }
   ToneTVF_Env_sustain.setLine(ToneTVF_Env_t3.x2(), ToneTVF_Env_t3.y2(), ToneTVF_Env_t4.x1(), ToneTVF_Env_t3.y2());
   ToneTVF_Env_ptrSustain = ToneTVF_Env_scene->addLine(ToneTVF_Env_sustain,redLine);
-  if (ToneTVF_Lvl3_select->value()) {
-    ToneTVF_Env_sndText = ToneTVF_Env_scene->addSimpleText("(sounding)");
-    ToneTVF_Env_sndText->setPos((ToneTVF_Env_sustain.x1()+ToneTVF_Env_sustain.x2())/2-35, ToneTVF_Env_sustain.y1()-20);
+  ToneTVF_Env_sndText = ToneTVF_Env_scene->addSimpleText("(sounding)");
+  ToneTVF_Env_sndText->setPos((ToneTVF_Env_sustain.x1()+ToneTVF_Env_sustain.x2())/2-35, ToneTVF_Env_sustain.y1()-20);
+  if (ToneTVF_Time4_select->value() && ToneTVF_Depth_select->value()!=0) {
+    ToneTVF_Env_t4.setLine(ToneTVF_Env_sustain.x2(),ToneTVF_Env_sustain.y2(),384, 
+      ToneTVF_Depth_select->value()>=0?ToneTVF_CutoffFreq_value-ToneTVF_Lvl4_select->value()/2:ToneTVF_CutoffFreq_value+ToneTVF_Lvl4_select->value()/2);
+    ToneTVF_Env_ptrT4 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t4,redLine);
+    if (ToneTVF_Env_t4Text) ToneTVF_Env_t4Text->setPos((ToneTVF_Env_t4.x2()+ToneTVF_Env_t4.x1())/2-5, ToneTVF_Env_t4.y1()<ToneTVF_Env_t4.y2()?ToneTVF_Env_t4.y1()-20:ToneTVF_Env_t4.y2()-20);
   }
-  ToneTVF_Env_t4.setLine(ToneTVF_Env_sustain.x2(),ToneTVF_Env_sustain.y2(),384,ToneTVF_Depth_select->value()>=0?90-val/2:90+val/2);
-  ToneTVF_Env_ptrT4 = ToneTVF_Env_scene->addLine(ToneTVF_Env_t4,redLine);
-  if (ToneTVF_Env_t4Text) ToneTVF_Env_t4Text->setPos((ToneTVF_Env_t4.x2()+ToneTVF_Env_t4.x1())/2-5, ToneTVF_Env_t4.y1()<ToneTVF_Env_t4.y2()?ToneTVF_Env_t4.y1()-20:ToneTVF_Env_t4.y2()-20);    
   ToneENVStdUpdate(0x62, val);
-}
+}	// end on_ToneTVF_Lvl4_select_valueChanged
+
 void JVlibForm::on_ToneTVF_LFO1Depth_select_valueChanged(int val) {
   if (ToneEFX_LFO1Target_select->currentIndex() == 3) {
     on_ToneEFX_LFO1Delay_select_valueChanged(ToneEFX_LFO1Delay_select->value());

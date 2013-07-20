@@ -67,4 +67,10 @@ void::JVlibForm::setPitchParms(int val) {
   if (state_table->updates_enabled) state_table->updates_enabled=false;
   on_Pitch_TimeKeyfollow_select_currentIndexChanged(Pitch_TimeKeyfollow_select->currentIndex());
   on_Pitch_KeyFollow_select_currentIndexChanged(Pitch_KeyFollow_select->currentIndex());
+  if (Pitch_Env_sndText) {
+      Pitch_Env_scene->removeItem(Pitch_Env_sndText);
+      Pitch_Env_sndText=0;
+  }
+  Pitch_Env_sndText = Pitch_Env_scene->addSimpleText("(sounding)");
+  Pitch_Env_sndText->setPos((Pitch_Env_sustain.x1()+Pitch_Env_sustain.x2())/2-35, Pitch_Env_sustain.y1()-15);
 }	// end setPitchParms
