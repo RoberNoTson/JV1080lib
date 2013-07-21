@@ -33,12 +33,13 @@ void JVlibForm::on_Pitch_TestTone_switch_toggled(bool val) {
       system_area->sys_common.patch_receive_channel);
     buf[1] = 0x7B;
     buf[2] = 0;
-    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[4] = 0x79;
-    buf[5] = 0;
+//    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+//      system_area->sys_common.patch_receive_channel);
+//    buf[4] = 0x79;
+//    buf[5] = 0;
   if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+//  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+  if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
   close_ports();
   }
   Pitch_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
@@ -236,7 +237,9 @@ void JVlibForm::on_Pitch_Time4Sens_select_currentIndexChanged(int val) {
 }
 void JVlibForm::on_Pitch_Time1_select_valueChanged(int val) {
   static QGraphicsLineItem *ptrT1Mark;
-  qreal oldY = Pitch_Env_ptrT1?Pitch_Env_t1.y2():90;
+  int newVal = Pitch_Lvl1_select->value() + abs(Pitch_Lvl1_select->value()/63*Pitch_Depth_select->value());
+  qreal oldY = Pitch_Env_ptrT1?Pitch_Env_t1.y2() :
+    Pitch_Time1_select->value()? (Pitch_Depth_select->value()>=0?90-newVal:90+newVal):90;
   if (ptrT1Mark) {
       Pitch_Env_scene->removeItem(ptrT1Mark);
       ptrT1Mark=0;
@@ -249,9 +252,9 @@ void JVlibForm::on_Pitch_Time1_select_valueChanged(int val) {
       Pitch_Env_scene->removeItem(Pitch_Env_ptrT1);
       Pitch_Env_ptrT1=0;
   }
-  Pitch_Env_t1.setLine(50,90,val/2+50,oldY);
-  Pitch_Env_ptrT1 = Pitch_Env_scene->addLine(Pitch_Env_t1,redLine);
+  Pitch_Env_t1.setLine(50,90,val/2+50, oldY);
   if (val>0) {
+    Pitch_Env_ptrT1 = Pitch_Env_scene->addLine(Pitch_Env_t1,redLine);
     Pitch_Env_t1Mark.setLine(Pitch_Env_t1.x2(),20,Pitch_Env_t1.x2(),157);
     ptrT1Mark = Pitch_Env_scene->addLine(Pitch_Env_t1Mark,dotLine);
     Pitch_Env_t1Text = Pitch_Env_scene->addSimpleText("T1");
@@ -283,10 +286,10 @@ void JVlibForm::on_Pitch_Time2_select_valueChanged(int val) {
     }
     Pitch_Env_t2.setLine(Pitch_Env_t1.x2(),Pitch_Env_t1.y2(),Pitch_Env_t1.x2()+val/2,oldY2);
     Pitch_Env_t2Mark.setLine(Pitch_Env_t2.x2(),20,Pitch_Env_t2.x2(),157);
-    Pitch_Env_ptrT2 = Pitch_Env_scene->addLine(Pitch_Env_t2,redLine);
-    ptrT2Mark = Pitch_Env_scene->addLine(Pitch_Env_t2Mark,dotLine);
     if (val>0) {
-        Pitch_Env_t2Text = Pitch_Env_scene->addSimpleText("T2");
+      Pitch_Env_ptrT2 = Pitch_Env_scene->addLine(Pitch_Env_t2,redLine);
+      ptrT2Mark = Pitch_Env_scene->addLine(Pitch_Env_t2Mark,dotLine);
+      Pitch_Env_t2Text = Pitch_Env_scene->addSimpleText("T2");
     }
   if (Pitch_Env_t2Text) Pitch_Env_t2Text->setPos((Pitch_Env_t2.x2()+Pitch_Env_t2.x1())/2-5, Pitch_Env_t2.y1()<Pitch_Env_t2.y2()?Pitch_Env_t2.y1()-15:Pitch_Env_t2.y2()-15);
   if (state_table->updates_enabled == true) {
@@ -313,14 +316,18 @@ void JVlibForm::on_Pitch_Time3_select_valueChanged(int val) {
         Pitch_Env_scene->removeItem(Pitch_Env_ptrT3);
         Pitch_Env_ptrT3=0;
     }
-    Pitch_Env_t3.setLine(Pitch_Env_t2.x2(),Pitch_Env_t2.y2(),Pitch_Env_t2.x2()+val/2,oldY2);
-    Pitch_Env_t3Mark.setLine(Pitch_Env_t3.x2(),20,Pitch_Env_t3.x2(),157);
-    Pitch_Env_ptrT3 = Pitch_Env_scene->addLine(Pitch_Env_t3,redLine);
-    ptrT3Mark = Pitch_Env_scene->addLine(Pitch_Env_t3Mark,dotLine);
+    int newVal = Pitch_Lvl3_select->value() + abs(Pitch_Lvl3_select->value()/63*Pitch_Depth_select->value());
+    Pitch_Env_t3.setLine(Pitch_Env_t2.x2(), Pitch_Env_t2.y2(), Pitch_Env_t2.x2()+val/2, Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
+//    Pitch_Env_t3.setLine(Pitch_Env_t2.x2(), Pitch_Env_t2.y2(), Pitch_Env_t2.x2()+val/2, oldY2);
+    if (Pitch_Time1_select->value() || Pitch_Time2_select->value() || val)
+      Pitch_Env_ptrT3 = Pitch_Env_scene->addLine(Pitch_Env_t3,redLine);
+    
     if (val>0) {
-        Pitch_Env_t3Text = Pitch_Env_scene->addSimpleText("T3");
+      Pitch_Env_t3Mark.setLine(Pitch_Env_t3.x2(),20,Pitch_Env_t3.x2(),157);
+      ptrT3Mark = Pitch_Env_scene->addLine(Pitch_Env_t3Mark,dotLine);
+      Pitch_Env_t3Text = Pitch_Env_scene->addSimpleText("T3");
+      if (Pitch_Env_t3Text) Pitch_Env_t3Text->setPos((Pitch_Env_t3.x2()+Pitch_Env_t3.x1())/2-5,Pitch_Env_t3.y1()<Pitch_Env_t3.y2()?Pitch_Env_t3.y1()-15:Pitch_Env_t3.y2()-15);
     }
-    if (Pitch_Env_t3Text) Pitch_Env_t3Text->setPos((Pitch_Env_t3.x2()+Pitch_Env_t3.x1())/2-5,Pitch_Env_t3.y1()<Pitch_Env_t3.y2()?Pitch_Env_t3.y1()-15:Pitch_Env_t3.y2()-15);
   if (state_table->updates_enabled == true) {
     state_table->updates_enabled = false;
     on_Pitch_Time4_select_valueChanged(Pitch_Time4_select->value());
@@ -360,20 +367,18 @@ void JVlibForm::on_Pitch_Time4_select_valueChanged(int val) {
   }
   Pitch_Env_sustain.setLine(Pitch_Env_t3.x2(), Pitch_Env_t3.y2(), 384-(val/2), Pitch_Env_t3.y2());
   Pitch_Env_ptrSustain = Pitch_Env_scene->addLine(Pitch_Env_sustain,redLine);
-//  if (Pitch_Lvl3_select->value()) {
     Pitch_Env_sndText = Pitch_Env_scene->addSimpleText("(sounding)");
     Pitch_Env_sndText->setPos((Pitch_Env_sustain.x1()+Pitch_Env_sustain.x2())/2-35, Pitch_Env_sustain.y1()-15);
-//  }
   Pitch_Env_t4.setLine(Pitch_Env_sustain.x2(), Pitch_Env_sustain.y2(), 384, Pitch_Depth_select->value()>=0?90-Pitch_Lvl4_select->value():90+Pitch_Lvl4_select->value());
   Pitch_Env_offLine.setLine(Pitch_Env_t4.x1(),20,Pitch_Env_t4.x1(),157);
-  Pitch_Env_t4Mark.setLine(Pitch_Env_t4.x2(),20,Pitch_Env_t4.x2(),157);
   ptrOffLine = Pitch_Env_scene->addLine(Pitch_Env_offLine,dotLine);
   Pitch_Env_OffText->setPos(Pitch_Env_t4.x1()-3,160);
   Pitch_Env_ptrT4 = Pitch_Env_scene->addLine(Pitch_Env_t4,redLine);
   if (val>0) {
-      ptrT4Mark = Pitch_Env_scene->addLine(Pitch_Env_t4Mark,dotLine);
-      Pitch_Env_t4Text = Pitch_Env_scene->addSimpleText("T4");
-      Pitch_Env_t4Text->setPos((Pitch_Env_t4.x2()+Pitch_Env_t4.x1())/2-5,Pitch_Env_t4.y1()<Pitch_Env_t4.y2()?Pitch_Env_t4.y1()-15:Pitch_Env_t4.y2()-15);
+    Pitch_Env_t4Mark.setLine(Pitch_Env_t4.x2(),20,Pitch_Env_t4.x2(),157);
+    ptrT4Mark = Pitch_Env_scene->addLine(Pitch_Env_t4Mark,dotLine);
+    Pitch_Env_t4Text = Pitch_Env_scene->addSimpleText("T4");
+    Pitch_Env_t4Text->setPos((Pitch_Env_t4.x2()+Pitch_Env_t4.x1())/2-5,Pitch_Env_t4.y1()<Pitch_Env_t4.y2()?Pitch_Env_t4.y1()-15:Pitch_Env_t4.y2()-15);
   }
   PitchStdUpdate(0x49, val);
 }
@@ -383,9 +388,10 @@ void JVlibForm::on_Pitch_Lvl1_select_valueChanged(int val) {
       Pitch_Env_scene->removeItem(Pitch_Env_ptrT1);
       Pitch_Env_ptrT1=0;
   }
+  int newVal = val + abs(val/63*Pitch_Depth_select->value());
+  Pitch_Env_t1.setLine(50,90,oldX,
+      Pitch_Time1_select->value()? (Pitch_Depth_select->value()>=0?90-newVal:90+newVal):90);
   if (Pitch_Time1_select->value() && Pitch_Depth_select->value()!=0) {
-    int newVal = val + abs(val/63*Pitch_Depth_select->value());
-    Pitch_Env_t1.setLine(50,90,oldX, Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
     Pitch_Env_ptrT1 = Pitch_Env_scene->addLine(Pitch_Env_t1,redLine);
     if (Pitch_Env_t1Text) Pitch_Env_t1Text->setPos((Pitch_Env_t1.x2()+Pitch_Env_t1.x1())/2-5,
       Pitch_Env_t1.y2()-15);
@@ -400,14 +406,15 @@ void JVlibForm::on_Pitch_Lvl1_select_valueChanged(int val) {
   PitchStdUpdate(0x4A, val+63);
 }
 void JVlibForm::on_Pitch_Lvl2_select_valueChanged(int val) {
-    qreal oldX = Pitch_Env_t2.x2();
-    if (Pitch_Env_ptrT2) {
-        Pitch_Env_scene->removeItem(Pitch_Env_ptrT2);
-        Pitch_Env_ptrT2=0;
-    }
-    int newVal = val + abs(val/63*Pitch_Depth_select->value());
-    Pitch_Env_t2.setLine(Pitch_Env_t1.x2(),Pitch_Env_t1.y2(),oldX, Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
-    Pitch_Env_ptrT2 = Pitch_Env_scene->addLine(Pitch_Env_t2,redLine);
+  qreal oldX = Pitch_Env_t2.x2();
+  if (Pitch_Env_ptrT2) {
+    Pitch_Env_scene->removeItem(Pitch_Env_ptrT2);
+    Pitch_Env_ptrT2=0;
+  }
+  int newVal = val + abs(val/63*Pitch_Depth_select->value());
+  Pitch_Env_t2.setLine(Pitch_Env_t1.x2(),Pitch_Env_t1.y2(),oldX,
+   Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
+  if (Pitch_Time2_select->value()) Pitch_Env_ptrT2 = Pitch_Env_scene->addLine(Pitch_Env_t2,redLine);
   if (Pitch_Time2_select->value() && Pitch_Depth_select->value()!=0) {
     if (Pitch_Env_t2Text) Pitch_Env_t2Text->setPos((Pitch_Env_t2.x2()+Pitch_Env_t2.x1())/2-5,
       Pitch_Env_t2.y1()<Pitch_Env_t2.y2()?Pitch_Env_t2.y1()-15:Pitch_Env_t2.y2()-15);
@@ -422,14 +429,16 @@ void JVlibForm::on_Pitch_Lvl2_select_valueChanged(int val) {
   PitchStdUpdate(0x4B, val+63);
 }
 void JVlibForm::on_Pitch_Lvl3_select_valueChanged(int val) {
-    qreal oldX = Pitch_Env_t3.x2();
-    if (Pitch_Env_ptrT3) {
-        Pitch_Env_scene->removeItem(Pitch_Env_ptrT3);
-        Pitch_Env_ptrT3=0;
-    }
-    int newVal = val + abs(val/63*Pitch_Depth_select->value());
-    Pitch_Env_t3.setLine(Pitch_Env_t2.x2(),Pitch_Env_t2.y2(),oldX,Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
+  qreal oldX = Pitch_Env_t3.x2();
+  if (Pitch_Env_ptrT3) {
+    Pitch_Env_scene->removeItem(Pitch_Env_ptrT3);
+    Pitch_Env_ptrT3=0;
+  }
+  int newVal = val + abs(val/63*Pitch_Depth_select->value());
+  Pitch_Env_t3.setLine(Pitch_Env_t2.x2(), Pitch_Env_t2.y2(), oldX, Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
+  if (Pitch_Time1_select->value() || Pitch_Time2_select->value() || Pitch_Time3_select->value())
     Pitch_Env_ptrT3 = Pitch_Env_scene->addLine(Pitch_Env_t3,redLine);
+    
   if (Pitch_Time3_select->value() && Pitch_Depth_select->value()!=0) {
     if (Pitch_Env_t3Text) Pitch_Env_t3Text->setPos((Pitch_Env_t3.x2()+Pitch_Env_t3.x1())/2-5, 
       Pitch_Env_t3.y1()<Pitch_Env_t3.y2() ? Pitch_Env_t3.y1()-15 : Pitch_Env_t3.y2()-15);
