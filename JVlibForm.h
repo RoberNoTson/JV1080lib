@@ -844,6 +844,7 @@ private:
   QGraphicsSimpleTextItem *ToneTVF_Env_t3Text;
   QGraphicsSimpleTextItem *ToneTVF_Env_t4Text;
   QGraphicsSimpleTextItem *ToneTVF_Env_sndText;
+  QGraphicsSimpleTextItem *ToneTVF_CutoffFreqText;
   QLineF ToneTVF_Env_t1;
   QLineF ToneTVF_Env_t2;
   QLineF ToneTVF_Env_t3;

@@ -41,6 +41,9 @@ ToneEFX_tab
 
 ToneTVF_tab
   - add Cutoff freq and Resonance values to dynamic graph, relative to Filter Type
+    - graph text "Cutoff Freq" needs to move vertically with the X-axis
+    - fix graph, text goes out of picture when Lvl3 reaches 127
+    - revise the Level calc algorithm to something like Depth/63*Level
   - improve Bias keyboard picture
 
 ToneTVA_tab

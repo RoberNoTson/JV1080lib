@@ -53,7 +53,7 @@ void JVlibForm::createToneENVactions() {
   ToneTVF_Env_scene->addLine(40, 20, 40, 157, blackLine);    // Y axis
   ToneTVF_Env_scene->addLine(50,20,50,158,dotLine);   // Note-On line
   ToneTVF_Env_scene->addLine(ToneTVF_Env_offLine,dotLine);
-  ToneTVF_Env_scene->addSimpleText("Cutoff\nFreq")->setPos(3,55);
+//  ToneTVF_Env_scene->addSimpleText("Cutoff\nFreq")->setPos(3,55);
   ToneTVF_Env_scene->addSimpleText("+")->setPos(30,20);
   ToneTVF_Env_scene->addSimpleText("-")->setPos(30,140);
   ToneTVF_Env_scene->addSimpleText("Time")->setPos(386,85);
