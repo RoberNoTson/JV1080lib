@@ -33,12 +33,7 @@ void JVlibForm::on_Pitch_TestTone_switch_toggled(bool val) {
       system_area->sys_common.patch_receive_channel);
     buf[1] = 0x7B;
     buf[2] = 0;
-//    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-//      system_area->sys_common.patch_receive_channel);
-//    buf[4] = 0x79;
-//    buf[5] = 0;
   if (open_ports() == EXIT_FAILURE) return;
-//  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
   if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
   close_ports();
   }
@@ -303,7 +298,6 @@ void JVlibForm::on_Pitch_Time2_select_valueChanged(int val) {
 }
 void JVlibForm::on_Pitch_Time3_select_valueChanged(int val) {
     static QGraphicsLineItem *ptrT3Mark;
-//    qreal oldY2 = Pitch_Env_ptrT3?Pitch_Env_t3.y2():90;
     if (ptrT3Mark) {
         Pitch_Env_scene->removeItem(ptrT3Mark);
         ptrT3Mark=0;
@@ -318,7 +312,6 @@ void JVlibForm::on_Pitch_Time3_select_valueChanged(int val) {
     }
     int newVal = Pitch_Lvl3_select->value() + abs(Pitch_Lvl3_select->value()/63*Pitch_Depth_select->value());
     Pitch_Env_t3.setLine(Pitch_Env_t2.x2(), Pitch_Env_t2.y2(), Pitch_Env_t2.x2()+val/2, Pitch_Depth_select->value()>=0?90-newVal:90+newVal);
-//    Pitch_Env_t3.setLine(Pitch_Env_t2.x2(), Pitch_Env_t2.y2(), Pitch_Env_t2.x2()+val/2, oldY2);
     if (Pitch_Time1_select->value() || Pitch_Time2_select->value() || val)
       Pitch_Env_ptrT3 = Pitch_Env_scene->addLine(Pitch_Env_t3,redLine);
     
