@@ -7,6 +7,7 @@ void JVlibForm::EnablePatch(bool val) {
   // also called to disable/enable controls when the port is changed, until the Sync button is pressed again.
 
   Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? val : false);
+  Patch_PerfPartNum_select->->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
   Pitch_OctaveShift_select->setEnabled(val);
   Patch_HoldPeak_select->setEnabled(val);
   Patch_C1_HoldPeak_select->setEnabled(val);
@@ -20,7 +21,8 @@ void JVlibForm::EnablePatch(bool val) {
   Pitch_StretchTuning_select->setEnabled(val);
   Patch_Struct12_box->setEnabled(val);
   Patch_STruct34_box->setEnabled(val);
-  Patch_TempoBox->setEnabled(val);
+  Patch_TempoBox->setEnabled(state_table->perf_mode ? false : val);
+  Patch_DefaultTempo_select->setToolTip(state_table->patch_mode ? "Set the default tempo for the Patch" : "Performance tempo controls all patches");
   Patch_Tone1_enable->setEnabled(val);
   Patch_Tone2_enable->setEnabled(val);
   Patch_Tone3_enable->setEnabled(val);

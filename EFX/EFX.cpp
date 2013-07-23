@@ -13,6 +13,7 @@ void JVlibForm::enable_4(bool val) {
       EFXparm4_label->clear();
       PerfEFXparm4_display->clear();
       PerfEFXparm4_select->setValue(0);
+      PerfEFXparm4_select->setToolTip("");
     }
   } 	// Patch EFX
   PatchEFX_parm4_label->setEnabled(val);
@@ -22,6 +23,7 @@ void JVlibForm::enable_4(bool val) {
     PatchEFX_parm4_label->clear();
     PatchEFX_parm4_select->setValue(0);
     PatchEFX_parm4_display->clear();
+    PatchEFX_parm4_display->setToolTip("");
   }
 } // end enable_4
 void JVlibForm::enable_6(bool val) {
@@ -156,6 +158,7 @@ void JVlibForm::enable_C(bool val) {
     EFXparmC_label->clear();
     PerfEFXparmC_select->setValue(0);
     PerfEFXparmC_display->clear();
+    PerfEFXparmC_display->setToolTip("");
   }
   }
   PatchEFX_parmC_label->setEnabled(val);
@@ -165,6 +168,7 @@ void JVlibForm::enable_C(bool val) {
     PatchEFX_parmC_label->clear();
     PatchEFX_parmC_select->setValue(0);
     PatchEFX_parmC_display->clear();
+    PatchEFX_parmC_display->setToolTip("");
   }
 } // end enable_C
 

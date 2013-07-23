@@ -20,6 +20,7 @@ void JVlibForm::EFX01stereoEQ() {
     EFXparm1_label->setText(QString("Low Frequency"));
     PerfEFXparm1_select->setRange(0, 1);
     PerfEFXparm1_select->setValue(active_area->active_performance.perf_common.EFX_parameter[0]);
+    PerfEFXparm1_select->setToolTip("Choose the low frequency cutoff point");
     EFXparm2_label->setText(QString("Low Gain"));
     PerfEFXparm2_select->setRange(0, 30);
     PerfEFXparm2_select->setValue(active_area->active_performance.perf_common.EFX_parameter[1]);

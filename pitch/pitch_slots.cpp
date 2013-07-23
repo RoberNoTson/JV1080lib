@@ -303,7 +303,7 @@ void JVlibForm::on_Pitch_Time2_select_valueChanged(int val) {
 }
 void JVlibForm::on_Pitch_Time3_select_valueChanged(int val) {
     static QGraphicsLineItem *ptrT3Mark;
-    qreal oldY2 = Pitch_Env_ptrT3?Pitch_Env_t3.y2():90;
+//    qreal oldY2 = Pitch_Env_ptrT3?Pitch_Env_t3.y2():90;
     if (ptrT3Mark) {
         Pitch_Env_scene->removeItem(ptrT3Mark);
         ptrT3Mark=0;

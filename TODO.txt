@@ -3,6 +3,7 @@ General
   - Configuration screen function
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
+  - standalone/offline mode with all tabs functional
 
 System_tab
   - System_Sync LED

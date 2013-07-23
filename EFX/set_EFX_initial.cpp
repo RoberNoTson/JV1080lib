@@ -7,6 +7,19 @@
 void JVlibForm::setPerfEFXparms() {
   // called after the Performance Sync button is clicked as part of set_*_parms.cpp 
   //	sets controls/displays to reflect the current synth configuration.
+  PerfEFXparm1_select->setToolTip("");
+  PerfEFXparm2_select->setToolTip("");
+  PerfEFXparm3_select->setToolTip("");
+  PerfEFXparm4_select->setToolTip("");
+  PerfEFXparm5_select->setToolTip("");
+  PerfEFXparm6_select->setToolTip("");
+  PerfEFXparm7_select->setToolTip("");
+  PerfEFXparm8_select->setToolTip("");
+  PerfEFXparm9_select->setToolTip("");
+  PerfEFXparmA_select->setToolTip("");
+  PerfEFXparmB_select->setToolTip("");
+  PerfEFXparmC_select->setToolTip("");
+
   switch(active_area->active_performance.perf_common.EFX_type) {
     // every case has at least 5 parms
     case 0:	// Stereo EQ
@@ -137,6 +150,19 @@ void JVlibForm::setPerfEFXparms() {
 
 void JVlibForm::setPatchEFXparms() {
   // called after the Patch Sync button is clicked, or when need to refresh the display
+  PatchEFX_parm1_display->setToolTip("");
+  PatchEFX_parm2_display->setToolTip("");
+  PatchEFX_parm3_display->setToolTip("");
+  PatchEFX_parm4_display->setToolTip("");
+  PatchEFX_parm5_display->setToolTip("");
+  PatchEFX_parm6_display->setToolTip("");
+  PatchEFX_parm7_display->setToolTip("");
+  PatchEFX_parm8_display->setToolTip("");
+  PatchEFX_parm9_display->setToolTip("");
+  PatchEFX_parmA_display->setToolTip("");
+  PatchEFX_parmB_display->setToolTip("");
+  PatchEFX_parmC_display->setToolTip("");
+  
   switch(state_table->patch_mode ? active_area->active_patch_patch.patch_common.EFX_type : 
     active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_type) 
   {
