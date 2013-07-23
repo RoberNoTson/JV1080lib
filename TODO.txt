@@ -11,7 +11,7 @@ System_tab
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
   - Play MIDI function
-  - Patch Tempo controls disabled when in Performance mode
+#  - Patch Tempo controls disabled when in Performance mode	07/23/2013
 
 Performance_tab
   - verify Key Range Upper/Lower cannot cross each other.

@@ -7,7 +7,7 @@ void JVlibForm::EnablePatch(bool val) {
   // also called to disable/enable controls when the port is changed, until the Sync button is pressed again.
 
   Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? val : false);
-  Patch_PerfPartNum_select->->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
+  Patch_PerfPartNum_select->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
   Pitch_OctaveShift_select->setEnabled(val);
   Patch_HoldPeak_select->setEnabled(val);
   Patch_C1_HoldPeak_select->setEnabled(val);
