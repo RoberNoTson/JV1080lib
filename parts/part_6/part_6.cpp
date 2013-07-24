@@ -84,10 +84,12 @@ void JVlibForm::on_Part6_ReceiveHold_enable_toggled(bool val) {
 }
 void JVlibForm::on_Part6_LowLimit_select_valueChanged(int val) { 
   Part6_LowLimit_display->setText(funcNoteCalc(val));
+  if (val>Part6_HighLimit_select->value()) on_Part6_HighLimit_select_valueChanged(val);
   setPartSingleValue(5, 0x11, val);
 }
 void JVlibForm::on_Part6_HighLimit_select_valueChanged(int val) { 
   Part6_HighLimit_display->setText(funcNoteCalc(val));
+  if (val<Part6_LowLimit_select->value()) on_Part6_LowLimit_select_valueChanged(val);
   setPartSingleValue(5, 0x12, val);
 }
 void JVlibForm::on_Part6_VoiceReserve_select_valueChanged(int val) { 

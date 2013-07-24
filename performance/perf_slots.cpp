@@ -3,14 +3,6 @@
 #include	<QtGui>
 #include	"perf_slots.h"
 
-/*
- void JVlibForm::slotPerfSetPerf() {
-  // update the System tab data, which will update everything else
-  SysPerfSelect->setCurrentIndex(PerfGroup_select->currentIndex());
-  SysPerfNumber->setValue(PerfNumber_select->value());
-}	// end slotPerfSetPerf
-*/
-
 void JVlibForm::on_PerfGroup_select_currentIndexChanged(int val) {
   SysPerfSelect->setCurrentIndex(val);
 }
@@ -21,7 +13,6 @@ void JVlibForm::on_PerfNumber_select_valueChanged(int val) {
 void JVlibForm::on_PerfSync_button_clicked() {
   // called when the Performance tab Sync button is clicked
   JVlibForm::statusbar->showMessage("Getting performance common",0);
-//  sleep(1);
   getActivePerfCommon();
   JVlibForm::statusbar->showMessage("Getting Performance parms",0);
   setPerfParms();

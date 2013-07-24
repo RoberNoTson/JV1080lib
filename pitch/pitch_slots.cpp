@@ -70,10 +70,12 @@ void JVlibForm::on_Pitch_StretchTuning_select_valueChanged(int val) {
 
 void JVlibForm::on_Pitch_LowLimit_select_valueChanged(int val) {
   Pitch_LowLimit_display->setText(funcNoteCalc(val));
+  if (val>Pitch_HighLimit_select->value()) on_Pitch_HighLimit_select_valueChanged(val);
   PitchStdUpdate(0x0E, val);
 }
 void JVlibForm::on_Pitch_HighLimit_select_valueChanged(int val) {
   Pitch_HighLimit_display->setText(funcNoteCalc(val));
+  if (val<Pitch_LowLimit_select->value()) on_Pitch_LowLimit_select_valueChanged(val);
   PitchStdUpdate(0x0F, val);
 }
 
