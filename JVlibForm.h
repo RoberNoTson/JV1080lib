@@ -138,7 +138,6 @@ private slots:
   void on_MainTabWidget_currentChanged(int);
 
   // for Performance tab
-//  void slotPerfSetPerf();
   void on_PerfGroup_select_currentIndexChanged(int);
   void on_PerfNumber_select_valueChanged(int);
   void on_PerfSync_button_clicked();
@@ -974,9 +973,7 @@ private:
   void EnablePerf(bool);
   void setPerfSingleValue(int, int);
   void getActivePerfCommon();
-  void getActivePerfPatches();
   void getActivePatchNames();
-  void getActivePatchMode();
   void setPerfParms();
   void enable_4(bool);
   void enable_6(bool);
@@ -1123,6 +1120,9 @@ private:
   void setPatchParms(int);
   void setPatchSingleValue(int, int);
   void Patch_setPatchMax();
+  void getActivePerfPatches();
+  void getSinglePerfPatch();
+  void getActivePatchMode();
 
   // for tone.cpp
   inline void ToneStdUpdate(int, int);

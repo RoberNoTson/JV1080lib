@@ -6,7 +6,8 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
-    getActivePerfPatches();
+//    getActivePerfPatches();
+    getSinglePerfPatch();
     setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
   } else {
     getActivePatchMode();
@@ -79,6 +80,107 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
 // switches
 void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
   if (val == 9) return;
+  if (state_table->perf_mode) {
+    switch(val) {
+      case 0:
+	if (!state_table->part1_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 1:
+	if (!state_table->part2_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 2:
+	if (!state_table->part3_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 3:
+	if (!state_table->part4_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 4:
+	if (!state_table->part5_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 5:
+	if (!state_table->part6_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 6:
+	if (!state_table->part7_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 7:
+	if (!state_table->part8_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 8:
+	if (!state_table->part9_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 9:
+	if (!state_table->part10_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 10:
+	if (!state_table->part11_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 11:
+	if (!state_table->part12_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 12:
+	if (!state_table->part13_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 13:
+	if (!state_table->part14_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 14:
+	if (!state_table->part15_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+      case 15:
+	if (!state_table->part16_sync) {
+	    EnablePatch(false);
+	    return;
+	}
+	break;
+    }	// end switch
+  }	// end if perf_mode
+  EnablePatch(true);
   if (state_table->updates_enabled)
     setPatchParms(state_table->perf_mode ? val+1 : 0);
 }

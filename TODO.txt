@@ -6,6 +6,7 @@ General
   - standalone/offline mode with all tabs functional
 
 System_tab
+  - fix enabled tabs when changing Perf/Patch modes
   - System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
@@ -14,13 +15,13 @@ System_tab
 #  - Patch Tempo controls disabled when in Performance mode	07/23/2013
 
 Performance_tab
-  - verify Key Range Upper/Lower cannot cross each other.
   - voice reserve per part should be locked if it causes the system total to exceed 64
 
 PerfParts_tab
   - update state_table->partX_sync status when a part is changed
   - turn off Patch Sync light when a different Part patch is selected
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
+#  - verify Key Range Upper/Lower cannot cross each other.	07/24/2013
 
 Patch_tab
   - turn off Patch Sync light when a different patch is selected
@@ -48,6 +49,7 @@ ToneTVA_tab
   - 
 
 Pitch_tab
+#  - verify Key Range Upper/Lower cannot cross each other.	07/24/2013
 
 Tuning_tab
   - recognize existing tunings

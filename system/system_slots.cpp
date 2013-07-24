@@ -9,6 +9,7 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
    system_area->sys_common.panel_mode=val;
    setSysSingleValue(addr_sys_panel_mode,val);
+  }	// end UPDATES_ENABLED
    switch(val) {
     case 0:	// Performance mode
     default:
@@ -21,7 +22,6 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
       slotSysSetGmMode();
       break;
    }	// end SWITCH
-  }	// end UPDATES_ENABLED
 }	// end on_SysMode_select_currentIndexChanged
 
 void JVlibForm::slotSysSetPerf() {
@@ -197,16 +197,6 @@ void JVlibForm::slotSysSetPatch() {
   PatchEFX_Name_display->setEnabled(true);
 }	// end slotSysSetPatch
 
-void JVlibForm::on_System_Upload_button_clicked() {
-  int val;
-}
-void JVlibForm::on_System_SaveData_button_clicked() {
-  save();
-}
-void JVlibForm::on_System_LoadData_button_clicked() {
-  open();
-}
-
 int JVlibForm::on_System_Sync_button_clicked() {  
   if (!strlen(MIDI_dev)) {
     QMessageBox::critical(this, "JVlib", tr("No MIDI port selected"));
@@ -240,13 +230,10 @@ int JVlibForm::on_System_Sync_button_clicked() {
   System_JV_status->on();
   MainTabWidget->setTabEnabled(11,true);	// enable Tuning tab
   if (state_table->perf_mode) {
-    MainTabWidget->setTabEnabled(1,true);	// Performance tab
+    slotSysSetPerformanceMode();
   }
   if (state_table->patch_mode) {
-    MainTabWidget->setTabEnabled(1,false);
-    MainTabWidget->setTabEnabled(2,false);
-    MainTabWidget->setTabEnabled(3,true);
-    MainTabWidget->setTabEnabled(4,false);
+    slotSysSetPatchMode();
   }
   statusbar->showMessage("System loaded",0);
   SysMode_select->setFocus();
@@ -312,8 +299,8 @@ void JVlibForm::slotSysSetPatchMode() {
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
     EnablePatch(false);
-    Patch_tab->setEnabled(true);
-    PatchEFX_tab->setEnabled(true);
+//    Patch_tab->setEnabled(true);
+//    PatchEFX_tab->setEnabled(true);
     Patch_Group_select->setEnabled(true);
     Patch_Number_select->setEnabled(true);
     Patch_Name_edit->setEnabled(true);
@@ -737,3 +724,14 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
   PatchEFX_Number_display->setEnabled(true);
   PatchEFX_Name_display->setEnabled(true);
 }	// end on_SysPatchNumber_valueChanged
+
+void JVlibForm::on_System_Upload_button_clicked() {
+  int val;
+}
+void JVlibForm::on_System_SaveData_button_clicked() {
+  save();
+}
+void JVlibForm::on_System_LoadData_button_clicked() {
+  open();
+}
+

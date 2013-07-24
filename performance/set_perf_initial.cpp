@@ -43,7 +43,6 @@ void JVlibForm::setPerfParms() {
   MainTabWidget->setTabEnabled(2,true);
   MainTabWidget->setTabEnabled(3,true);
   MainTabWidget->setTabEnabled(4,true);
-  MainTabWidget->setTabEnabled(11,true);
   EnableParts(true);
 } // end setPerfParms
 

@@ -6,7 +6,7 @@ void JVlibForm::EnablePatch(bool val) {
   // called after Patch values are downloaded from the synth
   // also called to disable/enable controls when the port is changed, until the Sync button is pressed again.
 
-  Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? val : false);
+  Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? true : false);
   Patch_PerfPartNum_select->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
   Pitch_OctaveShift_select->setEnabled(val);
   Patch_HoldPeak_select->setEnabled(val);
@@ -36,7 +36,6 @@ void JVlibForm::EnablePatch(bool val) {
   Patch_Portamento_box->setEnabled(val);
   Patch_TestTone_switch->setEnabled(val);
   Patch_TestTone_switch->setChecked(false);
-  PatchEFX_tab->setEnabled(val);
   PatchEFX_EFX_groupBox->setEnabled(val);
   PatchEFX_Reverb_box->setEnabled(val);
   PatchEFX_Chorus_box->setEnabled(val);
@@ -59,6 +58,156 @@ void JVlibForm::EnablePatch(bool val) {
   }
   state_table->patch_sync = val;
 }	// end EnablePatch
+
+void JVlibForm::getSinglePerfPatch() {
+  // called when Patch sync button is pressed, in System Performance mode
+  // download patch common and up to 4 tones
+  int x = Patch_PerfPartNum_select->currentIndex();
+  switch(x) {
+    case 0:
+      if (state_table->part1_sync) return;
+      break;
+    case 1:
+      if (state_table->part2_sync) return;
+      break;
+    case 2:
+      if (state_table->part3_sync) return;
+      break;
+    case 3:
+      if (state_table->part4_sync) return;
+      break;
+    case 4:
+      if (state_table->part5_sync) return;
+      break;
+    case 5:
+      if (state_table->part6_sync) return;
+      break;
+    case 6:
+      if (state_table->part7_sync) return;
+      break;
+    case 7:
+      if (state_table->part8_sync) return;
+      break;
+    case 8:
+      if (state_table->part9_sync) return;
+      break;
+    case 9:
+      if (state_table->part10_sync) return;
+      break;
+    case 10:
+      if (state_table->part11_sync) return;
+      break;
+    case 11:
+      if (state_table->part12_sync) return;
+      break;
+    case 12:
+      if (state_table->part13_sync) return;
+      break;
+    case 13:
+      if (state_table->part14_sync) return;
+      break;
+    case 14:
+      if (state_table->part15_sync) return;
+      break;
+    case 15:
+      if (state_table->part16_sync) return;
+      break;
+  }	// end switch
+  
+  int   err;
+  int   Stop=0;
+  unsigned char  buf[16];
+  char    patch_common_size[] = { 0x0,0x0,0x00,0x48 };
+  char    patch_tone_size[] = { 0x0,0x0,0x01,0x01 };
+  memset(buf,0,sizeof(buf));
+  buf[4] = JV_REQ;
+  buf[5] = 0x02;
+  buf[12] = 0x48;
+  buf[14] = 0xF7;
+  if (open_ports() == EXIT_FAILURE) return;
+  buf[6] = x;		// Patch number
+  buf[7] = 0;
+  buf[13] = chksum(buf+5, 8);	// checksum
+  usleep(200000);
+  RetryC:
+  usleep(200000*Stop);
+  if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+  err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)patch_common_size);
+  if (err == EXIT_FAILURE) { close_ports(); puts("error1"); return; }
+  if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
+  if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
+  if (err != EXIT_SUCCESS) { close_ports(); puts("error2"); return; }
+  Stop=0;
+  // build parms for 4 tones
+  memcpy(buf+9,patch_tone_size,4);
+  for (int y=0;y<4;y++) {		// get 4 tones
+    buf[7] = 0x10+(y*2);	// tone address
+    buf[13] = chksum(buf+5, 8);	// checksum
+    usleep(200000);
+    RetryD:
+    usleep(200000*Stop);
+    if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+    err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_tone[y].tone, (char *)patch_tone_size);
+    if (err == EXIT_FAILURE) { close_ports(); puts("error3"); return; }
+    if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
+    if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
+    if (err != EXIT_SUCCESS) { close_ports(); puts("error4"); return; }
+    Stop=0;
+  }	// end FOR 4 tones
+  close_ports();
+  switch(x) {
+    case 0:
+      state_table->part1_sync = true;
+      break;
+    case 1:
+      state_table->part2_sync = true;
+      break;
+    case 2:
+      state_table->part3_sync = true;
+      break;
+    case 3:
+      state_table->part4_sync = true;
+      break;
+    case 4:
+      state_table->part5_sync = true;
+      break;
+    case 5:
+      state_table->part6_sync = true;
+      break;
+    case 6:
+      state_table->part7_sync = true;
+      break;
+    case 7:
+      state_table->part8_sync = true;
+      break;
+    case 8:
+      state_table->part9_sync = true;
+      break;
+    case 9:
+      state_table->part10_sync = true;
+      break;
+    case 10:
+      state_table->part11_sync = true;
+      break;
+    case 11:
+      state_table->part12_sync = true;
+      break;
+    case 12:
+      state_table->part13_sync = true;
+      break;
+    case 13:
+      state_table->part14_sync = true;
+      break;
+    case 14:
+      state_table->part15_sync = true;
+      break;
+    case 15:
+      state_table->part16_sync = true;
+      break;
+  }	// end switch
+ state_table->patch_modified = false;
+ state_table->patch_sync = true;
+}	// end getSinglePerfPatch
 
 void JVlibForm::getActivePerfPatches() {
   // called when Patch sync button is pressed, in System Performance mode

@@ -87,6 +87,22 @@ void JVlibForm::initStateTable() {
   state_table->db_connect = false;	// DB_OPEN
   state_table->jv_connect = false;	// ONLINE
   state_table->updates_enabled = false;  
+  state_table->part1_sync = false;  
+  state_table->part2_sync = false;  
+  state_table->part3_sync = false;  
+  state_table->part4_sync = false;  
+  state_table->part5_sync = false;  
+  state_table->part6_sync = false;  
+  state_table->part7_sync = false;  
+  state_table->part8_sync = false;  
+  state_table->part9_sync = false;  
+  state_table->part10_sync = false;  
+  state_table->part11_sync = false;  
+  state_table->part12_sync = false;  
+  state_table->part13_sync = false;  
+  state_table->part14_sync = false;  
+  state_table->part15_sync = false;  
+  state_table->part16_sync = false;  
 }	// end initStateTable
 
 void JVlibForm::setInitial() {

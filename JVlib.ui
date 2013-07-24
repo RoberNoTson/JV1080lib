@@ -23159,8 +23159,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>80</y>
+        <x>550</x>
+        <y>120</y>
         <width>120</width>
         <height>80</height>
        </rect>
@@ -23361,7 +23361,7 @@
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>130</y>
+        <y>120</y>
         <width>191</width>
         <height>86</height>
        </rect>
@@ -23716,8 +23716,8 @@
      <widget class="QCheckBox" name="Patch_VelocityRange_enable">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>180</y>
+        <x>550</x>
+        <y>230</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -23736,7 +23736,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>80</y>
+        <y>180</y>
         <width>140</width>
         <height>27</height>
        </rect>
@@ -23767,65 +23767,11 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_287">
-      <property name="geometry">
-       <rect>
-        <x>161</x>
-        <y>120</y>
-        <width>150</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <layout class="QFormLayout" name="formLayout_26">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_37">
-         <property name="text">
-          <string notr="true">Voice Mode</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="Patch_VoiceMode_switch">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
-         </property>
-         <property name="text">
-          <string notr="true">Solo</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QCheckBox" name="Patch_SoloLegato_enable">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>150</y>
-        <width>111</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
-      </property>
-      <property name="text">
-       <string notr="true">Solo Legato</string>
-      </property>
-     </widget>
      <widget class="QWidget" name="layoutWidget_257">
       <property name="geometry">
        <rect>
         <x>390</x>
-        <y>100</y>
+        <y>90</y>
         <width>131</width>
         <height>26</height>
        </rect>
@@ -23868,7 +23814,7 @@
      <widget class="QWidget" name="layoutWidget6">
       <property name="geometry">
        <rect>
-        <x>11</x>
+        <x>660</x>
         <y>40</y>
         <width>160</width>
         <height>26</height>
@@ -24026,6 +23972,58 @@
            <green>113</green>
            <blue>255</blue>
           </color>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>120</y>
+        <width>121</width>
+        <height>52</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_23">
+       <item row="0" column="0">
+        <layout class="QFormLayout" name="formLayout_26">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_37">
+           <property name="text">
+            <string notr="true">Voice Mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="Patch_VoiceMode_switch">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+           </property>
+           <property name="text">
+            <string notr="true">Solo</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="Patch_SoloLegato_enable">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string notr="true">Solo Legato</string>
          </property>
         </widget>
        </item>
