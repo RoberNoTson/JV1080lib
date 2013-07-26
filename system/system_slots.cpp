@@ -292,6 +292,8 @@ void JVlibForm::slotSysSetPatchMode() {
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
     MainTabWidget->setTabEnabled(1,false);	// Performance tab
+    setSysGmMode(false);
+    EnablePerf(false);
     state_table->performanceTab_enable = false;
     state_table->perf_mode = false;
     state_table->patch_mode = true;
@@ -299,8 +301,6 @@ void JVlibForm::slotSysSetPatchMode() {
     state_table->updates_enabled = false;
     MainTabWidget->setTabEnabled(3,true);	// Patch tab
     state_table->patchTab_enable = true;
-    setSysGmMode(false);
-    EnablePerf(false);
     EnablePatch(false);
     if (Patch_PerfPartNum_select->itemText(0)=="1")
       Patch_PerfPartNum_select->insertItem(0,"0");
@@ -735,8 +735,10 @@ void JVlibForm::on_System_LoadData_button_clicked() {
 
 void JVlibForm::setPerfTabs(bool val) {
   MainTabWidget->setTabEnabled(2,val);
+  MainTabWidget->setTabEnabled(3,val);
   MainTabWidget->setTabEnabled(4,val);
   state_table->partsTab_enable = val;
+  state_table->patchTab_enable = val;
   state_table->rhythmTab_enable = val;
 }
 

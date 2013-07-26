@@ -6,7 +6,7 @@ General
   - standalone/offline mode with all tabs functional
 
 System_tab
-  - fix enabled tabs when changing Perf/Patch modes
+#  - fix enabled tabs when changing Perf/Patch modes	07/26/2013
   - System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
