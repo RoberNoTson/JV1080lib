@@ -172,6 +172,8 @@ void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
     close_ports();
   }  // end state_table->updates_enabled
   Part10_PatchName_display->setText(getPartPatchName(9));
+  Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
+  Rhythm_PatchGroup_display->setText(Part10_PatchGroup_select->currentText());
   if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
  }	// end state_table->updates_enabled  
 }	// end on_Part10_PatchGroup_select_currentIndexChanged
@@ -191,7 +193,9 @@ void JVlibForm::on_Part10_PatchNumber_select_valueChanged(int val) {
       if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
       close_ports();
     }  // end state_table->jv_connect
+    Rhythm_PatchNumber_display->setText(Part10_PatchNumber_select->text());
     Part10_PatchName_display->setText(getPartPatchName(9));
+    Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
     if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
   }	// end updates_enabled
 }	// end on_Part10_PatchNumber_select_valueChanged

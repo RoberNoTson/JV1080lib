@@ -1,55 +1,68 @@
 General
-  - initialize part_sync entries in state_table
+#  - initialize part_sync entries in state_table	07/26/2013
   - Configuration screen function
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - standalone/offline mode with all tabs functional
+  - implement GM (General Midi) functions
+  - fill in missing database info for waves/patch, unknown families, etc.
+  - fix Color gradient error message from QDials throughout 
 
 System_tab
 #  - fix enabled tabs when changing Perf/Patch modes	07/26/2013
-  - System_Sync LED
+  -  validate working of System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
-  - Play MIDI function
+  - "Play MIDI" function
 #  - Patch Tempo controls disabled when in Performance mode	07/23/2013
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64
 
 PerfParts_tab
-  - update state_table->partX_sync status when a part is changed
-  - turn off Patch Sync light when a different Part patch is selected
+?  - update state_table->partX_sync status when a part is changed	IS THIS NEEDED?
+  - turn off Patch Sync light when a different Part tab Part# patch is selected
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
 #  - verify Key Range Upper/Lower cannot cross each other.	07/24/2013
+  - change label from "Play Tone" to "Play Patch" for consistency
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - un-Sync Rhythm tab when Part 10 group/number is changed
 
 Patch_tab
-  - turn off Patch Sync light when a different patch is selected
-  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
+#  - turn off Patch Sync light when a different patch is selected	07/26/2013
+#  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.	07/26/2013
+#  - update Patch group, number and name to match Part# values when PerfPartNum is scrolled	07/26/2013
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Rhythm_tab
   - enable/disable Play button relative to Sync status
-  - update Group/Number/Name based on Part 10 values even when not Sync'd
+  - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
+  - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
+#  - update Group/Number/Name based on Part 10 values even when not Sync'd	07/26/2013
   - can Pitch, TVA, TVF use the same tabs as other patches?
 
 PatchEFX_tab
   - fix Parm 11 ghost values
 
 Tone_tab
-  -
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 ToneEFX_tab
   - Add waveform types to LFO graphic
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 ToneTVF_tab
   - add Resonance values to dynamic graph, relative to Filter Type
   - improve Bias keyboard picture
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 ToneTVA_tab
-  - 
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Pitch_tab
 #  - verify Key Range Upper/Lower cannot cross each other.	07/24/2013
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Tuning_tab
   - recognize existing tunings

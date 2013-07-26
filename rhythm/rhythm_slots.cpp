@@ -306,11 +306,8 @@ void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
     buf[0] = 0xB9;
     buf[1] = 0x7B;
     buf[2] = 0;
-    buf[3] = 0xB9;
-    buf[4] = 0x79;
-    buf[5] = 0;
     if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
     close_ports();
     Rhythm_TestTone_switch->setText("Play Note");
   }
