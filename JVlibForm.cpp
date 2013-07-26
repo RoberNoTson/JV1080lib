@@ -15,8 +15,8 @@ JVlibForm::~JVlibForm() {
 }
 
 JVlibForm::JVlibForm() {
-  state_table = new STATE_TABLE;
-  if (state_table->initialized!=true) setInitial();
+  setupUi(this);
+  setInitial();
 }	// end JVlibForm()
 
 void JVlibForm::initGraphics() {
@@ -77,6 +77,7 @@ void JVlibForm::initStateTable() {
   state_table->toneTab_enable = false;
   state_table->tone_sync = false;
   state_table->tone_modified = false;
+  state_table->toneEFXTab_enable = false;
   state_table->toneTVFTab_enable = false;
   state_table->toneTVATab_enable = false;
   state_table->pitchTab_enable = false;
@@ -103,6 +104,7 @@ void JVlibForm::initStateTable() {
   state_table->part14_sync = false;  
   state_table->part15_sync = false;  
   state_table->part16_sync = false;  
+  state_table->initialized = true;
 }	// end initStateTable
 
 void JVlibForm::setInitial() {
@@ -110,25 +112,19 @@ void JVlibForm::setInitial() {
   system_area = new SYSTEM_AREA;
   act_area = active_area;
   sys_area = system_area;
-  setupUi(this);
-  MainTabWidget->setCurrentIndex(0);
-  MainTabWidget->setTabEnabled(1,false);
-  MainTabWidget->setTabEnabled(2,false);
-  MainTabWidget->setTabEnabled(3,false);
-  MainTabWidget->setTabEnabled(4,false);
-  MainTabWidget->setTabEnabled(5,false);
-  MainTabWidget->setTabEnabled(6,false);
-  MainTabWidget->setTabEnabled(7,false);
-  MainTabWidget->setTabEnabled(8,false);
-  MainTabWidget->setTabEnabled(9,false);
-  MainTabWidget->setTabEnabled(10,false);
-  MainTabWidget->setTabEnabled(11,false);
+  state_table = new STATE_TABLE;
   initStateTable();
   initGraphics();
   createStatusBar();
   createMenuActions();
   createSysActions();
   createToneENVactions();
+  MainTabWidget->setCurrentIndex(0);
+  MainTabWidget->setTabEnabled(1,false);
+  MainTabWidget->setTabEnabled(3,false);
+  MainTabWidget->setTabEnabled(11,false);
+  setPerfTabs(false);
+  setPatchTabs(false);
  
   readConfigFile();
   db_connect(db_name, db_user);
@@ -142,7 +138,6 @@ void JVlibForm::setInitial() {
     return;
   }
   state_table->updates_enabled = true;
-  state_table->initialized = true;
 }	// end setInitial
 
 void JVlibForm::readConfigFile() {

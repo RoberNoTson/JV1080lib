@@ -968,6 +968,8 @@ private:
   void EnableSys(bool);
   QString NoteName(int);
   void createSysActions();
+  void setPatchTabs(bool);
+  void setPerfTabs(bool);
   
   // for performance.cpp
   void EnablePerf(bool);

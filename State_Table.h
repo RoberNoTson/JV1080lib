@@ -40,6 +40,7 @@ struct STATE_TABLE {
   bool toneTab_enable;
   bool tone_sync;
   bool tone_modified;
+  bool toneEFXTab_enable;
   bool toneTVFTab_enable;
   bool toneTVATab_enable;
   bool pitchTab_enable;

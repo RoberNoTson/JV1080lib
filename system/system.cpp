@@ -119,8 +119,6 @@ if (state_table->updates_enabled) {
 
 void JVlibForm::EnableSys(bool val) {
   // called from slotDownloadClicked after a valid port is selected and System Common is downloaded
-//  state_table->system_modified = false;
-//  state_table->system_sync = true;
   SysSwitchBox->setEnabled(val);
   SysPreviewBox->setEnabled(val);
   SysSourceBox->setEnabled(val);
@@ -139,7 +137,6 @@ void JVlibForm::EnableSys(bool val) {
     PerfGroup_select->setEnabled(val);
     PerfNumber_select->setEnabled(val);
     PerfName_edit->setEnabled(val);
-    
     SysPatch_box->setEnabled(!val);
     SysPatchName->setEnabled(!val);
     SysPatchNumber->setEnabled(!val);
@@ -156,7 +153,6 @@ void JVlibForm::EnableSys(bool val) {
     PerfGroup_select->setEnabled(!val);
     PerfNumber_select->setEnabled(!val);
     PerfName_edit->setEnabled(!val);
-    
     SysPatch_box->setEnabled(val);
     SysPatchName->setEnabled(val);
     SysPatchNumber->setEnabled(val);
@@ -165,4 +161,4 @@ void JVlibForm::EnableSys(bool val) {
     Patch_Number_select->setEnabled(val);
     Patch_Name_edit->setEnabled(val);
   }
-}
+}	// end EnableSys

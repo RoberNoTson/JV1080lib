@@ -40,9 +40,7 @@ void JVlibForm::setPerfParms() {
   // set EFX parms
   setPerfEFXparms();
   state_table->updates_enabled = true;
-  MainTabWidget->setTabEnabled(2,true);
-  MainTabWidget->setTabEnabled(3,true);
-  MainTabWidget->setTabEnabled(4,true);
+  setPerfTabs(true);
   EnableParts(true);
 } // end setPerfParms
 

@@ -131,7 +131,7 @@ void JVlibForm::setSystemParms() {
   
   Patch_BenderRange_box->setEnabled(system_area->sys_common.receive_bender);
   
-  if (system_area->sys_common.panel_mode == 0) {
+  if (system_area->sys_common.panel_mode == 0) {	// Performance
     state_table->perf_mode = true;
     state_table->patch_mode = false;
     getSysPerfName();
@@ -139,8 +139,7 @@ void JVlibForm::setSystemParms() {
     PerfNumber_select->setValue(SysPerfNumber->value());
     PartsPerfGroup_display->setText(PerfGroup_select->currentText());
     PartsPerfNumber_display->setText(QString::number(SysPerfNumber->value()));
-    slotSysSetPerformanceMode();
-  } else if (system_area->sys_common.panel_mode == 1) {
+  } else if (system_area->sys_common.panel_mode == 1) {		// Patch
     state_table->perf_mode = false;
     state_table->patch_mode = true;
     getSysPatchName();
@@ -149,8 +148,7 @@ void JVlibForm::setSystemParms() {
     Patch_Sync_button->setEnabled(true);
     PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
     PatchEFX_Group_display->setText(Patch_Group_select->currentText());
-    slotSysSetPatchMode();
-  } else 
+  } else 			// GM mode
     return;
   // setup Tone_InstrFamily list
   if (state_table->db_connect) {
@@ -163,7 +161,6 @@ void JVlibForm::setSystemParms() {
     Tone_InstrFamily_select->blockSignals(false);
     query.finish();
   }
-
   System_PlayMidi_status->off();
   state_table->updates_enabled = true;
   state_table->system_sync = true;

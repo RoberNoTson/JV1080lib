@@ -139,23 +139,8 @@ void JVlibForm::setPerfSingleValue(int addr, int val) {
 void JVlibForm::EnablePerf(bool val) {
   // called after a port is selected and Performance values are downloaded from the synth
   // also called to disable controls when the Performance number or group is changed
-  PerfParts_tab->setEnabled(val);
-  PerfTempoBox->setEnabled(val);
-  PerfEFXsource_select->setEnabled(val);
-  Perf_EFX_groupBox->setEnabled(val);
-  PerfReverb_box->setEnabled(val);
-  PerfChorus_box->setEnabled(val);
-  Patch_tab->setEnabled(val);
-  PatchEFX_tab->setEnabled(val);
-  Tone_tab->setEnabled(val);
-  ToneEFX_tab->setEnabled(val);
-  ToneTVF_tab->setEnabled(val);
-  ToneTVA_tab->setEnabled(val);
-  Rhythm_tab->setEnabled(val);
-  Rhythm_EnableAll(false);
-  Tuning_Sync_button->setEnabled(val);
-  if (val) Perf_Sync_status->on();
-  else Perf_Sync_status->off();
+  setPerfTabs(val);
+/*
   state_table->partsTab_enable = val;
   state_table->patchTab_enable = val;
   state_table->rhythmTab_enable = val;
@@ -164,4 +149,22 @@ void JVlibForm::EnablePerf(bool val) {
   state_table->toneTVFTab_enable = val;
   state_table->toneTVATab_enable = val;
   state_table->patchEFXTab_enable = val;
+  PatchEFX_tab->setEnabled(val);
+  Tone_tab->setEnabled(val);
+  ToneEFX_tab->setEnabled(val);
+  ToneTVF_tab->setEnabled(val);
+  ToneTVA_tab->setEnabled(val);
+  Rhythm_tab->setEnabled(val);
+  PerfParts_tab->setEnabled(val);
+*/
+  PerfTempoBox->setEnabled(val);
+  PerfEFXsource_select->setEnabled(val);
+  Perf_EFX_groupBox->setEnabled(val);
+  PerfReverb_box->setEnabled(val);
+  PerfChorus_box->setEnabled(val);
+  Patch_tab->setEnabled(val);
+  Rhythm_EnableAll(false);
+  Tuning_Sync_button->setEnabled(val);
+  if (val) Perf_Sync_status->on();
+  else Perf_Sync_status->off();
 }

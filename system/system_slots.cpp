@@ -10,9 +10,8 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
    system_area->sys_common.panel_mode=val;
    setSysSingleValue(addr_sys_panel_mode,val);
   }	// end UPDATES_ENABLED
-   switch(val) {
+  switch(val) {
     case 0:	// Performance mode
-    default:
       slotSysSetPerformanceMode();
       break;
     case 1:	// Patch mode
@@ -21,7 +20,7 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
     case 2:	// GM mode
       slotSysSetGmMode();
       break;
-   }	// end SWITCH
+  }	// end SWITCH
 }	// end on_SysMode_select_currentIndexChanged
 
 void JVlibForm::slotSysSetPerf() {
@@ -29,30 +28,30 @@ void JVlibForm::slotSysSetPerf() {
   // or from the Perf Tab when those values are changed.
    if (state_table->updates_enabled) {
     system_area->sys_common.perf_num = SysPerfNumber->value() - 1;
-    if (state_table->jv_connect) {
-      // update JV
-      unsigned char buf[12];
-      // Bank Select MSB
-      buf[0] = 0xB0+system_area->sys_common.control_channel;
-      buf[1] = 0x0;
-      buf[2] = SysPerfSelect->currentIndex()==0?0x50:0x51;
-      // Bank Select LSB  
-      buf[3] = 0xB0+system_area->sys_common.control_channel;
-      buf[4] = 0x20;
-      buf[5] = SysPerfSelect->currentIndex()==2?0x01:0x00;
-      // Program Change - Performance number is required
-      buf[6] = 0xC0+system_area->sys_common.control_channel;
-      buf[7] = system_area->sys_common.perf_num;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (change_send(buf,8) == EXIT_FAILURE) {
-	close_ports(); 
-	return;
-      }
-      close_ports();
-    // get the new Performance name, update the Perf and Parts Tabs
-    getSysPerfName();
-    }	// end state_table->jv_connect
   }	// end UPDATES_ENABLED
+  if (state_table->jv_connect) {
+    // update JV
+    unsigned char buf[12];
+    // Bank Select MSB
+    buf[0] = 0xB0+system_area->sys_common.control_channel;
+    buf[1] = 0x0;
+    buf[2] = SysPerfSelect->currentIndex()==0?0x50:0x51;
+    // Bank Select LSB  
+    buf[3] = 0xB0+system_area->sys_common.control_channel;
+    buf[4] = 0x20;
+    buf[5] = SysPerfSelect->currentIndex()==2?0x01:0x00;
+    // Program Change - Performance number is required
+    buf[6] = 0xC0+system_area->sys_common.control_channel;
+    buf[7] = system_area->sys_common.perf_num;
+    if (open_ports() == EXIT_FAILURE) return;
+    if (change_send(buf,8) == EXIT_FAILURE) {
+      close_ports(); 
+      return;
+    }
+    close_ports();
+    // get the new Performance name, update the Perf and Parts Tabs
+  getSysPerfName();
+  }	// end state_table->jv_connect
   if (MainTabWidget->currentIndex() == 0) {
     PerfGroup_select->setCurrentIndex(SysPerfSelect->currentIndex());
     PerfNumber_select->setValue(SysPerfNumber->value());
@@ -60,6 +59,7 @@ void JVlibForm::slotSysSetPerf() {
   PartsPerfGroup_display->setText(SysPerfSelect->currentText());
   PartsPerfNumber_display->setText(QString::number(SysPerfNumber->value()));
   EnablePerf(false);
+  setPatchTabs(false);
 }	// end slotSysSetPerf
 
 void JVlibForm::slotSysSetPatch() {
@@ -181,20 +181,27 @@ void JVlibForm::slotSysSetPatch() {
     getSysPatchName();
   }	// end state_table->jv_connect
   // get the current Patch Mode patch name, update other Tabs as needed
-  Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
-  Patch_Number_select->setValue(SysPatchNumber->value());
-  Patch_Name_edit->setText(SysPatchName->text());
-  PatchEFX_Group_display->setText(SysPatchSelect->currentText());
-  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
-  PatchEFX_Name_display->setText(Patch_Name_edit->text());
-  }	// end UPDATES_ENABLED
-  EnablePatch(false);
   Patch_Group_select->setEnabled(true);
   Patch_Number_select->setEnabled(true);
   Patch_Name_edit->setEnabled(true);
   PatchEFX_Group_display->setEnabled(true);
   PatchEFX_Number_display->setEnabled(true);
   PatchEFX_Name_display->setEnabled(true);
+  Patch_Group_select->blockSignals(true);
+  Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
+  Patch_Group_select->blockSignals(false);
+  Patch_Number_select->blockSignals(true);
+  Patch_Number_select->setValue(SysPatchNumber->value());
+  Patch_Number_select->blockSignals(false);
+  Patch_Name_edit->blockSignals(true);
+  Patch_Name_edit->setText(SysPatchName->text());
+  Patch_Name_edit->blockSignals(false);
+  PatchEFX_Group_display->setText(SysPatchSelect->currentText());
+  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
+  PatchEFX_Name_display->setText(Patch_Name_edit->text());
+  }	// end UPDATES_ENABLED
+  EnablePatch(false);
+  setPerfTabs(false);
 }	// end slotSysSetPatch
 
 int JVlibForm::on_System_Sync_button_clicked() {  
@@ -205,7 +212,6 @@ int JVlibForm::on_System_Sync_button_clicked() {
   unsigned char	buf[256];
   int	Stop=0;
   // get System common
-  JVlibForm::statusbar->showMessage("Loading System settings",0);
   memset(buf,0,sizeof(buf));
   buf[4] = JV_REQ;
   // get system_area common
@@ -216,7 +222,6 @@ int JVlibForm::on_System_Sync_button_clicked() {
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return EXIT_FAILURE;
   RetryA:
-  JVlibForm::statusbar->showMessage("Loading System settings",0);
   if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   int err = sysex_get((unsigned char *)&system_area->sys_common.panel_mode, (char *)system_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
@@ -242,19 +247,11 @@ int JVlibForm::on_System_Sync_button_clicked() {
 
 void JVlibForm::slotSysSetPerformanceMode() {
   // called when slotSysSetMode switch changes
-    if (state_table->jv_connect && state_table->updates_enabled) {
-      getSysPerfName();
-    }
-    MainTabWidget->setTabEnabled(1,true);
-    MainTabWidget->setTabEnabled(2,false);
-    MainTabWidget->setTabEnabled(3,false);
-    MainTabWidget->setTabEnabled(4,false);
-    MainTabWidget->setTabEnabled(5,false);
-    MainTabWidget->setTabEnabled(6,false);
-    MainTabWidget->setTabEnabled(7,false);
-    MainTabWidget->setTabEnabled(8,false);
-    MainTabWidget->setTabEnabled(9,false);
-    MainTabWidget->setTabEnabled(10,false);
+    MainTabWidget->setTabEnabled(1,true);	// Performance tab
+    state_table->performanceTab_enable = true;
+    setPerfTabs(false);
+    MainTabWidget->setTabEnabled(3,false);	// Patch tab
+    state_table->patchTab_enable = false;
     PerfSync_button->setEnabled(true);
     PerfGroup_select->setEnabled(true);
     PerfNumber_select->setEnabled(true);
@@ -262,14 +259,20 @@ void JVlibForm::slotSysSetPerformanceMode() {
     SysControlRecvChannel_select->setEnabled(true);
     SysPerformance_box->setEnabled(true);
     SysPerfNumber->setEnabled(true);
+    if (state_table->jv_connect && state_table->updates_enabled) {
+      getSysPerfName();
+    }
     SysPatch_box->setEnabled(false);
     SysPatchRecvChannel_select->setEnabled(false);
-    EnablePerf(false);
-    EnablePatch(false);
     Patch_Sync_button->setEnabled(false);
+    Patch_PerfPartNum_select->blockSignals(true);
     if (Patch_PerfPartNum_select->itemText(0)=="0")
       Patch_PerfPartNum_select->removeItem(0);
+    Patch_PerfPartNum_select->blockSignals(false);
+    EnablePerf(false);
+    EnablePatch(false);
     setSysGmMode(false);
+    setPatchTabs(false);
     state_table->perf_mode = true;
     state_table->patch_mode = false;
     state_table->GM_mode = false;
@@ -279,40 +282,34 @@ void JVlibForm::slotSysSetPatchMode() {
   // called when slotSysSetMode switch changes
     if (state_table->jv_connect && state_table->updates_enabled)
       getSysPatchName();
-    MainTabWidget->setTabEnabled(3,true);
-    MainTabWidget->setTabEnabled(1,false);
-    MainTabWidget->setTabEnabled(2,false);
-    MainTabWidget->setTabEnabled(4,false);
-    MainTabWidget->setTabEnabled(5,false);
-    MainTabWidget->setTabEnabled(6,false);
-    MainTabWidget->setTabEnabled(7,false);
-    MainTabWidget->setTabEnabled(8,false);
-    MainTabWidget->setTabEnabled(9,false);
-    MainTabWidget->setTabEnabled(10,false);
+    setPerfTabs(false);
     PerfGroup_select->setEnabled(false);
     PerfNumber_select->setEnabled(false);
     PerfName_edit->setEnabled(false);
-    EnablePerf(false);
     SysPerformance_box->setEnabled(false);
     SysPatch_box->setEnabled(true);
     SysPatchNumber->setEnabled(true);
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
-    EnablePatch(false);
-//    Patch_tab->setEnabled(true);
-//    PatchEFX_tab->setEnabled(true);
-    Patch_Group_select->setEnabled(true);
-    Patch_Number_select->setEnabled(true);
-    Patch_Name_edit->setEnabled(true);
-    Patch_Sync_button->setEnabled(true);
-    setSysGmMode(false);
+    MainTabWidget->setTabEnabled(1,false);	// Performance tab
+    state_table->performanceTab_enable = false;
     state_table->perf_mode = false;
     state_table->patch_mode = true;
     state_table->GM_mode = false;
     state_table->updates_enabled = false;
+    MainTabWidget->setTabEnabled(3,true);	// Patch tab
+    state_table->patchTab_enable = true;
+    setSysGmMode(false);
+    EnablePerf(false);
+    EnablePatch(false);
     if (Patch_PerfPartNum_select->itemText(0)=="1")
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
+    Patch_Group_select->setEnabled(true);
+    Patch_Number_select->setEnabled(true);
+    Patch_Name_edit->setEnabled(true);
+    Patch_Sync_button->setEnabled(true);
+    setPatchTabs(false);
     state_table->updates_enabled = true;
 }	// end slotSysSetPatchMode
 
@@ -332,6 +329,7 @@ void JVlibForm::slotSysSetGmMode() {
   PerfNumber_select->setEnabled(false);
   PerfName_edit->setEnabled(false);
   EnablePerf(false);
+  EnablePatch(false);
   PerfSync_button->setEnabled(false);
   setSysGmMode(true);
   state_table->perf_mode = false;
@@ -735,3 +733,24 @@ void JVlibForm::on_System_LoadData_button_clicked() {
   open();
 }
 
+void JVlibForm::setPerfTabs(bool val) {
+  MainTabWidget->setTabEnabled(2,val);
+  MainTabWidget->setTabEnabled(4,val);
+  state_table->partsTab_enable = val;
+  state_table->rhythmTab_enable = val;
+}
+
+void JVlibForm::setPatchTabs(bool val) {
+  MainTabWidget->setTabEnabled(5,val);
+  MainTabWidget->setTabEnabled(6,val);
+  MainTabWidget->setTabEnabled(7,val);
+  MainTabWidget->setTabEnabled(8,val);
+  MainTabWidget->setTabEnabled(9,val);
+  MainTabWidget->setTabEnabled(10,val);
+  state_table->patchEFXTab_enable = val;
+  state_table->toneTab_enable = val;
+  state_table->toneEFXTab_enable = val;
+  state_table->toneTVFTab_enable = val;
+  state_table->toneTVATab_enable = val;
+  state_table->pitchTab_enable = val;
+}

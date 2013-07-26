@@ -43,12 +43,7 @@ void JVlibForm::EnablePatch(bool val) {
   PatchEFX_TestTone_switch->setChecked(false);
   ToneSync_button->setEnabled(val);
   Tuning_Sync_button->setEnabled(val);
-  MainTabWidget->setTabEnabled(5,val);
-  MainTabWidget->setTabEnabled(6,val);
-  MainTabWidget->setTabEnabled(7,val);
-  MainTabWidget->setTabEnabled(8,val);
-  MainTabWidget->setTabEnabled(9,val);
-  MainTabWidget->setTabEnabled(10,val);
+  setPatchTabs(val);
   if (val) {
     Patch_Sync_status->on();
     Tone_Sync_status->on();
