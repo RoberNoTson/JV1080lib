@@ -126,7 +126,7 @@ void JVlibForm::setInitial() {
   setPerfTabs(false);
   setPatchTabs(false);
  
-  readConfigFile();
+  if (readConfigFile()) return;
   db_connect(db_name, db_user);
   // try to copy System data from the synth
   if (on_System_Sync_button_clicked() != EXIT_SUCCESS) {
@@ -140,16 +140,22 @@ void JVlibForm::setInitial() {
   state_table->updates_enabled = true;
 }	// end setInitial
 
-void JVlibForm::readConfigFile() {
+int JVlibForm::readConfigFile() {
   QDir myDir;
   QCoreApplication *app;
-  QString myHome = myDir.homePath();
-  QFileInfo fi(app->arguments().at(0));
-  QString CFGfile = myHome+"/"+fi.fileName()+".cfg";
+  QString CFGfile;
+  if (app->arguments().size() == 1) {
+    QString myHome = myDir.homePath();
+    QFileInfo fi(app->arguments().at(0));
+    CFGfile = myHome+"/"+fi.fileName()+".cfg";
+  } else {
+    QFileInfo fi(app->arguments().at(1));
+    CFGfile = fi.fileName();
+  }  
   QFile file(CFGfile);
   if (!file.exists()) {
     statusbar->showMessage("Not found "+CFGfile);
-    return;
+    return 1;
   }
   statusbar->showMessage("Using "+CFGfile, 10000);
   // open and parse the config file
@@ -158,7 +164,7 @@ void JVlibForm::readConfigFile() {
                             tr("Cannot read configuration file %1:\n%2.")
                              .arg(CFGfile)
                              .arg(file.errorString()));
-    return;
+    return 1;
   }
   QTextStream in(&file);
   while (!in.atEnd()) {
@@ -167,7 +173,7 @@ void JVlibForm::readConfigFile() {
     QString parm = line.section("=",0,0).simplified();
     QString parm_arg = line.section("=",1,1).simplified();
     if (parm == "database") db_name = parm_arg;
-    if (parm == "db_user") db_user = parm_arg;
+    if (parm == "username") db_user = parm_arg;
     if (parm == "port_name") {
       QString PORT_NAME = parm_arg;
       QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
@@ -176,6 +182,7 @@ void JVlibForm::readConfigFile() {
     }      
   }
   file.close();
+  return 0;
 }	// end readConfigFile
 
 void JVlibForm::closeEvent(QCloseEvent *event) {
@@ -427,13 +434,10 @@ int JVlibForm::hexdump(unsigned char *buffer, int data_size) {
 
 int JVlibForm::db_connect(QString db_name, QString user_name) {
   if (mysql.isOpen()) return EXIT_SUCCESS;
-//  if (!mysql.isValid()) {
-    QSqlDatabase mysql = QSqlDatabase::addDatabase("QMYSQL");
-    if (mysql.isValid()) puts("created db connection");
-    else puts("invalid db connection");
-//  }
+  QSqlDatabase mysql = QSqlDatabase::addDatabase("QMYSQL");
+  if (mysql.isValid()) puts("created db connection");
+  else puts("invalid db connection");
   mysql.setConnectOptions("UNIX_SOCKET=/var/lib/mysql/mysql.sock");
-  
   mysql.setDatabaseName(db_name);
   mysql.setUserName(user_name);
   puts("opening the db");

@@ -944,7 +944,7 @@ private:
   short chksum(unsigned char *, int);
   int hexdump(unsigned char *, int);
   int db_connect(const QString, const QString);
-  void	readConfigFile();
+  int readConfigFile();
 
   // for menubar.cpp
   void createMenuActions();

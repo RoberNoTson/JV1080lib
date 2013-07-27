@@ -16,6 +16,7 @@ System_tab
   - "Upload" to Synth function/button
   - "Play MIDI" function
 #  - Patch Tempo controls disabled when in Performance mode	07/23/2013
+  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64

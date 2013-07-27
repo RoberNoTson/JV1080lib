@@ -234,6 +234,7 @@ int JVlibForm::on_System_Sync_button_clicked() {
   action_Offline->setChecked(false);
   System_JV_status->on();
   MainTabWidget->setTabEnabled(11,true);	// enable Tuning tab
+  state_table->tuningTab_enable = true;
   if (state_table->perf_mode) {
     slotSysSetPerformanceMode();
   }
@@ -292,9 +293,9 @@ void JVlibForm::slotSysSetPatchMode() {
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
     MainTabWidget->setTabEnabled(1,false);	// Performance tab
+    state_table->performanceTab_enable = false;
     setSysGmMode(false);
     EnablePerf(false);
-    state_table->performanceTab_enable = false;
     state_table->perf_mode = false;
     state_table->patch_mode = true;
     state_table->GM_mode = false;

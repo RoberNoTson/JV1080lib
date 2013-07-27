@@ -6,7 +6,6 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
-//    getActivePerfPatches();
     getSinglePerfPatch();
     setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
   } else {

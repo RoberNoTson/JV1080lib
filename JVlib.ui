@@ -94,7 +94,7 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>false</bool>
@@ -23977,7 +23977,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -24594,6 +24594,9 @@
         <widget class="QSpinBox" name="Rhythm_MuteGroup_select">
          <property name="specialValueText">
           <string notr="true">Off</string>
+         </property>
+         <property name="keyboardTracking">
+          <bool>false</bool>
          </property>
          <property name="maximum">
           <number>31</number>
@@ -27481,6 +27484,9 @@
        </item>
        <item>
         <widget class="QSpinBox" name="Rhythm_KeyPress_select">
+         <property name="keyboardTracking">
+          <bool>false</bool>
+         </property>
          <property name="minimum">
           <number>35</number>
          </property>
@@ -30708,6 +30714,9 @@
           </property>
           <property name="toolTip">
            <string notr="true">Select the Performance number</string>
+          </property>
+          <property name="keyboardTracking">
+           <bool>false</bool>
           </property>
           <property name="minimum">
            <number>1</number>
