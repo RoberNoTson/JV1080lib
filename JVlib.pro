@@ -4,8 +4,9 @@ TARGET = JVlib
 FORMS       = JVlib.ui save_dialog/Save_Dialog.ui
 QT += sql
 OBJECTS_DIR = objects
+MOC_DIR = objects
 QMAKE_CLEAN += asdf
-LIBS += -lasound -lkdeui
+LIBS += -lasound -lkdeui -liniparser
 RESOURCES += JVlibForm.qrc
 HEADERS	+= JVlibForm.h \
 	JV-struct-defs.h \

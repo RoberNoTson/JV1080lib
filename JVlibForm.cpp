@@ -4,10 +4,14 @@
 #include	<QtSql>
 #include	"JVlibForm.h"
 #include	"ui_JVlib.h"
+#include	<iniparser.h>
 
 QString db_name;
 QString db_user;
 struct STATE_TABLE *JVlibForm::state_table = 0;
+//extern int iniparser_load(dictionary * d);
+//extern char * iniparser_getstr(dictionary * d, const char * key);
+//extern void iniparser_freedict(dictionary * d);
 
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
@@ -157,31 +161,14 @@ int JVlibForm::readConfigFile() {
     statusbar->showMessage("Not found "+CFGfile);
     return 1;
   }
-  statusbar->showMessage("Using "+CFGfile, 10000);
   // open and parse the config file
-  if (!file.open(QFile::ReadOnly | QFile::Text)) {
-    QMessageBox::warning(this, "JVlib",
-                            tr("Cannot read configuration file %1:\n%2.")
-                             .arg(CFGfile)
-                             .arg(file.errorString()));
-    return 1;
-  }
-  QTextStream in(&file);
-  while (!in.atEnd()) {
-    QString line = in.readLine();
-    if (line.indexOf("=") == -1) continue;
-    QString parm = line.section("=",0,0).simplified();
-    QString parm_arg = line.section("=",1,1).simplified();
-    if (parm == "database") db_name = parm_arg;
-    if (parm == "username") db_user = parm_arg;
-    if (parm == "port_name") {
-      QString PORT_NAME = parm_arg;
-      QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
-      strcpy(MIDI_dev, buf);
-      state_table->jv_connect = true;
-    }      
-  }
-  file.close();
+  QSettings settings(CFGfile,QSettings::IniFormat);
+  db_name = settings.value("mysql/database").toString();
+  db_user = settings.value("mysql/username").toString();
+  QString PORT_NAME = settings.value("JV1080/port_name").toString();
+  QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
+  strcpy(MIDI_dev, buf);
+  state_table->jv_connect = true;
   return 0;
 }	// end readConfigFile
 

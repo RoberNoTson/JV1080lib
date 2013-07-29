@@ -11,6 +11,7 @@
 #include	"State_Table.h"
 #include	<alsa/asoundlib.h>
 #include	<iostream>
+#include	<iniparser.h>
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 4	//number of times to retry after a timeout
