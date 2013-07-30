@@ -6,13 +6,13 @@
 #include	<QtSql>
 #include	<QThread>
 #include	"ui_JVlib.h"
-#include	"ui_Save_Dialog.h"
 #include	"JV-struct-defs.h"
 #include	"State_Table.h"
 #include	<alsa/asoundlib.h>
 #include	<iostream>
 #include	"config/ini_conf.h"
-
+#include	"save_dialog/Save_Dialog.h"
+//#include	"ui_Save_Dialog.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 4	//number of times to retry after a timeout
@@ -32,7 +32,7 @@ class QAction;
 class QMenu;
 class QDialog;
 QT_END_NAMESPACE
-
+/*
 class Save_Dialog: public QDialog, private Ui::Save_Dialog
 {
   Q_OBJECT
@@ -57,7 +57,8 @@ private slots:
 private:
   void createSaveDialogActions();
   static QSqlDatabase db_mysql;
-};
+};	// end class Save_Dialog
+*/
 
 class JVlibForm : public QMainWindow, private Ui::JVlibForm
 {
@@ -1177,4 +1178,4 @@ private:
   
 };	// end class JVlibForm
 
-#endif
+#endif	// JVlibForm_H

@@ -18,7 +18,8 @@ HEADERS	+= JVlibForm.h \
 	tuning/tuning_slots.h \
 	EFX/EFX.h \
 	EFX/EFX_slots.h	\
-	config/ini_conf.h
+	config/ini_conf.h \
+	save_dialog/Save_Dialog.h
 SOURCES     += main.cpp \
 	JVlibForm.cpp \
 	menu/create_menu_actions.cpp \
@@ -134,7 +135,6 @@ SOURCES     += main.cpp \
 	toneEFX/toneEFX_slots.cpp \
 	toneENV/set_toneENV_initial.cpp \
 	toneENV/toneENV_slots.cpp \
-	save_dialog/create_save_dialog_actions.cpp \
 	save_dialog/save_dialog_slots.cpp \
 	tuning/set_tuning_initial.cpp \
 	tuning/tuning.cpp \

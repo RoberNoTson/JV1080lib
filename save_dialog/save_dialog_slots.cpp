@@ -1,12 +1,46 @@
 // save_dialog_slots.cpp
 #include        "JVlibForm.h"
 #include        <QtGui>
+#include	<QtSql>
+#include	"save_dialog/Save_Dialog.h"
+#include	"ui_Save_Dialog.h"
 
 // initialize the static pointers.
 struct SYSTEM_AREA *JVlibForm::sys_area = 0;
 struct ACTIVE_AREA *JVlibForm::act_area = 0;
-//QSqlDatabase JVlibForm::db_mysql;
 QSqlDatabase Save_Dialog::db_mysql;
+
+Save_Dialog::Save_Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Save_Dialog)
+{
+  ui->setupUi(this);
+  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(rejected()), this, SLOT(slotSaveDialog_cancel()));
+  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(accepted()), this, SLOT(slotSaveDialog_accept()));
+  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(helpRequested()), this, SLOT(slotSaveDialog_help()));
+  connect(ui->Save_Dialog::Save_System_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_System(bool)));
+  connect(ui->Save_Dialog::Save_CurrentPerformance_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Performance(bool)));
+  connect(ui->Save_Dialog::Save_CurrentPatch_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Patch(bool)));
+  connect(ui->Save_Dialog::Save_CurrentRhythm_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Rhythm(bool)));
+  connect(ui->Save_Dialog::Save_CurrentTuning_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Tuning(bool)));
+  connect(ui->Save_Dialog::Save_UserPerformance_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserPerformance(bool)));
+  connect(ui->Save_Dialog::Save_UserPatch_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserPatch(bool)));
+  connect(ui->Save_Dialog::Save_UserRhythm_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserRhythm(bool)));
+  connect(ui->Save_Dialog::Save_UserDump_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserDump(bool)));
+  if (ui->Save_Comment_edit->text().isEmpty()) {
+    ui->Save_Comment_edit->setPlaceholderText("Optional comment describing this data");
+    ui->Save_buttonBox->setFocus();
+  }
+  if (ui->Save_Name_edit->text().isEmpty()) {
+//    Save_Name_edit->setFocus();
+    ui->Save_Name_edit->setPlaceholderText("Enter a valid name");
+    ui->Save_Comment_edit->setFocus();
+  }
+}
+
+Save_Dialog::~Save_Dialog() {
+  delete ui;
+}
 
 void Save_Dialog::setData(QSqlDatabase db) {
   db_mysql = db;
@@ -15,7 +49,7 @@ void Save_Dialog::setData(QSqlDatabase db) {
 void Save_Dialog::slotSave_System(bool val) {
   if (val) {
     QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
-    Save_Name_edit->setText(buf);    
+    ui->Save_Name_edit->setText(buf);    
   }
 }
 void Save_Dialog::slotSave_Performance(bool val) {
@@ -36,7 +70,7 @@ void Save_Dialog::slotSave_Performance(bool val) {
     buf += QString::fromAscii(&JVlibForm::act_area->active_performance.perf_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
-    Save_Name_edit->setText(buf);
+    ui->Save_Name_edit->setText(buf);
   }
 } 
 void Save_Dialog::slotSave_Patch(bool val) {
@@ -72,7 +106,7 @@ void Save_Dialog::slotSave_Patch(bool val) {
     buf += QString::fromAscii(&JVlibForm::act_area->active_patch_patch.patch_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
-    Save_Name_edit->setText(buf);
+    ui->Save_Name_edit->setText(buf);
   }
 }
 void Save_Dialog::slotSave_Rhythm(bool val) {
@@ -108,7 +142,7 @@ void Save_Dialog::slotSave_Rhythm(bool val) {
     buf += QString::fromAscii(&JVlibForm::act_area->active_rhythm.rhythm_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
-    Save_Name_edit->setText(buf);
+    ui->Save_Name_edit->setText(buf);
     
   }
 }
@@ -134,7 +168,7 @@ void Save_Dialog::slotSave_UserDump(bool val) {
     QString buf = "User_Dump_"+QDate::currentDate().toString(Qt::ISODate);
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
-    Save_Name_edit->setText(buf);
+    ui->Save_Name_edit->setText(buf);
   }
 }
   
@@ -143,66 +177,64 @@ void Save_Dialog::slotSaveDialog_accept() {
   QString table_name;
   int sz = 0;
   char *ptr = NULL;
-  if (Save_Comment_edit->text().isEmpty()) {
-    Save_Comment_edit->setPlaceholderText("Optional comment describing this data");
-    Save_buttonBox->setFocus();
+  if (ui->Save_Comment_edit->text().isEmpty()) {
+    ui->Save_Comment_edit->setPlaceholderText("Optional comment describing this data");
+    ui->Save_buttonBox->setFocus();
   }
   // must have a name specified
-  if (Save_Name_edit->text().isEmpty()) {
+  if (ui->Save_Name_edit->text().isEmpty()) {
 //    Save_Name_edit->setFocus();
-    Save_Name_edit->setPlaceholderText("Enter a valid name");
-    Save_Comment_edit->setFocus();
+    ui->Save_Name_edit->setPlaceholderText("Enter a valid name");
+    ui->Save_Comment_edit->setFocus();
     return;
   }
-  if (Save_System_button->isChecked()) {
+  if (ui->Save_System_button->isChecked()) {
     table_name = "Dumps";
     sz = 0x28;
     ptr = &JVlibForm::sys_area->sys_common.panel_mode;
   }
-  if (Save_CurrentPerformance_button->isChecked()) {
+  if (ui->Save_CurrentPerformance_button->isChecked()) {
     table_name = "Performances";
     sz = 0x40+(0x13*16);
     ptr = &JVlibForm::act_area->active_performance.perf_common.name[0];
   }
-  if (Save_CurrentPatch_button->isChecked()) {
+  if (ui->Save_CurrentPatch_button->isChecked()) {
     table_name = "Patches";
     sz = 0x48 + (0x81*4);
     ptr = &JVlibForm::act_area->active_patch_patch.patch_common.name[0];    
   }
-  if (Save_CurrentRhythm_button->isChecked()) {
+  if (ui->Save_CurrentRhythm_button->isChecked()) {
     table_name = "RhythmSets";
     sz = 0x0C + (0x3A*64);
     ptr = &JVlibForm::act_area->active_rhythm.rhythm_common.name[0];
   }
-  if (Save_CurrentTuning_button->isChecked()) {
+  if (ui->Save_CurrentTuning_button->isChecked()) {
     table_name = "Tuning";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
-  if (Save_UserPerformance_button->isChecked()) {
+  if (ui->Save_UserPerformance_button->isChecked()) {
     table_name = "Dumps";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
-  if (Save_UserPatch_button->isChecked()) {
+  if (ui->Save_UserPatch_button->isChecked()) {
     table_name = "Dumps";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
-  if (Save_UserRhythm_button->isChecked()) {
+  if (ui->Save_UserRhythm_button->isChecked()) {
     table_name = "Dumps";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
-  if (Save_UserDump_button->isChecked()) {
+  if (ui->Save_UserDump_button->isChecked()) {
     table_name = "Dumps";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
   // create a temp file
-//  QTemporaryFile file;
   QFile file("/Data/music/jv1080/asdf");
-//  if (!file.open()) {
   if (!file.open(QIODevice::WriteOnly|QIODevice::Truncate)) {
     QMessageBox::critical(this, "Save Dialog", tr("Could not create a temporary file!"));
     return;
@@ -216,9 +248,8 @@ void Save_Dialog::slotSaveDialog_accept() {
   file.close();
   file.setPermissions(QFile::ReadOwner|QFile::WriteOwner|QFile::ReadGroup|QFile::ReadOther);
   // load the temp file into the db
-//  QSqlQuery query(JVlibForm::db_mysql);
   QSqlQuery query(db_mysql);
-  QString buf = "insert into "+table_name+" values('"+Save_Name_edit->text()+"', LOAD_FILE('"+file.fileName()+"'), DEFAULT, '"+Save_Comment_edit->text()+"')";
+  QString buf = "insert into "+table_name+" values('"+ui->Save_Name_edit->text()+"', LOAD_FILE('"+file.fileName()+"'), DEFAULT, '"+ui->Save_Comment_edit->text()+"')";
   if (query.exec(buf) == false) {
     puts("Query exec failed");
     query.finish();

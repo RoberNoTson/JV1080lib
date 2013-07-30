@@ -1,9 +1,22 @@
 // Save_Dialog.h
-class Save_Dialog: public QDialog, private Ui::Save_Dialog
-{
+#ifndef SAVE_DIALOG_H
+#define SAVE_DIALOG_H
+
+#include <QtGui>
+#include <QDialog>
+#include <QtSql>
+
+namespace Ui {
+    class Save_Dialog;
+}
+
+class Save_Dialog : public QDialog {
+  
   Q_OBJECT
+  
 public:
-  Save_Dialog();
+  Save_Dialog(QWidget *parent = 0);
+  ~Save_Dialog();
   void setData(QSqlDatabase);
   
 private slots:
@@ -21,6 +34,8 @@ private slots:
   void slotSave_UserDump(bool);
   
 private:
+  Ui::Save_Dialog *ui;
   void createSaveDialogActions();
   static QSqlDatabase db_mysql;
 };
+#endif	// SAVE_DIALOG_H

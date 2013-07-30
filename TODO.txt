@@ -1,6 +1,6 @@
 General
 #  - initialize part_sync entries in state_table	07/26/2013
-  - Configuration screen function
+#  - Configuration dialog function			07/30/2013
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - standalone/offline mode with all tabs functional

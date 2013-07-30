@@ -2,6 +2,7 @@
 #include	"JVlibForm.h"
 #include	<QtGui>
 #include	"config/ini_conf.h"
+#include	"save_dialog/Save_Dialog.h"
 
 QSqlDatabase JVlibForm::db_mysql;
 
