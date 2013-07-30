@@ -11,7 +11,8 @@
 #include	"State_Table.h"
 #include	<alsa/asoundlib.h>
 #include	<iostream>
-#include	<iniparser.h>
+#include	"config/ini_conf.h"
+
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 4	//number of times to retry after a timeout
@@ -37,6 +38,7 @@ class Save_Dialog: public QDialog, private Ui::Save_Dialog
   Q_OBJECT
 public:
   Save_Dialog();
+  void setData(QSqlDatabase);
   
 private slots:
   void slotSaveDialog_accept();
@@ -54,6 +56,7 @@ private slots:
   
 private:
   void createSaveDialogActions();
+  static QSqlDatabase db_mysql;
 };
 
 class JVlibForm : public QMainWindow, private Ui::JVlibForm
@@ -800,6 +803,7 @@ private:
   int debug;
   QSqlDatabase mysql;
   static QSqlDatabase db_mysql;
+  static QString CFGfile;
   QPen dotLine;
   QPen redLine;
   QPen blackLine;

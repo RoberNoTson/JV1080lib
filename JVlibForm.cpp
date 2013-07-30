@@ -8,10 +8,8 @@
 
 QString db_name;
 QString db_user;
+QString JVlibForm::CFGfile;
 struct STATE_TABLE *JVlibForm::state_table = 0;
-//extern int iniparser_load(dictionary * d);
-//extern char * iniparser_getstr(dictionary * d, const char * key);
-//extern void iniparser_freedict(dictionary * d);
 
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
@@ -147,15 +145,15 @@ void JVlibForm::setInitial() {
 int JVlibForm::readConfigFile() {
   QDir myDir;
   QCoreApplication *app;
-  QString CFGfile;
-  if (app->arguments().size() == 1) {
+  
+  if (app->arguments().size() < 2) {
     QString myHome = myDir.homePath();
     QFileInfo fi(app->arguments().at(0));
     CFGfile = myHome+"/"+fi.fileName()+".cfg";
   } else {
     QFileInfo fi(app->arguments().at(1));
     CFGfile = fi.fileName();
-  }  
+  }
   QFile file(CFGfile);
   if (!file.exists()) {
     statusbar->showMessage("Not found "+CFGfile);

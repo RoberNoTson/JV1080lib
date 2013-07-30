@@ -4,6 +4,7 @@ class Save_Dialog: public QDialog, private Ui::Save_Dialog
   Q_OBJECT
 public:
   Save_Dialog();
+  void setData(QSqlDatabase);
   
 private slots:
   void slotSaveDialog_accept();
@@ -21,4 +22,5 @@ private slots:
   
 private:
   void createSaveDialogActions();
+  static QSqlDatabase db_mysql;
 };

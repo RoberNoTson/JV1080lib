@@ -5,7 +5,12 @@
 // initialize the static pointers.
 struct SYSTEM_AREA *JVlibForm::sys_area = 0;
 struct ACTIVE_AREA *JVlibForm::act_area = 0;
-QSqlDatabase JVlibForm::db_mysql;
+//QSqlDatabase JVlibForm::db_mysql;
+QSqlDatabase Save_Dialog::db_mysql;
+
+void Save_Dialog::setData(QSqlDatabase db) {
+  db_mysql = db;
+}
 
 void Save_Dialog::slotSave_System(bool val) {
   if (val) {
@@ -211,7 +216,8 @@ void Save_Dialog::slotSaveDialog_accept() {
   file.close();
   file.setPermissions(QFile::ReadOwner|QFile::WriteOwner|QFile::ReadGroup|QFile::ReadOther);
   // load the temp file into the db
-  QSqlQuery query(JVlibForm::db_mysql);
+//  QSqlQuery query(JVlibForm::db_mysql);
+  QSqlQuery query(db_mysql);
   QString buf = "insert into "+table_name+" values('"+Save_Name_edit->text()+"', LOAD_FILE('"+file.fileName()+"'), DEFAULT, '"+Save_Comment_edit->text()+"')";
   if (query.exec(buf) == false) {
     puts("Query exec failed");

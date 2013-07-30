@@ -1,7 +1,7 @@
 # JVlib.pro
 CONFIG += warn_on qt
 TARGET = JVlib
-FORMS       = JVlib.ui save_dialog/Save_Dialog.ui
+FORMS       = JVlib.ui save_dialog/Save_Dialog.ui config/ini_conf.ui
 QT += sql
 OBJECTS_DIR = objects
 MOC_DIR = objects
@@ -17,7 +17,8 @@ HEADERS	+= JVlibForm.h \
 	performance/perf_slots.h \
 	tuning/tuning_slots.h \
 	EFX/EFX.h \
-	EFX/EFX_slots.h
+	EFX/EFX_slots.h	\
+	config/ini_conf.h
 SOURCES     += main.cpp \
 	JVlibForm.cpp \
 	menu/create_menu_actions.cpp \
@@ -142,4 +143,5 @@ SOURCES     += main.cpp \
 	pitch/pitch_slots.cpp \
 	rhythm/set_rhythm_initial.cpp \
 	rhythm/rhythm.cpp \
-	rhythm/rhythm_slots.cpp
+	rhythm/rhythm_slots.cpp \
+	config/ini_conf.cpp

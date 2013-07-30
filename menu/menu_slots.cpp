@@ -1,6 +1,9 @@
 // menu_slots.cpp
 #include	"JVlibForm.h"
 #include	<QtGui>
+#include	"config/ini_conf.h"
+
+QSqlDatabase JVlibForm::db_mysql;
 
 void JVlibForm::HelpDoc() {
   QProcess process;
@@ -82,7 +85,11 @@ void JVlibForm::slotactionCopy() {
 void  JVlibForm::slotConfig() {
   // pop up a text editor dialog box for the configuration file
   // or, create a dynamic set of one-line fields for the configuration file data
-  
+//  using namespace Ui;
+  INI_CONF ini_conf;
+//  ini_conf.setData(JVlibForm::CFGfile);
+  ini_conf.setData(CFGfile);
+  ini_conf.exec();
 }
 
 void JVlibForm::open() {
@@ -102,6 +109,7 @@ bool JVlibForm::save() {
     }
   } else {
     Save_Dialog save_dialog;
+    save_dialog.setData(db_mysql);
     if (save_dialog.exec())
     state_table->system_modified = false;
     state_table->performance_modified = false;
