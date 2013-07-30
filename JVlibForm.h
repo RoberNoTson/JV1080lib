@@ -12,7 +12,6 @@
 #include	<iostream>
 #include	"config/ini_conf.h"
 #include	"save_dialog/Save_Dialog.h"
-//#include	"ui_Save_Dialog.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 4	//number of times to retry after a timeout
@@ -32,33 +31,6 @@ class QAction;
 class QMenu;
 class QDialog;
 QT_END_NAMESPACE
-/*
-class Save_Dialog: public QDialog, private Ui::Save_Dialog
-{
-  Q_OBJECT
-public:
-  Save_Dialog();
-  void setData(QSqlDatabase);
-  
-private slots:
-  void slotSaveDialog_accept();
-  void slotSaveDialog_cancel();
-  void slotSaveDialog_help();
-  void slotSave_System(bool);
-  void slotSave_Performance(bool);
-  void slotSave_Patch(bool);
-  void slotSave_Rhythm(bool);
-  void slotSave_Tuning(bool);
-  void slotSave_UserPerformance(bool);
-  void slotSave_UserPatch(bool);
-  void slotSave_UserRhythm(bool);
-  void slotSave_UserDump(bool);
-  
-private:
-  void createSaveDialogActions();
-  static QSqlDatabase db_mysql;
-};	// end class Save_Dialog
-*/
 
 class JVlibForm : public QMainWindow, private Ui::JVlibForm
 {
