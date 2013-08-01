@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>486</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,29 +17,7 @@
    <widget class="QWidget" name="layoutWidget1">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>140</y>
-      <width>341</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Port name</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="Portname_edit"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget2">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
+      <x>60</x>
       <y>40</y>
       <width>341</width>
       <height>26</height>
@@ -58,10 +36,10 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QWidget" name="layoutWidget2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>70</y>
       <width>341</width>
       <height>26</height>
@@ -71,7 +49,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>database</string>
+        <string>database  </string>
        </property>
       </widget>
      </item>
@@ -83,7 +61,7 @@
    <widget class="QWidget" name="layoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>10</y>
       <width>341</width>
       <height>26</height>
@@ -93,7 +71,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Host</string>
+        <string>Host           </string>
        </property>
       </widget>
      </item>
@@ -102,41 +80,12 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="layoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>100</y>
-      <width>341</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="formLayout_5">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>password</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="Password_edit">
-       <property name="inputMask">
-        <string notr="true"/>
-       </property>
-       <property name="echoMode">
-        <enum>QLineEdit::PasswordEchoOnEdit</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="layoutWidget_4">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>230</y>
-      <width>341</width>
+      <y>350</y>
+      <width>351</width>
       <height>26</height>
      </rect>
     </property>
@@ -157,8 +106,8 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>200</y>
-      <width>341</width>
+      <y>320</y>
+      <width>351</width>
       <height>26</height>
      </rect>
     </property>
@@ -166,7 +115,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Help dir</string>
+        <string>Help dir  </string>
        </property>
       </widget>
      </item>
@@ -179,8 +128,8 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>170</y>
-      <width>341</width>
+      <y>290</y>
+      <width>351</width>
       <height>26</height>
      </rect>
     </property>
@@ -197,30 +146,17 @@
      </item>
     </layout>
    </widget>
-   <widget class="QCheckBox" name="StartOnline_select">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>260</y>
-      <width>91</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Start Online</string>
-    </property>
-   </widget>
    <widget class="QDialogButtonBox" name="buttonBox">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>140</y>
+      <x>430</x>
+      <y>250</y>
       <width>161</width>
       <height>131</height>
      </rect>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
@@ -235,11 +171,17 @@
    <widget class="QCheckBox" name="ShowPassword_select">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>410</x>
       <y>100</y>
-      <width>121</width>
+      <width>113</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Enable this to see the password in plain text, otherwise only show dots for characters</string>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="text">
      <string>Show password</string>
@@ -247,6 +189,262 @@
     <property name="checked">
      <bool>false</bool>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>401</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>31</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Use</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="StartOnline_select">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>10</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Online</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>372</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_10">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="UsePortname_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string>PortSelect_buttonGroup</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Port name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="PortName_select">
+          <property name="minimumSize">
+           <size>
+            <width>276</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>276</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Use Port Name instead of Port Number, as this will never change.</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>E-MU XMidi2X2 MIDI 1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>E-MU XMidi2X2 MIDI 2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Turtle Beach USB MIDI 1x1 MIDI</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>373</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <layout class="QFormLayout" name="formLayout_11">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="UsePortnumber_button">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+        <attribute name="buttonGroup">
+         <string>PortSelect_buttonGroup</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QFormLayout" name="formLayout_9">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Port #.#.#  </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="PortNumber_select">
+          <property name="minimumSize">
+           <size>
+            <width>276</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>276</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Not recommended for use as the port number can change after a reboot. Use the Port Name instead.</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>hw:1,0,0</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>hw:1,0,1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>hw:2,0,0</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="layoutWidget5">
+    <property name="geometry">
+     <rect>
+      <x>61</x>
+      <y>101</y>
+      <width>341</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout_5">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="minimumSize">
+        <size>
+         <width>55</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>55</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>password</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="Password_edit">
+       <property name="minimumSize">
+        <size>
+         <width>278</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>278</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="inputMask">
+        <string notr="true"/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::PasswordEchoOnEdit</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -270,6 +468,25 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>buttonBox</tabstop>
+  <tabstop>Host_edit</tabstop>
+  <tabstop>Username_edit</tabstop>
+  <tabstop>Database_edit</tabstop>
+  <tabstop>Password_edit</tabstop>
+  <tabstop>ShowPassword_select</tabstop>
+  <tabstop>StartOnline_select</tabstop>
+  <tabstop>PortName_select</tabstop>
+  <tabstop>PortNumber_select</tabstop>
+  <tabstop>UsePortname_button</tabstop>
+  <tabstop>UsePortnumber_button</tabstop>
+  <tabstop>TempDir_edit</tabstop>
+  <tabstop>HelpDir_edit</tabstop>
+  <tabstop>DumpDir_edit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="PortSelect_buttonGroup"/>
+ </buttongroups>
 </ui>

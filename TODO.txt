@@ -3,9 +3,12 @@ General
 07/30/2013  - Configuration dialog function
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
-  - standalone/offline mode with all tabs functional
   - implement GM (General Midi) functions
   - fix Color gradient error message from QDials throughout 
+
+Menu
+  - standalone/offline mode with all tabs functional
+  - create Utility functions: Copy, Write, Bulk Dump
 
 database
   - fill in missing database info for waves/patch, unknown families, etc.
@@ -18,7 +21,8 @@ System_tab
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
-  - "Play MIDI" function
+  - add "Play MIDI" function
+  - in PlayMidi use MIDI file directory from config for file selection starting dir
   - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
 
 Performance_tab
@@ -75,7 +79,13 @@ Tuning_tab
 
 config
   - improve aesthetics
+  - add MIDI file directory entry
+  - provide selection list for Port name field
+  - allow choice of port number vs port name selection
 
 save_dialog
 07/30/2013  - create standalone header, remove definition from JVLibForm.h
   - create missing functions
+  - cursor should initially be in the Name edit field
+  - connect something to the Help button
+  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.

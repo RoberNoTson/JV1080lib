@@ -103,13 +103,13 @@ void JVlibForm::getPort() {
   signed int card_num=-1;
   signed int dev_num=-1;
   signed int subdev_num=-1;
-//  int	numPorts=0;
   int err,i;
   char	buf[64];
   char	str[64];
   snd_rawmidi_info_t  *rawMidiInfo;
   snd_ctl_t *cardHandle;
 
+  PortBox->clear();
   err = snd_card_next(&card_num);
   if (err < 0) {
     // no MIDI cards found in the system

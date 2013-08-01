@@ -4,7 +4,6 @@
 
 void JVlibForm::createMenuActions() {
   PortBox = new QComboBox();
-  PortBox->clear();
   PortBox->setMaxVisibleItems(10);
   
   getPort();

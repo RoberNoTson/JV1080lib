@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QtGui>
+#include <alsa/asoundlib.h>
 
 namespace Ui {
     class INI_CONF;
@@ -29,9 +30,16 @@ private:
     static QString bakHelpDir;
     static QString bakTempDir;
     static QString bakPortname;
+    static QString bakPortnumber;
     QSettings settings;
+    void getPort();
+    snd_rawmidi_t *midiInHandle;
+    snd_rawmidi_t *midiOutHandle;
 
 private slots:
+    void on_PortSelect_buttonGroup_buttonClicked(QAbstractButton *);
+    void on_PortNumber_select_currentIndexChanged(QString);
+    void on_PortName_select_currentIndexChanged(QString);
     void on_ShowPassword_select_toggled(bool checked);
     void on_buttonBox_clicked(QAbstractButton* button);
     void on_buttonBox_rejected();
@@ -41,7 +49,6 @@ private slots:
     void on_HelpDir_edit_editingFinished();
     void on_TempDir_edit_editingFinished();
     void on_Host_edit_editingFinished();
-    void on_Portname_edit_editingFinished();
     void on_Password_edit_editingFinished();
     void on_Database_edit_editingFinished();
     void on_Username_edit_editingFinished();
