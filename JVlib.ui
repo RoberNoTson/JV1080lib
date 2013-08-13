@@ -758,10 +758,6 @@
       <zorder>layoutWidget_203</zorder>
       <zorder>layoutWidget_204</zorder>
       <zorder>layoutWidget_205</zorder>
-      <zorder>Open_button</zorder>
-      <zorder>Panic_button</zorder>
-      <zorder>Play_button</zorder>
-      <zorder>Pause_button</zorder>
      </widget>
      <widget class="QSplitter" name="splitter_4">
       <property name="geometry">
