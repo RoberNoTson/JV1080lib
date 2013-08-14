@@ -164,8 +164,8 @@ int JVlibForm::readConfigFile() {
   QSettings settings(CFGfile,QSettings::IniFormat);
   db_name = settings.value("mysql/database").toString();
   db_user = settings.value("mysql/username").toString();
+  strcpy(MIDI_dir, settings.value("JV1080/midi_dir").toByteArray().data());
   QString PORT_NAME = settings.value("JV1080/port_name").toString();
-//  QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
   int x = PortBox->findText(PORT_NAME, Qt::MatchContains);
   if (x == -1) {
     state_table->jv_connect = false;

@@ -1179,6 +1179,7 @@ private:
     static int sf;  // sharps/flats
     snd_seq_queue_status_t *status;
     char playfile[PATH_MAX];
+    char MIDI_dir[PATH_MAX];
     pid_t pid;
     char SEQ_dev[8];
     std::vector<struct event> all_events;

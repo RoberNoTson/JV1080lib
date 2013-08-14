@@ -59,7 +59,8 @@ void JVlibForm::on_System_OpenMidi_button_clicked()
     disconnect_port();
     close_seq();
 
-    QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File","/Music/midi","Midi files (*.mid, *.MID);;Any (*.*)");
+//    QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File","/Music/midi","Midi files (*.mid, *.MID);;Any (*.*)");
+    QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File",MIDI_dir,"Midi files (*.mid, *.MID);;Any (*.*)");
     if (fn.isEmpty())
         return;
     SysFilePlaying->setText(fn);
@@ -267,64 +268,7 @@ void JVlibForm::getSeqPort() {
 	}	// end while
     }	// end while
 }   // end getSeqPort
-/*
-void JVlibForm::getRawDev(QString buf) {
-  if (buf.isEmpty()) return;
-  signed int card_num=-1;
-  signed int dev_num=-1;
-  signed int subdev_num=-1;
-  int err,i;
-  char	str[64];
-  snd_rawmidi_info_t  *rawMidiInfo;
-  snd_ctl_t *cardHandle;
-  err = snd_card_next(&card_num);
-  if (err < 0) {
-     memset(MIDI_dev,0,sizeof(MIDI_dev));
-    // no MIDI cards found in the system
-    snd_card_next(&card_num);
-    return;
-  }
-  while (card_num >= 0) {
-    sprintf(str, "hw:%i", card_num);
-    if ((err = snd_ctl_open(&cardHandle, str, 0)) < 0) break;
-    dev_num = -1;
-    err = snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
-    if (err < 0) {
-      // card exists, but no midi device was found
-      snd_card_next(&card_num);
-      continue;
-    }
-    while (dev_num >= 0) {
-      snd_rawmidi_info_alloca(&rawMidiInfo);
-      memset(rawMidiInfo, 0, snd_rawmidi_info_sizeof());
-      // Tell ALSA which device (number) we want info about
-      snd_rawmidi_info_set_device(rawMidiInfo, dev_num);
-      // Get info on the MIDI outs of this device
-      snd_rawmidi_info_set_stream(rawMidiInfo, SND_RAWMIDI_STREAM_OUTPUT);
-      i = -1;
-      subdev_num = 1;
-      // More subdevices?
-      while (++i < subdev_num) {
-          // Tell ALSA to fill in our snd_rawmidi_info_t with info on this subdevice
-          snd_rawmidi_info_set_subdevice(rawMidiInfo, i);
-          if ((err = snd_ctl_rawmidi_info(cardHandle, rawMidiInfo)) < 0) continue;
-          // Print out how many subdevices (once only)
-          if (!i) {
-              subdev_num = snd_rawmidi_info_get_subdevices_count(rawMidiInfo);
-          }
-          // got a valid card, dev and subdev
-          if (buf == (QString)snd_rawmidi_info_get_subdevice_name(rawMidiInfo)) {
-              QString holdit = "hw:" + QString::number(card_num) + "," + QString::number(dev_num) + "," + QString::number(i);
-              strcpy(MIDI_dev, holdit.toAscii().data());
-          }
-      }	// end WHILE subdev_num
-      snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
-    }	// end WHILE dev_num
-    snd_ctl_close(cardHandle);
-    err = snd_card_next(&card_num);
-  }	// end WHILE card_num
-}	// end getRawDev()
-*/
+
 void JVlibForm::tickDisplay() {
     // do timestamp display
     static unsigned int current_tick = 0;

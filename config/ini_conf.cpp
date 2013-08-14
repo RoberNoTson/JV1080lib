@@ -11,6 +11,7 @@ QString INI_CONF::bakStartOnline = 0;
 QString INI_CONF::bakDumpDir = 0;
 QString INI_CONF::bakHelpDir = 0;
 QString INI_CONF::bakTempDir = 0;
+QString INI_CONF::bakMidiDir = 0;
 QString INI_CONF::bakPortname = 0;
 QString INI_CONF::bakPortnumber = 0;
 
@@ -29,6 +30,7 @@ INI_CONF::INI_CONF(QWidget *parent) :
     bakDumpDir = settings.value("JV1080/dump_dir").toString();
     bakHelpDir = settings.value("JV1080/help_dir").toString();;
     bakTempDir = settings.value("JV1080/temp_dir").toString();;
+    bakMidiDir = settings.value("JV1080/midi_dir").toString();;
     bakPortname = settings.value("JV1080/port_name").toString();;
     bakPortnumber = settings.value("JV1080/port_number").toString();;
 
@@ -39,6 +41,7 @@ INI_CONF::INI_CONF(QWidget *parent) :
     ui->DumpDir_edit->setText(bakDumpDir);
     ui->HelpDir_edit->setText(bakHelpDir);
     ui->TempDir_edit->setText(bakTempDir);
+    ui->MidiDir_edit->setText(bakMidiDir);
     if (bakStartOnline[0]=='y' || bakStartOnline[0]=='y' ||bakStartOnline[0]=='1' ||bakStartOnline[0]=='t' ||bakStartOnline[0]=='T')
         ui->StartOnline_select->setChecked(true);
     else if (bakStartOnline[0]=='n' || bakStartOnline[0]=='N' ||bakStartOnline[0]=='0' ||bakStartOnline[0]=='f' ||bakStartOnline[0]=='F')
@@ -104,6 +107,8 @@ INI_CONF::~INI_CONF()
         settings.setValue("JV1080/temp_dir","/temp");
     if (!settings.contains("JV1080/help_dir"))
         settings.setValue("JV1080/help_dir","help");
+    if (!settings.contains("JV1080/midi_dir"))
+        settings.setValue("JV1080/midi_dir","");
     }   // end fn.exists
     delete ui;
 }
@@ -150,6 +155,12 @@ void INI_CONF::on_DumpDir_edit_editingFinished()
     settings.setValue("JV1080/dump_dir",ui->DumpDir_edit->text());
 }
 
+void INI_CONF::on_MidiDir_edit_editingFinished()
+{
+    QSettings settings(CFGfile,QSettings::IniFormat);
+    settings.setValue("JV1080/midi_dir",ui->MidiDir_edit->text());
+}
+
 void INI_CONF::on_StartOnline_select_toggled(bool checked)
 {
     QSettings settings(CFGfile,QSettings::IniFormat);
@@ -181,6 +192,7 @@ void INI_CONF::on_buttonBox_clicked(QAbstractButton* button)
         ui->DumpDir_edit->setText(bakDumpDir);
         ui->HelpDir_edit->setText(bakHelpDir);
         ui->TempDir_edit->setText(bakTempDir);
+        ui->MidiDir_edit->setText(bakMidiDir);
         if (bakStartOnline[0]=='y' || bakStartOnline[0]=='y' ||bakStartOnline[0]=='1' ||bakStartOnline[0]=='t' ||bakStartOnline[0]=='T')
             ui->StartOnline_select->setChecked(true);
         else if (bakStartOnline[0]=='n' || bakStartOnline[0]=='N' ||bakStartOnline[0]=='0' ||bakStartOnline[0]=='f' ||bakStartOnline[0]=='F')
@@ -196,6 +208,7 @@ void INI_CONF::on_buttonBox_clicked(QAbstractButton* button)
         settings.setValue("JV1080/dump_dir",bakDumpDir);
         settings.setValue("JV1080/help_dir",bakHelpDir);
         settings.setValue("JV1080/temp_dir",bakTempDir);
+        settings.setValue("JV1080/midi_dir",bakMidiDir);
         settings.setValue("JV1080/port_number",bakPortnumber);
         settings.setValue("JV1080/port_name",bakPortname);
         settings.setValue("JV1080/start_online",bakStartOnline);
@@ -298,7 +311,7 @@ void INI_CONF::getPort() {
           memset(buf,0,sizeof(buf));
           sprintf(buf,"hw:%i,%i,%i", card_num, dev_num, i);
           ui->PortNumber_select->insertItem(9999, QString::fromAscii(buf));
-          ui->PortName_select->insertItem(9999, QString::fromAscii(snd_rawmidi_info_get_name(rawMidiInfo))+" "+QString::number(dev_num*16+i+1));
+          ui->PortName_select->insertItem(9999, QString::fromAscii(snd_rawmidi_info_get_subdevice_name(rawMidiInfo)));
       }	// end WHILE subdev_num
       snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
   }	// end WHILE dev_num

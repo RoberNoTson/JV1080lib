@@ -78,10 +78,10 @@ Tuning_tab
   - load saved tuning data
 
 config
-  - improve aesthetics
-  - add MIDI file directory entry
+08/14/2013  - add MIDI file directory entry
 07/31/2013  - provide selection list for Port name field
 07/31/2013  - allow choice of port number vs port name selection
+  - improve aesthetics
 
 save_dialog
 07/30/2013  - create standalone header, remove definition from JVLibForm.h

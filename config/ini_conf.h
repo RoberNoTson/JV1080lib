@@ -29,6 +29,7 @@ private:
     static QString bakDumpDir;
     static QString bakHelpDir;
     static QString bakTempDir;
+    static QString bakMidiDir;
     static QString bakPortname;
     static QString bakPortnumber;
     QSettings settings;
@@ -48,6 +49,7 @@ private slots:
     void on_DumpDir_edit_editingFinished();
     void on_HelpDir_edit_editingFinished();
     void on_TempDir_edit_editingFinished();
+    void on_MidiDir_edit_editingFinished();
     void on_Host_edit_editingFinished();
     void on_Password_edit_editingFinished();
     void on_Database_edit_editingFinished();
