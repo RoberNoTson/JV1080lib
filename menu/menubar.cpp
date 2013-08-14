@@ -150,7 +150,8 @@ void JVlibForm::getPort() {
 	// got a valid card, dev and subdev
 	// Tell ALSA to fill in our snd_rawmidi_info_t with info on this subdevice
 	memset(buf,0,sizeof(buf));
-	sprintf(buf,"hw:%i,%i,%i %s %i", card_num, dev_num, i, snd_rawmidi_info_get_name(rawMidiInfo),dev_num*16+i+1);
+//	sprintf(buf,"hw:%i,%i,%i %s %i", card_num, dev_num, i, snd_rawmidi_info_get_name(rawMidiInfo),dev_num*16+i+1);
+	sprintf(buf,"hw:%i,%i,%i %s", card_num, dev_num, i, snd_rawmidi_info_get_subdevice_name(rawMidiInfo));
 	PortBox->insertItem(9999, QString::fromAscii(buf));
       }	// end WHILE subdev_num
       snd_ctl_rawmidi_next_device(cardHandle, &dev_num);

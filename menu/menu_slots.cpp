@@ -51,7 +51,7 @@ void JVlibForm::HelpDoc() {
 void JVlibForm::selectedPort()  {
   menu_Setup->hide();
   QByteArray buf(PortBox->currentText().toAscii(),8);
-  strcpy(MIDI_dev, buf);
+  strcpy(MIDI_dev, buf.data());
   state_table->jv_connect = true;
   if (on_System_Sync_button_clicked() != EXIT_SUCCESS) {
     action_Offline->setChecked(true);

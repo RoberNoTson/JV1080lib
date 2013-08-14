@@ -110,7 +110,6 @@ private slots:
   void on_SysPreviewNote3_volume_valueChanged(int);
   void on_SysPreviewNote4_volume_valueChanged(int);
   void on_SysTestTone_button_clicked(bool);
-  void on_SysPlayMidi_button_clicked();
   void on_SysPanic_button_clicked();
   void on_MainTabWidget_currentChanged(int);
 
@@ -753,8 +752,9 @@ private slots:
   
   // for PlayMidi
   void on_System_OpenMidi_button_clicked();
-  void on_Play_button_toggled(bool);
-  void on_Pause_button_toggled(bool);
+  void on_System_PauseMidi_button_toggled(bool);
+  void on_SysPlayMidi_button_toggled(bool);
+  void tickDisplay();
   
 private:
   // shared variables
@@ -914,10 +914,6 @@ private:
   void LFO2_FillEffect();
   QGraphicsScene *LFO2_scene;
   QGraphicsScene *ToneEFX_PanKeyFollow_scene;
-  snd_seq_queue_status_t *status;
-  char playfile[PATH_MAX];
-  pid_t pid;
-  char port_name[16];
   
   // generic functions
   void setInitial();
@@ -1157,6 +1153,7 @@ private:
   // for Config_Dialog
   
   // for play_midi
+  // vars
   struct event {
     struct event *next;             // linked list
     unsigned char type;             // SND_SEQ_EVENT_xxx
@@ -1174,16 +1171,19 @@ private:
         int end_tick;                   // length of this track
         struct event *current_event;    // used while loading and playing
     };  // end struct track definition
-
     static snd_seq_t *seq;
     static snd_seq_addr_t *ports;
     static int queue;
     static double song_length_seconds;
     static bool minor_key;
     static int sf;  // sharps/flats
-
+    snd_seq_queue_status_t *status;
+    char playfile[PATH_MAX];
+    pid_t pid;
+    char SEQ_dev[8];
     std::vector<struct event> all_events;
     QTimer *seqTimer;
+    // functions
     inline void check_snd(const char *, int);
     inline int read_id(void);
     inline int read_byte(void);
@@ -1202,10 +1202,8 @@ private:
     void connect_port();
     void disconnect_port();
     int parseFile(char *);
-    void getPorts(QString buf="");
-    void getRawDev(QString buf="");
+    void getSeqPort();
     void createPlayMidi();
-    void tickDisplay();
   
 };	// end class JVlibForm
 

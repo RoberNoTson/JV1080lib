@@ -753,11 +753,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>layoutWidget_201</zorder>
-      <zorder>layoutWidget_202</zorder>
-      <zorder>layoutWidget_203</zorder>
-      <zorder>layoutWidget_204</zorder>
-      <zorder>layoutWidget_205</zorder>
      </widget>
      <widget class="QSplitter" name="splitter_4">
       <property name="geometry">
@@ -2174,7 +2169,7 @@
        <string notr="true">Play a MIDI file. The file selection dialog will appear when this button is pressed.</string>
       </property>
       <property name="text">
-       <string notr="true">Play MIDI File</string>
+       <string notr="true">&amp;Play</string>
       </property>
       <property name="checkable">
        <bool>true</bool>

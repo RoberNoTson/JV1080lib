@@ -123,7 +123,7 @@ void JVlibForm::setInitial() {
   createMenuActions();
   createSysActions();
   createToneENVactions();
-//  createPlayMidi();
+  createPlayMidi();
   MainTabWidget->setCurrentIndex(0);
   MainTabWidget->setTabEnabled(1,false);
   MainTabWidget->setTabEnabled(3,false);
@@ -132,16 +132,14 @@ void JVlibForm::setInitial() {
   setPatchTabs(false);
  
   if (readConfigFile()) return;
-  db_connect(db_name, db_user);
-  // try to copy System data from the synth
-  if (on_System_Sync_button_clicked() != EXIT_SUCCESS) {
+  if (!state_table->jv_connect) {
     action_Offline->setChecked(true);
     System_JV_status->off();
-    state_table->jv_connect = false;
     statusbar->showMessage("Failed to load System settings!");
     QMessageBox::critical(this, "JVlib", QString("Failed trying to load System settings.\nIs a valid MIDI port selected?"));
     return;
   }
+  db_connect(db_name, db_user);
   state_table->updates_enabled = true;
 }	// end setInitial
 
@@ -167,8 +165,14 @@ int JVlibForm::readConfigFile() {
   db_name = settings.value("mysql/database").toString();
   db_user = settings.value("mysql/username").toString();
   QString PORT_NAME = settings.value("JV1080/port_name").toString();
-  QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
-  strcpy(MIDI_dev, buf);
+//  QByteArray buf(PortBox->itemText(PortBox->findText(PORT_NAME, Qt::MatchContains)).toAscii(),8);
+  int x = PortBox->findText(PORT_NAME, Qt::MatchContains);
+  if (x == -1) {
+    state_table->jv_connect = false;
+    return 1;
+  }
+  PortBox->setCurrentIndex(x);
+  getSeqPort();
   state_table->jv_connect = true;
   return 0;
 }	// end readConfigFile

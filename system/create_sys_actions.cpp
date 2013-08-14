@@ -66,5 +66,6 @@ void JVlibForm::createSysActions() {
   connect(JVlibForm::SysPerfSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPerf()));
   connect(JVlibForm::SysPatchSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPatch()));
   connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
+//  connect(JVlibForm::System_PauseMidi_button, SIGNAL(toggled(bool)), this, SLOT(on_System_PauseMidi_button_toggled(bool)));
 }	// end createSysActions
 
