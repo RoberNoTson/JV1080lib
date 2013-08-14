@@ -146,6 +146,6 @@ SOURCES     += main.cpp \
 	rhythm/rhythm_slots.cpp \
 	config/ini_conf.cpp \
 	playmidi/create_playmidi_actions.cpp \
-	playmidi/player.cpp
-#	playmidi/file_parser.cpp
-#	playmidi/midi_player.cpp
+	playmidi/player.cpp \
+	playmidi/file_parser.cpp \
+	playmidi/midi_player.cpp

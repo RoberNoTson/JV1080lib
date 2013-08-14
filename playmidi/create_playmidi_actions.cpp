@@ -4,11 +4,12 @@
 #include <alsa/asoundlib.h>
 #include <QTimer>
 
-// STATIC vars
-snd_seq_t *JVlibForm::seq=0;
-int JVlibForm::queue=0;
-snd_seq_addr_t *JVlibForm::ports=0;
-double JVlibForm::song_length_seconds=0;
+// INLINE functions
+void JVlibForm::check_snd(const char *operation, int err)
+{
+    if (err < 0)
+        QMessageBox::critical(this, "MIDI Player", QString("Cannot %1\n%2") .arg(operation) .arg(snd_strerror(err)));
+}
 
 void JVlibForm::createPlayMidi() {
   seqTimer = new QTimer(this);

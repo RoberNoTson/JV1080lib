@@ -154,7 +154,7 @@ void JVlibForm::on_Pause_button_toggled(bool checked)
         qDebug() << "Playing resumed from pause for queue" << queue;
     }
 }   // end on_Pause_button_toggled
-
+/*
 void JVlibForm::on_Panic_button_clicked()
 {
   char buf[6];
@@ -172,7 +172,7 @@ void JVlibForm::on_Panic_button_clicked()
     }
   }
   else {
-      getRawDev(ui->PortBox->currentText());
+//      getRawDev(ui->PortBox->currentText());
       if (strlen(MIDI_dev)) {
           snd_rawmidi_t *midiInHandle;
           snd_rawmidi_t *midiOutHandle;
@@ -195,7 +195,8 @@ void JVlibForm::on_Panic_button_clicked()
       } // end strlen(MIDI_dev)
   } // end else
 }   // end on_Panic_button_clicked
-
+*/
+/*
 void JVlibForm::on_PortBox_currentIndexChanged(QString buf)
 {
     qDebug() << "Index changed";
@@ -204,7 +205,7 @@ void JVlibForm::on_PortBox_currentIndexChanged(QString buf)
     getPorts(buf);
     connect_port();
 }
-
+*/
 //  FUNCTIONS
 void JVlibForm::send_data(char * buf,int data_size) {
     snd_seq_event_t ev;
@@ -305,9 +306,9 @@ void JVlibForm::getPorts(QString buf) {
     snd_seq_port_info_alloca(&pinfo);
     snd_seq_client_info_set_client(cinfo, -1);
     if (buf.isEmpty()) {
-        ui->PortBox->blockSignals(true);
-        ui->PortBox->clear();
-        ui->PortBox->blockSignals(false);
+//        ui->PortBox->blockSignals(true);
+//        ui->PortBox->clear();
+//        ui->PortBox->blockSignals(false);
     }
     while (snd_seq_query_next_client(seq, cinfo) >= 0) {
         int client = snd_seq_client_info_get_client(cinfo);
@@ -320,9 +321,9 @@ void JVlibForm::getPorts(QString buf) {
                 != (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
                 continue;
             if (buf.isEmpty()) {
-                ui->PortBox->blockSignals(true);
-                ui->PortBox->insertItem(9999, snd_seq_port_info_get_name(pinfo));
-                ui->PortBox->blockSignals(false);
+//                ui->PortBox->blockSignals(true);
+//                ui->PortBox->insertItem(9999, snd_seq_port_info_get_name(pinfo));
+//                ui->PortBox->blockSignals(false);
                 printf("port: %s\n",snd_seq_port_info_get_name(pinfo));
             }
             else if (buf.toAscii().data() == QString(snd_seq_port_info_get_name(pinfo))) {

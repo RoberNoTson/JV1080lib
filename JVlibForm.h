@@ -751,6 +751,11 @@ private slots:
   void on_Rhythm_TuneAdj_select_valueChanged(int);
   void on_Rhythm_TestTone_switch_clicked(bool);
   
+  // for PlayMidi
+  void on_System_OpenMidi_button_clicked();
+  void on_Play_button_toggled(bool);
+  void on_Pause_button_toggled(bool);
+  
 private:
   // shared variables
   QString curFile;
@@ -1178,7 +1183,7 @@ private:
     static int sf;  // sharps/flats
 
     std::vector<struct event> all_events;
-    QTimer *timer;
+    QTimer *seqTimer;
     inline void check_snd(const char *, int);
     inline int read_id(void);
     inline int read_byte(void);
@@ -1199,7 +1204,8 @@ private:
     int parseFile(char *);
     void getPorts(QString buf="");
     void getRawDev(QString buf="");
-//    void createPlayMidi();
+    void createPlayMidi();
+    void tickDisplay();
   
 };	// end class JVlibForm
 
