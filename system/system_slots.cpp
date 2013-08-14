@@ -634,30 +634,7 @@ void JVlibForm::on_SysPanic_button_clicked() {
   if (change_send(buf,96) == EXIT_FAILURE) { close_ports(); return; }
   close_ports();
 }
-/*
-void JVlibForm::on_SysPlayMidi_button_clicked() {
-  if (SysPlayMidi_button->isChecked()) {
-    QString fileName = QFileDialog::getOpenFileName(this);
-    if (fileName.isEmpty()) {
-      System_PlayMidi_status->off();
-      SysPlayMidi_button->setChecked(false);
-      return;
-    } else {
-      SysPlayMidi_button->setText("Stop");
-      SysFilePlaying->setEnabled(true);
-      SysFilePlaying->setText(fileName);
-      System_PlayMidi_status->on();
-//    PlayMIDI(fileName);
-    }
-  } else {
-//    StopPlayMIDI();
-      System_PlayMidi_status->off();
-      SysFilePlaying->setText("");
-      SysFilePlaying->setEnabled(false);
-      SysPlayMidi_button->setText("Play MIDI File");
-  }
-}
-*/
+
 void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
    if (state_table->updates_enabled) {
     system_area->sys_common.perf_num = val - 1;

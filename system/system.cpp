@@ -127,7 +127,7 @@ void JVlibForm::EnableSys(bool val) {
   SysPanic_button->setEnabled(val);
   SysMode_select->setEnabled(val);
   System_Sync_button->setEnabled(val);
-  SysPlayMidi_button->setEnabled(val);
+//  SysPlayMidi_button->setEnabled(val);
   Tuning_MasterTune_select->setEnabled(val);
   if (state_table->perf_mode) {
     SysPerformance_box->setEnabled(val);

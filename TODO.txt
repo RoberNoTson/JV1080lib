@@ -17,13 +17,13 @@ database
 System_tab
 07/23/2013  - Patch Tempo controls disabled when in Performance mode
 07/26/2013  - fix enabled tabs when changing Perf/Patch modes
+08/14/2013  - add "Play MIDI" function
   -  validate working of System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
-  - add "Play MIDI" function
-  - in PlayMidi use MIDI file directory from config for file selection starting dir
   - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
+  - in PlayMidi use MIDI file directory from config for file selection starting dir
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64

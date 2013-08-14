@@ -92,8 +92,8 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
             QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
             return;
         }   // parseFile
-        qDebug() << "last tick: " << all_events.back().tick;
-        pid=fork();
+	System_PlayMidi_status->on();
+	pid=fork();
         if (!pid) {
             play_midi();
             exit(EXIT_SUCCESS);
@@ -114,6 +114,7 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
             disconnect(JVlibForm::seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
             seqTimer->stop();
         }
+	System_PlayMidi_status->off();
         System_MIDI_progressBar->reset();
         MIDI_time_display->setText("00:00:00");
         if (System_PauseMidi_button->isChecked()) {

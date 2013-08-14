@@ -18,7 +18,7 @@ void JVlibForm::createPlayMidi() {
   queue = snd_seq_alloc_named_queue(seq, "midi_player");
   check_snd("create queue", queue);
   snd_seq_queue_status_malloc(&status);
-//  close_seq();
   pid = 0;
+  SysPlayMidi_button->setEnabled(false);
 }
 

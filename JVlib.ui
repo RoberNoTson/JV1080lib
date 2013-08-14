@@ -2189,8 +2189,8 @@
       </property>
       <property name="color">
        <color>
-        <red>255</red>
-        <green>0</green>
+        <red>0</red>
+        <green>192</green>
         <blue>0</blue>
        </color>
       </property>
