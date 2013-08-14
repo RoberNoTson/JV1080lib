@@ -1,24 +1,24 @@
-// player.cpp   -- part of MIDI_PLAYER
+// player.cpp   -- part of JVlibForm
 // play memory image midi data to the alsa seq port
 // requires access to "seq","queue", "ports" static vars
 // contains:
 //      check_snd()
 //      play_midi()
 
-#include "midi_player.h"
-#include "ui_midi_player.h"
+#include        "JVlibForm.h"
+//#include "midi_player.h"
 #include <alsa/asoundlib.h>
 #include <vector>
 #include <QTimer>
 
 // INLINE function
-void MIDI_PLAYER::check_snd(const char *operation, int err) {
+void JVlibForm::check_snd(const char *operation, int err) {
     // error handling for ALSA functions
     if (err < 0)
         QMessageBox::critical(this, "MIDI Player", QString("Cannot %1\n%2") .arg(operation) .arg(snd_strerror(err)));
 }
 
-void MIDI_PLAYER::play_midi(void) {
+void JVlibForm::play_midi(void) {
     int end_delay = 2, err;
     // set data in (snd_seq_event_t ev) and output the event
     // common settings for all events

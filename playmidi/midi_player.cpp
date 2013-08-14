@@ -1,8 +1,8 @@
 // midi_player.c
 // Function list:
-//  MIDI_PLAYER     -- constructor
-// ~MIDI_PLAYER     -- destructor
-// on_Open_button_clicked   -- SLOT
+//  JVlibForm     -- constructor
+// ~JVlibForm     -- destructor
+// on_System_OpenMidi_button_clicked   -- SLOT
 // on_Play_button_clicked   -- SLOT
 // on_Stop_button_clicked   -- SLOT
 // on_Panic_button_clicked   -- SLOT
@@ -17,84 +17,57 @@
 // getRawDev
 // getPorts
 
-#include "midi_player.h"
-#include "ui_midi_player.h"
+//#include "midi_player.h"
+#include        "JVlibForm.h"
 #include <alsa/asoundlib.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <signal.h>
+//#include <signal.h>
 #include <sys/wait.h>
 #include <vector>
 #include <algorithm>
 #include <QtDebug>
 #include <QTimer>
-#include <iostream>
 
 #define MAKE_ID(c1, c2, c3, c4) ((c1) | ((c2) << 8) | ((c3) << 16) | ((c4) << 24))
 
 // STATIC vars
-snd_seq_t *MIDI_PLAYER::seq=0;
-int MIDI_PLAYER::queue=0;
-snd_seq_addr_t *MIDI_PLAYER::ports=0;
-double MIDI_PLAYER::song_length_seconds=0;
+snd_seq_t *JVlibForm::seq=0;
+int JVlibForm::queue=0;
+snd_seq_addr_t *JVlibForm::ports=0;
+double JVlibForm::song_length_seconds=0;
 
 // FILE global vars
 snd_seq_queue_status_t *status;
 char playfile[PATH_MAX];
 pid_t pid=0;
 char port_name[16];
-char MIDI_dev[16];
 
 // INLINE functions
-void MIDI_PLAYER::check_snd(const char *operation, int err)
+void JVlibForm::check_snd(const char *operation, int err)
 {
     if (err < 0)
         QMessageBox::critical(this, "MIDI Player", QString("Cannot %1\n%2") .arg(operation) .arg(snd_strerror(err)));
 }
-int MIDI_PLAYER::read_id(void) {
+int JVlibForm::read_id(void) {
     return read_32_le();
 }
 
-// constructor
-MIDI_PLAYER::MIDI_PLAYER(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MIDI_PLAYER)
-{
-    ui->setupUi(this);
-    timer = new QTimer(this);
-    memset(MIDI_dev,0,sizeof(MIDI_dev));
-    memset(port_name,0,sizeof(port_name));
-
-    init_seq();
-    queue = snd_seq_alloc_named_queue(seq, "midi_player");
-    check_snd("create queue", queue);
-    getPorts();     // empty parm means fill in the PortBox list
-    snd_seq_queue_status_malloc(&status);
-    close_seq();
-}   // end constructor
-
-MIDI_PLAYER::~MIDI_PLAYER()
-{
-    ui->Play_button->setChecked(false);
-    close_seq();
-    delete ui;
-}   // end destructor
-
 //  SLOTS
-void MIDI_PLAYER::on_Open_button_clicked()
+void JVlibForm::on_System_OpenMidi_button_clicked()
 {
-    ui->Play_button->setChecked(false);
-    ui->Play_button->setEnabled(false);
-    ui->Pause_button->setEnabled(false);
-    ui->MidiFile_display->clear();
+    SysPlayMidi_button->setChecked(false);
+    SysPlayMidi_button->setEnabled(false);
+    System_PauseMidi_button->setEnabled(false);
+    SysFilePlaying->clear();
     disconnect_port();
     close_seq();
 
     QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File","/Music/midi","Midi files (*.mid, *.MID);;Any (*.*)");
     if (fn.isEmpty())
         return;
-    ui->MidiFile_display->setText(fn);
-    ui->MIDI_length_display->setText("00:00:00");
+    SysFilePlaying->setText(fn);
+    MIDI_length_display->setText("00:00:00");
     init_seq();
     queue = snd_seq_alloc_named_queue(seq, "midi_player");
     check_snd("create queue", queue);
@@ -106,17 +79,17 @@ void MIDI_PLAYER::on_Open_button_clicked()
         return;
     }   // parseFile
     qDebug() << "last tick: " << all_events.back().tick;
-    ui->progressBar->setRange(0,all_events.back().tick-1);
-    ui->Play_button->setEnabled(true);
-    ui->MIDI_length_display->setText(QTime(static_cast<int>(song_length_seconds/3600), static_cast<int>(song_length_seconds/60), static_cast<int>(song_length_seconds)%60).toString());
-}   // end on_Open_button_clicked
+    System_MIDI_progressBar->setRange(0,all_events.back().tick-1);
+    SysPlayMidi_button->setEnabled(true);
+    MIDI_length_display->setText(QTime(static_cast<int>(song_length_seconds/3600), static_cast<int>(song_length_seconds/60), static_cast<int>(song_length_seconds)%60).toString());
+}   // end on_System_OpenMidi_button_clicked
 
-void MIDI_PLAYER::on_Play_button_toggled(bool checked)
+void JVlibForm::on_Play_button_toggled(bool checked)
 {
     if (checked) {
-        ui->Pause_button->setEnabled(true);
-        ui->Open_button->setEnabled(false);
-        ui->Play_button->setText("Stop");
+        System_PauseMidi_button->setEnabled(true);
+        System_OpenMidi_button->setEnabled(false);
+        SysPlayMidi_button->setText("Stop");
         init_seq();
         connect_port();
         all_events.clear();
@@ -130,8 +103,8 @@ void MIDI_PLAYER::on_Play_button_toggled(bool checked)
             play_midi();
             exit(EXIT_SUCCESS);
         }   // end pid fork
-        connect(timer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
-        timer->start(500);
+        connect(seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
+        seqTimer->start(500);
     }
     else {
         snd_seq_stop_queue(seq,queue,NULL);
@@ -142,47 +115,47 @@ void MIDI_PLAYER::on_Play_button_toggled(bool checked)
         }
         pid = 0;
         disconnect_port();
-        if (timer->isActive()) {
-            disconnect(timer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
-            timer->stop();
+        if (seqTimer->isActive()) {
+            disconnect(seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
+            seqTimer->stop();
         }
-        ui->progressBar->reset();
-        ui->MIDI_time_display->setText("00:00:00");
-        if (ui->Pause_button->isChecked()) {
-            ui->Pause_button->blockSignals(true);
-            ui->Pause_button->setChecked(false);
-            ui->Pause_button->blockSignals(false);
-            ui->Pause_button->setText("Pause");
+        System_MIDI_progressBar->reset();
+        MIDI_time_display->setText("00:00:00");
+        if (System_PauseMidi_button->isChecked()) {
+            System_PauseMidi_button->blockSignals(true);
+            System_PauseMidi_button->setChecked(false);
+            System_PauseMidi_button->blockSignals(false);
+            System_PauseMidi_button->setText("Pause");
         }
-        ui->Pause_button->setEnabled(false);
-        ui->Play_button->setText("Play");
-        ui->Open_button->setEnabled(true);
+        System_PauseMidi_button->setEnabled(false);
+        SysPlayMidi_button->setText("Play");
+        System_OpenMidi_button->setEnabled(true);
     }
 }   // end on_Play_button_toggled
 
-void MIDI_PLAYER::on_Pause_button_toggled(bool checked)
+void JVlibForm::on_Pause_button_toggled(bool checked)
 {
     if (checked) {
-        if (timer->isActive()) {
-            timer->stop();
-            disconnect(timer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
+        if (seqTimer->isActive()) {
+            seqTimer->stop();
+            disconnect(seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
         }
         snd_seq_stop_queue(seq,queue,NULL);
         snd_seq_drain_output(seq);
-        ui->Pause_button->setText("Resume");
+        System_PauseMidi_button->setText("Resume");
         qDebug() << "Paused queue" << queue;
     }
     else {
-        ui->Pause_button->setText("Pause");
+        System_PauseMidi_button->setText("Pause");
         snd_seq_continue_queue(seq, queue, NULL);
         snd_seq_drain_output(seq);
-        connect(timer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
-        timer->start();
+        connect(seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
+        seqTimer->start();
         qDebug() << "Playing resumed from pause for queue" << queue;
     }
 }   // end on_Pause_button_toggled
 
-void MIDI_PLAYER::on_Panic_button_clicked()
+void JVlibForm::on_Panic_button_clicked()
 {
   char buf[6];
   if (seq) {
@@ -223,7 +196,7 @@ void MIDI_PLAYER::on_Panic_button_clicked()
   } // end else
 }   // end on_Panic_button_clicked
 
-void MIDI_PLAYER::on_PortBox_currentIndexChanged(QString buf)
+void JVlibForm::on_PortBox_currentIndexChanged(QString buf)
 {
     qDebug() << "Index changed";
     init_seq();
@@ -233,7 +206,7 @@ void MIDI_PLAYER::on_PortBox_currentIndexChanged(QString buf)
 }
 
 //  FUNCTIONS
-void MIDI_PLAYER::send_data(char * buf,int data_size) {
+void JVlibForm::send_data(char * buf,int data_size) {
     snd_seq_event_t ev;
     snd_seq_ev_clear(&ev);
     snd_seq_ev_set_direct(&ev);
@@ -251,7 +224,7 @@ void MIDI_PLAYER::send_data(char * buf,int data_size) {
     snd_seq_drain_output(seq);
 }   // end send_data
 
-void MIDI_PLAYER::init_seq() {
+void JVlibForm::init_seq() {
     if (!seq) {
         int err = snd_seq_open(&seq, "default", SND_SEQ_OPEN_OUTPUT, 0);
         check_snd("open sequencer", err);
@@ -263,7 +236,7 @@ void MIDI_PLAYER::init_seq() {
     }
 }
 
-void MIDI_PLAYER::close_seq() {
+void JVlibForm::close_seq() {
     if (seq) {
         snd_seq_stop_queue(seq,queue,NULL);
         snd_seq_drop_output(seq);
@@ -276,7 +249,7 @@ void MIDI_PLAYER::close_seq() {
     }
 }
 
-void MIDI_PLAYER::connect_port() {
+void JVlibForm::connect_port() {
     if (seq && strlen(port_name)) {
         //  create_source_port
         snd_seq_port_info_t *pinfo;
@@ -306,7 +279,7 @@ void MIDI_PLAYER::connect_port() {
     }
 }   // end connect_port
 
-void MIDI_PLAYER::disconnect_port() {
+void JVlibForm::disconnect_port() {
     if (seq && strlen(port_name)) {
         int err;
         ports = (snd_seq_addr_t *)realloc(ports, sizeof(snd_seq_addr_t));
@@ -323,7 +296,7 @@ void MIDI_PLAYER::disconnect_port() {
     }   // end if seq
 }   // end disconnect_port
 
-void MIDI_PLAYER::getPorts(QString buf) {
+void JVlibForm::getPorts(QString buf) {
     // fill in the combobox with all available ports
     // or set port_name to the port passed in buf
     snd_seq_client_info_t *cinfo;
@@ -361,7 +334,7 @@ void MIDI_PLAYER::getPorts(QString buf) {
     }
 }   // end getPorts
 
-void MIDI_PLAYER::getRawDev(QString buf) {
+void JVlibForm::getRawDev(QString buf) {
   if (buf.isEmpty()) return;
   signed int card_num=-1;
   signed int dev_num=-1;
@@ -418,7 +391,7 @@ void MIDI_PLAYER::getRawDev(QString buf) {
   }	// end WHILE card_num
 }	// end getRawDev()
 
-void MIDI_PLAYER::tickDisplay() {
+void JVlibForm::tickDisplay() {
     // do timestamp display
     static unsigned int current_tick = 0;
     static const snd_seq_real_time_t *current_time;
@@ -426,11 +399,11 @@ void MIDI_PLAYER::tickDisplay() {
 
     current_tick = snd_seq_queue_status_get_tick_time(status);
     current_time = snd_seq_queue_status_get_real_time(status);
-    ui->MIDI_time_display->setText(QTime(current_time->tv_sec/3600,current_time->tv_sec/60,current_time->tv_sec%60).toString());
-    ui->progressBar->setValue(static_cast<int>(current_tick));
+    MIDI_time_display->setText(QTime(current_time->tv_sec/3600,current_time->tv_sec/60,current_time->tv_sec%60).toString());
+    System_MIDI_progressBar->setValue(static_cast<int>(current_tick));
     if (current_tick >= all_events.back().tick) {
         sleep(1);
-        ui->Play_button->setChecked(false);
+        SysPlayMidi_button->setChecked(false);
 }
 }   // end tickDisplay
 

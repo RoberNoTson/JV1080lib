@@ -14,6 +14,8 @@ struct STATE_TABLE *JVlibForm::state_table = 0;
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
     JVlibForm::mysql.removeDatabase("init"); 
+    SysPlayMidi_button->setChecked(false);
+//    close_seq();
 }
 
 JVlibForm::JVlibForm() {
@@ -121,6 +123,7 @@ void JVlibForm::setInitial() {
   createMenuActions();
   createSysActions();
   createToneENVactions();
+//  createPlayMidi();
   MainTabWidget->setCurrentIndex(0);
   MainTabWidget->setTabEnabled(1,false);
   MainTabWidget->setTabEnabled(3,false);
