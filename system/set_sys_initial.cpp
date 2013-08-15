@@ -2,7 +2,7 @@
 // for system tab
 #include	"JVlibForm.h"
 #include	<QtGui>
-//#include	"system_slots.h"
+#include	<QDebug>
 
 void JVlibForm::setSystemParms() {
   // Called from slotGetActiveSystem, after all System data is received from the synth,
@@ -156,8 +156,10 @@ void JVlibForm::setSystemParms() {
     QSqlQuery query("Select distinct(Instruments) from wave_list",mysql);
     Tone_InstrFamily_select->blockSignals(true);
     Tone_InstrFamily_select->clear();
-    while (query.next())
+    while (query.next()) {
       Tone_InstrFamily_select->insertItem(0,query.value(0).toString());
+      qDebug() << "inserting instrument family" << query.value(0).toString();
+    }
     Tone_InstrFamily_select->blockSignals(false);
     query.finish();
   }

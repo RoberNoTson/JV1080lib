@@ -132,6 +132,7 @@ void JVlibForm::setInitial() {
   setPatchTabs(false);
  
   if (readConfigFile()) return;
+  db_connect(db_name, db_user);
   if (!state_table->jv_connect) {
     action_Offline->setChecked(true);
     System_JV_status->off();
@@ -139,7 +140,7 @@ void JVlibForm::setInitial() {
     QMessageBox::critical(this, "JVlib", QString("Failed trying to load System settings.\nIs a valid MIDI port selected?"));
     return;
   }
-  db_connect(db_name, db_user);
+  setSystemParms();
   state_table->updates_enabled = true;
 }	// end setInitial
 
