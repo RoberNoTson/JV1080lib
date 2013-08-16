@@ -1,6 +1,7 @@
 // tone.cpp
 #include	"JVlibForm.h"
 #include	<QtGui>
+#include	<QDebug>
 
 void JVlibForm::setWaveChooser() {
   // point InstrFamily to the correct value based on selected Group/Number
@@ -13,26 +14,26 @@ void JVlibForm::setWaveChooser() {
 //printf("setWaveChooser bound group_area = %s and number = %d\nShould bind %s, %d\n", WaveQuery.boundValue(0).toByteArray().data(), WaveQuery.boundValue(1).toInt(), Tone_Group_select->currentText().toAscii().data(), Tone_Number_select->value());
    // run the Query
    if (WaveQuery.exec() == false) {
-     puts("Query exec failed in setWaveChooser");
+     qDebug() << "Query exec failed in setWaveChooser";
      QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
      return;
    }
    if (WaveQuery.size()==0) {
-      puts("0 rows found in setWaveChooser()"); 
+      qDebug() << "0 rows found in setWaveChooser()"; 
       QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
       return;
    }
    if (WaveQuery.size()>1) {
-        puts("Too many rows found in setWaveChooser()"); 
+        qDebug() << "Too many rows found in setWaveChooser()"; 
 	QMessageBox::critical(this, "JVlib", QString("Too many rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
 	return;
    }
-printf("setWaveChooser queried for %s\n",WaveQuery.lastQuery().toAscii().data());
+//printf("setWaveChooser queried for %s\n",WaveQuery.lastQuery().toAscii().data());
    WaveQuery.first();
    buf = WaveQuery.value(0).toString();
    WaveQuery.finish();
    
-printf("WaveChooser setting Instrument family to %s\n",buf.toAscii().data());
+//printf("WaveChooser setting Instrument family to %s\n",buf.toAscii().data());
    // setting the index will call on_Tone_InstrFamily_select_currentIndexChanged() to fill Tone_WaveChooser_select with valid waves from the database
    int x = Tone_InstrFamily_select->findText(buf);
    if (x < 0) {
@@ -49,7 +50,7 @@ printf("WaveChooser setting Instrument family to %s\n",buf.toAscii().data());
    
    x = Tone_WaveChooser_select->findText(buf, Qt::MatchEndsWith);
    if (x<0) {
-     puts("setWaveChooser did not find requested text");
+     qDebug() << "setWaveChooser did not find requested text";
      QMessageBox::critical(this, "JVlib", QString("Text NOT FOUND in setWaveChooser\n%1") .arg(buf));
      return;
    }
@@ -68,12 +69,12 @@ QString JVlibForm::WaveName_query() {
    WaveQuery.bindValue(0, Tone_Group_select->currentText());
    WaveQuery.bindValue(1, Tone_Number_select->value());
    if (WaveQuery.exec() == false) {
-     puts("Query exec failed");
+     qDebug() << "Query exec failed";
      QMessageBox::critical(this, "JVlib", QString("0 rows returned in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
      return buf;
    }
    if (WaveQuery.size()==0) {
-        puts("0 rows found in WaveName_query");
+        qDebug() << "0 rows found in WaveName_query";
 	QMessageBox::critical(this, "JVlib", QString("Query failed in setWaveChooser for query\n%1") .arg(WaveQuery.executedQuery()));
 	return buf;
    }

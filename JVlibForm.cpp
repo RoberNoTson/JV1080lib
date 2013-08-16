@@ -4,7 +4,7 @@
 #include	<QtSql>
 #include	"JVlibForm.h"
 #include	"ui_JVlib.h"
-#include	<iniparser.h>
+//#include	<iniparser.h>
 
 QString db_name;
 QString db_user;
@@ -14,8 +14,8 @@ struct STATE_TABLE *JVlibForm::state_table = 0;
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
     JVlibForm::mysql.removeDatabase("init"); 
-    SysPlayMidi_button->setChecked(false);
-//    close_seq();
+  SysPlayMidi_button->setChecked(false);
+  close_seq();
 }
 
 JVlibForm::JVlibForm() {
@@ -295,7 +295,6 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   usleep(40000);
   // validate the data received
   if ((x=chksum((unsigned char *)&hold_buf[5], buf_size-7)) != hold_buf[buf_size-2]) { 
-//    printf("Chksum error! Expected 0x%02X, received 0x%02X\n",recv_buf[buf_size-2],x);
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
       printf("Can't get snd_rawmidi_status_t: %s\n", snd_strerror(err));
@@ -315,7 +314,6 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   }
   if (hold_buf[buf_size-1] != 0xF7) { 
     puts("#### Incomplete data received! ####");
-//    printf("#### 0x%02X bytes received, last byte was 0x%02X, not 0xF7 ####\n", read,recv_buf[buf_size-1]);
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
       printf("Can't get snd_rawmidi_status_t: %s\n", snd_strerror(err));
@@ -433,7 +431,6 @@ int JVlibForm::db_connect(QString db_name, QString user_name) {
   mysql.setConnectOptions("UNIX_SOCKET=/var/lib/mysql/mysql.sock");
   mysql.setDatabaseName(db_name);
   mysql.setUserName(user_name);
-  puts("opening the db");
   if (mysql.open() == false) {
     // ERROR!
     QMessageBox::critical(this, "JVlib", tr("Database could not be opened\n%1") .arg(mysql.lastError().databaseText()));

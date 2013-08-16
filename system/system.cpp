@@ -1,11 +1,11 @@
 // system.cpp
 
 #include	"JVlibForm.h"
-#include	<QtGui>
 #include	"system.h"
+#include	<QtGui>
+#include	<QDebug>
 
 // Functions
-
 void JVlibForm::getSysPatchName() {
   // get the current active Patch name from the active area
   if (state_table->jv_connect) {
@@ -25,8 +25,8 @@ void JVlibForm::getSysPatchName() {
   if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&r_buf, (char *)&name_size);
   if (err == EXIT_FAILURE) return;
-  if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
-  if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
+  if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
+  if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
   if (err != EXIT_SUCCESS) { close_ports(); return; }
   close_ports();
   SysPatchName->setEnabled(true);
@@ -58,8 +58,8 @@ void JVlibForm::getSysPerfName() {
     }
     err = sysex_get((unsigned char *)r_buf, (char *)&name_size);
     if (err == EXIT_FAILURE) return;
-    if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
-    if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
+    if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
+    if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
     if (err != EXIT_SUCCESS) { close_ports(); return; }
     close_ports();
     SysPerfName->setText(QString::fromAscii(r_buf,12));

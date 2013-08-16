@@ -2009,19 +2009,19 @@
        <rect>
         <x>510</x>
         <y>230</y>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </size>
       </property>
@@ -2032,7 +2032,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="text">
-       <string notr="true">00:00:00</string>
+       <string notr="true">00:00</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2078,21 +2078,21 @@
      <widget class="QLabel" name="MIDI_length_display">
       <property name="geometry">
        <rect>
-        <x>750</x>
+        <x>760</x>
         <y>230</y>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>61</width>
+        <width>51</width>
         <height>21</height>
        </size>
       </property>
@@ -2103,7 +2103,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="text">
-       <string notr="true">00:00:00</string>
+       <string notr="true">00:00</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -34702,7 +34702,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>310</y>
+          <y>320</y>
           <width>151</width>
           <height>26</height>
          </rect>
@@ -35208,7 +35208,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>310</y>
+          <y>320</y>
           <width>137</width>
           <height>26</height>
          </rect>

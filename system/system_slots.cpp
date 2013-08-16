@@ -1,7 +1,8 @@
 // system_slots.cpp
 #include	"JVlibForm.h"
-#include	<QtGui>
 #include	"system_slots.h"
+#include	<QtGui>
+#include	<QDebug>
 
 // Slots
 void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
@@ -225,8 +226,8 @@ int JVlibForm::on_System_Sync_button_clicked() {
   if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   int err = sysex_get((unsigned char *)&system_area->sys_common.panel_mode, (char *)system_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
-  if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
-  if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
+  if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
+  if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
   if (err != EXIT_SUCCESS) { close_ports(); return EXIT_FAILURE ; }
   close_ports();
   setSystemParms();

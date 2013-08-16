@@ -2,7 +2,6 @@
 // for system tab
 #include	"JVlibForm.h"
 #include	<QtGui>
-#include	<QDebug>
 
 void JVlibForm::setSystemParms() {
   // Called from slotGetActiveSystem, after all System data is received from the synth,
@@ -158,7 +157,6 @@ void JVlibForm::setSystemParms() {
     Tone_InstrFamily_select->clear();
     while (query.next()) {
       Tone_InstrFamily_select->insertItem(0,query.value(0).toString());
-      qDebug() << "inserting instrument family" << query.value(0).toString();
     }
     Tone_InstrFamily_select->blockSignals(false);
     query.finish();

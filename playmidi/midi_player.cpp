@@ -58,27 +58,29 @@ void JVlibForm::on_System_OpenMidi_button_clicked()
     SysFilePlaying->clear();
     disconnect_port();
     close_seq();
+    MIDI_length_display->setText("00:00");
 
-//    QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File","/Music/midi","Midi files (*.mid, *.MID);;Any (*.*)");
     QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File",MIDI_dir,"Midi files (*.mid, *.MID);;Any (*.*)");
     if (fn.isEmpty())
         return;
-    SysFilePlaying->setText(fn);
-    MIDI_length_display->setText("00:00:00");
-    init_seq();
-    queue = snd_seq_alloc_named_queue(seq, "midi_player");
-    check_snd("create queue", queue);
-    connect_port();
     strcpy(playfile, fn.toAscii().data());
-    all_events.clear();
-    if (!parseFile(playfile)) {
-        QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
-        return;
-    }   // parseFile
-    qDebug() << "last tick: " << all_events.back().tick;
-    System_MIDI_progressBar->setRange(0,all_events.back().tick-1);
+    SysFilePlaying->setText(fn);
     SysPlayMidi_button->setEnabled(true);
-    MIDI_length_display->setText(QTime(static_cast<int>(song_length_seconds/3600), static_cast<int>(song_length_seconds/60), static_cast<int>(song_length_seconds)%60).toString());
+    
+//    init_seq();
+//    queue = snd_seq_alloc_named_queue(seq, "midi_player");
+//    check_snd("create queue", queue);
+//    connect_port();
+//    all_events.clear();
+//    if (!parseFile(playfile)) {
+//        QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
+//	close_seq();
+//        return;
+//    }   // parseFile
+//    qDebug() << "last tick: " << all_events.back().tick;
+//    System_MIDI_progressBar->setRange(0,all_events.back().tick-1);
+//    MIDI_length_display->setText(QString::number(static_cast<int>(song_length_seconds/60)).rightJustified(2,'0') + ":" + QString::number(static_cast<int>(song_length_seconds)%60).rightJustified(2,'0'));
+//    close_seq();
 }   // end on_System_OpenMidi_button_clicked
 
 void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
@@ -87,12 +89,20 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
         System_OpenMidi_button->setEnabled(false);
         SysPlayMidi_button->setText("Stop");
         init_seq();
+	if (!queue) {
+	  queue = snd_seq_alloc_named_queue(seq, "midi_player");
+	  check_snd("create queue", queue);
+	}
         connect_port();
         all_events.clear();
         if (!parseFile(playfile)) {
             QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
+	    close_seq();
             return;
         }   // parseFile
+	qDebug() << "last tick: " << all_events.back().tick;
+	System_MIDI_progressBar->setRange(0,all_events.back().tick-1);
+	MIDI_length_display->setText(QString::number(static_cast<int>(song_length_seconds/60)).rightJustified(2,'0') + ":" + QString::number(static_cast<int>(song_length_seconds)%60).rightJustified(2,'0'));
 	System_PlayMidi_status->on();
 	pid=fork();
         if (!pid) {
@@ -117,7 +127,7 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
         }
 	System_PlayMidi_status->off();
         System_MIDI_progressBar->reset();
-        MIDI_time_display->setText("00:00:00");
+        MIDI_time_display->setText("00:00");
         if (System_PauseMidi_button->isChecked()) {
             System_PauseMidi_button->blockSignals(true);
             System_PauseMidi_button->setChecked(false);
@@ -127,6 +137,7 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
         System_PauseMidi_button->setEnabled(false);
         SysPlayMidi_button->setText("Play");
         System_OpenMidi_button->setEnabled(true);
+	close_seq();
     }
 }   // end on_Play_button_toggled
 
@@ -192,6 +203,7 @@ void JVlibForm::close_seq() {
         snd_seq_free_queue(seq, queue);
         snd_seq_close(seq);
         seq = 0;
+	queue = 0;
         qDebug() << "Seq closed";
     }
 }
@@ -237,8 +249,8 @@ void JVlibForm::disconnect_port() {
             return;
         }
         err = snd_seq_disconnect_to(seq, 0, ports[0].client, ports[0].port);
-        if (err < 0 )
-            QMessageBox::critical(this, "MIDI Player", QString("%4 Cannot disconnect from port %1:%2 - %3") .arg(ports[0].client) .arg(ports[0].port) .arg(strerror(errno)) .arg(err));
+//        if (err < 0 && err != -6 )
+//            QMessageBox::critical(this, "MIDI Player", QString("%4 Cannot disconnect from port %1:%2 - %3") .arg(ports[0].client) .arg(ports[0].port) .arg(strerror(errno)) .arg(err));
         qDebug() << "Disconnected current port" << SEQ_dev;
     }   // end if seq
 }   // end disconnect_port
@@ -277,7 +289,8 @@ void JVlibForm::tickDisplay() {
 
     current_tick = snd_seq_queue_status_get_tick_time(status);
     current_time = snd_seq_queue_status_get_real_time(status);
-    MIDI_time_display->setText(QTime(current_time->tv_sec/3600,current_time->tv_sec/60,current_time->tv_sec%60).toString());
+//    MIDI_time_display->setText(QTime(current_time->tv_sec/3600,current_time->tv_sec/60,current_time->tv_sec%60).toString());
+    MIDI_time_display->setText(QString::number(current_time->tv_sec/60).rightJustified(2,'0')+":"+QString::number(current_time->tv_sec%60).rightJustified(2,'0'));
     System_MIDI_progressBar->setValue(static_cast<int>(current_tick));
     if (current_tick >= all_events.back().tick) {
         sleep(1);
