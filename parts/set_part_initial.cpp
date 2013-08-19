@@ -8,10 +8,7 @@ void JVlibForm::setPartsParms() {
   // sets controls/displays so they match the synth, based on what is in the active area
   
   state_table->updates_enabled = false;
-  PartsPerfName_display->setText(PerfName_edit->text());
-  PartsPerfGroup_display->setText(PerfGroup_select->currentText());
-  PartsPerfNumber_display->setText(QString::number(PerfNumber_select->value()));
-  PartsRangeLimitEnable_select->setChecked(active_area->active_performance.perf_common.key_range_switch);
+  // these can be set in Performance mode or GM mode
   setPart1_Parms();
   setPart2_Parms();
   setPart3_Parms();
@@ -28,19 +25,26 @@ void JVlibForm::setPartsParms() {
   setPart14_Parms();
   setPart15_Parms();
   setPart16_Parms();
-  setVoiceCounters();
-  Patch_Sync_button->setEnabled(true);
-  if (Patch_PerfPartNum_select->itemText(0)=="0")
-    Patch_PerfPartNum_select->removeItem(0);
-  Patch_PerfPartNum_select->setCurrentIndex(0);
-
-  Patch_Group_select->setCurrentIndex(Part1_PatchGroup_select->currentIndex());
-  Patch_Number_select->setValue(Part1_PatchNumber_select->value());
-  Patch_Name_edit->setText(Part1_PatchName_display->text());
-  Patch_PerfPartNum_select->setEnabled(true);
-  Patch_Group_select->setEnabled(false);
-  Patch_Number_select->setEnabled(false);
-  Patch_Name_edit->setEnabled(false);
+  // following items only apply in Perf mode, not GM
+  if (state_table->perf_mode) {
+    setVoiceCounters();
+    PartsPerfName_display->setText(PerfName_edit->text());
+    PartsPerfGroup_display->setText(PerfGroup_select->currentText());
+    PartsPerfNumber_display->setText(QString::number(PerfNumber_select->value()));
+    PartsRangeLimitEnable_select->setChecked(active_area->active_performance.perf_common.key_range_switch);
+    // update Patch tab items
+    Patch_Sync_button->setEnabled(true);
+    if (Patch_PerfPartNum_select->itemText(0)=="0")
+      Patch_PerfPartNum_select->removeItem(0);
+    Patch_PerfPartNum_select->setCurrentIndex(0);
+    Patch_Group_select->setCurrentIndex(Part1_PatchGroup_select->currentIndex());
+    Patch_Number_select->setValue(Part1_PatchNumber_select->value());
+    Patch_Name_edit->setText(Part1_PatchName_display->text());
+    Patch_PerfPartNum_select->setEnabled(true);
+    Patch_Group_select->setEnabled(false);
+    Patch_Number_select->setEnabled(false);
+    Patch_Name_edit->setEnabled(false);
+  }	// end if perf_mode
   state_table->updates_enabled = true;
 }	// end setPartsParms
 

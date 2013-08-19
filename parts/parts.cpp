@@ -48,9 +48,9 @@ void JVlibForm::setPartSingleValue(int partnum, int addr, int val) {
 QString JVlibForm::getPartPatchName(int val) {
   // passes Part offset (0-15) as val
   // returns Patch name as QSTring
+  if (!state_table->GM_mode) {
   unsigned char buf[16];
-  char    name_size[] = { 0x0,0x0,0x0,0x0C };
-  
+  char    name_size[] = { 0x0,0x0,0x0,0x0C };  
   memset(buf,0,sizeof(buf));
   buf[4] = JV_REQ;
   buf[5] = 0x02;	// base address of active_area->perf_part
@@ -69,6 +69,89 @@ QString JVlibForm::getPartPatchName(int val) {
   if (err != EXIT_SUCCESS) { close_ports(); puts("3 getPartPatchName failed!"); return(""); }
   close_ports();
   return QString::fromAscii(&active_area->active_perf_patch[val].patch_common.name[0],12);
+  }	// end Perf or Patch mode
+  if (state_table->GM_mode) {
+    // select name from patch_list where group_area = "Preset D" and number = partX_PatchNumber_select->value()
+    int x = 0;
+    switch(val) {
+      case 0:
+	x = Part1_PatchNumber_select->value();
+	break;
+      case 1:
+	x = Part2_PatchNumber_select->value();
+	break;
+      case 2:
+	x = Part3_PatchNumber_select->value();
+	break;
+      case 3:
+	x = Part4_PatchNumber_select->value();
+	break;
+      case 4:
+	x = Part5_PatchNumber_select->value();
+	break;
+      case 5:
+	x = Part6_PatchNumber_select->value();
+	break;
+      case 6:
+	x = Part7_PatchNumber_select->value();
+	break;
+      case 7:
+	x = Part8_PatchNumber_select->value();
+	break;
+      case 8:
+	x = Part9_PatchNumber_select->value();
+	break;
+      case 9:
+	x = Part10_PatchNumber_select->value();
+	break;
+      case 10:
+	x = Part11_PatchNumber_select->value();
+	break;
+      case 11:
+	x = Part12_PatchNumber_select->value();
+	break;
+      case 12:
+	x = Part13_PatchNumber_select->value();
+	break;
+      case 13:
+	x = Part14_PatchNumber_select->value();
+	break;
+      case 14:
+	x = Part15_PatchNumber_select->value();
+	break;
+      case 15:
+	x = Part16_PatchNumber_select->value();
+	break;
+    }	// end switch
+    // bind 'x' to query
+    QSqlQuery query(mysql);
+    query.prepare("Select name from patch_list where group_area = 'Preset D' and number = ?");
+    query.bindValue(0, x);
+    if (query.exec() == false) {
+      puts("Query exec failed in Tuning_QueryTemp");
+      query.finish();
+      return "";
+    }
+    if (query.size()==0) {
+      puts("0 rows found in Tuning_QueryTemp");
+      query.finish();
+      return "";
+    }
+    if (query.size() > 1) {
+      puts("Too many rows found in Tuning_QueryTemp");
+      query.finish();
+      return "";
+    }
+    if (query.first())
+      return query.value(0).toByteArray();
+    else {
+      puts("query.first failed in Tuning_QueryTemp");
+      query.finish();
+      return "";
+    }
+    query.finish();
+    return "na";
+  }	// end GM mode
 }	// end getPartPatchName
 
 int JVlibForm::toggleControlChannel(int val) {

@@ -211,10 +211,10 @@ void JVlibForm::Part3_SetPatchMax() {
       Part3_PatchNumber_select->setMaximum(128);
       break;
     case 6:	// Exp B
-      Part1_PatchNumber_select->setMaximum(256);
+      Part3_PatchNumber_select->setMaximum(256);
       break;
     case 7:	// Exp C
-      Part1_PatchNumber_select->setMaximum(100);
+      Part3_PatchNumber_select->setMaximum(100);
       break;
     default:
       Part3_PatchNumber_select->setMaximum(128);

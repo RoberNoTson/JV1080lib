@@ -5,6 +5,7 @@
 #include        <QtGui>
 
 void JVlibForm::setPart1_Parms() {
+  if (state_table->perf_mode) {
   // set Part 1 controls/displays based on the active area memory contents, 
   // which were just updated from the synth after a Sync button was clicked.
   //  state_table->updates_enabled = false was set by the calling program, do not change it here.
@@ -26,14 +27,13 @@ void JVlibForm::setPart1_Parms() {
   Part1_LowLimit_select->setValue(active_area->active_performance.perf_part[0].key_lower);
   Part1_HighLimit_select->setValue(active_area->active_performance.perf_part[0].key_upper);
   Part1_ReceiveMidi_enable->setChecked(active_area->active_performance.perf_part[0].MIDI_receive);
-  Part1_MidiChannel_select->setValue(active_area->active_performance.perf_part[0].MIDI_channel+1);
   Part1_ReceivePrgChg_enable->setChecked(active_area->active_performance.perf_part[0].receive_program_change);
   Part1_ReceiveVolume_enable->setChecked(active_area->active_performance.perf_part[0].receive_volume);
   Part1_ReceiveHold_enable->setChecked(active_area->active_performance.perf_part[0].receive_hold_1);
+  Part1_MidiChannel_select->setValue(active_area->active_performance.perf_part[0].MIDI_channel+1);
   Part1_Output_select->setCurrentIndex(active_area->active_performance.perf_part[0].output);
-  Part1_TestTone_switch->setChecked(false);
   
-  switch(active_area->active_performance.perf_part[0].patch_group_id) {
+    switch(active_area->active_performance.perf_part[0].patch_group_id) {
     case 0x01:  // User
       Part1_PatchGroup_select->setCurrentIndex(0);
       break;
@@ -61,15 +61,40 @@ void JVlibForm::setPart1_Parms() {
     default:
 	Part1_PatchGroup_select->setCurrentIndex(0);
 	break;
-  }	// end SWITCH
+    }	// end SWITCH
+    Part1_PatchNumber_select->setValue((active_area->active_performance.perf_part[0].patch_num_high*16) + active_area->active_performance.perf_part[0].patch_num_low+1);
+    Part1_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[0].patch_common.name[0],12));
+    Part1_LowLimit_display->setText(funcNoteCalc(Part1_LowLimit_select->value()));
+    Part1_HighLimit_display->setText(funcNoteCalc(Part1_HighLimit_select->value()));  
+    Part1_PatchGroup_select->setEnabled(Part1_ReceivePrgChg_enable->isChecked()); 
+    Part1_MidiChannel_select->setEnabled(Part1_ReceiveMidi_enable->isChecked());
+  }
+  // set GM-MODE only parms
+  if (state_table->GM_mode) {
+      // set GM mode part configuration
+      Part1_PatchGroup_select->setCurrentIndex(5);
+      Part1_ReceiveMidi_enable->setChecked(true);
+      Part1_ReceivePrgChg_enable->setChecked(true);
+      Part1_ReceiveVolume_enable->setChecked(true);
+      Part1_ReceiveHold_enable->setChecked(true);
+      Part1_PatchNumber_select->setValue(0);
+      Part1_PatchName_display->setText(getPartPatchName(0));
+      Part1_MidiChannel_select->setValue(1);
+      Part1_PatchGroup_select->setEnabled(false);
+      Part1_ReverbSend_select->setEnabled(false);
+      Part1_ChorusSend_select->setEnabled(false);
+      Part1_Level_select->setEnabled(false);
+      Part1_OutputLevel_select->setEnabled(false);
+      Part1_Output_select->setEnabled(false);
+      Part1_MidiChannel_select->setEnabled(false);
+      Part1_Pan_select->setEnabled(false);
+      Part1_Transpose_select->setEnabled(false);
+      Part1_TuneAdj_select->setEnabled(false);
+      Part1_VoiceReserve_select->setEnabled(false);
+  }
+  // following are used for both Perf and GM modes
+  Part1_TestTone_switch->setChecked(false);
   Part1_SetPatchMax();
-  Part1_PatchNumber_select->setValue((active_area->active_performance.perf_part[0].patch_num_high*16) + active_area->active_performance.perf_part[0].patch_num_low+1);
-  Part1_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[0].patch_common.name[0],12));
-  Part1_LowLimit_display->setText(funcNoteCalc(Part1_LowLimit_select->value()));
-  Part1_HighLimit_display->setText(funcNoteCalc(Part1_HighLimit_select->value()));
-  
-  Part1_MidiChannel_select->setEnabled(Part1_ReceiveMidi_enable->isChecked());
-  Part1_PatchGroup_select->setEnabled(Part1_ReceivePrgChg_enable->isChecked()); 
   Part1_PatchNumber_select->setEnabled(Part1_ReceivePrgChg_enable->isChecked()); 
   Part1_TestTone_switch->setEnabled(Part1_ReceiveMidi_enable->isChecked());
   Part1_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());

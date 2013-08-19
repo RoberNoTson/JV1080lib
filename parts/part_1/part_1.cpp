@@ -8,22 +8,22 @@
 void JVlibForm::on_Part1_TestTone_switch_toggled(bool val) {
   unsigned char buf[6];
   if (val) {
-  buf[0] = 0x90 + active_area->active_performance.perf_part[0].MIDI_channel;
-  buf[1] = SysPreviewNote1_select->value();
-  buf[2] = SysPreviewNote1_volume->value();
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
+    buf[0] = 0x90 + (state_table->GM_mode ? 0 : active_area->active_performance.perf_part[0].MIDI_channel);
+    buf[1] = SysPreviewNote1_select->value();
+    buf[2] = SysPreviewNote1_volume->value();
+    if (open_ports() == EXIT_FAILURE) return;
+    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
+    close_ports();
   } else {
-    buf[0] = 0xB0 + active_area->active_performance.perf_part[0].MIDI_channel;
+    buf[0] = 0xB0 + (state_table->GM_mode? 0 : active_area->active_performance.perf_part[0].MIDI_channel);
     buf[1] = 0x7B;
     buf[2] = 0;
-    buf[3] = 0xB0 + active_area->active_performance.perf_part[0].MIDI_channel;
+    buf[3] = 0xB0 + (state_table->GM_mode? 0 : active_area->active_performance.perf_part[0].MIDI_channel);
     buf[4] = 0x79;
     buf[5] = 0;
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
+    if (open_ports() == EXIT_FAILURE) return;
+    if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
+    close_ports();
   }
   Part1_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Tone") );
 }
@@ -224,26 +224,37 @@ void JVlibForm::Part1_SetPatchMax() {
 }	// end Part1_SetPatchMax
 
 void JVlibForm::on_Part1_PatchNumber_select_valueChanged(int val) {
-  if (active_area->active_performance.perf_part[0].patch_group) {
+  if (state_table->perf_mode && active_area->active_performance.perf_part[0].patch_group) {
     on_Part1_PatchGroup_select_currentIndexChanged(Part1_PatchGroup_select->currentIndex());
     return;
   }
   if (state_table->updates_enabled) {
-    int CtlChl = toggleControlChannel(1);
     int pn = val-1;
     unsigned char buf[2];
-    active_area->active_performance.perf_part[0].patch_num_high = 0;
-    active_area->active_performance.perf_part[0].patch_num_low = pn;
-    if (state_table->jv_connect) {
-      // update JV
-      buf[0] = 0xC0 + active_area->active_performance.perf_part[0].MIDI_channel;
-      buf[1] = pn;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
-      close_ports();
-    }  // end state_table->jv_connect
+    if (!state_table->GM_mode) {
+      int CtlChl = toggleControlChannel(1);
+      active_area->active_performance.perf_part[0].patch_num_high = 0;
+      active_area->active_performance.perf_part[0].patch_num_low = pn;
+      if (state_table->jv_connect) {
+	// update JV
+	buf[0] = 0xC0 + active_area->active_performance.perf_part[0].MIDI_channel;
+	buf[1] = pn;
+	if (open_ports() == EXIT_FAILURE) return;
+	if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
+	close_ports();
+      }  // end state_table->jv_connect
+      if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
+    }	// end non-GM mode
+    if (state_table->GM_mode) {
+      if (state_table->jv_connect) {
+	buf[0] = 0xC0 + 0;
+	buf[1] = pn;
+	if (open_ports() == EXIT_FAILURE) return;
+	if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
+	close_ports();
+      }  // end state_table->jv_connect
+    }	// end GM mode
     Part1_PatchName_display->setText(getPartPatchName(0));
-    if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
   }	// end updates_enabled
 }	// end on_Part1_PatchNumber_select_valueChanged
 
