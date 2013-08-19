@@ -5,14 +5,10 @@
 void JVlibForm::createMenuActions() {
   PortBox = new QComboBox();
   PortBox->setMaxVisibleItems(10);
-  
-//  getPort();
   QWidgetAction *PortList = new QWidgetAction(menuMIDI_Port);
   PortList->setDefaultWidget(PortBox);
   menuMIDI_Port->removeAction(actionSelectPort);
   menuMIDI_Port->addAction(PortList);
-  memset(MIDI_dev,0,sizeof(MIDI_dev));
-  getPort();
 
   connect(JVlibForm::actionOpen, SIGNAL(triggered()), this, SLOT(open()));
   connect(JVlibForm::action_Save, SIGNAL(triggered()), this, SLOT(save()));

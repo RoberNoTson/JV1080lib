@@ -1203,7 +1203,7 @@ private:
     void connect_port();
     void disconnect_port();
     int parseFile(char *);
-    void getSeqPort();
+    int getSeqPort();
     void createPlayMidi();
   
 };	// end class JVlibForm

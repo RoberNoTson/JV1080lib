@@ -66,21 +66,6 @@ void JVlibForm::on_System_OpenMidi_button_clicked()
     strcpy(playfile, fn.toAscii().data());
     SysFilePlaying->setText(fn);
     SysPlayMidi_button->setEnabled(true);
-    
-//    init_seq();
-//    queue = snd_seq_alloc_named_queue(seq, "midi_player");
-//    check_snd("create queue", queue);
-//    connect_port();
-//    all_events.clear();
-//    if (!parseFile(playfile)) {
-//        QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
-//	close_seq();
-//        return;
-//    }   // parseFile
-//    qDebug() << "last tick: " << all_events.back().tick;
-//    System_MIDI_progressBar->setRange(0,all_events.back().tick-1);
-//    MIDI_length_display->setText(QString::number(static_cast<int>(song_length_seconds/60)).rightJustified(2,'0') + ":" + QString::number(static_cast<int>(song_length_seconds)%60).rightJustified(2,'0'));
-//    close_seq();
 }   // end on_System_OpenMidi_button_clicked
 
 void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
@@ -254,32 +239,6 @@ void JVlibForm::disconnect_port() {
         qDebug() << "Disconnected current port" << SEQ_dev;
     }   // end if seq
 }   // end disconnect_port
-void JVlibForm::getSeqPort() {
-    // fill in the combobox with all available ports
-    // or set SEQ_dev to the port passed in buf
-    snd_seq_client_info_t *cinfo;
-    snd_seq_port_info_t *pinfo;
-    snd_seq_client_info_alloca(&cinfo);
-    snd_seq_port_info_alloca(&pinfo);
-    snd_seq_client_info_set_client(cinfo, -1);
-    while (snd_seq_query_next_client(seq, cinfo) >= 0) {
-        int client = snd_seq_client_info_get_client(cinfo);
-        snd_seq_port_info_set_client(pinfo, client);
-        snd_seq_port_info_set_port(pinfo, -1);
-        while (snd_seq_query_next_port(seq, pinfo) >= 0) {
-            // we need both WRITE and SUBS_WRITE
-            if ((snd_seq_port_info_get_capability(pinfo)
-                 & (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
-                != (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
-                continue;
-            if (PortBox->currentText().contains(QString(snd_seq_port_info_get_name(pinfo)))) {
-                QString holdit = QString::number(snd_seq_port_info_get_client(pinfo)) + ":" + QString::number(snd_seq_port_info_get_port(pinfo));
-                strcpy(SEQ_dev, holdit.toAscii().data());
-                qDebug() << "Selected sequencer port name " << SEQ_dev;
-	    }
-	}	// end while
-    }	// end while
-}   // end getSeqPort
 
 void JVlibForm::tickDisplay() {
     // do timestamp display

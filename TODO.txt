@@ -18,6 +18,7 @@ System_tab
 07/23/2013  - Patch Tempo controls disabled when in Performance mode
 07/26/2013  - fix enabled tabs when changing Perf/Patch modes
 08/14/2013  - add "Play MIDI" function
+  - default to GM mode if unable to load System
   -  validate working of System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options

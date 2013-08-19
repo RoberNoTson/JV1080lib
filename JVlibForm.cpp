@@ -9,6 +9,7 @@
 QString db_name;
 QString db_user;
 QString JVlibForm::CFGfile;
+QString PORT_NAME;
 struct STATE_TABLE *JVlibForm::state_table = 0;
 
 JVlibForm::~JVlibForm() {
@@ -123,16 +124,15 @@ void JVlibForm::setInitial() {
   createMenuActions();
   createSysActions();
   createToneENVactions();
-  createPlayMidi();
   MainTabWidget->setCurrentIndex(0);
   MainTabWidget->setTabEnabled(1,false);
   MainTabWidget->setTabEnabled(3,false);
   MainTabWidget->setTabEnabled(11,false);
   setPerfTabs(false);
   setPatchTabs(false);
- 
   if (readConfigFile()) return;
   db_connect(db_name, db_user);
+  getPort();
   if (!state_table->jv_connect) {
     action_Offline->setChecked(true);
     System_JV_status->off();
@@ -140,6 +140,8 @@ void JVlibForm::setInitial() {
     QMessageBox::critical(this, "JVlib", QString("Failed trying to load System settings.\nIs a valid MIDI port selected?"));
     return;
   }
+  createPlayMidi();
+  getSeqPort();
   setSystemParms();
   state_table->updates_enabled = true;
 }	// end setInitial
@@ -166,17 +168,38 @@ int JVlibForm::readConfigFile() {
   db_name = settings.value("mysql/database").toString();
   db_user = settings.value("mysql/username").toString();
   strcpy(MIDI_dir, settings.value("JV1080/midi_dir").toByteArray().data());
-  QString PORT_NAME = settings.value("JV1080/port_name").toString();
-  int x = PortBox->findText(PORT_NAME, Qt::MatchContains);
-  if (x == -1) {
-    state_table->jv_connect = false;
-    return 1;
-  }
-  PortBox->setCurrentIndex(x);
-  getSeqPort();
-  state_table->jv_connect = true;
+  PORT_NAME = settings.value("JV1080/port_name").toString();
   return 0;
 }	// end readConfigFile
+
+int JVlibForm::getSeqPort() {
+  memset(SEQ_dev,0,sizeof(SEQ_dev));
+    // find the desired port in the combo box
+    snd_seq_client_info_t *cinfo;
+    snd_seq_port_info_t *pinfo;
+    snd_seq_client_info_alloca(&cinfo);
+    snd_seq_port_info_alloca(&pinfo);
+    snd_seq_client_info_set_client(cinfo, -1);
+    while (snd_seq_query_next_client(seq, cinfo) >= 0) {
+        int client = snd_seq_client_info_get_client(cinfo);
+        snd_seq_port_info_set_client(pinfo, client);
+        snd_seq_port_info_set_port(pinfo, -1);
+        while (snd_seq_query_next_port(seq, pinfo) >= 0) {
+            // we need both WRITE and SUBS_WRITE
+            if ((snd_seq_port_info_get_capability(pinfo)
+                 & (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
+                != (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
+                continue;
+            if (PortBox->currentText().contains(QString(snd_seq_port_info_get_name(pinfo)))) {
+                QString holdit = QString::number(snd_seq_port_info_get_client(pinfo)) + ":" + QString::number(snd_seq_port_info_get_port(pinfo));
+                strcpy(SEQ_dev, holdit.toAscii().data());
+                qDebug() << "Selected sequencer port name " << SEQ_dev;
+	    }
+	}	// end while
+    }	// end while
+  state_table->jv_connect = true;
+  return 0;
+}   // end getSeqPort
 
 void JVlibForm::closeEvent(QCloseEvent *event) {
   close_ports();
@@ -508,3 +531,73 @@ void JVlibForm::on_MainTabWidget_currentChanged(int val) {
       break;
   }
 }
+void JVlibForm::getPort() {
+  signed int card_num=-1;
+  signed int dev_num=-1;
+  signed int subdev_num=-1;
+  int err,i;
+  char	buf[64];
+  char	str[64];
+  snd_rawmidi_info_t  *rawMidiInfo;
+  snd_ctl_t *cardHandle;
+
+  PortBox->clear();
+  err = snd_card_next(&card_num);
+  if (err < 0) {
+    // no MIDI cards found in the system
+    puts("No MIDI card found");
+    memset(MIDI_dev,0,sizeof(MIDI_dev));
+    snd_card_next(&card_num);
+    return;
+  }
+  while (card_num >= 0) {
+    // Open this card's control interface. We specify only the card number -- not
+    // any device nor sub-device too
+    sprintf(str, "hw:%i", card_num);
+    if ((err = snd_ctl_open(&cardHandle, str, 0)) < 0) break;
+    dev_num = -1;
+    err = snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
+    if (err < 0) { 
+      // card exists, but no midi device was found
+      snd_card_next(&card_num);
+      continue;
+    }
+    while (dev_num >= 0) {
+      snd_rawmidi_info_alloca(&rawMidiInfo);
+      memset(rawMidiInfo, 0, snd_rawmidi_info_sizeof());
+      // Tell ALSA which device (number) we want info about
+      snd_rawmidi_info_set_device(rawMidiInfo, dev_num);
+      // Get info on the MIDI outs of this device
+      snd_rawmidi_info_set_stream(rawMidiInfo, SND_RAWMIDI_STREAM_OUTPUT);
+      i = -1;
+      subdev_num = 1;
+      // More subdevices?
+      while (++i < subdev_num) {
+	// Tell ALSA to fill in our snd_rawmidi_info_t with info on this subdevice
+	snd_rawmidi_info_set_subdevice(rawMidiInfo, i);
+	if ((err = snd_ctl_rawmidi_info(cardHandle, rawMidiInfo)) < 0) continue;
+	// Print out how many subdevices (once only)
+	if (!i) {
+	  subdev_num = snd_rawmidi_info_get_subdevices_count(rawMidiInfo);
+	}
+	// got a valid card, dev and subdev
+	// Tell ALSA to fill in our snd_rawmidi_info_t with info on this subdevice
+	memset(buf,0,sizeof(buf));
+	sprintf(buf,"hw:%i,%i,%i %s", card_num, dev_num, i, snd_rawmidi_info_get_subdevice_name(rawMidiInfo));
+	PortBox->blockSignals(true);
+	PortBox->insertItem(9999, QString::fromAscii(buf));
+	PortBox->blockSignals(false);
+      }	// end WHILE subdev_num
+      snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
+    }	// end WHILE dev_num
+    snd_ctl_close(cardHandle);
+    err = snd_card_next(&card_num);
+  }	// end WHILE card_num
+  int x = PortBox->findText(PORT_NAME, Qt::MatchContains);
+  if (x == -1) {
+    state_table->jv_connect = false;
+  } else {
+    PortBox->setCurrentIndex(x);
+    state_table->jv_connect = true;
+  }
+}	// end get_port()
