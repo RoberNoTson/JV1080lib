@@ -37,24 +37,26 @@ void JVlibForm::on_Part1_MidiChannel_select_valueChanged(int val) {
   setPartSingleValue(0,1,val-1);
 }
 void JVlibForm::on_Part1_Level_select_valueChanged(int val) {
-  setPartSingleValue(0,6,val);
-  QString str;
-  Part1_Level_select->setStatusTip(str.setNum(val));
+  Part1_Level_select->setStatusTip(QString::number(val));
+  if (state_table->perf_mode) setPartSingleValue(0,6,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0,0x07,val);
 }
 void JVlibForm::on_Part1_Pan_select_valueChanged(int val) {
-  setPartSingleValue(0,7,val);
-  QString str;
-  Part1_Level_select->setStatusTip(str.setNum(val));
+  Part1_Pan_select->setStatusTip(QString("Pan value: ")+QString::number(val));
+  if (state_table->perf_mode) setPartSingleValue(0,7,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0,0x0A,val);
 }
 void JVlibForm::on_Part1_Transpose_select_valueChanged(int val) { 
   // val is between -48,+48 half-steps
-//  Part1_Transpose_display->display(val); 
-  setPartSingleValue(0, 0x8, val+48);
+  if (state_table->perf_mode) setPartSingleValue(0, 0x8, val+48);
+  // GM wants val between 10h,70h (16->112)
+  if (state_table->GM_mode && state_table->updates_enabled) change_12(0xB0,0x65,0x00,0xB0,0x64,0x02,0xB0,0x06,(val+64),0xB0,0x26,0x00);
 }
 void JVlibForm::on_Part1_TuneAdj_select_valueChanged(int val) { 
   // val is between -50,+50 cents
-//  Part1_TuneAdj_display->display(val);
-  setPartSingleValue(0, 0x9, val+50);
+  if (state_table->perf_mode) setPartSingleValue(0, 0x9, val+50);
+  // GM wants val between 20h,60h (32->96)
+  if (state_table->GM_mode && state_table->updates_enabled) change_12(0xB0,0x65,0x00,0xB0,0x64,0x01,0xB0,0x06,(val+50)*65/101+32,0xB0,0x26,0x00);
 }
 void JVlibForm::on_Part1_Output_select_currentIndexChanged(int val) {
   setPartSingleValue(0,0xA,val);
@@ -63,10 +65,12 @@ void JVlibForm::on_Part1_OutputLevel_select_valueChanged(int val) {
   setPartSingleValue(0,0xB,val);
 }
 void JVlibForm::on_Part1_ChorusSend_select_valueChanged(int val) {
-  setPartSingleValue(0,0xC,val);
+  if (state_table->perf_mode) setPartSingleValue(0,0xC,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0,0x5D,val);
 }
 void JVlibForm::on_Part1_ReverbSend_select_valueChanged(int val) {
-  setPartSingleValue(0,0xD,val);
+  if (state_table->perf_mode) setPartSingleValue(0,0xD,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0,0x5B,val);
 }
 void JVlibForm::on_Part1_ReceivePrgChg_enable_toggled(bool val) {
   setPartSingleValue(0,0xE,val);

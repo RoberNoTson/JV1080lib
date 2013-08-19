@@ -920,6 +920,9 @@ private:
   int  sysex_get(unsigned char *, char *);
   int  sysex_send(unsigned char *, int);
   int  change_send(unsigned char *, int);
+  int  change_12(int, int, int,int, int, int,int, int, int,int, int, int);
+  int  change_3(int, int, int);
+  int  change_2(int, int);
   void createStatusBar();
   void close_ports();
   int  open_ports();

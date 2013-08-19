@@ -80,17 +80,18 @@ void JVlibForm::setPart1_Parms() {
       Part1_PatchNumber_select->setValue(0);
       Part1_PatchName_display->setText(getPartPatchName(0));
       Part1_MidiChannel_select->setValue(1);
+      Part1_Transpose_select->setValue(0);
+      Part1_TuneAdj_select->setValue(0);
+      Part1_ReverbSend_select->setValue(0);
+      Part1_ChorusSend_select->setValue(0);
+      Part1_Pan_select->setValue(64);
+      Part1_Level_select->setValue(127);
+      Part1_OutputLevel_select->setValue(127);
       Part1_PatchGroup_select->setEnabled(false);
-      Part1_ReverbSend_select->setEnabled(false);
-      Part1_ChorusSend_select->setEnabled(false);
-      Part1_Level_select->setEnabled(false);
+      Part1_VoiceReserve_select->setEnabled(false);
       Part1_OutputLevel_select->setEnabled(false);
       Part1_Output_select->setEnabled(false);
       Part1_MidiChannel_select->setEnabled(false);
-      Part1_Pan_select->setEnabled(false);
-      Part1_Transpose_select->setEnabled(false);
-      Part1_TuneAdj_select->setEnabled(false);
-      Part1_VoiceReserve_select->setEnabled(false);
   }
   // following are used for both Perf and GM modes
   Part1_TestTone_switch->setChecked(false);

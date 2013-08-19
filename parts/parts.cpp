@@ -150,8 +150,8 @@ QString JVlibForm::getPartPatchName(int val) {
       return "";
     }
     query.finish();
-    return "na";
   }	// end GM mode
+  return "na";
 }	// end getPartPatchName
 
 int JVlibForm::toggleControlChannel(int val) {
