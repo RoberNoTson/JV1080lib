@@ -72,24 +72,39 @@ void JVlibForm::getSysPerfName() {
 void JVlibForm::setSysGmMode(bool GM) {
   // enable/disable items for GM mode
   if (GM) {
-    state_table->GM_mode = true;
-    system_area->sys_common.clock_source = 1;
-    SysClock_select->setCurrentIndex(1);
-    SysControlRecvChannel_select->setEnabled(false);
-    SysPatchRecvChannel_select->setEnabled(false);
-    SysClock_select->setEnabled(false);
-    AcceptBankSel_switch->setChecked(false);
-    AcceptBankSel_switch->setEnabled(false);
-    PerfDefaultTempo_select->setValue(120);
-    Patch_DefaultTempo_select->setValue(120);
-    SysControlSource1_select->setCurrentIndex(2);
-    SysVolumeControl_select->setCurrentIndex(1);
-    SysAftertouchControl_select->setCurrentIndex(0);
+  SysPatch_box->setEnabled(false);
+  SysPerformance_box->setEnabled(false);
+  PerfGroup_select->setEnabled(false);
+  PerfNumber_select->setEnabled(false);
+  PerfName_edit->setEnabled(false);
+  EnablePerf(false);
+  EnablePatch(false);
+  SysClock_select->setCurrentIndex(1);
+  SysControlRecvChannel_select->setEnabled(false);
+  SysPatchRecvChannel_select->setEnabled(false);
+  SysClock_select->setEnabled(false);
+  AcceptBankSel_switch->setChecked(false);
+  AcceptBankSel_switch->setEnabled(false);
+  SysControlSource1_select->setCurrentIndex(2);
+  SysVolumeControl_select->setCurrentIndex(1);
+  SysAftertouchControl_select->setCurrentIndex(0);
+  setPerfTabs(false);
+  setPatchTabs(false);
+  PerfGroup_select->setEnabled(false);
+  PerfNumber_select->setEnabled(false);
+  PerfName_edit->setEnabled(false);
+  SysPerformance_box->setEnabled(false);
+  MainTabWidget->setTabEnabled(1,false);	// Performance tab
+  MainTabWidget->setTabEnabled(3,false);	// Patch tab
+  MainTabWidget->setTabEnabled(2,true);		// Parts tab
+  state_table->performanceTab_enable = false;
+  state_table->patchTab_enable = false;
+  state_table->GM_mode = true;
   } else {
-    state_table->GM_mode = false;
     // enable valid widgets
     SysClock_select->setEnabled(true);
     AcceptBankSel_switch->setEnabled(true);
+    state_table->GM_mode = false;
   }
 }	// end setSysGmMode
 

@@ -7,15 +7,19 @@
 // Slots
 void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   // called by SIGNAL when SysMode switch changes
+  switch(val) {
+    case 0:	// Performance mode
   if (state_table->updates_enabled) {
    system_area->sys_common.panel_mode=val;
    setSysSingleValue(addr_sys_panel_mode,val);
   }	// end UPDATES_ENABLED
-  switch(val) {
-    case 0:	// Performance mode
       slotSysSetPerformanceMode();
       break;
     case 1:	// Patch mode
+  if (state_table->updates_enabled) {
+   system_area->sys_common.panel_mode=val;
+   setSysSingleValue(addr_sys_panel_mode,val);
+  }	// end UPDATES_ENABLED
       slotSysSetPatchMode();
       break;
     case 2:	// GM mode
@@ -228,7 +232,7 @@ int JVlibForm::on_System_Sync_button_clicked() {
   if (err == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
   if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
-  if (err != EXIT_SUCCESS) { close_ports(); return EXIT_FAILURE ; }
+  if (err != EXIT_SUCCESS) { close_ports(); puts("Try GM mode?"); return EXIT_FAILURE; }
   close_ports();
   setSystemParms();
   EnableSys(true);
@@ -325,18 +329,14 @@ void JVlibForm::slotSysSetGmMode() {
     SysMode_select->setCurrentIndex(system_area->sys_common.panel_mode);
     return;
   }
-  SysPatch_box->setEnabled(false);
-  SysPerformance_box->setEnabled(false);
-  PerfGroup_select->setEnabled(false);
-  PerfNumber_select->setEnabled(false);
-  PerfName_edit->setEnabled(false);
-  EnablePerf(false);
-  EnablePatch(false);
-  PerfSync_button->setEnabled(false);
-  setSysGmMode(true);
+  if (state_table->updates_enabled) {
+   system_area->sys_common.panel_mode=2;
+   setSysSingleValue(addr_sys_panel_mode,2);
+  }	// end UPDATES_ENABLED
   state_table->perf_mode = false;
   state_table->patch_mode = false;
   state_table->GM_mode = true;
+  setSysGmMode(true);
   }	// end state_table->updates_enabled
 }	// end slotSysSetGmMode
 

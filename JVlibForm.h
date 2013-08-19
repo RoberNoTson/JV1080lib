@@ -14,7 +14,7 @@
 #include	"save_dialog/Save_Dialog.h"
 
 #ifndef MAX_RETRIES
-#define	MAX_RETRIES 4	//number of times to retry after a timeout
+#define	MAX_RETRIES 2	//number of times to retry after a timeout
 #endif
 #ifndef MAX_DEVICES
 #define	MAX_DEVICES 16

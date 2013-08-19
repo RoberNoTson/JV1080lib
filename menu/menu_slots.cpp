@@ -67,7 +67,6 @@ void JVlibForm::slotOffline() {
   statusbar->showMessage(state_table->jv_connect?"Online":"Offline");
   if (state_table->jv_connect) System_JV_status->on();
   else System_JV_status->off();
-
 }
 void JVlibForm::slotactionWhats_This() {
   QWhatsThis::enterWhatsThisMode ();
