@@ -236,23 +236,11 @@ int JVlibForm::change_send(unsigned char *buf, int buf_size) {
   return EXIT_FAILURE;
 }	// end CHANGE_SEND
 int JVlibForm::change_12(int A, int B, int C, int D, int E, int F, int G, int H, int I, int J, int K, int L) {
-    unsigned char buf[12];
-    buf[0] = A;
-    buf[1] = B;
-    buf[2] = C;
-    buf[3] = D;
-    buf[4] = E;
-    buf[5] = F;
-    buf[6] = G;
-    buf[7] = H;
-    buf[8] = I;
-    buf[9] = J;
-    buf[10] = K;
-    buf[11] = L;
-    if (open_ports() == EXIT_FAILURE) return 1;
-    if (change_send(buf,12) == EXIT_FAILURE) { close_ports(); return 1; }
-    close_ports();
-    return 0;
+  change_3(A,B,C);
+  change_3(D,E,F);
+  change_3(G,H,I);
+  change_3(J,K,L);
+  return 0;
 }
 int JVlibForm::change_3(int A, int B, int C) {
     unsigned char buf[3];

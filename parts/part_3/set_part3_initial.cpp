@@ -88,9 +88,9 @@ void JVlibForm::setPart3_Parms() {
       Part3_OutputLevel_select->setValue(127);
       Part3_PatchGroup_select->setEnabled(false);
       Part3_VoiceReserve_select->setEnabled(false);
-      Part1_OutputLevel_select->setEnabled(false);
-      Part1_Output_select->setEnabled(false);
-      Part1_MidiChannel_select->setEnabled(false);
+      Part3_OutputLevel_select->setEnabled(false);
+      Part3_Output_select->setEnabled(false);
+      Part3_MidiChannel_select->setEnabled(false);
   }
   // following are used for both Perf and GM modes
   Part3_TestTone_switch->setChecked(false);

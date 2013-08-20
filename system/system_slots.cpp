@@ -36,24 +36,12 @@ void JVlibForm::slotSysSetPerf() {
   }	// end UPDATES_ENABLED
   if (state_table->jv_connect) {
     // update JV
-    unsigned char buf[12];
     // Bank Select MSB
-    buf[0] = 0xB0+system_area->sys_common.control_channel;
-    buf[1] = 0x0;
-    buf[2] = SysPerfSelect->currentIndex()==0?0x50:0x51;
+    change_3(0xB0+system_area->sys_common.control_channel, 0, SysPerfSelect->currentIndex()==0?0x50:0x51);
     // Bank Select LSB  
-    buf[3] = 0xB0+system_area->sys_common.control_channel;
-    buf[4] = 0x20;
-    buf[5] = SysPerfSelect->currentIndex()==2?0x01:0x00;
+    change_3(0xB0+system_area->sys_common.control_channel, 0x20, SysPerfSelect->currentIndex()==2?0x01:0x00);
     // Program Change - Performance number is required
-    buf[6] = 0xC0+system_area->sys_common.control_channel;
-    buf[7] = system_area->sys_common.perf_num;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,8) == EXIT_FAILURE) {
-      close_ports(); 
-      return;
-    }
-    close_ports();
+    change_2(0xC0+system_area->sys_common.control_channel, system_area->sys_common.perf_num);
     // get the new Performance name, update the Perf and Parts Tabs
   getSysPerfName();
   }	// end state_table->jv_connect
@@ -166,23 +154,11 @@ void JVlibForm::slotSysSetPatch() {
   }
   if (state_table->jv_connect) {
     // update JV
-    unsigned char buf[12];
-    buf[0] = 0xB0+system_area->sys_common.patch_receive_channel;
-    buf[1] = 0x0;
-    buf[2] = MSB;
+    change_3(0xB0+system_area->sys_common.patch_receive_channel, 0x0, MSB);
     // Bank Select LSB  
-    buf[3] = 0xB0+system_area->sys_common.patch_receive_channel;
-    buf[4] = 0x20;
-    buf[5] = LSB;
+    change_3(0xB0+system_area->sys_common.patch_receive_channel, 0x20, LSB);
     // Program Change - Performance number
-    buf[6] = 0xC0+system_area->sys_common.patch_receive_channel;
-    buf[7] = SysPatchNumber->value()-1;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,8) == EXIT_FAILURE) {
-      close_ports(); 
-      return;
-    }
-    close_ports();
+    change_2(0xC0+system_area->sys_common.patch_receive_channel, SysPatchNumber->value()-1);
     getSysPatchName();
   }	// end state_table->jv_connect
   // get the current Patch Mode patch name, update other Tabs as needed
@@ -605,24 +581,12 @@ void JVlibForm::on_SysPreviewNote4_volume_valueChanged(int val) {
 // Button actions on the System Tab
 void JVlibForm::on_SysTestTone_button_clicked(bool val) {
  if (state_table->jv_connect) {
-  unsigned char buf[6];
   if (val) {
-    buf[0] = 0x90;
-    buf[1] = SysPreviewNote1_select->value();
-    buf[2] = SysPreviewNote1_volume->value();
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
-  } else {
-    buf[0] = 0xB0;
-    buf[1] = 0x7B;
-    buf[2] = 0;
-    buf[3] = 0xB0;
-    buf[4] = 0x79;
-    buf[5] = 0;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0x90, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
+  } 
+  else {
+    change_3(0xB0, 0x7B, 0x0);
+    change_3(0xB0, 0x79, 0x0);
   }	// end else
   SysTestTone_button->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Test Tone") );
  }	// end jv_connect
@@ -640,19 +604,10 @@ void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
    if (state_table->updates_enabled) {
     system_area->sys_common.perf_num = val - 1;
     if (state_table->jv_connect) {
-      // update JV
-      unsigned char buf[12];
       // Program Change - Performance number
-      buf[0] = 0xC0+system_area->sys_common.control_channel;
-      buf[1] = val-1;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (change_send(buf,2) == EXIT_FAILURE) {
-	close_ports();
-	return;
-      }
-      close_ports();
-    // get the new Performance name, update the Perf and Parts Tabs
-    getSysPerfName();
+      change_2(0xC0+system_area->sys_common.control_channel, val-1);
+      // get the new Performance name, update the Perf and Parts Tabs
+      getSysPerfName();
     }	// end state_table->jv_connect
   }	// end UPDATES_ENABLED
   if (MainTabWidget->currentIndex() == 0)
@@ -669,17 +624,8 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
     system_area->sys_common.patch_num_high = Hval;
     system_area->sys_common.patch_num_low = Lval;
     if (state_table->jv_connect) {
-      // update JV
-      unsigned char buf[2];
       // Program Change - Patch number
-      buf[0] = 0xC0+system_area->sys_common.patch_receive_channel;
-      buf[1] = val-1;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (change_send(buf,2) == EXIT_FAILURE) {
-	close_ports();
-	return;
-      }
-      close_ports();
+      change_2(0xC0+system_area->sys_common.patch_receive_channel, val-1);
     // get the new Patch name, update the Patch Tab
     getSysPatchName();
     }	// end state_table->jv_connect

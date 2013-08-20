@@ -1030,6 +1030,7 @@ private:
   void setEFXdisplayParm_C();
   
   // for parts.cpp
+  void PartsToneSwitch(int, bool);
   void EnableParts(bool);
   void setPartsParms();
   void setPart1_Parms();

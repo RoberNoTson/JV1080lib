@@ -291,24 +291,13 @@ void JVlibForm::on_Rhythm_ReverbSend_select_valueChanged(int val) {
 
 void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
  if (state_table->jv_connect) {
-  unsigned char buf[6];
   if ((Rhythm_TestTone_switch->isCheckable()&&val) || (Rhythm_TestTone_switch->isCheckable()==false)) {
-    buf[0] = 0x99;
-    buf[1] = Rhythm_KeyPress_select->value();
-    buf[2] = 127;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0x99, Rhythm_KeyPress_select->value(), 127);
     if (Rhythm_TestTone_switch->isCheckable())
       Rhythm_TestTone_switch->setText("Stop");
   } 
   if (Rhythm_TestTone_switch->isCheckable() && val==false) {
-    buf[0] = 0xB9;
-    buf[1] = 0x7B;
-    buf[2] = 0;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0xB9, 0x7B, 0x0);
     Rhythm_TestTone_switch->setText("Play Note");
   }
  }	// end state_table->jv_connect

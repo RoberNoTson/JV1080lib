@@ -6,81 +6,69 @@
 #include        <QtGui>
 
 void JVlibForm::on_Part8_TestTone_switch_toggled(bool val) {
-  unsigned char buf[6];
-  if (val) {
-  buf[0] = 0x90 + active_area->active_performance.perf_part[7].MIDI_channel;
-  buf[1] = SysPreviewNote1_select->value();
-  buf[2] = SysPreviewNote1_volume->value();
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
-  } else {
-    buf[0] = 0xB0 + active_area->active_performance.perf_part[7].MIDI_channel;
-    buf[1] = 0x7B;
-    buf[2] = 0;
-    buf[3] = 0xB0 + active_area->active_performance.perf_part[7].MIDI_channel;
-    buf[4] = 0x79;
-    buf[5] = 0;
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
-  }
+  PartsToneSwitch(Part8_MidiChannel_select->value()-1, val);
   Part8_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Tone") );
 }
 
 //---------------------------------------------------------------------------------------------------------------------
 // switches
 void JVlibForm::on_Part8_ReceiveMidi_enable_toggled(bool val) {
-  setPartSingleValue(7,0,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0,val);
 }
 void JVlibForm::on_Part8_MidiChannel_select_valueChanged(int val) {
-  setPartSingleValue(7,1,val-1);
+  if (state_table->perf_mode) setPartSingleValue(7,1,val-1);
 }
 void JVlibForm::on_Part8_Level_select_valueChanged(int val) {
-  setPartSingleValue(7,6,val);
-  QString str;
-  Part8_Level_select->setStatusTip(str.setNum(val));
+  Part8_Level_select->setStatusTip(QString::number(val));
+  if (state_table->perf_mode) setPartSingleValue(7,6,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part8_MidiChannel_select->value()-1,0x07,val);
 }
 void JVlibForm::on_Part8_Pan_select_valueChanged(int val) {
-  setPartSingleValue(7,7,val);
-  QString str;
-  Part8_Level_select->setStatusTip(str.setNum(val));
+  Part8_Pan_select->setStatusTip(QString("Pan value: ")+QString::number(val));
+  if (state_table->perf_mode) setPartSingleValue(7,7,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part8_MidiChannel_select->value()-1,0x0A,val);
 }
 void JVlibForm::on_Part8_Transpose_select_valueChanged(int val) { 
   // val is between -48,+48 half-steps
-//  Part8_Transpose_display->display(val); 
-  setPartSingleValue(7, 0x8, val+48);
+  if (state_table->perf_mode) setPartSingleValue(7, 0x8, val+48);
+  // GM wants val between 10h,70h (16->112)
+  if (state_table->GM_mode && state_table->updates_enabled) change_12(0xB0+Part8_MidiChannel_select->value()-1,0x65,0x00,0xB0+Part8_MidiChannel_select->value()-1,0x64,0x02,0xB0+Part8_MidiChannel_select->value()-1,0x06,(val+64),0xB0+Part8_MidiChannel_select->value()-1,0x26,0x00);
 }
 void JVlibForm::on_Part8_TuneAdj_select_valueChanged(int val) { 
   // val is between -50,+50 cents
-//  Part8_TuneAdj_display->display(val);
-  setPartSingleValue(7, 0x9, val+50);
+  if (state_table->perf_mode) setPartSingleValue(7, 0x9, val+50);
+  // GM wants val between 20h,60h (32->96)
+  if (state_table->GM_mode && state_table->updates_enabled) change_12(0xB0+Part8_MidiChannel_select->value()-1,0x65,0x00,0xB0+Part8_MidiChannel_select->value()-1,0x64,0x01,0xB0+Part8_MidiChannel_select->value()-1,0x06,(val+50)*65/101+32,0xB0+Part8_MidiChannel_select->value()-1,0x26,0x00);
 }
 void JVlibForm::on_Part8_Output_select_currentIndexChanged(int val) {
-  setPartSingleValue(7,0xA,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0xA,val);
 }
 void JVlibForm::on_Part8_OutputLevel_select_valueChanged(int val) {
-  setPartSingleValue(7,0xB,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0xB,val);
 }
 void JVlibForm::on_Part8_ChorusSend_select_valueChanged(int val) {
-  setPartSingleValue(7,0xC,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0xC,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part8_MidiChannel_select->value()-1,0x5D,val);
 }
 void JVlibForm::on_Part8_ReverbSend_select_valueChanged(int val) {
-  setPartSingleValue(7,0xD,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0xD,val);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part8_MidiChannel_select->value()-1,0x5B,val);
 }
 void JVlibForm::on_Part8_ReceivePrgChg_enable_toggled(bool val) {
-  setPartSingleValue(7,0xE,val);
-  if (Patch_PerfPartNum_select->currentIndex()==7 && state_table->patch_sync) {
-    Patch_Group_select->setEnabled(val);
-    Patch_Number_select->setEnabled(val);
-    Patch_Name_edit->setEnabled(val);
+  if (state_table->perf_mode) {
+    setPartSingleValue(7,0xE,val);
+    if (Patch_PerfPartNum_select->currentIndex()==7 && state_table->patch_sync) {
+      Patch_Group_select->setEnabled(val);
+      Patch_Number_select->setEnabled(val);
+      Patch_Name_edit->setEnabled(val);
+    }
   }
 }
 void JVlibForm::on_Part8_ReceiveVolume_enable_toggled(bool val) {
-  setPartSingleValue(7,0xF,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0xF,val);
 }
 void JVlibForm::on_Part8_ReceiveHold_enable_toggled(bool val) {
-  setPartSingleValue(7,0x10,val);
+  if (state_table->perf_mode) setPartSingleValue(7,0x10,val);
 }
 void JVlibForm::on_Part8_LowLimit_select_valueChanged(int val) { 
   Part8_LowLimit_display->setText(funcNoteCalc(val));
@@ -102,9 +90,7 @@ void JVlibForm::on_Part8_PatchGroup_select_currentIndexChanged(int val) {
   // called after a change in the Patch group or number for this part to update the Patch Name and active_area memory
  if (state_table->updates_enabled) {
   int MSB,LSB;
-  unsigned char buf[8];
   int CtlChl = toggleControlChannel(8);
-
   // change onscreen control to set maximum value for the parm type
   Part8_SetPatchMax();	
   // update perf_part.patch_num_high/low
@@ -172,18 +158,10 @@ void JVlibForm::on_Part8_PatchGroup_select_currentIndexChanged(int val) {
   }	// end switch set Patch group
   // update JV
   if (state_table->updates_enabled) {
-    buf[0] = 0xB0+active_area->active_performance.perf_part[7].MIDI_channel;
-    buf[1] = 0x0;
-    buf[2] = MSB;
-    buf[3] = 0xB0+active_area->active_performance.perf_part[7].MIDI_channel;
-    buf[4] = 0x20;
-    buf[5] = LSB;
-    // Program Change - Performance number
-    buf[6] = 0xC0+active_area->active_performance.perf_part[7].MIDI_channel;
-    buf[7] = Lval;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,8) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0xB0 + Part8_MidiChannel_select->value()-1, 0, MSB);
+    change_3(0xB0 + Part8_MidiChannel_select->value()-1, 0x20, LSB);
+    // Program Change - patch number is required for this
+    change_2(0xC0 + Part8_MidiChannel_select->value()-1, Lval);
   }  // end state_table->updates_enabled
   Part8_PatchName_display->setText(getPartPatchName(7));
   if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
@@ -228,21 +206,19 @@ void JVlibForm::on_Part8_PatchNumber_select_valueChanged(int val) {
     return;
   }
   if (state_table->updates_enabled) {
-    int CtlChl = toggleControlChannel(8);
     int pn = val-1;
-    unsigned char buf[2];
-    active_area->active_performance.perf_part[7].patch_num_high = 0;
-    active_area->active_performance.perf_part[7].patch_num_low = pn;
+    int CtlChl=0;
+    if (state_table->perf_mode) {
+      CtlChl = toggleControlChannel(8);
+      active_area->active_performance.perf_part[7].patch_num_high = 0;
+      active_area->active_performance.perf_part[7].patch_num_low = pn;
+    }
     if (state_table->jv_connect) {
-      // update JV
-      buf[0] = 0xC0 + active_area->active_performance.perf_part[7].MIDI_channel;
-      buf[1] = pn;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
-      close_ports();
+      change_2(0xC0 + Part8_MidiChannel_select->value()-1, pn);
+    if (state_table->perf_mode) 
+      if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
     }  // end state_table->jv_connect
     Part8_PatchName_display->setText(getPartPatchName(7));
-    if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
   }	// end updates_enabled
 }	// end on_Part8_PatchNumber_select_valueChanged
 

@@ -24,6 +24,16 @@ void JVlibForm::EnableParts(bool val) {
   JVlibForm::PartsBox_16->setEnabled(val);
 }
 
+void JVlibForm::PartsToneSwitch(int chan, bool val) {
+  if (val) {
+    change_3(0x90 + chan, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
+  } 
+  else {
+    change_3(0xB0 + chan, 0x7B, 0);
+    change_3(0xB0 + chan, 0x79, 0);
+  }  
+}
+
 void JVlibForm::setPartSingleValue(int partnum, int addr, int val) {
   if (state_table->updates_enabled) {
     char *ptr = (char *)&active_area->active_performance.perf_part[partnum].MIDI_receive;

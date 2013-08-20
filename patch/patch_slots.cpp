@@ -930,25 +930,10 @@ void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
 	break;
     } // end Switch
     if (state_table->jv_connect) {
-    // update JV
-    unsigned char buf[8];
-    buf[0] = 0xB0 + (state_table->perf_mode ? 
-      active_area->active_performance.perf_part[ppn].MIDI_channel
-      : system_area->sys_common.patch_receive_channel);
-    buf[1] = 0x0;
-    buf[2] = MSB;
-    buf[3] = 0xB0 + (state_table->perf_mode ? 
-      active_area->active_performance.perf_part[ppn].MIDI_channel
-      : system_area->sys_common.patch_receive_channel);
-    buf[4] = 0x20;
-    buf[5] = LSB;
-    buf[6] = 0xC0 + (state_table->perf_mode ? 
-      active_area->active_performance.perf_part[ppn].MIDI_channel
-      : system_area->sys_common.patch_receive_channel);
-    buf[7] = pn;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,8) == EXIT_FAILURE) { puts("Send failed"); close_ports(); return; }
-    close_ports();
+      // update JV
+      change_3(0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[ppn].MIDI_channel : system_area->sys_common.patch_receive_channel), 0x0, MSB);
+      change_3(0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[ppn].MIDI_channel : system_area->sys_common.patch_receive_channel), 0x20, LSB);
+      change_2(0xC0 + (state_table->perf_mode ? active_area->active_performance.perf_part[ppn].MIDI_channel : system_area->sys_common.patch_receive_channel), pn);
     }
     EnablePatch(false);
     if (state_table->patch_mode) {
@@ -970,7 +955,6 @@ void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
     int ppn = Patch_PerfPartNum_select->currentIndex();
     int Hpn = pn/16;
     int Lpn = pn%16;
-    unsigned char buf[2];
     if (state_table->perf_mode) {
       active_area->active_performance.perf_part[ppn].patch_num_high = Hpn;
       active_area->active_performance.perf_part[ppn].patch_num_low = Lpn;
@@ -980,13 +964,7 @@ void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
     }	// end IF...ELSE
     if (state_table->jv_connect) {
     // update JV
-    buf[0] = 0xC0 + (state_table->perf_mode ? 
-      active_area->active_performance.perf_part[ppn].MIDI_channel
-      : system_area->sys_common.patch_receive_channel);
-    buf[1] = pn;
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_2(0xC0 + (state_table->perf_mode ? active_area->active_performance.perf_part[ppn].MIDI_channel : system_area->sys_common.patch_receive_channel), pn);
     }
     EnablePatch(false);
   if (state_table->patch_mode) {
@@ -1002,28 +980,15 @@ void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
 
 void JVlibForm::on_Patch_TestTone_switch_toggled(bool val) {
   if (state_table->jv_connect) {
-  unsigned char buf[6];
   int pn = state_table->perf_mode ? (Patch_PerfPartNum_select->currentIndex()) : 0;
   if (val) {
-    buf[0] = 0x90 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[1] = SysPreviewNote1_select->value();
-    buf[2] = SysPreviewNote1_volume->value();
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0x90 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel), SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
   } else {
-    buf[0] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[1] = 0x7B;
-    buf[2] = 0;
-    buf[3] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[4] = 0x79;
-    buf[5] = 0;
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,6) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
+    change_3(0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel), 0x7B, 0);
+    change_3(0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel), 0x79, 0);
   }
   Patch_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
   }

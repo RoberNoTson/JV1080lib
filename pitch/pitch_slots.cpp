@@ -18,24 +18,13 @@ void JVlibForm::PitchStdUpdate(int offset, int val) {
 
 void JVlibForm::on_Pitch_TestTone_switch_toggled(bool val) {
   if (state_table->jv_connect) {
-  unsigned char buf[6];
   int pn = state_table->perf_mode ? (Patch_PerfPartNum_select->currentIndex()) : 0;
   if (val) {
-    buf[0] = 0x90 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[1] = SysPreviewNote1_select->value();
-    buf[2] = SysPreviewNote1_volume->value();
-    if (open_ports() == EXIT_FAILURE) return;
-    if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-    close_ports();
+    change_3(0x90 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel), SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
   } else {
-    buf[0] = 0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
-      system_area->sys_common.patch_receive_channel);
-    buf[1] = 0x7B;
-    buf[2] = 0;
-  if (open_ports() == EXIT_FAILURE) return;
-  if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return; }
-  close_ports();
+    change_3(0xB0 + (state_table->perf_mode ? active_area->active_performance.perf_part[pn].MIDI_channel : 
+      system_area->sys_common.patch_receive_channel), 0x7B, 0x0);
   }
   Pitch_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
   }
