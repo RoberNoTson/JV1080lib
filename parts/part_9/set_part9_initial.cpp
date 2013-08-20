@@ -5,6 +5,7 @@
 #include        <QtGui>
 
 void JVlibForm::setPart9_Parms() {
+  if (state_table->perf_mode) {
   // set Part 1 controls/displays based on the active area memory contents, 
   // which were just updated from the synth after a Sync button was clicked.
   //  state_table->updates_enabled = false was set by the calling program, do not change it here.
@@ -31,7 +32,6 @@ void JVlibForm::setPart9_Parms() {
   Part9_ReceiveVolume_enable->setChecked(active_area->active_performance.perf_part[8].receive_volume);
   Part9_ReceiveHold_enable->setChecked(active_area->active_performance.perf_part[8].receive_hold_1);
   Part9_Output_select->setCurrentIndex(active_area->active_performance.perf_part[8].output);
-  Part9_TestTone_switch->setChecked(false);
   
   switch(active_area->active_performance.perf_part[8].patch_group_id) {
     case 0x01:  // User
@@ -62,12 +62,41 @@ void JVlibForm::setPart9_Parms() {
 	Part9_PatchGroup_select->setCurrentIndex(0);
 	break;
   }	// end SWITCH
-  Part9_SetPatchMax();
   Part9_PatchNumber_select->setValue((active_area->active_performance.perf_part[8].patch_num_high*16) + active_area->active_performance.perf_part[8].patch_num_low+1);
   Part9_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[8].patch_common.name[0],12));
   Part9_LowLimit_display->setText(funcNoteCalc(Part9_LowLimit_select->value()));
   Part9_HighLimit_display->setText(funcNoteCalc(Part9_HighLimit_select->value()));
-  
+    Part9_PatchGroup_select->setEnabled(Part9_ReceivePrgChg_enable->isChecked()); 
+    Part9_MidiChannel_select->setEnabled(Part9_ReceiveMidi_enable->isChecked());
+  }
+  // set GM-MODE only parms
+  if (state_table->GM_mode) {
+      Part9_PatchGroup_select->setCurrentIndex(5);
+      Part9_ReceiveMidi_enable->setChecked(true);
+      Part9_ReceivePrgChg_enable->setChecked(true);
+      Part9_ReceiveVolume_enable->setChecked(true);
+      Part9_ReceiveHold_enable->setChecked(true);
+      Part9_PatchNumber_select->setValue(9);
+      Part9_PatchName_display->setText(getPartPatchName(8));
+      Part9_MidiChannel_select->setValue(9);
+      Part9_Transpose_select->setValue(0);
+      Part9_TuneAdj_select->setValue(0);
+      Part9_ReverbSend_select->setValue(0);
+      Part9_ChorusSend_select->setValue(0);
+      Part9_Pan_select->setValue(64);
+      Part9_Level_select->setValue(127);
+      Part9_OutputLevel_select->setValue(127);
+      Part9_PatchGroup_select->setEnabled(false);
+      Part9_VoiceReserve_select->setEnabled(false);
+      Part9_OutputLevel_select->setEnabled(false);
+      Part9_Output_select->setEnabled(false);
+      Part9_MidiChannel_select->setEnabled(false);
+  }
+  // following are used for both Perf and GM modes
+  Part9_TestTone_switch->setChecked(false);
+  Part9_SetPatchMax();
+  Part9_PatchNumber_select->setEnabled(Part9_ReceivePrgChg_enable->isChecked()); 
+  Part9_TestTone_switch->setEnabled(Part9_ReceiveMidi_enable->isChecked());
   Part9_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
   Part9_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
   Part9_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());

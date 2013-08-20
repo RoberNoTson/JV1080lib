@@ -71,13 +71,12 @@ void JVlibForm::setPart1_Parms() {
   }
   // set GM-MODE only parms
   if (state_table->GM_mode) {
-      // set GM mode part configuration
       Part1_PatchGroup_select->setCurrentIndex(5);
       Part1_ReceiveMidi_enable->setChecked(true);
       Part1_ReceivePrgChg_enable->setChecked(true);
       Part1_ReceiveVolume_enable->setChecked(true);
       Part1_ReceiveHold_enable->setChecked(true);
-      Part1_PatchNumber_select->setValue(0);
+      Part1_PatchNumber_select->setValue(1);
       Part1_PatchName_display->setText(getPartPatchName(0));
       Part1_MidiChannel_select->setValue(1);
       Part1_Transpose_select->setValue(0);
