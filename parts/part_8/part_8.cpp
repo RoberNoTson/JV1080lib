@@ -7,7 +7,7 @@
 
 void JVlibForm::on_Part8_TestTone_switch_toggled(bool val) {
   PartsToneSwitch(Part8_MidiChannel_select->value()-1, val);
-  Part8_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Tone") );
+  Part8_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
 }
 
 //---------------------------------------------------------------------------------------------------------------------

@@ -6175,7 +6175,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -6194,7 +6194,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -6228,7 +6228,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -6649,7 +6649,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -6719,6 +6719,41 @@
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_36">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_87">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_72">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part1_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -7240,7 +7275,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -7259,7 +7294,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -7293,7 +7328,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -7717,7 +7752,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -7774,6 +7809,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_51">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_102">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_99">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part2_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -8292,7 +8362,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -8311,7 +8381,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -8345,7 +8415,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -8769,7 +8839,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -8826,6 +8896,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_50">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_101">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_98">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part3_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -9344,7 +9449,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -9363,7 +9468,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -9397,7 +9502,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -9821,7 +9926,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -9878,6 +9983,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_49">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_100">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_97">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part4_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -10396,7 +10536,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -10415,7 +10555,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -10449,7 +10589,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -10873,7 +11013,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -10930,6 +11070,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_48">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_99">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_96">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part5_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -11448,7 +11623,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -11467,7 +11642,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -11501,7 +11676,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -11925,7 +12100,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -11982,6 +12157,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_47">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_98">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_95">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part6_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -12500,7 +12710,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -12519,7 +12729,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -12553,7 +12763,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -12977,7 +13187,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -13034,6 +13244,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_46">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_97">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_94">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part7_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -13552,7 +13797,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -13571,7 +13816,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -13605,7 +13850,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -14029,7 +14274,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -14086,6 +14331,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_45">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_96">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_93">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part8_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -14604,7 +14884,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -14623,7 +14903,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -14657,7 +14937,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -15081,7 +15361,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -15138,6 +15418,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_44">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_95">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_92">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part9_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -15656,7 +15971,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -15675,7 +15990,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -15709,7 +16024,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -16123,7 +16438,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -16698,7 +17013,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -16717,7 +17032,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -16751,7 +17066,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -17175,7 +17490,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -17232,6 +17547,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_42">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_93">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_90">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part11_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -17750,7 +18100,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -17769,7 +18119,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -17803,7 +18153,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -18227,7 +18577,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -18284,6 +18634,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_41">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_92">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_89">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part12_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -18802,7 +19187,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -18821,7 +19206,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -18855,7 +19240,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -19279,7 +19664,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -19336,6 +19721,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_40">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_91">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_88">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part13_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -19854,7 +20274,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -19873,7 +20293,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -19907,7 +20327,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -20331,7 +20751,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -20388,6 +20808,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_39">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_90">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_87">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part14_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -20906,7 +21361,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -20925,7 +21380,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -20959,7 +21414,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -21383,7 +21838,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -21440,6 +21895,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_38">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_89">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_86">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part15_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -21958,7 +22448,7 @@
             <property name="geometry">
              <rect>
               <x>660</x>
-              <y>70</y>
+              <y>60</y>
               <width>52</width>
               <height>31</height>
              </rect>
@@ -21977,7 +22467,7 @@
             <property name="geometry">
              <rect>
               <x>710</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -22011,7 +22501,7 @@
             <property name="geometry">
              <rect>
               <x>750</x>
-              <y>70</y>
+              <y>60</y>
               <width>41</width>
               <height>31</height>
              </rect>
@@ -22435,7 +22925,7 @@
              <string notr="true">Play a test tone for this part using the pitch set for Preview Note 1</string>
             </property>
             <property name="text">
-             <string notr="true">Play Tone</string>
+             <string notr="true">Play Patch</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -22492,6 +22982,41 @@
             <property name="numDigits">
              <number>3</number>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget_37">
+            <property name="geometry">
+             <rect>
+              <x>670</x>
+              <y>90</y>
+              <width>119</width>
+              <height>25</height>
+             </rect>
+            </property>
+            <layout class="QFormLayout" name="formLayout_88">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_73">
+               <property name="text">
+                <string notr="true">Voice Mode</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="Part16_VoiceMode_switch">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
+               </property>
+               <property name="text">
+                <string notr="true">Poly</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -24197,7 +24722,7 @@
             <string>Solo mode allows only 1 pitch to sound for this patch at any momemnt, Poly mode allows multiple voices</string>
            </property>
            <property name="text">
-            <string notr="true">Solo</string>
+            <string notr="true">Poly</string>
            </property>
            <property name="checkable">
             <bool>true</bool>

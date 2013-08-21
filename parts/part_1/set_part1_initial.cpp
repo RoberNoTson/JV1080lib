@@ -32,8 +32,10 @@ void JVlibForm::setPart1_Parms() {
   Part1_ReceiveHold_enable->setChecked(active_area->active_performance.perf_part[0].receive_hold_1);
   Part1_MidiChannel_select->setValue(active_area->active_performance.perf_part[0].MIDI_channel+1);
   Part1_Output_select->setCurrentIndex(active_area->active_performance.perf_part[0].output);
+  Part1_VoiceMode_switch->setChecked(active_area->active_perf_patch[0].patch_common.key_assign_mode);
+  Part1_VoiceMode_switch->setText(active_area->active_perf_patch[0].patch_common.key_assign_mode==0 ? QString("Poly") : QString("Solo"));
   
-    switch(active_area->active_performance.perf_part[0].patch_group_id) {
+  switch(active_area->active_performance.perf_part[0].patch_group_id) {
     case 0x01:  // User
       Part1_PatchGroup_select->setCurrentIndex(0);
       break;
@@ -68,7 +70,10 @@ void JVlibForm::setPart1_Parms() {
     Part1_HighLimit_display->setText(funcNoteCalc(Part1_HighLimit_select->value()));  
     Part1_PatchGroup_select->setEnabled(Part1_ReceivePrgChg_enable->isChecked()); 
     Part1_MidiChannel_select->setEnabled(Part1_ReceiveMidi_enable->isChecked());
-  }
+    Part1_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
+    Part1_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
+    Part1_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
+  }	// end perf_mode
   // set GM-MODE only parms
   if (state_table->GM_mode) {
       Part1_PatchGroup_select->setCurrentIndex(5);
@@ -91,13 +96,17 @@ void JVlibForm::setPart1_Parms() {
       Part1_OutputLevel_select->setEnabled(false);
       Part1_Output_select->setEnabled(false);
       Part1_MidiChannel_select->setEnabled(false);
+      Part1_ReceivePrgChg_enable->setEnabled(false);
+      Part1_ReceiveVolume_enable->setEnabled(false);
+      Part1_ReceiveHold_enable->setEnabled(false);
+      Part1_ReceiveMidi_enable->setEnabled(false);
+      Part1_VoiceMode_switch->setChecked(false);
+      Part1_VoiceMode_switch->setText("Poly");
+      Part1_VoiceMode_switch->setEnabled(true);
   }
   // following are used for both Perf and GM modes
   Part1_TestTone_switch->setChecked(false);
   Part1_SetPatchMax();
   Part1_PatchNumber_select->setEnabled(Part1_ReceivePrgChg_enable->isChecked()); 
   Part1_TestTone_switch->setEnabled(Part1_ReceiveMidi_enable->isChecked());
-  Part1_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part1_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
-  Part1_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
 }	// end setPart1_Parms

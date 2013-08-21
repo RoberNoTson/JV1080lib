@@ -371,71 +371,106 @@ void::JVlibForm::setPatchParms(int val) {
       Patch_Number_select->setEnabled( Part1_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part1_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part1_ReceivePrgChg_enable->isChecked() );
+      Part1_VoiceMode_switch->setEnabled(true);
+      Part1_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 2:
       Patch_Number_select->setEnabled( Part2_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part2_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part2_ReceivePrgChg_enable->isChecked() );
+      Part2_VoiceMode_switch->setEnabled(true);
+      Part2_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;     
     case 3:
       Patch_Number_select->setEnabled( Part3_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part3_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part3_ReceivePrgChg_enable->isChecked() );
+      Part3_VoiceMode_switch->setEnabled(true);
+      Part3_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;     
     case 4:
       Patch_Number_select->setEnabled( Part4_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part4_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part4_ReceivePrgChg_enable->isChecked() );
+      Part4_VoiceMode_switch->setEnabled(true);
+      Part4_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;      
     case 5:
       Patch_Number_select->setEnabled( Part5_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part5_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part5_ReceivePrgChg_enable->isChecked() );
+      Part5_VoiceMode_switch->setEnabled(true);
+      Part5_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 6:
       Patch_Number_select->setEnabled( Part6_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part6_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part6_ReceivePrgChg_enable->isChecked() );
+      Part6_VoiceMode_switch->setEnabled(true);
+      Part6_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 7:
       Patch_Number_select->setEnabled( Part7_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part7_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part7_ReceivePrgChg_enable->isChecked() );
+      Part7_VoiceMode_switch->setEnabled(true);
+      Part7_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;     
     case 8:
       Patch_Number_select->setEnabled( Part8_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part8_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part8_ReceivePrgChg_enable->isChecked() );
+      Part8_VoiceMode_switch->setEnabled(true);
+      Part8_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;     
     case 9:
       Patch_Number_select->setEnabled( Part9_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part9_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part9_ReceivePrgChg_enable->isChecked() );
+      Part9_VoiceMode_switch->setEnabled(true);
+      Part9_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;      
     case 11:
       Patch_Number_select->setEnabled( Part11_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part11_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part11_ReceivePrgChg_enable->isChecked() );
+      Part11_VoiceMode_switch->setEnabled(true);
+      Part11_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 12:
       Patch_Number_select->setEnabled( Part12_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part12_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part12_ReceivePrgChg_enable->isChecked() );
+      Part12_VoiceMode_switch->setEnabled(true);
+      Part12_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 13:
       Patch_Number_select->setEnabled( Part13_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part13_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part13_ReceivePrgChg_enable->isChecked() );
+      Part13_VoiceMode_switch->setEnabled(true);
+      Part13_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 14:
       Patch_Number_select->setEnabled( Part14_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part14_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part14_ReceivePrgChg_enable->isChecked() );
+      Part14_VoiceMode_switch->setEnabled(true);
+      Part14_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
     case 15:
       Patch_Number_select->setEnabled( Part15_ReceivePrgChg_enable->isChecked() );
       Patch_Group_select->setEnabled( Part15_ReceivePrgChg_enable->isChecked() );
       Patch_Name_edit->setEnabled( Part15_ReceivePrgChg_enable->isChecked() );
+      Part15_VoiceMode_switch->setEnabled(true);
+      Part15_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
+      break;
+    case 16:
+      Patch_Number_select->setEnabled( Part16_ReceivePrgChg_enable->isChecked() );
+      Patch_Group_select->setEnabled( Part16_ReceivePrgChg_enable->isChecked() );
+      Patch_Name_edit->setEnabled( Part16_ReceivePrgChg_enable->isChecked() );
+      Part16_VoiceMode_switch->setEnabled(true);
+      Part16_VoiceMode_switch->setChecked(Patch_VoiceMode_switch->isChecked());
       break;
   }	// end Switch  
   PatchEFX_Group_display->setText(Patch_Group_select->currentText());

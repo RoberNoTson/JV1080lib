@@ -32,6 +32,8 @@ void JVlibForm::setPart5_Parms() {
   Part5_ReceiveVolume_enable->setChecked(active_area->active_performance.perf_part[4].receive_volume);
   Part5_ReceiveHold_enable->setChecked(active_area->active_performance.perf_part[4].receive_hold_1);
   Part5_Output_select->setCurrentIndex(active_area->active_performance.perf_part[4].output);
+  Part5_VoiceMode_switch->setChecked(active_area->active_perf_patch[4].patch_common.key_assign_mode);
+  Part5_VoiceMode_switch->setText(active_area->active_perf_patch[4].patch_common.key_assign_mode==0 ? QString("Poly") : QString("Solo"));
   
   switch(active_area->active_performance.perf_part[4].patch_group_id) {
     case 0x01:  // User
@@ -68,6 +70,9 @@ void JVlibForm::setPart5_Parms() {
   Part5_HighLimit_display->setText(funcNoteCalc(Part5_HighLimit_select->value()));
     Part5_PatchGroup_select->setEnabled(Part5_ReceivePrgChg_enable->isChecked()); 
     Part5_MidiChannel_select->setEnabled(Part5_ReceiveMidi_enable->isChecked());
+    Part5_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
+    Part5_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
+    Part5_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
   }
   // set GM-MODE only parms
   if (state_table->GM_mode) {
@@ -91,13 +96,17 @@ void JVlibForm::setPart5_Parms() {
       Part5_OutputLevel_select->setEnabled(false);
       Part5_Output_select->setEnabled(false);
       Part5_MidiChannel_select->setEnabled(false);
+      Part5_ReceivePrgChg_enable->setEnabled(false);
+      Part5_ReceiveVolume_enable->setEnabled(false);
+      Part5_ReceiveHold_enable->setEnabled(false);
+      Part5_ReceiveMidi_enable->setEnabled(false);
+      Part5_VoiceMode_switch->setChecked(false);
+      Part5_VoiceMode_switch->setText("Poly");
+      Part5_VoiceMode_switch->setEnabled(true);
   }
   // following are used for both Perf and GM modes
   Part5_TestTone_switch->setChecked(false);
   Part5_SetPatchMax();
   Part5_PatchNumber_select->setEnabled(Part5_ReceivePrgChg_enable->isChecked()); 
   Part5_TestTone_switch->setEnabled(Part5_ReceiveMidi_enable->isChecked());
-  Part5_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part5_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
-  Part5_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
 }	// end setPart5_Parms

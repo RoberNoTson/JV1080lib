@@ -32,6 +32,8 @@ void JVlibForm::setPart14_Parms() {
   Part14_ReceiveVolume_enable->setChecked(active_area->active_performance.perf_part[13].receive_volume);
   Part14_ReceiveHold_enable->setChecked(active_area->active_performance.perf_part[13].receive_hold_1);
   Part14_Output_select->setCurrentIndex(active_area->active_performance.perf_part[13].output);
+  Part14_VoiceMode_switch->setChecked(active_area->active_perf_patch[13].patch_common.key_assign_mode);
+  Part14_VoiceMode_switch->setText(active_area->active_perf_patch[13].patch_common.key_assign_mode==0 ? QString("Poly") : QString("Solo"));
   
   switch(active_area->active_performance.perf_part[13].patch_group_id) {
     case 0x01:  // User
@@ -62,12 +64,15 @@ void JVlibForm::setPart14_Parms() {
 	Part14_PatchGroup_select->setCurrentIndex(0);
 	break;
   }	// end SWITCH
-  Part14_PatchNumber_select->setValue((active_area->active_performance.perf_part[13].patch_num_high*16) + active_area->active_performance.perf_part[13].patch_num_low+1);
-  Part14_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[13].patch_common.name[0],12));
-  Part14_LowLimit_display->setText(funcNoteCalc(Part14_LowLimit_select->value()));
-  Part14_HighLimit_display->setText(funcNoteCalc(Part14_HighLimit_select->value()));
+    Part14_PatchNumber_select->setValue((active_area->active_performance.perf_part[13].patch_num_high*16) + active_area->active_performance.perf_part[13].patch_num_low+1);
+    Part14_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[13].patch_common.name[0],12));
+    Part14_LowLimit_display->setText(funcNoteCalc(Part14_LowLimit_select->value()));
+    Part14_HighLimit_display->setText(funcNoteCalc(Part14_HighLimit_select->value()));
     Part14_PatchGroup_select->setEnabled(Part14_ReceivePrgChg_enable->isChecked()); 
     Part14_MidiChannel_select->setEnabled(Part14_ReceiveMidi_enable->isChecked());
+    Part14_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
+    Part14_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
+    Part14_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
   }
   // set GM-MODE only parms
   if (state_table->GM_mode) {
@@ -91,13 +96,17 @@ void JVlibForm::setPart14_Parms() {
       Part14_OutputLevel_select->setEnabled(false);
       Part14_Output_select->setEnabled(false);
       Part14_MidiChannel_select->setEnabled(false);
+      Part14_ReceivePrgChg_enable->setEnabled(false);
+      Part14_ReceiveVolume_enable->setEnabled(false);
+      Part14_ReceiveHold_enable->setEnabled(false);
+      Part14_ReceiveMidi_enable->setEnabled(false);
+      Part14_VoiceMode_switch->setChecked(false);
+      Part14_VoiceMode_switch->setText("Poly");
+      Part14_VoiceMode_switch->setEnabled(true);
   }
   // following are used for both Perf and GM modes
   Part14_TestTone_switch->setChecked(false);
   Part14_SetPatchMax();
   Part14_PatchNumber_select->setEnabled(Part14_ReceivePrgChg_enable->isChecked()); 
   Part14_TestTone_switch->setEnabled(Part14_ReceiveMidi_enable->isChecked());
-  Part14_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part14_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
-  Part14_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
 }	// end setPart14_Parms

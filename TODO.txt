@@ -18,25 +18,27 @@ System_tab
 07/23/2013  - Patch Tempo controls disabled when in Performance mode
 07/26/2013  - fix enabled tabs when changing Perf/Patch modes
 08/14/2013  - add "Play MIDI" function
+08/17/2013  - in PlayMidi use MIDI file directory from config for file selection starting dir
   - default to GM mode if unable to load System
   -  validate working of System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
   - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
-  - in PlayMidi use MIDI file directory from config for file selection starting dir
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64
 
 PerfParts_tab
 07/24/2013  - verify Key Range Upper/Lower cannot cross each other.
-?  - update state_table->partX_sync status when a part is changed	IS THIS NEEDED?
+08/21/2013  - add Poly/Solo button on each part
+08/21/2013  - change label from "Play Tone" to "Play Patch" for consistency
+  - sync Parts and Patch tab Voice Mode buttons
   - turn off Patch Sync light when a different Part tab Part# patch is selected
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
-  - change label from "Play Tone" to "Play Patch" for consistency
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
+  - are Part 10 controls the same as the ones on the Rhythm tab? (Reverb,Chorus, Level, Outputlevel, etc.)
 
 Patch_tab
 07/26/2013  - turn off Patch Sync light when a different patch is selected	
