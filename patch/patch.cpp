@@ -57,8 +57,8 @@ void JVlibForm::EnablePatch(bool val) {
 void JVlibForm::getSinglePerfPatch() {
   // called when Patch sync button is pressed, in System Performance mode
   // download patch common and up to 4 tones
-  int x = Patch_PerfPartNum_select->currentIndex();
-  switch(x) {
+  int pn = Patch_PerfPartNum_select->currentIndex();
+  switch(pn) {
     case 0:
       if (state_table->part1_sync) return;
       break;
@@ -120,14 +120,14 @@ void JVlibForm::getSinglePerfPatch() {
   buf[12] = 0x48;
   buf[14] = 0xF7;
   if (open_ports() == EXIT_FAILURE) return;
-  buf[6] = x;		// Patch number
+  buf[6] = pn;		// Patch number
   buf[7] = 0;
   buf[13] = chksum(buf+5, 8);	// checksum
   usleep(200000);
   RetryC:
   usleep(200000*Stop);
   if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
-  err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)patch_common_size);
+  err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_common.name[0], (char *)patch_common_size);
   if (err == EXIT_FAILURE) { close_ports(); puts("error1"); return; }
   if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
   if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
@@ -142,7 +142,7 @@ void JVlibForm::getSinglePerfPatch() {
     RetryD:
     usleep(200000*Stop);
     if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
-    err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_tone[y].tone, (char *)patch_tone_size);
+    err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_tone[y].tone, (char *)patch_tone_size);
     if (err == EXIT_FAILURE) { close_ports(); puts("error3"); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
     if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
@@ -150,7 +150,7 @@ void JVlibForm::getSinglePerfPatch() {
     Stop=0;
   }	// end FOR 4 tones
   close_ports();
-  switch(x) {
+  switch(pn) {
     case 0:
       state_table->part1_sync = true;
       break;

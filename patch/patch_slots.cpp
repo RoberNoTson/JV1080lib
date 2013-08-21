@@ -78,9 +78,9 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
 //---------------------------------------------------------------------------------------------------------------------
 // switches
 void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
-//  if (val == 9) return;
   if (state_table->perf_mode) {
     Patch_Sync_button->setEnabled(true);
+    state_table->updates_enabled = false;
     switch(val) {
       case 0:
 	if (!state_table->part1_sync) {
@@ -88,6 +88,7 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Group_select->setCurrentIndex(Part1_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part1_PatchNumber_select->value());
 	  EnablePatch(false);
+	  state_table->updates_enabled = true;
 	  return;
 	}
 	break;
@@ -96,8 +97,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part2_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part2_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part2_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 2:
@@ -105,8 +107,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part3_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part3_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part3_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 3:
@@ -114,8 +117,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part4_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part4_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part4_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 4:
@@ -123,8 +127,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part5_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part5_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part5_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 5:
@@ -132,8 +137,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part6_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part6_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part6_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 6:
@@ -141,8 +147,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part7_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part7_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part7_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 7:
@@ -150,8 +157,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part8_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part8_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part8_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 8:
@@ -159,8 +167,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part9_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part9_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part9_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 9:	// special handling for Rhythm set
@@ -169,6 +178,7 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	Patch_Number_select->setValue(Part10_PatchNumber_select->value());
 	Patch_Sync_button->setEnabled(false);
 	EnablePatch(false);
+	state_table->updates_enabled = true;
 	return;
 	break;
       case 10:
@@ -176,8 +186,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part11_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part11_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part11_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 11:
@@ -185,8 +196,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part12_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part12_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part12_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 12:
@@ -194,8 +206,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part13_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part13_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part13_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 13:
@@ -203,8 +216,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part14_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part14_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part14_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 14:
@@ -212,8 +226,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part15_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part15_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part15_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
       case 15:
@@ -221,8 +236,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	  Patch_Name_edit->setText(Part16_PatchName_display->text());
 	  Patch_Group_select->setCurrentIndex(Part16_PatchGroup_select->currentIndex());
 	  Patch_Number_select->setValue(Part16_PatchNumber_select->value());
-	    EnablePatch(false);
-	    return;
+	  EnablePatch(false);
+	  state_table->updates_enabled = true;
+	  return;
 	}
 	break;
     }	// end switch
@@ -557,8 +573,57 @@ void JVlibForm::on_Patch_VoicePriority_switch_toggled(bool val) {
 }
 void JVlibForm::on_Patch_VoiceMode_switch_toggled(bool val) {
   if (state_table->updates_enabled) {
-  if (state_table->perf_mode)
-    active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.key_assign_mode = val;
+  if (state_table->perf_mode) {
+    int pn = Patch_PerfPartNum_select->currentIndex();
+    active_area->active_perf_patch[pn].patch_common.key_assign_mode = val;
+    switch(pn) {
+      case 0:
+	Part1_VoiceMode_switch->setChecked(val);
+	break;
+      case 1:
+	Part2_VoiceMode_switch->setChecked(val);
+	break;
+      case 2:
+	Part3_VoiceMode_switch->setChecked(val);
+	break;
+      case 3:
+	Part4_VoiceMode_switch->setChecked(val);
+	break;
+      case 4:
+	Part5_VoiceMode_switch->setChecked(val);
+	break;
+      case 5:
+	Part6_VoiceMode_switch->setChecked(val);
+	break;
+      case 6:
+	Part7_VoiceMode_switch->setChecked(val);
+	break;
+      case 7:
+	Part8_VoiceMode_switch->setChecked(val);
+	break;
+      case 8:
+	Part9_VoiceMode_switch->setChecked(val);
+	break;
+      case 10:
+	Part11_VoiceMode_switch->setChecked(val);
+	break;
+      case 11:
+	Part12_VoiceMode_switch->setChecked(val);
+	break;
+      case 12:
+	Part13_VoiceMode_switch->setChecked(val);
+	break;
+      case 13:
+	Part14_VoiceMode_switch->setChecked(val);
+	break;
+      case 14:
+	Part15_VoiceMode_switch->setChecked(val);
+	break;
+      case 15:
+	Part16_VoiceMode_switch->setChecked(val);
+	break;
+    }	// end switch    
+  }	// end if
   else
     active_area->active_patch_patch.patch_common.key_assign_mode = val;
   Patch_VoiceMode_switch->setText(val==false ? QString("Poly") : QString("Solo"));
@@ -566,7 +631,8 @@ void JVlibForm::on_Patch_VoiceMode_switch_toggled(bool val) {
   if (state_table->jv_connect) 
     setPatchSingleValue(0x33, val);
   }
-}
+}	// end on_Patch_VoiceMode_switch_toggled
+
 void JVlibForm::on_Patch_SoloLegato_enable_toggled(bool val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
