@@ -214,7 +214,7 @@ void JVlibForm::on_Part4_PatchNumber_select_valueChanged(int val) {
       active_area->active_performance.perf_part[3].patch_num_low = pn;
     }
     if (state_table->jv_connect)
-      change_2(0xC0 + Part1_MidiChannel_select->value()-1, pn);
+      change_2(0xC0 + Part4_MidiChannel_select->value()-1, pn);
     if (state_table->perf_mode) 
       if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
     Part4_PatchName_display->setText(getPartPatchName(3));
