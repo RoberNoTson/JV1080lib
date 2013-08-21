@@ -9,22 +9,22 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   // called by SIGNAL when SysMode switch changes
   switch(val) {
     case 0:	// Performance mode
-  if (state_table->updates_enabled) {
-   system_area->sys_common.panel_mode=val;
-   setSysSingleValue(addr_sys_panel_mode,val);
-  }	// end UPDATES_ENABLED
-      slotSysSetPerformanceMode();
-      break;
+    if (state_table->updates_enabled) {
+      system_area->sys_common.panel_mode=val;
+      setSysSingleValue(addr_sys_panel_mode,val);
+    }	// end UPDATES_ENABLED
+    slotSysSetPerformanceMode();
+    break;
     case 1:	// Patch mode
-  if (state_table->updates_enabled) {
-   system_area->sys_common.panel_mode=val;
-   setSysSingleValue(addr_sys_panel_mode,val);
-  }	// end UPDATES_ENABLED
-      slotSysSetPatchMode();
-      break;
+    if (state_table->updates_enabled) {
+      system_area->sys_common.panel_mode=val;
+      setSysSingleValue(addr_sys_panel_mode,val);
+    }	// end UPDATES_ENABLED
+    slotSysSetPatchMode();
+    break;
     case 2:	// GM mode
-      slotSysSetGmMode();
-      break;
+    slotSysSetGmMode();
+    break;
   }	// end SWITCH
 }	// end on_SysMode_select_currentIndexChanged
 
@@ -283,10 +283,11 @@ void JVlibForm::slotSysSetPatchMode() {
     state_table->updates_enabled = false;
     MainTabWidget->setTabEnabled(3,true);	// Patch tab
     state_table->patchTab_enable = true;
-    EnablePatch(false);
     if (Patch_PerfPartNum_select->itemText(0)=="1")
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
+    EnablePatch(false);
+//    Patch_Sync_status->off();
     Patch_Group_select->setEnabled(true);
     Patch_Number_select->setEnabled(true);
     Patch_Name_edit->setEnabled(true);

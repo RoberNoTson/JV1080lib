@@ -1,9 +1,9 @@
 General
 07/26/2013  - initialize part_sync entries in state_table
 07/30/2013  - Configuration dialog function
+08/21/2013  - implement GM (General Midi) functions
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
-  - implement GM (General Midi) functions
   - fix Color gradient error message from QDials throughout 
 
 Menu
@@ -19,8 +19,8 @@ System_tab
 07/26/2013  - fix enabled tabs when changing Perf/Patch modes
 08/14/2013  - add "Play MIDI" function
 08/17/2013  - in PlayMidi use MIDI file directory from config for file selection starting dir
+08/21/2013  -  validate working of System_Sync LED
   - default to GM mode if unable to load System
-  -  validate working of System_Sync LED
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
@@ -33,8 +33,7 @@ PerfParts_tab
 07/24/2013  - verify Key Range Upper/Lower cannot cross each other.
 08/21/2013  - add Poly/Solo button on each part
 08/21/2013  - change label from "Play Tone" to "Play Patch" for consistency
-  - sync Parts and Patch tab Voice Mode buttons
-  - turn off Patch Sync light when a different Part tab Part# patch is selected
+08/21/2013  - sync Parts and Patch tab Voice Mode buttons
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
@@ -44,6 +43,7 @@ Patch_tab
 07/26/2013  - turn off Patch Sync light when a different patch is selected	
 07/26/2013  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
 07/26/2013  - update Patch group, number and name to match Part# values when PerfPartNum is scrolled
+08/21/2013  - turn off Patch Sync light when a different Part tab Part# patch is selected
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Rhythm_tab
