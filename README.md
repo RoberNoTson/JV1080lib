@@ -1,4 +1,6 @@
 JV1080lib
 =========
 
-Manager/librarian for JV-1080
+Linux based Manager/librarian for the Roland JV-1080.
+This program will not run on Windoze - it is strictly for Linux systems.
+
