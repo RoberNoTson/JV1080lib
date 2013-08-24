@@ -26,6 +26,7 @@ System_tab
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
   - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
+  - when "Offline" is checked, change config file to start offline, et vice versa
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64
