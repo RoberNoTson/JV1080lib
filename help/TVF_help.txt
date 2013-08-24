@@ -1,0 +1,9 @@
+TVF Help Notes:
+
+1. String sul ponticello sound, produced using a High Pass filter. 
+  Set depth around 16, set Cutoff Freq at sounding pitch, set Level3 to about 45.
+  Use positive Cutoff KeyFollow values to maintain consistent tone as pitch changes.
+
+2. Muted strings sound; use Low Pass Filter set above the sounding pitch to eliminate some of the high overtones.
+
+  
