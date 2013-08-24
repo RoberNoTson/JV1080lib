@@ -1,0 +1,108 @@
+TABLES:
+Dumps
+Expansion_Cards
+Patches
+Perf_UserPatch_ref
+Performances
+RhythmSets
+Tuning
+patch_list
+wave_list
+
+FIELDS:
+Dumps:
+Field   Type    Null    Key     Default Extra
+name    varchar(255)    NO              NULL
+dump    longblob        NO              NULL
+date    timestamp       NO              CURRENT_TIMESTAMP       on update CURRENT_TIMESTAMP
+comment varchar(255)    YES             NULL
+
+Expansion_Cards:
+Field   Type    Null    Key     Default Extra
+slot    enum('A','B','C','D')   NO      PRI     NULL
+Model   varchar(32)     YES             NULL
+name    varchar(32)     YES             NULL
+
+Patches:
+Field   Type    Null    Key     Default Extra
+SerNumber       int(11) NO      PRI     NULL    auto_increment
+name    varchar(255)    NO              NULL
+sysex   longblob        NO              NULL
+date    timestamp       NO              CURRENT_TIMESTAMP
+Performance     int(11) YES             NULL
+UserNumber      int(11) YES             NULL
+comment varchar(255)    YES             NULL
+
+Perf_UserPatch_ref:
+Field   Type    Null    Key     Default Extra
+Performance     int(11) NO      PRI     0
+Part_1  int(11) YES             NULL
+Part_2  int(11) YES             NULL
+Part_3  int(11) YES             NULL
+Part_4  int(11) YES             NULL
+Part_5  int(11) YES             NULL
+Part_6  int(11) YES             NULL
+Part_7  int(11) YES             NULL
+Part_8  int(11) YES             NULL
+Part_9  int(11) YES             NULL
+Part_10 int(11) YES             NULL
+Part_11 int(11) YES             NULL
+Part_12 int(11) YES             NULL
+Part_13 int(11) YES             NULL
+Part_14 int(11) YES             NULL
+Part_15 int(11) YES             NULL
+Part_16 int(11) YES             NULL
+
+Performances:
+Field   Type    Null    Key     Default Extra
+SerNumber       int(11) NO      PRI     NULL    auto_increment
+name    varchar(255)    NO              NULL
+sysex   longblob        NO              NULL
+date    timestamp       NO              CURRENT_TIMESTAMP
+comment varchar(255)    YES             NULL
+
+RhythmSets:
+Field   Type    Null    Key     Default Extra
+SerNumber       int(11) NO      PRI     NULL    auto_increment
+name    varchar(255)    NO              NULL
+sysex   longblob        NO              NULL
+date    timestamp       NO              CURRENT_TIMESTAMP
+comment varchar(255)    NO              NULL
+
+Tuning:
+Field   Type    Null    Key     Default Extra
+tune_index      bigint(20) unsigned     NO      PRI     NULL    auto_increment
+name    varchar(255)    NO              NULL
+cents   tinyblob        NO              NULL
+comment varchar(255)    YES             NULL
+last_update     timestamp       NO              CURRENT_TIMESTAMP
+
+patch_list:
+Field   Type    Null    Key     Default Extra
+number  int(11) NO              NULL
+name    varchar(12)     NO              NULL
+group_area      varchar(16)     NO              NULL
+family  varchar(16)     YES             NULL
+instr_family    enum('strings','winds','brass','percussion','keyboards','voice','electronic','soundEffect')      YES             NULL
+solo    tinyint(1)      NO              0
+tone_1_name     text    YES             NULL
+tone_1_number   int(11) YES             NULL
+tone_1_group    varchar(16)     YES             NULL
+tone_2_name     text    YES             NULL
+tone_2_number   int(11) YES             NULL
+tone_2_group    varchar(16)     YES             NULL
+tone_3_name     text    YES             NULL
+tone_3_number   int(11) YES             NULL
+tone_3_group    varchar(16)     YES             NULL
+tone_4_name     text    YES             NULL
+tone_4_number   int(11) YES             NULL
+tone_4_group    varchar(16)     YES             NULL
+
+wave_list:
+Field   Type    Null    Key     Default Extra
+SeqNum  int(11) NO      PRI     NULL    auto_increment
+number  int(11) NO              NULL
+name    varchar(12)     NO              NULL
+group_area      varchar(16)     NO              NULL
+Instruments     enum('strings','winds','brass','Orch perc','keyboards','electronic','voice','soundEffect','mixed','unclassified','drums','Solo string','guitars')        YES             NULL
+Loop    tinyint(1)      NO              1
