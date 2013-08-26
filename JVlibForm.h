@@ -774,10 +774,8 @@ private:
   QGraphicsScene *scene10;
   snd_rawmidi_t *midiInHandle;
   snd_rawmidi_t *midiOutHandle;
-  struct SYSTEM_AREA *system_area;
-  struct ACTIVE_AREA *active_area;
-  static struct SYSTEM_AREA *sys_area;
-  static struct ACTIVE_AREA *act_area;
+  static struct SYSTEM_AREA *system_area;
+  static struct ACTIVE_AREA *active_area;
   static struct STATE_TABLE *state_table;
   int debug;
   QSqlDatabase mysql;

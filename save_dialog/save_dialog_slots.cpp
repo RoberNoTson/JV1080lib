@@ -1,61 +1,23 @@
 // save_dialog_slots.cpp
+#include	"save_dialog/Save_Dialog.h"
+#include	"ui_Save_Dialog.h"
 #include        "JVlibForm.h"
 #include        <QtGui>
 #include	<QtSql>
-#include	"save_dialog/Save_Dialog.h"
-#include	"ui_Save_Dialog.h"
+#include        "ui_JVlib.h"
 
-// initialize the static pointers.
-struct SYSTEM_AREA *JVlibForm::sys_area = 0;
-struct ACTIVE_AREA *JVlibForm::act_area = 0;
-QSqlDatabase Save_Dialog::db_mysql;
-
-Save_Dialog::Save_Dialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Save_Dialog)
-{
-  ui->setupUi(this);
-  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(rejected()), this, SLOT(slotSaveDialog_cancel()));
-  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(accepted()), this, SLOT(slotSaveDialog_accept()));
-  connect(ui->Save_Dialog::Save_buttonBox, SIGNAL(helpRequested()), this, SLOT(slotSaveDialog_help()));
-  connect(ui->Save_Dialog::Save_System_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_System(bool)));
-  connect(ui->Save_Dialog::Save_CurrentPerformance_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Performance(bool)));
-  connect(ui->Save_Dialog::Save_CurrentPatch_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Patch(bool)));
-  connect(ui->Save_Dialog::Save_CurrentRhythm_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Rhythm(bool)));
-  connect(ui->Save_Dialog::Save_CurrentTuning_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_Tuning(bool)));
-  connect(ui->Save_Dialog::Save_UserPerformance_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserPerformance(bool)));
-  connect(ui->Save_Dialog::Save_UserPatch_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserPatch(bool)));
-  connect(ui->Save_Dialog::Save_UserRhythm_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserRhythm(bool)));
-  connect(ui->Save_Dialog::Save_UserDump_button, SIGNAL(toggled(bool)), this, SLOT(slotSave_UserDump(bool)));
-  if (ui->Save_Comment_edit->text().isEmpty()) {
-    ui->Save_Comment_edit->setPlaceholderText("Optional comment describing this data");
-    ui->Save_buttonBox->setFocus();
-  }
-  if (ui->Save_Name_edit->text().isEmpty()) {
-//    Save_Name_edit->setFocus();
-    ui->Save_Name_edit->setPlaceholderText("Enter a valid name");
-    ui->Save_Comment_edit->setFocus();
-  }
-}
-
-Save_Dialog::~Save_Dialog() {
-  delete ui;
-}
-
-void Save_Dialog::setData(QSqlDatabase db) {
-  db_mysql = db;
-}
-
-void Save_Dialog::slotSave_System(bool val) {
+void Save_Dialog::on_Save_System_button_toggled(bool val) {
   if (val) {
     QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
-    ui->Save_Name_edit->setText(buf);    
+    ui->Save_Name_edit->setText(buf);
   }
 }
-void Save_Dialog::slotSave_Performance(bool val) {
+
+void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
+  ui->Save_PerfPatch_box->setEnabled(val);
   if (val) {
     QString buf;
-    int pn = JVlibForm::sys_area->sys_common.perf_num;
+    int pn = JVlibForm::system_area->sys_common.perf_num;
     if (pn < 0x20) 
       buf = "User_"+QString::number(pn+1);
     else if (pn < 0x40) 
@@ -67,16 +29,131 @@ void Save_Dialog::slotSave_Performance(bool val) {
     else	// invalid value, maybe we aren't in perf mode
       return;
     buf += "_";
-    buf += QString::fromAscii(&JVlibForm::act_area->active_performance.perf_common.name[0],12).trimmed();
+    buf += QString::fromAscii(&JVlibForm::active_area->active_performance.perf_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
     ui->Save_Name_edit->setText(buf);
+    ui->Save_PerfPatch_1_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[0].patch_group_id==1);
+    ui->Save_PerfPatch_2_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[1].patch_group_id==1);
+    ui->Save_PerfPatch_3_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[2].patch_group_id==1);
+    ui->Save_PerfPatch_4_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[3].patch_group_id==1);
+    ui->Save_PerfPatch_5_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[4].patch_group_id==1);
+    ui->Save_PerfPatch_6_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[5].patch_group_id==1);
+    ui->Save_PerfPatch_7_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[6].patch_group_id==1);
+    ui->Save_PerfPatch_8_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[7].patch_group_id==1);
+    ui->Save_PerfPatch_9_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[8].patch_group_id==1);
+    ui->Save_PerfPatch_10_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[9].patch_group_id==1);
+    ui->Save_PerfPatch_11_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[10].patch_group_id==1);
+    ui->Save_PerfPatch_12_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[11].patch_group_id==1);
+    ui->Save_PerfPatch_13_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[12].patch_group_id==1);
+    ui->Save_PerfPatch_14_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[13].patch_group_id==1);
+    ui->Save_PerfPatch_15_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[14].patch_group_id==1);
+    ui->Save_PerfPatch_16_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[15].patch_group_id==1);
+  if (ui->Save_PerfPatch_1_select->isEnabled()) {
+    ui->Save_Part_1_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[0].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[0].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[0].patch_common.name[0],12).rightJustified(15));
   }
-} 
-void Save_Dialog::slotSave_Patch(bool val) {
+  if (ui->Save_PerfPatch_2_select->isEnabled()) {
+    ui->Save_Part_2_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[1].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[1].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[1].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_3_select->isEnabled()) {
+    ui->Save_Part_3_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[2].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[2].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[2].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_4_select->isEnabled()) {
+    ui->Save_Part_4_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[3].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[3].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[3].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_5_select->isEnabled()) {
+    ui->Save_Part_5_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[4].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[4].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[4].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_6_select->isEnabled()) {
+    ui->Save_Part_6_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[5].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[5].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[5].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_7_select->isEnabled()) {
+    ui->Save_Part_7_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[6].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[6].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[6].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_8_select->isEnabled()) {
+    ui->Save_Part_8_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[7].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[7].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[7].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_9_select->isEnabled()) {
+    ui->Save_Part_9_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[8].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[8].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[8].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_10_select->isEnabled()) {
+    ui->Save_Part_10_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[9].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[9].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[9].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_11_select->isEnabled()) {
+    ui->Save_Part_11_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[10].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[10].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[10].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_12_select->isEnabled()) {
+    ui->Save_Part_12_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[11].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[11].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[11].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_13_select->isEnabled()) {
+    ui->Save_Part_13_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[12].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[12].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[12].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_14_select->isEnabled()) {
+    ui->Save_Part_14_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[13].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[13].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[13].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_15_select->isEnabled()) {
+    ui->Save_Part_15_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[14].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[14].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[14].patch_common.name[0],12).rightJustified(15));
+  }
+  if (ui->Save_PerfPatch_16_select->isEnabled()) {
+    ui->Save_Part_16_data->setText("User "+
+      QString::number((JVlibForm::active_area->active_performance.perf_part[15].patch_num_high*16)+
+      JVlibForm::active_area->active_performance.perf_part[15].patch_num_low+1).rightJustified(3) +
+      QString::fromAscii(&JVlibForm::active_area->active_perf_patch[15].patch_common.name[0],12).rightJustified(15));
+  }
+  }	// end IF checked
+
+
+}	// end on_Save_CurrentPerformance_button_toggled
+
+void Save_Dialog::on_Save_CurrentPatch_button_toggled(bool val) {
   if (val) {
     QString buf;
-    switch(JVlibForm::sys_area->sys_common.patch_group_id) {
+    switch(JVlibForm::system_area->sys_common.patch_group_id) {
     case 0x01:  // User
       buf = "User_";
       break;
@@ -102,17 +179,18 @@ void Save_Dialog::slotSave_Patch(bool val) {
       buf = "Expansion_C_";
       break;
     }
-    buf += QString::number(JVlibForm::sys_area->sys_common.patch_num_high*16 + JVlibForm::sys_area->sys_common.patch_num_low+1)+"_";
-    buf += QString::fromAscii(&JVlibForm::act_area->active_patch_patch.patch_common.name[0],12).trimmed();
+    buf += QString::number(JVlibForm::system_area->sys_common.patch_num_high*16 + JVlibForm::system_area->sys_common.patch_num_low+1)+"_";
+    buf += QString::fromAscii(&JVlibForm::active_area->active_patch_patch.patch_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
     ui->Save_Name_edit->setText(buf);
   }
-}
-void Save_Dialog::slotSave_Rhythm(bool val) {
+}	// end on_Save_CurrentPatch_button_toggled
+
+void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
   if (val) {
     QString buf;
-    switch (JVlibForm::act_area->active_performance.perf_part[9].patch_group_id) {
+    switch (JVlibForm::active_area->active_performance.perf_part[9].patch_group_id) {
       case 0x01:  // User
 	buf = "User_";
 	break;
@@ -138,41 +216,53 @@ void Save_Dialog::slotSave_Rhythm(bool val) {
 	buf = "Expansion_C_";
 	break;
     }
-    buf += QString::number(JVlibForm::act_area->active_performance.perf_part[9].patch_num_high*16 + JVlibForm::act_area->active_performance.perf_part[9].patch_num_low+1)+"_";
-    buf += QString::fromAscii(&JVlibForm::act_area->active_rhythm.rhythm_common.name[0],12).trimmed();
+    buf += QString::number(JVlibForm::active_area->active_performance.perf_part[9].patch_num_high*16 + JVlibForm::active_area->active_performance.perf_part[9].patch_num_low+1)+"_";
+    buf += QString::fromAscii(&JVlibForm::active_area->active_rhythm.rhythm_common.name[0],12).trimmed();
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
     ui->Save_Name_edit->setText(buf);
     
   }
-}
-void Save_Dialog::slotSave_Tuning(bool val) {
-  if (val) {
-  }
-}
+}	// end on_Save_CurrentRhythm_button_toggled
 
-void Save_Dialog::slotSave_UserPerformance(bool val) {
+void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
   if (val) {
   }
-}
-void Save_Dialog::slotSave_UserPatch(bool val) {
+}	// end on_Save_CurrentTuning_button_toggled
+
+void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   if (val) {
   }
-}
-void Save_Dialog::slotSave_UserRhythm(bool val) {
+}	// end on_Save_UserPerformance_button_toggled
+
+void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
   if (val) {
   }
-}
-void Save_Dialog::slotSave_UserDump(bool val) {
+}	// end on_Save_UserPatch_button_toggled
+
+void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
+  if (val) {
+  }
+}	// end on_Save_UserRhythm_button_toggled
+
+void Save_Dialog::on_Save_UserDump_button_toggled(bool val) {
   if (val) {
     QString buf = "User_Dump_"+QDate::currentDate().toString(Qt::ISODate);
     buf += "_";
     buf += QDate::currentDate().toString(Qt::ISODate);
     ui->Save_Name_edit->setText(buf);
   }
+}	// end on_Save_UserDump_button_toggled
+
+void Save_Dialog::on_Save_buttonBox_rejected() {
+  this->close();
 }
-  
-void Save_Dialog::slotSaveDialog_accept() {
+
+void Save_Dialog::on_Save_buttonBox_helpRequested() {
+  QMessageBox::critical(this, "Save Dialog", "Help not yet available for this function");
+}
+
+void Save_Dialog::on_Save_buttonBox_accepted() {
   // Save_comments are optional, but recommended
   QString table_name;
   int sz = 0;
@@ -183,7 +273,6 @@ void Save_Dialog::slotSaveDialog_accept() {
   }
   // must have a name specified
   if (ui->Save_Name_edit->text().isEmpty()) {
-//    Save_Name_edit->setFocus();
     ui->Save_Name_edit->setPlaceholderText("Enter a valid name");
     ui->Save_Comment_edit->setFocus();
     return;
@@ -191,22 +280,25 @@ void Save_Dialog::slotSaveDialog_accept() {
   if (ui->Save_System_button->isChecked()) {
     table_name = "Dumps";
     sz = 0x28;
-    ptr = &JVlibForm::sys_area->sys_common.panel_mode;
+    ptr = &JVlibForm::system_area->sys_common.panel_mode;
   }
   if (ui->Save_CurrentPerformance_button->isChecked()) {
     table_name = "Performances";
     sz = 0x40+(0x13*16);
-    ptr = &JVlibForm::act_area->active_performance.perf_common.name[0];
+    ptr = &JVlibForm::active_area->active_performance.perf_common.name[0];
+    int perf_number = db_insert_data(table_name, ptr, sz);
+    printf("inserted item %d into table %s\n",perf_number, table_name.toAscii().data());
+    
   }
   if (ui->Save_CurrentPatch_button->isChecked()) {
     table_name = "Patches";
     sz = 0x48 + (0x81*4);
-    ptr = &JVlibForm::act_area->active_patch_patch.patch_common.name[0];    
+    ptr = &JVlibForm::active_area->active_patch_patch.patch_common.name[0];    
   }
   if (ui->Save_CurrentRhythm_button->isChecked()) {
     table_name = "RhythmSets";
     sz = 0x0C + (0x3A*64);
-    ptr = &JVlibForm::act_area->active_rhythm.rhythm_common.name[0];
+    ptr = &JVlibForm::active_area->active_rhythm.rhythm_common.name[0];
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
     table_name = "Tuning";
@@ -233,37 +325,7 @@ void Save_Dialog::slotSaveDialog_accept() {
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
   }
-  // create a temp file
-  QFile file("/Data/music/jv1080/asdf");
-  if (!file.open(QIODevice::WriteOnly|QIODevice::Truncate)) {
-    QMessageBox::critical(this, "Save Dialog", tr("Could not create a temporary file!"));
-    return;
-  }
-  // write selected data to file.fileName()
-  QDataStream out(&file);
-  if (out.writeRawData(ptr, sz) != sz) {
-    QMessageBox::critical(this, "Save Dialog", tr("Could not write to temporary file!"));
-    return;
-  }
-  file.close();
-  file.setPermissions(QFile::ReadOwner|QFile::WriteOwner|QFile::ReadGroup|QFile::ReadOther);
-  // load the temp file into the db
-  QSqlQuery query(db_mysql);
-  QString buf = "insert into "+table_name+" values('"+ui->Save_Name_edit->text()+"', LOAD_FILE('"+file.fileName()+"'), DEFAULT, '"+ui->Save_Comment_edit->text()+"')";
-  if (query.exec(buf) == false) {
-    puts("Query exec failed");
-    query.finish();
-    return;
-  }
-  query.finish();
+  db_insert_data(table_name, ptr, sz);
   this->close();
-}	// end slotSaveDialog_accept
-
-void Save_Dialog::slotSaveDialog_cancel() {
-  this->close();
-}
-
-void Save_Dialog::slotSaveDialog_help() {
-  QMessageBox::critical(this, "Save Dialog", "Help not yet available for this function");
-}
+}	// end on_Save_buttonBox_accepted
 

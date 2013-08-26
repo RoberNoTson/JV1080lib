@@ -138,6 +138,7 @@ SOURCES     += main.cpp \
 	toneENV/set_toneENV_initial.cpp \
 	toneENV/toneENV_slots.cpp \
 	save_dialog/save_dialog_slots.cpp \
+	save_dialog/save_dialog.cpp \
 	tuning/set_tuning_initial.cpp \
 	tuning/tuning.cpp \
 	tuning/tuning_slots.cpp \

@@ -209,7 +209,7 @@ void JVlibForm::on_Part12_PatchNumber_select_valueChanged(int val) {
     int pn = val-1;
     int CtlChl=0;
     if (state_table->perf_mode) {
-      int CtlChl = toggleControlChannel(12);
+      CtlChl = toggleControlChannel(12);
       active_area->active_performance.perf_part[11].patch_num_high = 0;
       active_area->active_performance.perf_part[11].patch_num_low = pn;
     }

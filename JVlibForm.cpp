@@ -11,6 +11,8 @@ QString db_user;
 QString JVlibForm::CFGfile;
 QString PORT_NAME;
 struct STATE_TABLE *JVlibForm::state_table = 0;
+struct SYSTEM_AREA *JVlibForm::system_area=0;
+struct ACTIVE_AREA *JVlibForm::active_area=0;
 
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
@@ -87,7 +89,7 @@ void JVlibForm::initStateTable() {
   state_table->toneTVATab_enable = false;
   state_table->pitchTab_enable = false;
   state_table->tuningTab_enable = false;
-  state_table->tuningTab_sync = false;
+  state_table->tuning_sync = false;
   state_table->tuning_modified = false;
   state_table->midiPorts_open = false;	// PORTS_OPEN
   state_table->db_connect = false;	// DB_OPEN
@@ -115,8 +117,6 @@ void JVlibForm::initStateTable() {
 void JVlibForm::setInitial() {
   active_area = new ACTIVE_AREA;
   system_area = new SYSTEM_AREA;
-  act_area = active_area;
-  sys_area = system_area;
   state_table = new STATE_TABLE;
   initStateTable();
   initGraphics();

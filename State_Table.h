@@ -45,7 +45,7 @@ struct STATE_TABLE {
   bool toneTVATab_enable;
   bool pitchTab_enable;
   bool tuningTab_enable;
-  bool tuningTab_sync;
+  bool tuning_sync;
   bool tuning_modified;
   bool midiPorts_open;	// PORTS_OPEN actively connected to the computer's midi ports
   bool db_connect;	// DB_OPEN connected to mysql database

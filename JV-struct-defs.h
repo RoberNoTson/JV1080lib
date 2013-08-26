@@ -338,7 +338,7 @@ struct RHYTHM {
 
 struct ACTIVE_AREA {		// active area that produces midi sounds
   struct PERFORMANCE active_performance;	// common and 16 parts
-  struct PATCH active_perf_patch[15];	// common and 4 tones, 15 sets
+  struct PATCH active_perf_patch[16];	// common and 4 tones, 15 sets
   struct RHYTHM active_rhythm;		// common and 64 notes (this is channel 10 of the patches)
   struct PATCH active_patch_patch;	// common and 4 tones
 } __attribute__ ((packed));

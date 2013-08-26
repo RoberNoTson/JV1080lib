@@ -4,7 +4,6 @@
 
 #include <QtGui>
 #include <QDialog>
-#include <QtSql>
 
 namespace Ui {
     class Save_Dialog;
@@ -17,25 +16,23 @@ class Save_Dialog : public QDialog {
 public:
   Save_Dialog(QWidget *parent = 0);
   ~Save_Dialog();
-  void setData(QSqlDatabase);
   
 private slots:
-  void slotSaveDialog_accept();
-  void slotSaveDialog_cancel();
-  void slotSaveDialog_help();
-  void slotSave_System(bool);
-  void slotSave_Performance(bool);
-  void slotSave_Patch(bool);
-  void slotSave_Rhythm(bool);
-  void slotSave_Tuning(bool);
-  void slotSave_UserPerformance(bool);
-  void slotSave_UserPatch(bool);
-  void slotSave_UserRhythm(bool);
-  void slotSave_UserDump(bool);
+  void on_Save_buttonBox_accepted();
+  void on_Save_buttonBox_rejected();
+  void on_Save_buttonBox_helpRequested();
+  void on_Save_System_button_toggled(bool);
+  void on_Save_CurrentPerformance_button_toggled(bool);
+  void on_Save_CurrentPatch_button_toggled(bool);
+  void on_Save_CurrentRhythm_button_toggled(bool);
+  void on_Save_CurrentTuning_button_toggled(bool);
+  void on_Save_UserPerformance_button_toggled(bool);
+  void on_Save_UserPatch_button_toggled(bool);
+  void on_Save_UserRhythm_button_toggled(bool);
+  void on_Save_UserDump_button_toggled(bool);
   
 private:
   Ui::Save_Dialog *ui;
-  void createSaveDialogActions();
-  static QSqlDatabase db_mysql;
+  int db_insert_data(QString, char *, int);
 };
 #endif	// SAVE_DIALOG_H

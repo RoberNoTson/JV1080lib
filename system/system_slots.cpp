@@ -5,6 +5,19 @@
 #include	<QDebug>
 
 // Slots
+void JVlibForm::on_System_Upload_button_clicked() {
+  // tbd
+
+}
+void JVlibForm::on_System_SaveData_button_clicked() {
+  // call the Menu option for File/Save
+  save();
+}
+void JVlibForm::on_System_LoadData_button_clicked() {
+  // call the Menu option for File/Open
+  open();
+}
+
 void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   // called by SIGNAL when SysMode switch changes
   switch(val) {
@@ -648,16 +661,6 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
   PatchEFX_Number_display->setEnabled(true);
   PatchEFX_Name_display->setEnabled(true);
 }	// end on_SysPatchNumber_valueChanged
-
-void JVlibForm::on_System_Upload_button_clicked() {
-  int val;
-}
-void JVlibForm::on_System_SaveData_button_clicked() {
-  save();
-}
-void JVlibForm::on_System_LoadData_button_clicked() {
-  open();
-}
 
 void JVlibForm::setPerfTabs(bool val) {
   MainTabWidget->setTabEnabled(2,val);

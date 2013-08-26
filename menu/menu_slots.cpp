@@ -101,20 +101,24 @@ bool JVlibForm::save() {
   if (!state_table->db_connect) {
     if (curFile.isEmpty()) {
         return saveAs();
-    } else {
+    } 
+    else {
         return saveFile(curFile);
     }
-  } else {
+  } 
+  else {
     Save_Dialog save_dialog;
-    save_dialog.setData(db_mysql);
-    if (save_dialog.exec())
-    state_table->system_modified = false;
+    if (!save_dialog.exec())
+      return false;
+    
+/*    state_table->system_modified = false;
     state_table->performance_modified = false;
     state_table->parts_modified = false;
     state_table->patch_modified = false;
     state_table->rhythm_modified = false;
     state_table->tone_modified = false;
     state_table->tuning_modified = false;
+*/    
   }
   return true;
 }

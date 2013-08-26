@@ -72,7 +72,7 @@ int JVlibForm::get_scales() {
   close_ports();
   statusbar->showMessage("Scale tunings loaded",0);
   state_table->tuning_modified = false;
-  state_table->tuningTab_sync = true;
+  state_table->tuning_sync = true;
   }	// end   if (state_table->jv_connect && state_table->updates_enabled)
   return EXIT_SUCCESS;
 }	// end GET_SCALES

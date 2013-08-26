@@ -50,7 +50,7 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();
-  state_table->tuningTab_sync = true;
+  state_table->tuning_sync = true;
   state_table->tuning_modified = false;
 }	// end setScaleTunings
 
