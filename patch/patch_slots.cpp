@@ -6,7 +6,7 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
-    getSinglePerfPatch();
+    getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
     setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
   } else {
     getActivePatchMode();
@@ -244,8 +244,9 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
     }	// end switch
   }	// end if perf_mode
   EnablePatch(true);
-  if (state_table->updates_enabled)
+//  if (state_table->updates_enabled)
     setPatchParms(state_table->perf_mode ? val+1 : 0);
+    state_table->updates_enabled = false;
 }
 
 void JVlibForm::on_PatchEFX_Control1Source_select_currentIndexChanged(int val) {

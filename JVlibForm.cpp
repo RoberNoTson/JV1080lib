@@ -13,6 +13,9 @@ QString PORT_NAME;
 struct STATE_TABLE *JVlibForm::state_table = 0;
 struct SYSTEM_AREA *JVlibForm::system_area=0;
 struct ACTIVE_AREA *JVlibForm::active_area=0;
+char JVlibForm::MIDI_dev[] = { 0 };
+snd_rawmidi_t *JVlibForm::midiInHandle = 0;
+snd_rawmidi_t *JVlibForm::midiOutHandle = 0;
 
 JVlibForm::~JVlibForm() {
   if (JVlibForm::mysql.contains("init"))
@@ -104,7 +107,6 @@ void JVlibForm::initStateTable() {
   state_table->part7_sync = false;  
   state_table->part8_sync = false;  
   state_table->part9_sync = false;  
-  state_table->part10_sync = false;  
   state_table->part11_sync = false;  
   state_table->part12_sync = false;  
   state_table->part13_sync = false;  
@@ -272,7 +274,8 @@ int JVlibForm::sysex_send(unsigned char *buf, int buf_size) {
 //  if (buf[4] == 0x12) MODIFIED ? : MODIFIED=true;
   // transmit the data
   if ((err = snd_rawmidi_write(midiOutHandle, buf, buf_size)) < 0) { 
-    QMessageBox::critical(this, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
+//    QMessageBox::critical(this, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
+    QMessageBox::critical(0, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
@@ -400,17 +403,20 @@ int JVlibForm::open_ports() {
   if (state_table->midiPorts_open == false) {
     if (strlen(MIDI_dev)) {
       if ((err = snd_rawmidi_open(&midiInHandle, &midiOutHandle, MIDI_dev, 0)) < 0) {
-	QMessageBox::critical(this, "JVlib", tr("Cannot open MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+//	QMessageBox::critical(this, "JVlib", tr("Cannot open MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+	QMessageBox::critical(0, "JVlib", tr("Cannot open MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
 	return EXIT_FAILURE;
       }
       // dummy read to activate the ports
       if ((err = snd_rawmidi_read(midiInHandle, NULL, 0)) < 0) { 
-	QMessageBox::critical(this, "JVlib", tr("Cannot read from MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+//	QMessageBox::critical(this, "JVlib", tr("Cannot read from MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+	QMessageBox::critical(0, "JVlib", tr("Cannot read from MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
 	close_ports();
 	return EXIT_FAILURE;
       }
     } else {
-      QMessageBox::critical(this, "JVlib", tr("No MIDI port selected"));
+//      QMessageBox::critical(this, "JVlib", tr("No MIDI port selected"));
+      QMessageBox::critical(0, "JVlib", tr("No MIDI port selected"));
       return EXIT_FAILURE;
     }
     state_table->midiPorts_open = true;

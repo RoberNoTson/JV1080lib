@@ -20,7 +20,7 @@ bool JVlibForm::getActiveRhythm() {
   buf[14] = 0xF7;
   if (open_ports() == EXIT_FAILURE) return false;
   puts("Getting Rhythm Common");
-  QProgressDialog progress("Getting Rhythm data...", "Abort Download", 0, 65, this);
+  QProgressDialog progress("Getting Rhythm data...", "Abort Download", 0, 65, 0);
   progress.setWindowModality(Qt::WindowModal);
   progress.setMinimumDuration(0);
   progress.setValue(0);

@@ -772,8 +772,8 @@ private:
   QGraphicsScene *scene8;
   QGraphicsScene *scene9;
   QGraphicsScene *scene10;
-  snd_rawmidi_t *midiInHandle;
-  snd_rawmidi_t *midiOutHandle;
+  static snd_rawmidi_t *midiInHandle;
+  static snd_rawmidi_t *midiOutHandle;
   static struct SYSTEM_AREA *system_area;
   static struct ACTIVE_AREA *active_area;
   static struct STATE_TABLE *state_table;
@@ -916,16 +916,16 @@ private:
   
   // generic functions
   void setInitial();
-  int  sysex_get(unsigned char *, char *);
-  int  sysex_send(unsigned char *, int);
+  static int  sysex_get(unsigned char *, char *);
+  static int  sysex_send(unsigned char *, int);
   int  change_send(unsigned char *, int);
   int  change_12(int, int, int,int, int, int,int, int, int,int, int, int);
   int  change_3(int, int, int);
   int  change_2(int, int);
   void createStatusBar();
-  void close_ports();
-  int  open_ports();
-  short chksum(unsigned char *, int);
+  static void close_ports();
+  static int  open_ports();
+  static short chksum(unsigned char *, int);
   int hexdump(unsigned char *, int);
   int db_connect(const QString, const QString);
   int readConfigFile();
@@ -946,7 +946,7 @@ private:
   void getSysPerfName();
   void getSysPatchName();
   void setSysGmMode(bool);
-  char MIDI_dev[32];
+  static char MIDI_dev[32];
   char  sysex_get_data[5];
   char  sysex_send_data[5];
   void EnableSys(bool);
@@ -1107,8 +1107,7 @@ private:
   void setPatchParms(int);
   void setPatchSingleValue(int, int);
   void Patch_setPatchMax();
-  void getActivePerfPatches();
-  void getSinglePerfPatch();
+  static void getSinglePerfPatch(int);
   void getActivePatchMode();
 
   // for tone.cpp
@@ -1146,7 +1145,7 @@ private:
   void Tuning_BulkUpdate(int, int, int);
 
   // for Rhythm
-  bool getActiveRhythm();
+  static bool getActiveRhythm();
   inline void RhythmStdUpdate(int, int);
   void createRhythmActions();
   void setRhythmParms(int);

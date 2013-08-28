@@ -54,10 +54,13 @@ void JVlibForm::EnablePatch(bool val) {
   state_table->patch_sync = val;
 }	// end EnablePatch
 
-void JVlibForm::getSinglePerfPatch() {
-  // called when Patch sync button is pressed, in System Performance mode
-  // download patch common and up to 4 tones
-  int pn = Patch_PerfPartNum_select->currentIndex();
+void JVlibForm::getSinglePerfPatch(int pn) {
+  // Called when Patch sync button is pressed in System Performance mode, or manually for Save_Dialog
+  // Parm passed is the Patch_PerfPartNum_select->currentIndex() or other desired Perf Patch,
+  // which is one less than the actual Part number
+  // Download the patch common and up to 4 tones per Patch
+
+//  int pn = Patch_PerfPartNum_select->currentIndex();
   switch(pn) {
     case 0:
       if (state_table->part1_sync) return;
@@ -87,7 +90,7 @@ void JVlibForm::getSinglePerfPatch() {
       if (state_table->part9_sync) return;
       break;
     case 9:
-      if (state_table->part10_sync) return;
+      return;
       break;
     case 10:
       if (state_table->part11_sync) return;
@@ -179,7 +182,6 @@ void JVlibForm::getSinglePerfPatch() {
       state_table->part9_sync = true;
       break;
     case 9:
-      state_table->part10_sync = true;
       break;
     case 10:
       state_table->part11_sync = true;
@@ -203,7 +205,7 @@ void JVlibForm::getSinglePerfPatch() {
  state_table->patch_modified = false;
  state_table->patch_sync = true;
 }	// end getSinglePerfPatch
-
+/*
 void JVlibForm::getActivePerfPatches() {
   // called when Patch sync button is pressed, in System Performance mode
   // download 15 active parts, patch common and 4 tones, skips over the Rhythm set
@@ -271,7 +273,7 @@ void JVlibForm::getActivePerfPatches() {
  state_table->patch_modified = false;
  state_table->patch_sync = true;
 }	// end getActivePerfPatches
-  
+*/
 void JVlibForm::getActivePatchMode() {
   // called when Patch Sync button is clicked and we are in System Patch mode
   // get active_area patch mode patch, common and 4 tones

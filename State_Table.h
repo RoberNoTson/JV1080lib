@@ -23,7 +23,6 @@ struct STATE_TABLE {
   bool part7_sync;
   bool part8_sync;
   bool part9_sync;
-  bool part10_sync;
   bool part11_sync;
   bool part12_sync;
   bool part13_sync;
@@ -34,7 +33,7 @@ struct STATE_TABLE {
   bool patch_sync;
   bool patch_modified;
   bool rhythmTab_enable;
-  bool rhythm_sync;
+  bool rhythm_sync;	// this is part10_sync
   bool rhythm_modified;
   bool patchEFXTab_enable;
   bool toneTab_enable;
