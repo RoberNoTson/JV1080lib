@@ -1,4 +1,20 @@
 // save_dialog_slots.cpp
+// Contains:
+//	on_Save_System_button_toggled()
+//	on_Save_PerfPatch_All_select_toggled()
+//	on_Save_CurrentPerformance_button_toggled()
+//	on_Save_CurrentPatch_button_toggled()
+//	on_Save_CurrentRhythm_button_toggled()
+//	on_Save_CurrentTuning_button_toggled()
+//	on_Save_UserPerformance_button_toggled()
+//	on_Save_UserPatch_button_toggled()
+//	on_Save_UserRhythm_button_toggled()
+//	on_Save_UserDump_button_toggled()
+//	on_Save_buttonBox_rejected()
+//	on_Save_buttonBox_helpRequested()
+//	on_Save_buttonBox_accepted()
+
+
 #include	"save_dialog/Save_Dialog.h"
 #include	"ui_Save_Dialog.h"
 #include        "JVlibForm.h"
@@ -7,10 +23,9 @@
 #include        "ui_JVlib.h"
 
 void Save_Dialog::on_Save_System_button_toggled(bool val) {
-  if (val) {
-    QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
-    ui->Save_Name_edit->setText(buf);
-  }
+  if (!val) return;
+  QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
+  ui->Save_Name_edit->setText(buf);
 }
 
 void Save_Dialog::on_Save_PerfPatch_All_select_toggled(bool val) {
@@ -168,9 +183,9 @@ void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
 }	// end on_Save_CurrentPerformance_button_toggled
 
 void Save_Dialog::on_Save_CurrentPatch_button_toggled(bool val) {
-  if (val) {
-    QString buf;
-    switch(JVlibForm::system_area->sys_common.patch_group_id) {
+  if (!val) return;
+  QString buf;
+  switch(JVlibForm::system_area->sys_common.patch_group_id) {
     case 0x01:  // User
       buf = "User ";
       break;
@@ -195,17 +210,16 @@ void Save_Dialog::on_Save_CurrentPatch_button_toggled(bool val) {
     case 0x62:  // Exp C
       buf = "Expansion_C ";
       break;
-    }
-    buf += QString::number(JVlibForm::system_area->sys_common.patch_num_high*16 + JVlibForm::system_area->sys_common.patch_num_low+1)+" ";
-    buf += QString::fromAscii(&JVlibForm::active_area->active_patch_patch.patch_common.name[0],12).trimmed();
-    ui->Save_Name_edit->setText(buf);
   }
+  buf += QString::number(JVlibForm::system_area->sys_common.patch_num_high*16 + JVlibForm::system_area->sys_common.patch_num_low+1)+" ";
+  buf += QString::fromAscii(&JVlibForm::active_area->active_patch_patch.patch_common.name[0],12).trimmed();
+  ui->Save_Name_edit->setText(buf);
 }	// end on_Save_CurrentPatch_button_toggled
 
 void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
-  if (val) {
-    QString buf;
-    switch (JVlibForm::active_area->active_performance.perf_part[9].patch_group_id) {
+  if (!val) return;
+  QString buf;
+  switch (JVlibForm::active_area->active_performance.perf_part[9].patch_group_id) {
       case 0x01:  // User
 	buf = "User ";
 	break;
@@ -233,40 +247,42 @@ void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
     }
     buf += QString::number(JVlibForm::active_area->active_performance.perf_part[9].patch_num_high*16 + JVlibForm::active_area->active_performance.perf_part[9].patch_num_low+1)+" ";
     buf += QString::fromAscii(&JVlibForm::active_area->active_rhythm.rhythm_common.name[0],12).trimmed();
-//    buf += "_";
-//    buf += QDate::currentDate().toString(Qt::ISODate);
     ui->Save_Name_edit->setText(buf);
-    
-  }
 }	// end on_Save_CurrentRhythm_button_toggled
 
 void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
-  if (val) {
-  }
+  if (!val) return;
+//  if (!JVlibForm::JVlibForm->Tuning_CustomTemp_button->isChecked()) return;
+  ui->Save_Name_edit->setText("Tuning Custom Settings");
 }	// end on_Save_CurrentTuning_button_toggled
 
 void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
-  if (val) {
-  }
+  ui->Save_PerfNumber_select->setEnabled(val);
+  if (!val) return;
 }	// end on_Save_UserPerformance_button_toggled
 
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
-  if (val) {
-  }
+  ui->Save_PatchNumber_select->setEnabled(val);
+  if (!val) return;
 }	// end on_Save_UserPatch_button_toggled
 
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
-  if (val) {
-  }
+  ui->Save_RhythmNumber_select->setEnabled(val);
+  if (!val) return;
+  // download data to temp file
+  
+  // save temp file to database
+  
 }	// end on_Save_UserRhythm_button_toggled
 
 void Save_Dialog::on_Save_UserDump_button_toggled(bool val) {
-  if (val) {
-    QString buf = "User_Dump "+QDate::currentDate().toString(Qt::ISODate);
-//    buf += "_";
-//    buf += QDate::currentDate().toString(Qt::ISODate);
-    ui->Save_Name_edit->setText(buf);
-  }
+  if (!val) return;
+  QString buf = "User_Dump "+QDate::currentDate().toString(Qt::ISODate);
+  ui->Save_Name_edit->setText(buf);
+  // download data to temp file
+  
+  // save temp file to database
+  
 }	// end on_Save_UserDump_button_toggled
 
 void Save_Dialog::on_Save_buttonBox_rejected() {
@@ -303,13 +319,13 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
   }
   if (ui->Save_CurrentPatch_button->isChecked()) {
     table_name = "Patches";
-    sz = 0x48 + (0x81*4);
+    sz = 0x48 + (0x81*4);	// common and 4 tones
     ptr = &JVlibForm::active_area->active_patch_patch.patch_common.name[0];    
     db_insert_data(table_name, ptr, sz);
   }
   if (ui->Save_CurrentRhythm_button->isChecked()) {
     table_name = "RhythmSets";
-    sz = 0x0C + (0x3A*64);
+    sz = 0x0C + (0x3A*64);	// common and 64 notes
     ptr = &JVlibForm::active_area->active_rhythm.rhythm_common.name[0];
     db_insert_data(table_name, ptr, sz);
   }
@@ -320,28 +336,44 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     db_insert_data(table_name, ptr, sz);
   }
   if (ui->Save_UserPerformance_button->isChecked()) {
-    table_name = "Dumps";
+    table_name = "Performances";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
+  // download data to temp file
+  
+  // save temp file to database
+  
   }
   if (ui->Save_UserPatch_button->isChecked()) {
-    table_name = "Dumps";
+    table_name = "Patches";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
+  // download data to temp file
+  
+  // save temp file to database
+  
   }
   if (ui->Save_UserRhythm_button->isChecked()) {
-    table_name = "Dumps";
+    table_name = "RhythmSets";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
+  // download data to temp file
+  
+  // save temp file to database
+  
   }
   if (ui->Save_UserDump_button->isChecked()) {
     table_name = "Dumps";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
+  // download data to temp file
+  
+  // save temp file to database
+  
   }
   this->close();
 }	// end on_Save_buttonBox_accepted
