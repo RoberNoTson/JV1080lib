@@ -35,6 +35,8 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     setRhythmParms(60);
     Rhythm_Sync_status->on();
     Rhythm_EnableAll(true);
+    state_table->rhythm_sync = true;
+    state_table->rhythm_modified = false;
   }
 }
 void JVlibForm::on_Rhythm_KeyPress_select_valueChanged(int val) {

@@ -140,6 +140,7 @@ SOURCES     += main.cpp \
 	save_dialog/save_dialog_slots.cpp \
 	save_dialog/save_dialog.cpp \
 	save_dialog/save_current_perf.cpp \
+	save_dialog/save_user_rhythm.cpp \
 	tuning/set_tuning_initial.cpp \
 	tuning/tuning.cpp \
 	tuning/tuning_slots.cpp \

@@ -1,4 +1,5 @@
 // save_dialog_slots.cpp
+// Create and display a valid Name for the selected option.
 // Contains:
 //	on_Save_System_button_toggled()
 //	on_Save_PerfPatch_All_select_toggled()
@@ -22,12 +23,6 @@
 #include	<QtSql>
 #include        "ui_JVlib.h"
 
-void Save_Dialog::on_Save_System_button_toggled(bool val) {
-  if (!val) return;
-  QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
-  ui->Save_Name_edit->setText(buf);
-}
-
 void Save_Dialog::on_Save_PerfPatch_All_select_toggled(bool val) {
   ui->Save_PerfPatch_1_select->setChecked(val && ui->Save_PerfPatch_1_select->isEnabled());
   ui->Save_PerfPatch_2_select->setChecked(val && ui->Save_PerfPatch_2_select->isEnabled());
@@ -50,6 +45,7 @@ void Save_Dialog::on_Save_PerfPatch_All_select_toggled(bool val) {
 void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
   ui->Save_PerfPatch_box->setEnabled(val);
   if (!val) return;
+  // create valid Name and fill in the Name_edit field
   QString buf;
   // fill in the Name box
   int pn = JVlibForm::system_area->sys_common.perf_num;
@@ -83,7 +79,7 @@ void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
   ui->Save_PerfPatch_14_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[13].patch_group_id==1);
   ui->Save_PerfPatch_15_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[14].patch_group_id==1);
   ui->Save_PerfPatch_16_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[15].patch_group_id==1);
-  // fill in the User Patch number and name
+  // fill in the User Patch numbers/names
   if (ui->Save_PerfPatch_1_select->isEnabled()) {
       ui->Save_Part_1_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[0].patch_num_high*16)+
@@ -256,6 +252,12 @@ void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
   ui->Save_Name_edit->setText("Tuning Custom Settings");
 }	// end on_Save_CurrentTuning_button_toggled
 
+void Save_Dialog::on_Save_System_button_toggled(bool val) {
+  if (!val) return;
+  QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
+  ui->Save_Name_edit->setText(buf);
+}
+
 void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   ui->Save_PerfNumber_select->setEnabled(val);
   if (!val) return;
@@ -269,10 +271,25 @@ void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
   ui->Save_RhythmNumber_select->setEnabled(val);
   if (!val) return;
-  // download data to temp file
-  
-  // save temp file to database
-  
+  unsigned char buf[16];
+  char r_name[12];
+  char       user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };  
+  char    rhythm_common_size[] = { 0x0,0x0,0x0,0x0C };
+
+  memset(buf,0,sizeof(buf));
+  buf[4] = JV_REQ;
+  memcpy(buf+5,user1_rhythm_common,4);
+  if (ui->Save_RhythmNumber_select->value()==2)
+    buf[6] = 0x41;
+  memcpy(buf+9,rhythm_common_size,4);
+  buf[13] = JVlibForm::chksum(buf+5,8);
+  buf[14] = 0xF7;
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)rhythm_common_size);
+  JVlibForm::close_ports();
+  QString d_name = "User "+QString::number(ui->Save_RhythmNumber_select->value())+" "+QString::fromAscii(r_name,12);
+  ui->Save_Name_edit->setText(d_name);
 }	// end on_Save_UserRhythm_button_toggled
 
 void Save_Dialog::on_Save_UserDump_button_toggled(bool val) {
@@ -340,30 +357,15 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
-  // download data to temp file
-  
-  // save temp file to database
-  
   }
   if (ui->Save_UserPatch_button->isChecked()) {
     table_name = "Patches";
     sz = 0;	// NOTE: tbd
     ptr = NULL;	// NOTE: tbd
     db_insert_data(table_name, ptr, sz);
-  // download data to temp file
-  
-  // save temp file to database
-  
   }
   if (ui->Save_UserRhythm_button->isChecked()) {
-    table_name = "RhythmSets";
-    sz = 0;	// NOTE: tbd
-    ptr = NULL;	// NOTE: tbd
-    db_insert_data(table_name, ptr, sz);
-  // download data to temp file
-  
-  // save temp file to database
-  
+    SaveUserRhythm();
   }
   if (ui->Save_UserDump_button->isChecked()) {
     table_name = "Dumps";
@@ -378,3 +380,6 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
   this->close();
 }	// end on_Save_buttonBox_accepted
 
+void Save_Dialog::on_Save_RhythmNumber_select_valueChanged() {
+  on_Save_UserRhythm_button_toggled(true);
+}
