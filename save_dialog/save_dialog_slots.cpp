@@ -14,14 +14,16 @@
 //	on_Save_buttonBox_rejected()
 //	on_Save_buttonBox_helpRequested()
 //	on_Save_buttonBox_accepted()
-
+//	on_Save_RhythmNumber_select_valueChanged()
+//	on_Save_PatchNumber_select_valueChanged()
+//	on_Save_PerfNumber_select_valueChanged()
 
 #include	"save_dialog/Save_Dialog.h"
 #include	"ui_Save_Dialog.h"
 #include        "JVlibForm.h"
 #include        <QtGui>
 #include	<QtSql>
-#include        "ui_JVlib.h"
+//#include        "ui_JVlib.h"
 
 void Save_Dialog::on_Save_PerfPatch_All_select_toggled(bool val) {
   ui->Save_PerfPatch_1_select->setChecked(val && ui->Save_PerfPatch_1_select->isEnabled());
@@ -248,7 +250,6 @@ void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
 
 void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
   if (!val) return;
-//  if (!JVlibForm::JVlibForm->Tuning_CustomTemp_button->isChecked()) return;
   ui->Save_Name_edit->setText("Tuning Custom Settings");
 }	// end on_Save_CurrentTuning_button_toggled
 
@@ -297,10 +298,20 @@ void Save_Dialog::on_Save_UserDump_button_toggled(bool val) {
   QString buf = "User_Dump "+QDate::currentDate().toString(Qt::ISODate);
   ui->Save_Name_edit->setText(buf);
   // download data to temp file
-  
   // save temp file to database
-  
 }	// end on_Save_UserDump_button_toggled
+
+void Save_Dialog::on_Save_RhythmNumber_select_valueChanged() {
+  on_Save_UserRhythm_button_toggled(true);
+}
+
+void Save_Dialog::on_Save_PatchNumber_select_valueChanged() {
+  on_Save_UserPatch_button_toggled(true);
+}
+
+void Save_Dialog::on_Save_PerfNumber_select_valueChanged() {
+  on_Save_UserPerformance_button_toggled(true);
+}
 
 void Save_Dialog::on_Save_buttonBox_rejected() {
   this->close();
@@ -346,40 +357,35 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     ptr = &JVlibForm::active_area->active_rhythm.rhythm_common.name[0];
     db_insert_data(table_name, ptr, sz);
   }
-  if (ui->Save_CurrentTuning_button->isChecked()) {
-    table_name = "Tuning";
-    sz = 0;	// NOTE: tbd
-    ptr = NULL;	// NOTE: tbd
-    db_insert_data(table_name, ptr, sz);
-  }
-  if (ui->Save_UserPerformance_button->isChecked()) {
-    table_name = "Performances";
-    sz = 0;	// NOTE: tbd
-    ptr = NULL;	// NOTE: tbd
-    db_insert_data(table_name, ptr, sz);
-  }
-  if (ui->Save_UserPatch_button->isChecked()) {
-    table_name = "Patches";
-    sz = 0;	// NOTE: tbd
-    ptr = NULL;	// NOTE: tbd
-    db_insert_data(table_name, ptr, sz);
-  }
   if (ui->Save_UserRhythm_button->isChecked()) {
     SaveUserRhythm();
   }
+  if (ui->Save_CurrentTuning_button->isChecked()) {
+//    if (JVlibForm::Tuning_CustomTemp_button->isChecked()==false) return;
+//    table_name = "Tuning";
+//    sz = 0;	// NOTE: tbd
+//    ptr = NULL;	// NOTE: tbd
+//    db_insert_data(table_name, ptr, sz);
+  }
+  if (ui->Save_UserPerformance_button->isChecked()) {
+//    table_name = "Performances";
+//    sz = 0;	// NOTE: tbd
+//    ptr = NULL;	// NOTE: tbd
+//    db_insert_data(table_name, ptr, sz);
+  }
+  if (ui->Save_UserPatch_button->isChecked()) {
+//    table_name = "Patches";
+//    sz = 0;	// NOTE: tbd
+//    ptr = NULL;	// NOTE: tbd
+//    db_insert_data(table_name, ptr, sz);
+  }
   if (ui->Save_UserDump_button->isChecked()) {
-    table_name = "Dumps";
-    sz = 0;	// NOTE: tbd
-    ptr = NULL;	// NOTE: tbd
-    db_insert_data(table_name, ptr, sz);
+//    table_name = "Dumps";
+//    sz = 0;	// NOTE: tbd
+//    ptr = NULL;	// NOTE: tbd
+//    db_insert_data(table_name, ptr, sz);
   // download data to temp file
-  
   // save temp file to database
-  
   }
   this->close();
 }	// end on_Save_buttonBox_accepted
-
-void Save_Dialog::on_Save_RhythmNumber_select_valueChanged() {
-  on_Save_UserRhythm_button_toggled(true);
-}

@@ -32,6 +32,8 @@ private slots:
   void on_Save_UserDump_button_toggled(bool);
   void on_Save_PerfPatch_All_select_toggled(bool);
   void on_Save_RhythmNumber_select_valueChanged();
+  void on_Save_PatchNumber_select_valueChanged();
+  void on_Save_PerfNumber_select_valueChanged();
 
 private:
   Ui::Save_Dialog *ui;

@@ -2,6 +2,17 @@
 #ifndef _JV1080_STATE_TABLE_H
 #define _JV1080_STATE_TABLE_H 1
 
+enum TuningTypes { 
+  EqualTemp,
+  JustTemp,
+  PythagTemp,
+  MeantoneTemp,
+  WellTemp,
+  PureTemp,
+  ArabicTemp,
+  CustomTemp
+};
+
 struct STATE_TABLE {
   bool perf_mode;
   bool patch_mode;
@@ -46,6 +57,7 @@ struct STATE_TABLE {
   bool tuningTab_enable;
   bool tuning_sync;
   bool tuning_modified;
+  TuningTypes tuning_type;
   bool midiPorts_open;	// PORTS_OPEN actively connected to the computer's midi ports
   bool db_connect;	// DB_OPEN connected to mysql database
   bool jv_connect;	// ONLINE to the synth

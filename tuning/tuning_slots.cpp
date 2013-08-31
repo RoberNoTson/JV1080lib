@@ -131,32 +131,40 @@ void JVlibForm::slotTuning_TempButtons(int val) {
   // QByteArray Tuning_currentTuning, filled with 0x40 from create_...
   switch(val) {
     case 0: default:	// Equal temp
+      state_table->tuning_type = EqualTemp;
       Tuning_QueryTemp(2);
       break;
     case 1:		// Just temp
+      state_table->tuning_type = JustTemp;
       Tuning_QueryTemp(3);
       break;
     case 2:		// Pythagorean
+      state_table->tuning_type = PythagTemp;
       Tuning_QueryTemp(6);
       break;
     case 3:		// Meantone
+      state_table->tuning_type = MeantoneTemp;
       Tuning_QueryTemp(4);
       break;
     case 4:		// Well
+      state_table->tuning_type = WellTemp;
       Tuning_QueryTemp(7);
       break;
     case 5:		// Pure
+      state_table->tuning_type = PureTemp;
       Tuning_QueryTemp(5);
       break;
     case 6:		// Arabic
+      state_table->tuning_type = ArabicTemp;
       Tuning_QueryTemp(1);
       break;
     case 7:		// custom tuning
-      puts("Custom tuning selected");
+      state_table->tuning_type = CustomTemp;
       break;
   }	// end Switch
   state_table->tuning_modified = false;
 }	// end slotTuning_TempButtons
+
 void JVlibForm::Tuning_QueryTemp(int val) {
   // fill Tuning_currentTuning from database
   // and call Tuning_setScaleTuning to update displays, which will update the synth
@@ -187,6 +195,7 @@ void JVlibForm::Tuning_QueryTemp(int val) {
   query.finish();
   Tuning_setScaleTuning(Tuning_BaseKey_select->currentIndex());
 }	// end Tuning_QueryTemp
+
 void JVlibForm::Tuning_setScaleTuning(int val) {
   // set individual scale note tunings from the QByteArray Tuning_currentTuning
   // uses val = Tuning_BaseKey_select->currentIndex()

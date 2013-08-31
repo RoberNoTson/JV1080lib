@@ -5,6 +5,7 @@ General
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
+  - when starting in Patch Mode, get error message "setWaveChooser did not find InstrFamily keyboards"
 
 Menu
   - standalone/offline mode with all tabs functional
@@ -90,7 +91,8 @@ config
 
 save_dialog
 07/30/2013  - create standalone header, remove definition from JVLibForm.h
+08/30/2013  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.
   - create missing functions
-  - cursor should initially be in the Name edit field
+  - auto-fill Name field with suggested name when radio button is clicked
   - connect something to the Help button
-  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.
+
