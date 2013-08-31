@@ -262,6 +262,25 @@ void Save_Dialog::on_Save_System_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   ui->Save_PerfNumber_select->setEnabled(val);
   if (!val) return;
+  unsigned char buf[16];
+  char r_name[12];
+  char       user1_perf_common[]={ 0x10,0x00,0x00,0x00 };  
+  char    perf_name_size[] = { 0x00,0x00,0x00,0x0C };
+  // get the Patch name from the JV
+  memset(buf,0,sizeof(buf));
+  buf[4] = JV_REQ;
+  memcpy(buf+5,user1_perf_common,4);
+  buf[6] = ui->Save_PerfNumber_select->value() - 1;
+  memcpy(buf+9,perf_name_size,4);
+  buf[13] = JVlibForm::chksum(buf+5,8);
+  buf[14] = 0xF7;
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)perf_name_size);
+  JVlibForm::close_ports();
+  // fill out the Name field
+  QString d_name = "User "+QString::number(ui->Save_PerfNumber_select->value())+" "+QString::fromAscii(r_name,12);
+  ui->Save_Name_edit->setText(d_name);  
 }	// end on_Save_UserPerformance_button_toggled
 
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
