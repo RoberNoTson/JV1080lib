@@ -267,6 +267,25 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
   ui->Save_PatchNumber_select->setEnabled(val);
   if (!val) return;
+  unsigned char buf[16];
+  char r_name[12];
+  char       user1_patch_common[]={ 0x11,0x00,0x00,0x00 };  
+  char    patch_name_size[] = { 0x00,0x00,0x00,0x0C };
+  // get the Patch name from the JV
+  memset(buf,0,sizeof(buf));
+  buf[4] = JV_REQ;
+  memcpy(buf+5,user1_patch_common,4);
+  buf[6] = ui->Save_PatchNumber_select->value() - 1;
+  memcpy(buf+9,patch_name_size,4);
+  buf[13] = JVlibForm::chksum(buf+5,8);
+  buf[14] = 0xF7;
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
+  JVlibForm::close_ports();
+  // fill out the Name field
+  QString d_name = "User "+QString::number(ui->Save_PatchNumber_select->value())+" "+QString::fromAscii(r_name,12);
+  ui->Save_Name_edit->setText(d_name);  
 }	// end on_Save_UserPatch_button_toggled
 
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
@@ -275,20 +294,21 @@ void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
   unsigned char buf[16];
   char r_name[12];
   char       user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };  
-  char    rhythm_common_size[] = { 0x0,0x0,0x0,0x0C };
-
+  char    rhythm_name_size[] = { 0x0,0x0,0x0,0x0C };
+  // get the Rhythmset name from the JV
   memset(buf,0,sizeof(buf));
   buf[4] = JV_REQ;
   memcpy(buf+5,user1_rhythm_common,4);
   if (ui->Save_RhythmNumber_select->value()==2)
     buf[6] = 0x41;
-  memcpy(buf+9,rhythm_common_size,4);
+  memcpy(buf+9,rhythm_name_size,4);
   buf[13] = JVlibForm::chksum(buf+5,8);
   buf[14] = 0xF7;
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   JVlibForm::sysex_send(buf,15);
-  JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)rhythm_common_size);
+  JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)rhythm_name_size);
   JVlibForm::close_ports();
+  // fill out the Name field
   QString d_name = "User "+QString::number(ui->Save_RhythmNumber_select->value())+" "+QString::fromAscii(r_name,12);
   ui->Save_Name_edit->setText(d_name);
 }	// end on_Save_UserRhythm_button_toggled
