@@ -29,8 +29,9 @@ private slots:
   void on_Save_UserPerformance_button_toggled(bool);
   void on_Save_UserPatch_button_toggled(bool);
   void on_Save_UserRhythm_button_toggled(bool);
-  void on_Save_UserDump_button_toggled(bool);
+  void on_Save_ReceiveUserDump_button_toggled(bool);
   void on_Save_PerfPatch_All_select_toggled(bool);
+  void on_Save_All_button_toggled(bool);
   void on_Save_RhythmNumber_select_valueChanged();
   void on_Save_PatchNumber_select_valueChanged();
   void on_Save_PerfNumber_select_valueChanged();

@@ -17,6 +17,8 @@
 //	on_Save_RhythmNumber_select_valueChanged()
 //	on_Save_PatchNumber_select_valueChanged()
 //	on_Save_PerfNumber_select_valueChanged()
+//	on_Save_All_button_toggled()
+//	on_Save_ReceiveUserDump_button_toggled()
 
 #include	"save_dialog/Save_Dialog.h"
 #include	"ui_Save_Dialog.h"
@@ -332,13 +334,37 @@ void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
   ui->Save_Name_edit->setText(d_name);
 }	// end on_Save_UserRhythm_button_toggled
 
-void Save_Dialog::on_Save_UserDump_button_toggled(bool val) {
-  if (!val) return;
-  QString buf = "User_Dump "+QDate::currentDate().toString(Qt::ISODate);
+void Save_Dialog::on_Save_ReceiveUserDump_button_toggled(bool val) {
+  if (!val) {
+    return;
+  }
+  ui->Save_Name_edit->setText("Full User Dump");
+}
+
+void Save_Dialog::on_Save_All_button_toggled(bool val) {
+  if (!val) {
+    if (ui->Save_UserRhythm_button->isChecked()) on_Save_UserRhythm_button_toggled(true);
+    if (ui->Save_UserPatch_button->isChecked()) on_Save_UserPatch_button_toggled(true);
+    if (ui->Save_UserPerformance_button->isChecked()) on_Save_UserPerformance_button_toggled(true);
+    return;
+  }
+  QString buf = "User ";
+  // save all User entries for Perf, Patch or Rhythm
+  if (ui->Save_UserRhythm_button->isChecked()) {
+    ui->Save_RhythmNumber_select->setEnabled(false);
+    buf += "Rhythm";
+  }
+  if (ui->Save_UserPatch_button->isChecked()) {
+    ui->Save_PatchNumber_select->setEnabled(false);
+    buf += "Patch";
+  }
+  if (ui->Save_UserPerformance_button->isChecked()) {
+    ui->Save_PerfNumber_select->setEnabled(false);
+    buf += "Performance";
+  }
+  buf += " Dump "+QDate::currentDate().toString(Qt::ISODate);
   ui->Save_Name_edit->setText(buf);
-  // download data to temp file
-  // save temp file to database
-}	// end on_Save_UserDump_button_toggled
+}	// end on_Save_All_button_toggled
 
 void Save_Dialog::on_Save_RhythmNumber_select_valueChanged() {
   on_Save_UserRhythm_button_toggled(true);
@@ -418,13 +444,12 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
 //    ptr = NULL;	// NOTE: tbd
 //    db_insert_data(table_name, ptr, sz);
   }
-  if (ui->Save_UserDump_button->isChecked()) {
+  if (ui->Save_ReceiveUserDump_button->isChecked()) {
+    // save all entries of User Performance, Patch or Rhythm
 //    table_name = "Dumps";
 //    sz = 0;	// NOTE: tbd
 //    ptr = NULL;	// NOTE: tbd
 //    db_insert_data(table_name, ptr, sz);
-  // download data to temp file
-  // save temp file to database
   }
   this->close();
 }	// end on_Save_buttonBox_accepted
