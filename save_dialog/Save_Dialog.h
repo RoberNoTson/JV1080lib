@@ -41,5 +41,7 @@ private:
   int db_insert_data(QString, char *, int, int=0);
   void save_current_perf();
   int SaveUserRhythm();
+  int SaveUserPatch();
+  void clearPartLabels();
 };
 #endif	// SAVE_DIALOG_H
