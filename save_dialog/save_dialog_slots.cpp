@@ -718,20 +718,17 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     db_insert_data(table_name, ptr, sz);
   }
   if (ui->Save_UserRhythm_button->isChecked()) {
-    SaveUserRhythm();
+    SaveUserRhythm(ui->Save_RhythmNumber_select->value());
   }
   if (ui->Save_UserPatch_button->isChecked()) {
-    SaveUserPatch();
+    SaveUserPatch(ui->Save_PatchNumber_select->value());
+  }
+  if (ui->Save_UserPerformance_button->isChecked()) {
+    SaveUserPerf();
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
 //    if (JVlibForm::Tuning_CustomTemp_button->isChecked()==false) return;
 //    table_name = "Tuning";
-//    sz = 0;	// NOTE: tbd
-//    ptr = NULL;	// NOTE: tbd
-//    db_insert_data(table_name, ptr, sz);
-  }
-  if (ui->Save_UserPerformance_button->isChecked()) {
-//    table_name = "Performances";
 //    sz = 0;	// NOTE: tbd
 //    ptr = NULL;	// NOTE: tbd
 //    db_insert_data(table_name, ptr, sz);

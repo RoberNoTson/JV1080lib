@@ -40,8 +40,9 @@ private:
   Ui::Save_Dialog *ui;
   int db_insert_data(QString, char *, int, int=0);
   void save_current_perf();
-  int SaveUserRhythm();
-  int SaveUserPatch();
+  int SaveUserRhythm(int);
+  int SaveUserPatch(int,int=0);
+  int SaveUserPerf();
   void clearPartLabels();
 };
 #endif	// SAVE_DIALOG_H
