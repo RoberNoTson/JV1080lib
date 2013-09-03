@@ -30,7 +30,7 @@ private slots:
   void on_Save_UserPatch_button_toggled(bool);
   void on_Save_UserRhythm_button_toggled(bool);
   void on_Save_ReceiveUserDump_button_toggled(bool);
-  void on_Save_PerfPatch_All_select_toggled(bool);
+  void on_Save_PerfPart_All_select_toggled(bool);
   void on_Save_All_button_toggled(bool);
   void on_Save_RhythmNumber_select_valueChanged();
   void on_Save_PatchNumber_select_valueChanged();
@@ -40,7 +40,7 @@ private:
   Ui::Save_Dialog *ui;
   int db_insert_data(QString, char *, int, int=0);
   void save_current_perf();
-  int SaveUserRhythm(int);
+  int SaveUserRhythm(int,int=0);
   int SaveUserPatch(int,int=0);
   int SaveUserPerf();
   void clearPartLabels();

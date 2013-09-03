@@ -2,7 +2,7 @@
 // Create and display a valid Name for the selected option.
 // Contains:
 //	on_Save_System_button_toggled()
-//	on_Save_PerfPatch_All_select_toggled()
+//	on_Save_PerfPart_All_select_toggled()
 //	on_Save_CurrentPerformance_button_toggled()
 //	on_Save_CurrentPatch_button_toggled()
 //	on_Save_CurrentRhythm_button_toggled()
@@ -27,28 +27,28 @@
 #include	<QtSql>
 //#include        "ui_JVlib.h"
 
-void Save_Dialog::on_Save_PerfPatch_All_select_toggled(bool val) {
-  ui->Save_PerfPatch_1_select->setChecked(val && ui->Save_PerfPatch_1_select->isEnabled());
-  ui->Save_PerfPatch_2_select->setChecked(val && ui->Save_PerfPatch_2_select->isEnabled());
-  ui->Save_PerfPatch_3_select->setChecked(val && ui->Save_PerfPatch_3_select->isEnabled());
-  ui->Save_PerfPatch_4_select->setChecked(val && ui->Save_PerfPatch_4_select->isEnabled());
-  ui->Save_PerfPatch_5_select->setChecked(val && ui->Save_PerfPatch_5_select->isEnabled());
-  ui->Save_PerfPatch_6_select->setChecked(val && ui->Save_PerfPatch_6_select->isEnabled());
-  ui->Save_PerfPatch_7_select->setChecked(val && ui->Save_PerfPatch_7_select->isEnabled());
-  ui->Save_PerfPatch_8_select->setChecked(val && ui->Save_PerfPatch_8_select->isEnabled());
-  ui->Save_PerfPatch_9_select->setChecked(val && ui->Save_PerfPatch_9_select->isEnabled());
-  ui->Save_PerfPatch_10_select->setChecked(val && ui->Save_PerfPatch_10_select->isEnabled());
-  ui->Save_PerfPatch_11_select->setChecked(val && ui->Save_PerfPatch_11_select->isEnabled());
-  ui->Save_PerfPatch_12_select->setChecked(val && ui->Save_PerfPatch_12_select->isEnabled());
-  ui->Save_PerfPatch_13_select->setChecked(val && ui->Save_PerfPatch_13_select->isEnabled());
-  ui->Save_PerfPatch_14_select->setChecked(val && ui->Save_PerfPatch_14_select->isEnabled());
-  ui->Save_PerfPatch_15_select->setChecked(val && ui->Save_PerfPatch_15_select->isEnabled());
-  ui->Save_PerfPatch_16_select->setChecked(val && ui->Save_PerfPatch_16_select->isEnabled());
+void Save_Dialog::on_Save_PerfPart_All_select_toggled(bool val) {
+  ui->Save_PerfPart_1_select->setChecked(val && ui->Save_PerfPart_1_select->isEnabled());
+  ui->Save_PerfPart_2_select->setChecked(val && ui->Save_PerfPart_2_select->isEnabled());
+  ui->Save_PerfPart_3_select->setChecked(val && ui->Save_PerfPart_3_select->isEnabled());
+  ui->Save_PerfPart_4_select->setChecked(val && ui->Save_PerfPart_4_select->isEnabled());
+  ui->Save_PerfPart_5_select->setChecked(val && ui->Save_PerfPart_5_select->isEnabled());
+  ui->Save_PerfPart_6_select->setChecked(val && ui->Save_PerfPart_6_select->isEnabled());
+  ui->Save_PerfPart_7_select->setChecked(val && ui->Save_PerfPart_7_select->isEnabled());
+  ui->Save_PerfPart_8_select->setChecked(val && ui->Save_PerfPart_8_select->isEnabled());
+  ui->Save_PerfPart_9_select->setChecked(val && ui->Save_PerfPart_9_select->isEnabled());
+  ui->Save_PerfPart_10_select->setChecked(val && ui->Save_PerfPart_10_select->isEnabled());
+  ui->Save_PerfPart_11_select->setChecked(val && ui->Save_PerfPart_11_select->isEnabled());
+  ui->Save_PerfPart_12_select->setChecked(val && ui->Save_PerfPart_12_select->isEnabled());
+  ui->Save_PerfPart_13_select->setChecked(val && ui->Save_PerfPart_13_select->isEnabled());
+  ui->Save_PerfPart_14_select->setChecked(val && ui->Save_PerfPart_14_select->isEnabled());
+  ui->Save_PerfPart_15_select->setChecked(val && ui->Save_PerfPart_15_select->isEnabled());
+  ui->Save_PerfPart_16_select->setChecked(val && ui->Save_PerfPart_16_select->isEnabled());
 }
 
 void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
   clearPartLabels();
-  ui->Save_PerfPatch_box->setEnabled(val);
+  ui->Save_PerfPart_box->setEnabled(val);
   if (!val) return;
   // create valid Name and fill in the Name_edit field
   QString buf;
@@ -69,114 +69,114 @@ void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
   ui->Save_Name_edit->setText(buf);
   
   // enable checkbox if the Part is a User Patch
-  ui->Save_PerfPatch_1_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[0].patch_group_id==1);
-  ui->Save_PerfPatch_2_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[1].patch_group_id==1);
-  ui->Save_PerfPatch_3_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[2].patch_group_id==1);
-  ui->Save_PerfPatch_4_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[3].patch_group_id==1);
-  ui->Save_PerfPatch_5_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[4].patch_group_id==1);
-  ui->Save_PerfPatch_6_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[5].patch_group_id==1);
-  ui->Save_PerfPatch_7_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[6].patch_group_id==1);
-  ui->Save_PerfPatch_8_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[7].patch_group_id==1);
-  ui->Save_PerfPatch_9_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[8].patch_group_id==1);
-  ui->Save_PerfPatch_10_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[9].patch_group_id==1);
-  ui->Save_PerfPatch_11_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[10].patch_group_id==1);
-  ui->Save_PerfPatch_12_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[11].patch_group_id==1);
-  ui->Save_PerfPatch_13_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[12].patch_group_id==1);
-  ui->Save_PerfPatch_14_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[13].patch_group_id==1);
-  ui->Save_PerfPatch_15_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[14].patch_group_id==1);
-  ui->Save_PerfPatch_16_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[15].patch_group_id==1);
+  ui->Save_PerfPart_1_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[0].patch_group_id==1);
+  ui->Save_PerfPart_2_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[1].patch_group_id==1);
+  ui->Save_PerfPart_3_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[2].patch_group_id==1);
+  ui->Save_PerfPart_4_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[3].patch_group_id==1);
+  ui->Save_PerfPart_5_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[4].patch_group_id==1);
+  ui->Save_PerfPart_6_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[5].patch_group_id==1);
+  ui->Save_PerfPart_7_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[6].patch_group_id==1);
+  ui->Save_PerfPart_8_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[7].patch_group_id==1);
+  ui->Save_PerfPart_9_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[8].patch_group_id==1);
+  ui->Save_PerfPart_10_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[9].patch_group_id==1);
+  ui->Save_PerfPart_11_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[10].patch_group_id==1);
+  ui->Save_PerfPart_12_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[11].patch_group_id==1);
+  ui->Save_PerfPart_13_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[12].patch_group_id==1);
+  ui->Save_PerfPart_14_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[13].patch_group_id==1);
+  ui->Save_PerfPart_15_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[14].patch_group_id==1);
+  ui->Save_PerfPart_16_select->setEnabled(JVlibForm::active_area->active_performance.perf_part[15].patch_group_id==1);
   // fill in the User Patch numbers/names
-  if (ui->Save_PerfPatch_1_select->isEnabled()) {
+  if (ui->Save_PerfPart_1_select->isEnabled()) {
       ui->Save_Part_1_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[0].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[0].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[0].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_2_select->isEnabled()) {
+  if (ui->Save_PerfPart_2_select->isEnabled()) {
       ui->Save_Part_2_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[1].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[1].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[1].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_3_select->isEnabled()) {
+  if (ui->Save_PerfPart_3_select->isEnabled()) {
       ui->Save_Part_3_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[2].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[2].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[2].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_4_select->isEnabled()) {
+  if (ui->Save_PerfPart_4_select->isEnabled()) {
       ui->Save_Part_4_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[3].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[3].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[3].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_5_select->isEnabled()) {
+  if (ui->Save_PerfPart_5_select->isEnabled()) {
       ui->Save_Part_5_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[4].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[4].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[4].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_6_select->isEnabled()) {
+  if (ui->Save_PerfPart_6_select->isEnabled()) {
       ui->Save_Part_6_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[5].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[5].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[5].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_7_select->isEnabled()) {
+  if (ui->Save_PerfPart_7_select->isEnabled()) {
       ui->Save_Part_7_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[6].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[6].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[6].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_8_select->isEnabled()) {
+  if (ui->Save_PerfPart_8_select->isEnabled()) {
       ui->Save_Part_8_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[7].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[7].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[7].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_9_select->isEnabled()) {
+  if (ui->Save_PerfPart_9_select->isEnabled()) {
       ui->Save_Part_9_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[8].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[8].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[8].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_10_select->isEnabled()) {
+  if (ui->Save_PerfPart_10_select->isEnabled()) {
       ui->Save_Part_10_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[9].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[9].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[9].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_11_select->isEnabled()) {
+  if (ui->Save_PerfPart_11_select->isEnabled()) {
       ui->Save_Part_11_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[10].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[10].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[10].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_12_select->isEnabled()) {
+  if (ui->Save_PerfPart_12_select->isEnabled()) {
       ui->Save_Part_12_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[11].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[11].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[11].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_13_select->isEnabled()) {
+  if (ui->Save_PerfPart_13_select->isEnabled()) {
       ui->Save_Part_13_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[12].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[12].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[12].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_14_select->isEnabled()) {
+  if (ui->Save_PerfPart_14_select->isEnabled()) {
       ui->Save_Part_14_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[13].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[13].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[13].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_15_select->isEnabled()) {
+  if (ui->Save_PerfPart_15_select->isEnabled()) {
       ui->Save_Part_15_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[14].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[14].patch_num_low+1).rightJustified(3) +
       QString::fromAscii(&JVlibForm::active_area->active_perf_patch[14].patch_common.name[0],12).rightJustified(15));
   }
-  if (ui->Save_PerfPatch_16_select->isEnabled()) {
+  if (ui->Save_PerfPart_16_select->isEnabled()) {
       ui->Save_Part_16_data->setText("User "+
       QString::number((JVlibForm::active_area->active_performance.perf_part[15].patch_num_high*16)+
       JVlibForm::active_area->active_performance.perf_part[15].patch_num_low+1).rightJustified(3) +
@@ -266,7 +266,7 @@ void Save_Dialog::on_Save_System_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   clearPartLabels();
   ui->Save_PerfNumber_select->setEnabled(val);
-  ui->Save_PerfPatch_box->setEnabled(val);
+  ui->Save_PerfPart_box->setEnabled(val);
   if (!val) return;
   this->setCursor(Qt::WaitCursor);
   unsigned char buf[16];
@@ -301,74 +301,74 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     bool valUser = (r_name[0]) && (r_name[3]==1);
     switch(x) {
 	case 0:
-	  ui->Save_PerfPatch_1_select->setEnabled(valUser);
+	  ui->Save_PerfPart_1_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_1_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 1:
-	  ui->Save_PerfPatch_2_select->setEnabled(valUser);
+	  ui->Save_PerfPart_2_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_2_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 2:
-	  ui->Save_PerfPatch_3_select->setEnabled(valUser);
+	  ui->Save_PerfPart_3_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_3_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 3:
-	  ui->Save_PerfPatch_4_select->setEnabled(valUser);
+	  ui->Save_PerfPart_4_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_4_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 4:
-	  ui->Save_PerfPatch_5_select->setEnabled(valUser);
+	  ui->Save_PerfPart_5_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_5_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 5:
-	  ui->Save_PerfPatch_6_select->setEnabled(valUser);
+	  ui->Save_PerfPart_6_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_6_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 6:
-	  ui->Save_PerfPatch_7_select->setEnabled(valUser);
+	  ui->Save_PerfPart_7_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_7_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 7:
-	  ui->Save_PerfPatch_8_select->setEnabled(valUser);
+	  ui->Save_PerfPart_8_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_8_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 8:
-	  ui->Save_PerfPatch_9_select->setEnabled(valUser);
+	  ui->Save_PerfPart_9_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_9_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 9:
-	  ui->Save_PerfPatch_10_select->setEnabled(valUser);
+	  ui->Save_PerfPart_10_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_10_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 10:
-	  ui->Save_PerfPatch_11_select->setEnabled(valUser);
+	  ui->Save_PerfPart_11_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_11_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 11:
-	  ui->Save_PerfPatch_12_select->setEnabled(valUser);
+	  ui->Save_PerfPart_12_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_12_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 12:
-	  ui->Save_PerfPatch_13_select->setEnabled(valUser);
+	  ui->Save_PerfPart_13_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_13_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 13:
-	  ui->Save_PerfPatch_14_select->setEnabled(valUser);
+	  ui->Save_PerfPart_14_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_14_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 14:
-	  ui->Save_PerfPatch_15_select->setEnabled(valUser);
+	  ui->Save_PerfPart_15_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_15_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
 	case 15:
-	  ui->Save_PerfPatch_16_select->setEnabled(valUser);
+	  ui->Save_PerfPart_16_select->setEnabled(valUser);
 	  if (valUser) ui->Save_Part_16_data->setText("User "+QString::number(r_name[5]+1).rightJustified(3));
 	  break;
       }	// end switch
   }	// end FOR
   // all User Patch checkboxes are enabled,
   // get Patch name for User parts
-  if (ui->Save_PerfPatch_1_select->isEnabled()) {
+  if (ui->Save_PerfPart_1_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_1_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -381,7 +381,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_1_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_1_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_2_select->isEnabled()) {
+  if (ui->Save_PerfPart_2_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_2_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -394,7 +394,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_2_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_2_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_3_select->isEnabled()) {
+  if (ui->Save_PerfPart_3_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_3_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -407,7 +407,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_3_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_3_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_4_select->isEnabled()) {
+  if (ui->Save_PerfPart_4_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_4_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -420,7 +420,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_4_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_4_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_5_select->isEnabled()) {
+  if (ui->Save_PerfPart_5_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_5_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -433,7 +433,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_5_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_5_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_6_select->isEnabled()) {
+  if (ui->Save_PerfPart_6_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_6_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -446,7 +446,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_6_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_6_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_7_select->isEnabled()) {
+  if (ui->Save_PerfPart_7_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_7_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -459,7 +459,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_7_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_7_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_8_select->isEnabled()) {
+  if (ui->Save_PerfPart_8_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_8_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -472,7 +472,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_8_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_8_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_9_select->isEnabled()) {
+  if (ui->Save_PerfPart_9_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_9_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -485,7 +485,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_9_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_9_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_11_select->isEnabled()) {
+  if (ui->Save_PerfPart_11_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_11_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -498,7 +498,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_11_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_11_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_12_select->isEnabled()) {
+  if (ui->Save_PerfPart_12_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_12_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -511,7 +511,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_12_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_12_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_13_select->isEnabled()) {
+  if (ui->Save_PerfPart_13_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_13_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -524,7 +524,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_13_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_13_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_14_select->isEnabled()) {
+  if (ui->Save_PerfPart_14_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_14_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -537,7 +537,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_14_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_14_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_15_select->isEnabled()) {
+  if (ui->Save_PerfPart_15_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_15_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -550,7 +550,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_15_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_15_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_16_select->isEnabled()) {
+  if (ui->Save_PerfPart_16_select->isEnabled()) {
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_16_data->text().right(3).toInt() - 1;
     buf[4] = JV_REQ;
@@ -563,7 +563,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
     QString t_text = ui->Save_Part_16_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_16_data->setText(t_text);
   }
-  if (ui->Save_PerfPatch_10_select->isEnabled()) {	// Rhythm set
+  if (ui->Save_PerfPart_10_select->isEnabled()) {	// Rhythm set
     memset(buf,0,sizeof(buf));
     buf[6] = ui->Save_Part_10_data->text().right(3).toInt() + 0x3F;
     buf[4] = JV_REQ;

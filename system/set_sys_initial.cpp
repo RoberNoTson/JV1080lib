@@ -28,7 +28,9 @@ void JVlibForm::setSystemParms() {
   SysHoldControl_select->setCurrentIndex(system_area->sys_common.hold_control_source);
   SysPeakControl_select->setCurrentIndex(system_area->sys_common.peak_control_source);
   SysAftertouchControl_select->setCurrentIndex(system_area->sys_common.aftertouch_control_source);
+  SysMode_select->blockSignals(true);
   SysMode_select->setCurrentIndex(system_area->sys_common.panel_mode);
+  SysMode_select->blockSignals(false);
   SysControlChg1Number_select->setValue(system_area->sys_common.sys_control_source_1);
   SysControlChg2Number_select->setValue(system_area->sys_common.sys_control_source_2);
   SysPatchRecvChannel_select->setValue(system_area->sys_common.patch_receive_channel+1);

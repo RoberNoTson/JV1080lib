@@ -2,10 +2,11 @@ General
 07/26/2013  - initialize part_sync entries in state_table
 07/30/2013  - Configuration dialog function
 08/21/2013  - implement GM (General Midi) functions
+09/03/2013  - when starting in Patch Mode, get error message "setWaveChooser did not find InstrFamily keyboards"
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
-  - when starting in Patch Mode, get error message "setWaveChooser did not find InstrFamily keyboards"
+  - change cursor to "Wait" wherever ProgressBox is displayed
 
 Menu
   - standalone/offline mode with all tabs functional
@@ -48,6 +49,7 @@ Patch_tab
 07/26/2013  - update Patch group, number and name to match Part# values when PerfPartNum is scrolled
 08/21/2013  - turn off Patch Sync light when a different Part tab Part# patch is selected
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change cursor to Wait when Sync pressed
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
@@ -92,7 +94,7 @@ config
 save_dialog
 07/30/2013  - create standalone header, remove definition from JVLibForm.h
 08/30/2013  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.
+09/03/2013  - auto-fill Name field with suggested name when radio button is clicked
   - create missing functions
-  - auto-fill Name field with suggested name when radio button is clicked
   - connect something to the Help button
 

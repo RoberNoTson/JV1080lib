@@ -628,7 +628,7 @@ void JVlibForm::getPort() {
   if (x == -1) {
     state_table->jv_connect = false;
   } else {
-    PortBox->setCurrentIndex(x);
+    PortBox->setCurrentIndex(x);	// NOTE: this will trigger the System Sync button
     state_table->jv_connect = true;
   }
 }	// end get_port()

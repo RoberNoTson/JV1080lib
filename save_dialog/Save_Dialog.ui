@@ -434,7 +434,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="Save_PerfPatch_box">
+  <widget class="QGroupBox" name="Save_PerfPart_box">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -449,7 +449,7 @@
    <property name="title">
     <string>User Performance Patches to Save</string>
    </property>
-   <widget class="QCheckBox" name="Save_PerfPatch_1_select">
+   <widget class="QCheckBox" name="Save_PerfPart_1_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -462,7 +462,7 @@
      <string>Part 1</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_2_select">
+   <widget class="QCheckBox" name="Save_PerfPart_2_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -475,7 +475,7 @@
      <string>Part 2</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_3_select">
+   <widget class="QCheckBox" name="Save_PerfPart_3_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -488,7 +488,7 @@
      <string>Part 3</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_4_select">
+   <widget class="QCheckBox" name="Save_PerfPart_4_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -501,7 +501,7 @@
      <string>Part 4</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_5_select">
+   <widget class="QCheckBox" name="Save_PerfPart_5_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -514,7 +514,7 @@
      <string>Part 5</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_6_select">
+   <widget class="QCheckBox" name="Save_PerfPart_6_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -527,7 +527,7 @@
      <string>Part 6</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_7_select">
+   <widget class="QCheckBox" name="Save_PerfPart_7_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -540,7 +540,7 @@
      <string>Part 7</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_8_select">
+   <widget class="QCheckBox" name="Save_PerfPart_8_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -553,7 +553,7 @@
      <string>Part 8</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_15_select">
+   <widget class="QCheckBox" name="Save_PerfPart_15_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -566,7 +566,7 @@
      <string>Part 15</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_10_select">
+   <widget class="QCheckBox" name="Save_PerfPart_10_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -579,7 +579,7 @@
      <string>Part 10</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_16_select">
+   <widget class="QCheckBox" name="Save_PerfPart_16_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -592,7 +592,7 @@
      <string>Part 16</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_11_select">
+   <widget class="QCheckBox" name="Save_PerfPart_11_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -605,7 +605,7 @@
      <string>Part 11</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_14_select">
+   <widget class="QCheckBox" name="Save_PerfPart_14_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -618,7 +618,7 @@
      <string>Part 14</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_9_select">
+   <widget class="QCheckBox" name="Save_PerfPart_9_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -631,7 +631,7 @@
      <string>Part 9</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_13_select">
+   <widget class="QCheckBox" name="Save_PerfPart_13_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -644,7 +644,7 @@
      <string>Part 13</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_12_select">
+   <widget class="QCheckBox" name="Save_PerfPart_12_select">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -657,7 +657,7 @@
      <string>Part 12</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="Save_PerfPatch_All_select">
+   <widget class="QCheckBox" name="Save_PerfPart_All_select">
     <property name="geometry">
      <rect>
       <x>30</x>
