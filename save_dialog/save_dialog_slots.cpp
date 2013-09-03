@@ -50,6 +50,7 @@ void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
   clearPartLabels();
   ui->Save_PerfPart_box->setEnabled(val);
   if (!val) return;
+  ui->Save_All_button->setEnabled(false);
   // create valid Name and fill in the Name_edit field
   QString buf;
   // fill in the Name box
@@ -186,6 +187,7 @@ void Save_Dialog::on_Save_CurrentPerformance_button_toggled(bool val) {
 
 void Save_Dialog::on_Save_CurrentPatch_button_toggled(bool val) {
   if (!val) return;
+  ui->Save_All_button->setEnabled(false);
   QString buf;
   switch(JVlibForm::system_area->sys_common.patch_group_id) {
     case 0x01:  // User
@@ -220,6 +222,7 @@ void Save_Dialog::on_Save_CurrentPatch_button_toggled(bool val) {
 
 void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
   if (!val) return;
+  ui->Save_All_button->setEnabled(false);
   QString buf;
   switch (JVlibForm::active_area->active_performance.perf_part[9].patch_group_id) {
       case 0x01:  // User
@@ -254,11 +257,13 @@ void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
 
 void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
   if (!val) return;
+  ui->Save_All_button->setEnabled(false);
   ui->Save_Name_edit->setText("Tuning Custom Settings");
 }	// end on_Save_CurrentTuning_button_toggled
 
 void Save_Dialog::on_Save_System_button_toggled(bool val) {
   if (!val) return;
+  ui->Save_All_button->setEnabled(false);
   QString buf = "System_"+QDate::currentDate().toString(Qt::ISODate);
   ui->Save_Name_edit->setText(buf);
 }
@@ -268,6 +273,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   ui->Save_PerfNumber_select->setEnabled(val);
   ui->Save_PerfPart_box->setEnabled(val);
   if (!val) return;
+  ui->Save_All_button->setEnabled(true);
   this->setCursor(Qt::WaitCursor);
   unsigned char buf[16];
   char r_name[12];
@@ -583,6 +589,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
   ui->Save_PatchNumber_select->setEnabled(val);
   if (!val) return;
+  ui->Save_All_button->setEnabled(true);
   unsigned char buf[16];
   char r_name[12];
   char       user1_patch_common[]={ 0x11,0x00,0x00,0x00 };  
@@ -607,6 +614,7 @@ void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
   ui->Save_RhythmNumber_select->setEnabled(val);
   if (!val) return;
+  ui->Save_All_button->setEnabled(true);
   unsigned char buf[16];
   char r_name[12];
   char       user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };  
@@ -633,6 +641,7 @@ void Save_Dialog::on_Save_ReceiveUserDump_button_toggled(bool val) {
   if (!val) {
     return;
   }
+  ui->Save_All_button->setEnabled(false);
   ui->Save_Name_edit->setText("Full User Dump");
 }
 
