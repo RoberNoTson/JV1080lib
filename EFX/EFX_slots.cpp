@@ -123,69 +123,33 @@ void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
 // EFX OUTPUT
 void JVlibForm::on_PerfEFXoutput_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
-  if (sender() == PerfEFXoutput_select) {
     active_area->active_performance.perf_common.EFX_output = val;
     if (state_table->jv_connect) 
       setPerfSingleValue(addr_Perf_EFX_output ,val);
-  } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_output = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_output = val;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(addr_Patch_EFX_output,val);
-  } 
  }
 }
 // EFX OUTPUT LEVEL
 void JVlibForm::on_PerfEFXoutputLevel_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
- if (sender() == PerfEFXoutputLevel_select) {
   active_area->active_performance.perf_common.EFX_output_level = val;
   if (state_table->jv_connect) 
     setPerfSingleValue(addr_Perf_EFX_output_level,val);
- } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_output_level = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_output_level = val;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(addr_Patch_EFX_output_level,val);
-  }    
  } 
 }
 // EFX CHORUS SEND
 void JVlibForm::on_PerfEFXchorusSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
- if (sender() == PerfEFXchorusSend_select) {
   active_area->active_performance.perf_common.EFX_chorus_send_level = val;
   if (state_table->jv_connect) 
     setPerfSingleValue(addr_Perf_EFX_chorus_send_level,val);
- } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_chorus_send_level = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_chorus_send_level = val;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(addr_Patch_EFX_chorus_send_level,val);
-  }    
  } 
 }
 // EFX REVERB SEND
 void JVlibForm::on_PerfEFXreverbSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
- if (sender() == PerfEFXreverbSend_select) {
   active_area->active_performance.perf_common.EFX_reverb_send_level = val;
   if (state_table->jv_connect) 
     setPerfSingleValue(addr_Perf_EFX_reverb_send_level,val);
- } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_reverb_send_level = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_reverb_send_level = val;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(addr_Patch_EFX_reverb_send_level,val);
-  }     
  }
 }
 // EFX CONTROL 1 SOURCE
@@ -220,45 +184,49 @@ void JVlibForm::on_PerfControl2Depth_select_valueChanged(int val) {
     setPerfSingleValue(addr_Perf_EFX_control_depth_2,val+63);
  }	// end UPDATES_ENABLED
 }	// end on_PerfControl2Depth_select_valueChanged
+
 //---------------------------------------------------------------------------------------------------------------------
 // Individual Parm changes handled starting here, to set the memory values to the new displayed control value
 // The called process will update the display and the synth 
 // EFX Parms
 void JVlibForm::on_PerfEFXparm1_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 0;
   if (sender() == PerfEFXparm1_select) {
-    active_area->active_performance.perf_common.EFX_parameter[0] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[0] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[0] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_1();	// in EFXdisplayParm1.cpp
  }
 }
 void JVlibForm::on_PerfEFXparm2_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 1;
   if (sender() == PerfEFXparm2_select) {
-    active_area->active_performance.perf_common.EFX_parameter[1] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[1] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[1] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_2();
   }
 }
 void JVlibForm::on_PerfEFXparm3_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 2;
   if (sender() == PerfEFXparm3_select) {
-    active_area->active_performance.perf_common.EFX_parameter[2] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[2] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[2] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_3();
   }
@@ -266,13 +234,14 @@ void JVlibForm::on_PerfEFXparm3_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm4_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 3;
   if (sender() == PerfEFXparm4_select) {
-    active_area->active_performance.perf_common.EFX_parameter[3] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[3] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[3] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_4();
   }
@@ -280,13 +249,14 @@ void JVlibForm::on_PerfEFXparm4_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm5_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 4;
   if (sender() == PerfEFXparm5_select) {
-    active_area->active_performance.perf_common.EFX_parameter[4] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[4] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[4] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_5();
   }
@@ -294,13 +264,14 @@ void JVlibForm::on_PerfEFXparm5_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm6_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 5;
   if (sender() == PerfEFXparm6_select) {
-    active_area->active_performance.perf_common.EFX_parameter[5] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[5] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[5] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_6();
   }
@@ -308,13 +279,14 @@ void JVlibForm::on_PerfEFXparm6_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm7_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 6;
   if (sender() == PerfEFXparm7_select) {
-    active_area->active_performance.perf_common.EFX_parameter[6] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[6] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[6] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_7();
   }
@@ -322,13 +294,14 @@ void JVlibForm::on_PerfEFXparm7_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm8_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 7;
   if (sender() == PerfEFXparm8_select) {
-    active_area->active_performance.perf_common.EFX_parameter[7] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[7] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[7] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_8();
   }
@@ -336,13 +309,14 @@ void JVlibForm::on_PerfEFXparm8_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparm9_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 8;
   if (sender() == PerfEFXparm9_select) {
-    active_area->active_performance.perf_common.EFX_parameter[8] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[8] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[8] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_9();
   }
@@ -350,13 +324,14 @@ void JVlibForm::on_PerfEFXparm9_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparmA_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 9;
   if (sender() == PerfEFXparmA_select) {
-    active_area->active_performance.perf_common.EFX_parameter[9] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[9] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[9] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_A();
   }
@@ -364,13 +339,14 @@ void JVlibForm::on_PerfEFXparmA_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparmB_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 10;
   if (sender() == PerfEFXparmB_select) {
-    active_area->active_performance.perf_common.EFX_parameter[10] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[10] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[10] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_B();
   }
@@ -378,13 +354,14 @@ void JVlibForm::on_PerfEFXparmB_select_valueChanged(int val) {
 
 void JVlibForm::on_PerfEFXparmC_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
+  int pn = 11;
   if (sender() == PerfEFXparmC_select) {
-    active_area->active_performance.perf_common.EFX_parameter[11] = val;
+    active_area->active_performance.perf_common.EFX_parameter[pn] = val;
   } else {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_parameter[11] = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_parameter[pn] = val;
     else
-      active_area->active_patch_patch.patch_common.EFX_parameter[11] = val;
+      active_area->active_patch_patch.patch_common.EFX_parameter[pn] = val;
   }
   setEFXdisplayParm_C();
   }

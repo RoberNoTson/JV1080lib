@@ -711,7 +711,7 @@ void JVlibForm::on_Patch_ControlSource3_select_currentIndexChanged(int val) {
 void JVlibForm::on_Patch_VelocityRange_enable_toggled(bool val) {
   if (state_table->updates_enabled) {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.velocity_range = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.velocity_range = val;
     else
       active_area->active_patch_patch.patch_common.velocity_range = val;
   if (state_table->jv_connect) 
@@ -768,7 +768,7 @@ void JVlibForm::on_Patch_Tone4_enable_toggled(bool val) {
 void JVlibForm::on_PatchEFX_ReverbHiFreqDamp_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.reverb_HF_damp = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.reverb_HF_damp = val;
     else
       active_area->active_patch_patch.patch_common.reverb_HF_damp = val;
   if (state_table->jv_connect) 
@@ -778,7 +778,7 @@ void JVlibForm::on_PatchEFX_ReverbHiFreqDamp_select_currentIndexChanged(int val)
 void JVlibForm::on_PatchEFX_ReverbLevel_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.reverb_level = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.reverb_level = val;
     else
       active_area->active_patch_patch.patch_common.reverb_level = val;
   if (state_table->jv_connect) 
@@ -788,7 +788,7 @@ void JVlibForm::on_PatchEFX_ReverbLevel_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ReverbTime_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.reverb_time = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.reverb_time = val;
     else
       active_area->active_patch_patch.patch_common.reverb_time = val;
   if (state_table->jv_connect) 
@@ -799,7 +799,7 @@ void JVlibForm::on_PatchEFX_ReverbType_select_currentIndexChanged(int val) {
   PatchEFX_ReverbFeedback_select->setEnabled(PatchEFX_ReverbType_select->currentIndex()>5?true:false);  
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.reverb_type = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.reverb_type = val;
     else
       active_area->active_patch_patch.patch_common.reverb_type = val;
   if (state_table->jv_connect) 
@@ -809,7 +809,7 @@ void JVlibForm::on_PatchEFX_ReverbType_select_currentIndexChanged(int val) {
 void JVlibForm::on_PatchEFX_ReverbFeedback_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.reverb_feedback = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.reverb_feedback = val;
     else
       active_area->active_patch_patch.patch_common.reverb_feedback = val;
   if (state_table->jv_connect) 
@@ -819,7 +819,7 @@ void JVlibForm::on_PatchEFX_ReverbFeedback_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusLevel_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_level = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_level = val;
     else
       active_area->active_patch_patch.patch_common.chorus_level = val;
   if (state_table->jv_connect) 
@@ -829,7 +829,7 @@ void JVlibForm::on_PatchEFX_ChorusLevel_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusRate_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_rate = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_rate = val;
     else
       active_area->active_patch_patch.patch_common.chorus_rate = val;
   if (state_table->jv_connect) 
@@ -839,7 +839,7 @@ void JVlibForm::on_PatchEFX_ChorusRate_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusDepth_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_depth= val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_depth= val;
     else
       active_area->active_patch_patch.patch_common.chorus_depth = val;
   if (state_table->jv_connect) 
@@ -849,7 +849,7 @@ void JVlibForm::on_PatchEFX_ChorusDepth_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusPreDelay_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_pre_delay = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_pre_delay = val;
     else
       active_area->active_patch_patch.patch_common.chorus_pre_delay = val;
   if (state_table->jv_connect) 
@@ -859,7 +859,7 @@ void JVlibForm::on_PatchEFX_ChorusPreDelay_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusFeedback_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_feedback = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_feedback = val;
     else
       active_area->active_patch_patch.patch_common.chorus_feedback = val;
   if (state_table->jv_connect) 
@@ -869,7 +869,7 @@ void JVlibForm::on_PatchEFX_ChorusFeedback_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusOutput_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
   if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.chorus_output = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.chorus_output = val;
     else
       active_area->active_patch_patch.patch_common.chorus_output = val;
   if (state_table->jv_connect) 
@@ -1076,7 +1076,7 @@ void JVlibForm::on_PatchEFX_Output_select_currentIndexChanged(int val) {
 void JVlibForm::on_PatchEFX_OutputLevel_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_output_level = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_output_level = val;
     else
       active_area->active_patch_patch.patch_common.EFX_output_level = val;
     if (state_table->jv_connect) 
@@ -1087,7 +1087,7 @@ void JVlibForm::on_PatchEFX_OutputLevel_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ChorusSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_chorus_send_level = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_chorus_send_level = val;
     else
       active_area->active_patch_patch.patch_common.EFX_chorus_send_level = val;
     if (state_table->jv_connect) 
@@ -1098,7 +1098,7 @@ void JVlibForm::on_PatchEFX_ChorusSend_select_valueChanged(int val) {
 void JVlibForm::on_PatchEFX_ReverbSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
     if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_reverb_send_level = val;
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_reverb_send_level = val;
     else
       active_area->active_patch_patch.patch_common.EFX_reverb_send_level = val;
     if (state_table->jv_connect) 
