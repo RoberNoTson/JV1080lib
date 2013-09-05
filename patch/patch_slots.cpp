@@ -1059,4 +1059,49 @@ void JVlibForm::on_Patch_TestTone_switch_toggled(bool val) {
   }
   Patch_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Patch") );
   }
+}	// end on_Patch_TestTone_switch_toggled
+
+// EFX OUTPUT
+void JVlibForm::on_PatchEFX_Output_select_currentIndexChanged(int val) {
+ if (state_table->updates_enabled) {
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.EFX_output = val;
+    else
+      active_area->active_patch_patch.patch_common.EFX_output = val;
+    if (state_table->jv_connect) 
+      setPatchSingleValue(0x19,val);
+ }
 }
+// EFX OUTPUT LEVEL
+void JVlibForm::on_PatchEFX_OutputLevel_select_valueChanged(int val) {
+ if (state_table->updates_enabled) {
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_output_level = val;
+    else
+      active_area->active_patch_patch.patch_common.EFX_output_level = val;
+    if (state_table->jv_connect) 
+      setPatchSingleValue(0x1A,val);
+ } 
+}	// end on_PatchEFXoutputLevel_select_valueChanged
+// EFX CHORUS SEND
+void JVlibForm::on_PatchEFX_ChorusSend_select_valueChanged(int val) {
+ if (state_table->updates_enabled) {
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_chorus_send_level = val;
+    else
+      active_area->active_patch_patch.patch_common.EFX_chorus_send_level = val;
+    if (state_table->jv_connect) 
+      setPatchSingleValue(0x1B,val);
+ }
+}	// end on_PatchEFXchorusSend_select_valueChanged
+// EFX REVERB SEND
+void JVlibForm::on_PatchEFX_ReverbSend_select_valueChanged(int val) {
+ if (state_table->updates_enabled) {
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_reverb_send_level = val;
+    else
+      active_area->active_patch_patch.patch_common.EFX_reverb_send_level = val;
+    if (state_table->jv_connect) 
+      setPatchSingleValue(0x1C,val);
+ }
+}	// end on_PatchEFXreverbSend_select_valueChanged

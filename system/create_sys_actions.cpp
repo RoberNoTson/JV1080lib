@@ -17,10 +17,6 @@ void JVlibForm::createSysActions() {
   Tuning_currentTuning.fill(0x40, 12); 
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));
   connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));  
-  connect(JVlibForm::PatchEFX_ReverbSend_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXreverbSend_select_valueChanged(int)));
-  connect(JVlibForm::PatchEFX_ChorusSend_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXchorusSend_select_valueChanged(int)));
-  connect(JVlibForm::PatchEFX_OutputLevel_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXoutputLevel_select_valueChanged(int)));
-  connect(JVlibForm::PatchEFX_Output_select, SIGNAL(currentIndexChanged(int)), this, SLOT(on_PerfEFXoutput_select_currentIndexChanged(int)));
   connect(JVlibForm::PatchEFX_parm1_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm1_select_valueChanged(int)));
   connect(JVlibForm::PatchEFX_parm2_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm2_select_valueChanged(int)));
   connect(JVlibForm::PatchEFX_parm3_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm3_select_valueChanged(int)));

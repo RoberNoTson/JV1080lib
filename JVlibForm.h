@@ -442,10 +442,8 @@ private slots:
   void on_Part16_TestTone_switch_toggled(bool);
 
   // for EFX tab
-  void on_PatchEFX_TestTone_switch_toggled(bool);
   void on_PerfEFXsource_select_currentIndexChanged(int);
   void on_PerfEFXtype_select_currentIndexChanged(int);
-  void on_PatchEFX_Type_select_currentIndexChanged(int);
   void on_PerfEFXoutput_select_currentIndexChanged(int);
   void on_PerfEFXreverbSend_select_valueChanged(int);
   void on_PerfEFXchorusSend_select_valueChanged(int);
@@ -505,6 +503,8 @@ private slots:
   void on_Patch_SoloLegato_enable_toggled(bool);
   
   // for PatchEFX tab
+  void on_PatchEFX_TestTone_switch_toggled(bool);
+  void on_PatchEFX_Type_select_currentIndexChanged(int);
   void on_PatchEFX_ReverbHiFreqDamp_select_currentIndexChanged(int);
   void on_PatchEFX_ReverbLevel_select_valueChanged(int);
   void on_PatchEFX_ReverbTime_select_valueChanged(int);
@@ -520,6 +520,10 @@ private slots:
   void on_PatchEFX_Control2Source_select_currentIndexChanged(int);
   void on_PatchEFX_Control1Depth_select_valueChanged(int);
   void on_PatchEFX_Control2Depth_select_valueChanged(int);
+  void on_PatchEFX_Output_select_currentIndexChanged(int);
+  void on_PatchEFX_OutputLevel_select_valueChanged(int);
+  void on_PatchEFX_ChorusSend_select_valueChanged(int);
+  void on_PatchEFX_ReverbSend_select_valueChanged(int);
 
   // for Tone tab
   void on_Tone_TestTone_switch_toggled(bool);

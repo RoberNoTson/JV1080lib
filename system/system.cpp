@@ -1,9 +1,9 @@
 // system.cpp
-
 #include	"JVlibForm.h"
-#include	"system.h"
 #include	<QtGui>
 #include	<QDebug>
+
+char    name_size[] = { 0x0,0x0,0x0,0x0C };
 
 // Functions
 void JVlibForm::getSysPatchName() {

@@ -2,8 +2,7 @@
 
 #include        "JVlibForm.h"
 #include        <QtGui>
-#include        "EFX.h"
-#include	"EFX_slots.h"
+#include	"EFX/EFX_slots.h"
 
 // EFX SOURCE -- only Performance EFX has a Source selection
 void JVlibForm::on_PerfEFXsource_select_currentIndexChanged(int val) {
@@ -192,71 +191,35 @@ void JVlibForm::on_PerfEFXreverbSend_select_valueChanged(int val) {
 // EFX CONTROL 1 SOURCE
 void JVlibForm::on_PerfControlSource1_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
-  if (sender() == PerfControlSource1_select) {
     active_area->active_performance.perf_common.EFX_control_src_1 = val;
     if (state_table->jv_connect) 
       setPerfSingleValue(addr_Perf_EFX_control_src_1,val);
-  } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_control_src_1 = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_control_src_1 = val;
-    if (state_table->jv_connect)
-      setPatchSingleValue(addr_Patch_EFX_control_src_1,val);
-  } 
- }	// end UPDATES_ENABLED
+  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrolSource1
 // EFX CONTROL 1 DEPTH
 void JVlibForm::on_PerfControl1Depth_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
-  if (sender() == PerfControl1Depth_select) {
     active_area->active_performance.perf_common.EFX_control_depth_1 = val+63;
     if (state_table->jv_connect) 
       setPerfSingleValue(addr_Perf_EFX_control_depth_1,val+63);
-  } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_control_depth_1 = val+63;
-    else
-      active_area->active_patch_patch.patch_common.EFX_control_depth_1 = val+63;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(addr_Patch_EFX_control_depth_1,val+63);
-  }
  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrol1Depth
 // EFX CONTROL 2 SOURCE
 void JVlibForm::on_PerfControlSource2_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
-  if (sender() == PerfControlSource2_select) {
     active_area->active_performance.perf_common.EFX_control_src_2 = val;
     if (state_table->jv_connect) 
       setPerfSingleValue(addr_Perf_EFX_control_src_2,val);
-  } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_control_src_2 = val;
-    else
-      active_area->active_patch_patch.patch_common.EFX_control_src_2 = val;
-    if (state_table->jv_connect)
-      setPatchSingleValue(addr_Patch_EFX_control_src_2,val);
-  } 
  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrolSource2
 // EFX CONTROL 2 DEPTH
 void JVlibForm::on_PerfControl2Depth_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
-  if (sender() == PerfControl2Depth_select) {
     active_area->active_performance.perf_common.EFX_control_depth_2 = val+63;
   if (state_table->jv_connect) 
     setPerfSingleValue(addr_Perf_EFX_control_depth_2,val+63);
-  } else {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()].patch_common.EFX_control_depth_2 = val+63;
-    else
-      active_area->active_patch_patch.patch_common.EFX_control_depth_2 = val+63;
-  if (state_table->jv_connect) 
-    setPatchSingleValue(addr_Patch_EFX_control_depth_2,val+63);
-  }
- }
-}
+ }	// end UPDATES_ENABLED
+}	// end on_PerfControl2Depth_select_valueChanged
 //---------------------------------------------------------------------------------------------------------------------
 // Individual Parm changes handled starting here, to set the memory values to the new displayed control value
 // The called process will update the display and the synth 

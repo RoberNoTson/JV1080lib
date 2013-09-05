@@ -13,7 +13,6 @@ RESOURCES += JVlibForm.qrc
 HEADERS	+= JVlibForm.h \
 	JV-struct-defs.h \
 	State_Table.h \
-	system/system.h \
 	system/system_slots.h \
 	performance/performance.h \
 	performance/perf_slots.h \

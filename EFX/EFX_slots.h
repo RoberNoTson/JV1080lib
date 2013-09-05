@@ -1,6 +1,6 @@
 // EFX_slots.h
 #ifndef EFX_SLOTS_H
-#define EFX_SLOTS_H 1
+#define EFX_SLOTS_H
 
   char EFX_parm_size[] = { 0x0,0x0,0x0,0x0C };
   int addr_Perf_EFX_source = 0xC;             // C

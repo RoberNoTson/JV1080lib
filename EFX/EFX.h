@@ -1,6 +1,6 @@
 // EFX.h
 #ifndef EFX_H
-#define EFX_H 1
+#define EFX_H
 
 //  int addr_EFX_parameter = 0xE;      // E
 
