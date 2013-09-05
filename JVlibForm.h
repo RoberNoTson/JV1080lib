@@ -68,8 +68,10 @@ private slots:
   void initStateTable();
   
   // for System tab
-  void slotSysSetPerf();
-  void slotSysSetPatch();
+//  void slotSysSetPerf();
+//  void slotSysSetPatch();
+  void on_SysPerfSelect_currentIndexChanged();
+  void on_SysPatchSelect_currentIndexChanged();
   void slotSysSetPerformanceMode();
   void slotSysSetPatchMode();
   void slotSysSetGmMode();
@@ -441,29 +443,29 @@ private slots:
 
   // for EFX tab
   void on_PatchEFX_TestTone_switch_toggled(bool);
-  void slotPerfEFXsource(int);
-  void slotPerfEFXtype(int);
-  void slotPatchEFXtype(int);
-  void slotEFXoutput(int);
-  void slotEFXreverbSend(int);
-  void slotEFXchorusSend(int);
-  void slotEFXoutputLevel(int);
-  void slotEFXcontrol1Depth(int);
-  void slotEFXcontrol2Depth(int);
-  void slotEFXcontrolSource1(int);
-  void slotEFXcontrolSource2(int);
-  void slotEFXparm1(int);
-  void slotEFXparm2(int);
-  void slotEFXparm3(int);
-  void slotEFXparm4(int);
-  void slotEFXparm5(int);
-  void slotEFXparm6(int);
-  void slotEFXparm7(int);
-  void slotEFXparm8(int);
-  void slotEFXparm9(int);
-  void slotEFXparmA(int);
-  void slotEFXparmB(int);
-  void slotEFXparmC(int);
+  void on_PerfEFXsource_select_currentIndexChanged(int);
+  void on_PerfEFXtype_select_currentIndexChanged(int);
+  void on_PatchEFX_Type_select_currentIndexChanged(int);
+  void on_PerfEFXoutput_select_currentIndexChanged(int);
+  void on_PerfEFXreverbSend_select_valueChanged(int);
+  void on_PerfEFXchorusSend_select_valueChanged(int);
+  void on_PerfEFXoutputLevel_select_valueChanged(int);
+  void on_PerfControl1Depth_select_valueChanged(int);
+  void on_PerfControl2Depth_select_valueChanged(int);
+  void on_PerfControlSource1_select_currentIndexChanged(int);
+  void on_PerfControlSource2_select_currentIndexChanged(int);
+  void on_PerfEFXparm1_select_valueChanged(int);
+  void on_PerfEFXparm2_select_valueChanged(int);
+  void on_PerfEFXparm3_select_valueChanged(int);
+  void on_PerfEFXparm4_select_valueChanged(int);
+  void on_PerfEFXparm5_select_valueChanged(int);
+  void on_PerfEFXparm6_select_valueChanged(int);
+  void on_PerfEFXparm7_select_valueChanged(int);
+  void on_PerfEFXparm8_select_valueChanged(int);
+  void on_PerfEFXparm9_select_valueChanged(int);
+  void on_PerfEFXparmA_select_valueChanged(int);
+  void on_PerfEFXparmB_select_valueChanged(int);
+  void on_PerfEFXparmC_select_valueChanged(int);
   
   // for Patch tab
   void on_Patch_Sync_button_clicked();

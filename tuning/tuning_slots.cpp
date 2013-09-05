@@ -2,23 +2,6 @@
 #include	"JVlibForm.h"
 #include	<QtGui>
 
-void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
-  // Tuning_ScaleTuning_enable
-  if (state_table->perf_mode)  { 
-    Tuning_Parts_box->setEnabled(status);
-    Tuning_PartTune_select->setEnabled(status);
-  }
-  Tuning_PartTuning_box->setEnabled(status);
-  Tuning_Temperament_box->setEnabled(status);
-  Tuning_BaseKey_select->setEnabled(status);
-  state_table->tuningTab_enable = true;
-  // update the system_area
-  system_area->sys_common.scale_tune_switch = status;
-  // update the synth
-  if (state_table->updates_enabled)
-    setSysSingleValue(7,status);
-}	// end on_Tuning_ScaleTuning_enable_toggled
-
 void JVlibForm::Tuning_BulkUpdate(int pn, int offset, int val) {
   system_area->sys_part_scale_tune[pn-1].scale[offset] = val;
   Tuning_PartTune_select->setValue(pn);
@@ -59,6 +42,23 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
     state_table->tuning_modified = true;
   }	// end state_table->updates_enabled
 }	// end TuningStdUpdate
+
+void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
+  // Tuning_ScaleTuning_enable
+  if (state_table->perf_mode)  { 
+    Tuning_Parts_box->setEnabled(status);
+    Tuning_PartTune_select->setEnabled(status);
+  }
+  Tuning_PartTuning_box->setEnabled(status);
+  Tuning_Temperament_box->setEnabled(status);
+  Tuning_BaseKey_select->setEnabled(status);
+  state_table->tuningTab_enable = true;
+  // update the system_area
+  system_area->sys_common.scale_tune_switch = status;
+  // update the synth
+  if (state_table->updates_enabled)
+    setSysSingleValue(7,status);
+}	// end on_Tuning_ScaleTuning_enable_toggled
 
 // Scale note tuning
 void JVlibForm::on_Tuning_PartTuneC_select_valueChanged(int val) {
@@ -201,7 +201,6 @@ void JVlibForm::Tuning_setScaleTuning(int val) {
   // uses val = Tuning_BaseKey_select->currentIndex()
   // updating the display will update the synth
   int x=0;
-//  switch(Tuning_BaseKey_select->currentIndex()) {
   switch(val) {
     case 0: case 19:	// C Maj, a min
       x=0;
@@ -255,6 +254,7 @@ void JVlibForm::Tuning_setScaleTuning(int val) {
   Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
   Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
 }	// end Tuning_setScaleTuning
+
 void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
   Tuning_setScaleTuning(val);
 }

@@ -14,57 +14,24 @@ void JVlibForm::createSysActions() {
   Tuning_ButtonGroup->addButton(Tuning_PureTemp_button,5);
   Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,6);
   Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,7);
-  Tuning_currentTuning.fill(0x40, 12);
-  
+  Tuning_currentTuning.fill(0x40, 12); 
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));
-  connect(JVlibForm::PerfEFXsource_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPerfEFXsource(int)));
-  connect(JVlibForm::PerfEFXtype_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPerfEFXtype(int)));
-  connect(JVlibForm::PatchEFX_Type_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPatchEFXtype(int)));
-  
-  connect(JVlibForm::PerfEFXreverbSend_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXreverbSend(int)));
-  connect(JVlibForm::PerfEFXchorusSend_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXchorusSend(int)));
-  connect(JVlibForm::PerfEFXoutputLevel_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXoutputLevel(int)));
-  connect(JVlibForm::PerfEFXoutput_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXoutput(int)));
-  connect(JVlibForm::PerfControl1Depth_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXcontrol1Depth(int)));
-  connect(JVlibForm::PerfControl2Depth_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXcontrol2Depth(int)));
-  connect(JVlibForm::PerfControlSource1_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXcontrolSource1(int)));
-  connect(JVlibForm::PerfControlSource2_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXcontrolSource2(int)));
-  connect(JVlibForm::PatchEFX_ReverbSend_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXreverbSend(int)));
-  connect(JVlibForm::PatchEFX_ChorusSend_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXchorusSend(int)));
-  connect(JVlibForm::PatchEFX_OutputLevel_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXoutputLevel(int)));
-  connect(JVlibForm::PatchEFX_Output_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXoutput(int)));
-  connect(JVlibForm::PatchEFX_Control1Depth_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXcontrol1Depth(int)));
-  connect(JVlibForm::PatchEFX_Control2Depth_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXcontrol2Depth(int)));
-  connect(JVlibForm::PatchEFX_Control1Source_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXcontrolSource1(int)));
-  connect(JVlibForm::PatchEFX_Control2Source_select, SIGNAL(currentIndexChanged(int)), this, SLOT(slotEFXcontrolSource2(int)));
-  
-  connect(JVlibForm::PerfEFXparm1_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm1(int)));
-  connect(JVlibForm::PerfEFXparm2_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm2(int)));
-  connect(JVlibForm::PerfEFXparm3_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm3(int)));
-  connect(JVlibForm::PerfEFXparm4_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm4(int)));
-  connect(JVlibForm::PerfEFXparm5_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm5(int)));
-  connect(JVlibForm::PerfEFXparm6_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm6(int)));
-  connect(JVlibForm::PerfEFXparm7_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm7(int)));
-  connect(JVlibForm::PerfEFXparm8_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm8(int)));
-  connect(JVlibForm::PerfEFXparm9_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm9(int)));
-  connect(JVlibForm::PerfEFXparmA_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmA(int)));
-  connect(JVlibForm::PerfEFXparmB_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmB(int)));
-  connect(JVlibForm::PerfEFXparmC_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmC(int)));
-  connect(JVlibForm::PatchEFX_parm1_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm1(int)));
-  connect(JVlibForm::PatchEFX_parm2_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm2(int)));
-  connect(JVlibForm::PatchEFX_parm3_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm3(int)));
-  connect(JVlibForm::PatchEFX_parm4_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm4(int)));
-  connect(JVlibForm::PatchEFX_parm5_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm5(int)));
-  connect(JVlibForm::PatchEFX_parm6_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm6(int)));
-  connect(JVlibForm::PatchEFX_parm7_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm7(int)));
-  connect(JVlibForm::PatchEFX_parm8_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm8(int)));
-  connect(JVlibForm::PatchEFX_parm9_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparm9(int)));
-  connect(JVlibForm::PatchEFX_parmA_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmA(int)));
-  connect(JVlibForm::PatchEFX_parmB_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmB(int)));
-  connect(JVlibForm::PatchEFX_parmC_select, SIGNAL(valueChanged(int)), this, SLOT(slotEFXparmC(int)));
-  
-  connect(JVlibForm::SysPerfSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPerf()));
-  connect(JVlibForm::SysPatchSelect, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSysSetPatch()));
-  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
+  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));  
+  connect(JVlibForm::PatchEFX_ReverbSend_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXreverbSend_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_ChorusSend_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXchorusSend_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_OutputLevel_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXoutputLevel_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_Output_select, SIGNAL(currentIndexChanged(int)), this, SLOT(on_PerfEFXoutput_select_currentIndexChanged(int)));
+  connect(JVlibForm::PatchEFX_parm1_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm1_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm2_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm2_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm3_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm3_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm4_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm4_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm5_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm5_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm6_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm6_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm7_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm7_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm8_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm8_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parm9_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm9_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parmA_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparmA_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parmB_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparmB_select_valueChanged(int)));
+  connect(JVlibForm::PatchEFX_parmC_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparmC_select_valueChanged(int)));
 }	// end createSysActions
 

@@ -6,7 +6,7 @@
 #include	"EFX_slots.h"
 
 // EFX SOURCE -- only Performance EFX has a Source selection
-void JVlibForm::slotPerfEFXsource(int val) {
+void JVlibForm::on_PerfEFXsource_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   active_area->active_performance.perf_common.EFX_source = val;
   setPerfSingleValue(addr_Perf_EFX_source ,val);
@@ -30,7 +30,7 @@ void JVlibForm::on_PatchEFX_TestTone_switch_toggled(bool val) {
 }
 
 //EFX_TYPE
-void JVlibForm::slotPerfEFXtype(int val) {
+void JVlibForm::on_PerfEFXtype_select_currentIndexChanged(int val) {
   // called when EFX type is changed on the Performance Tab
  if (state_table->updates_enabled) {
   int	err;
@@ -62,7 +62,7 @@ void JVlibForm::slotPerfEFXtype(int val) {
   setPerfEFXparms();
 }	// end slotPerfEFXtype
 
-void JVlibForm::slotPatchEFXtype(int val) {
+void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
   // called when the EFX type is changed on the PatchEFX Tab
  if (state_table->updates_enabled) {
   int	err;
@@ -122,7 +122,7 @@ void JVlibForm::slotPatchEFXtype(int val) {
 
 //---------------------------------------------------------------------------------------------------------------------
 // EFX OUTPUT
-void JVlibForm::slotEFXoutput(int val) {
+void JVlibForm::on_PerfEFXoutput_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXoutput_select) {
     active_area->active_performance.perf_common.EFX_output = val;
@@ -139,7 +139,7 @@ void JVlibForm::slotEFXoutput(int val) {
  }
 }
 // EFX OUTPUT LEVEL
-void JVlibForm::slotEFXoutputLevel(int val) {
+void JVlibForm::on_PerfEFXoutputLevel_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
  if (sender() == PerfEFXoutputLevel_select) {
   active_area->active_performance.perf_common.EFX_output_level = val;
@@ -156,7 +156,7 @@ void JVlibForm::slotEFXoutputLevel(int val) {
  } 
 }
 // EFX CHORUS SEND
-void JVlibForm::slotEFXchorusSend(int val) {
+void JVlibForm::on_PerfEFXchorusSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
  if (sender() == PerfEFXchorusSend_select) {
   active_area->active_performance.perf_common.EFX_chorus_send_level = val;
@@ -173,7 +173,7 @@ void JVlibForm::slotEFXchorusSend(int val) {
  } 
 }
 // EFX REVERB SEND
-void JVlibForm::slotEFXreverbSend(int val) {
+void JVlibForm::on_PerfEFXreverbSend_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
  if (sender() == PerfEFXreverbSend_select) {
   active_area->active_performance.perf_common.EFX_reverb_send_level = val;
@@ -190,7 +190,7 @@ void JVlibForm::slotEFXreverbSend(int val) {
  }
 }
 // EFX CONTROL 1 SOURCE
-void JVlibForm::slotEFXcontrolSource1(int val) {
+void JVlibForm::on_PerfControlSource1_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfControlSource1_select) {
     active_area->active_performance.perf_common.EFX_control_src_1 = val;
@@ -207,7 +207,7 @@ void JVlibForm::slotEFXcontrolSource1(int val) {
  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrolSource1
 // EFX CONTROL 1 DEPTH
-void JVlibForm::slotEFXcontrol1Depth(int val) {
+void JVlibForm::on_PerfControl1Depth_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfControl1Depth_select) {
     active_area->active_performance.perf_common.EFX_control_depth_1 = val+63;
@@ -224,7 +224,7 @@ void JVlibForm::slotEFXcontrol1Depth(int val) {
  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrol1Depth
 // EFX CONTROL 2 SOURCE
-void JVlibForm::slotEFXcontrolSource2(int val) {
+void JVlibForm::on_PerfControlSource2_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfControlSource2_select) {
     active_area->active_performance.perf_common.EFX_control_src_2 = val;
@@ -241,7 +241,7 @@ void JVlibForm::slotEFXcontrolSource2(int val) {
  }	// end UPDATES_ENABLED
 }	// end slotEFXcontrolSource2
 // EFX CONTROL 2 DEPTH
-void JVlibForm::slotEFXcontrol2Depth(int val) {
+void JVlibForm::on_PerfControl2Depth_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfControl2Depth_select) {
     active_area->active_performance.perf_common.EFX_control_depth_2 = val+63;
@@ -261,7 +261,7 @@ void JVlibForm::slotEFXcontrol2Depth(int val) {
 // Individual Parm changes handled starting here, to set the memory values to the new displayed control value
 // The called process will update the display and the synth 
 // EFX Parms
-void JVlibForm::slotEFXparm1(int val) {
+void JVlibForm::on_PerfEFXparm1_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm1_select) {
     active_area->active_performance.perf_common.EFX_parameter[0] = val;
@@ -274,7 +274,7 @@ void JVlibForm::slotEFXparm1(int val) {
   setEFXdisplayParm_1();	// in EFXdisplayParm1.cpp
  }
 }
-void JVlibForm::slotEFXparm2(int val) {
+void JVlibForm::on_PerfEFXparm2_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm2_select) {
     active_area->active_performance.perf_common.EFX_parameter[1] = val;
@@ -287,7 +287,7 @@ void JVlibForm::slotEFXparm2(int val) {
   setEFXdisplayParm_2();
   }
 }
-void JVlibForm::slotEFXparm3(int val) {
+void JVlibForm::on_PerfEFXparm3_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm3_select) {
     active_area->active_performance.perf_common.EFX_parameter[2] = val;
@@ -301,7 +301,7 @@ void JVlibForm::slotEFXparm3(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm4(int val) {
+void JVlibForm::on_PerfEFXparm4_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm4_select) {
     active_area->active_performance.perf_common.EFX_parameter[3] = val;
@@ -315,7 +315,7 @@ void JVlibForm::slotEFXparm4(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm5(int val) {
+void JVlibForm::on_PerfEFXparm5_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm5_select) {
     active_area->active_performance.perf_common.EFX_parameter[4] = val;
@@ -329,7 +329,7 @@ void JVlibForm::slotEFXparm5(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm6(int val) {
+void JVlibForm::on_PerfEFXparm6_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm6_select) {
     active_area->active_performance.perf_common.EFX_parameter[5] = val;
@@ -343,7 +343,7 @@ void JVlibForm::slotEFXparm6(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm7(int val) {
+void JVlibForm::on_PerfEFXparm7_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm7_select) {
     active_area->active_performance.perf_common.EFX_parameter[6] = val;
@@ -357,7 +357,7 @@ void JVlibForm::slotEFXparm7(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm8(int val) {
+void JVlibForm::on_PerfEFXparm8_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm8_select) {
     active_area->active_performance.perf_common.EFX_parameter[7] = val;
@@ -371,7 +371,7 @@ void JVlibForm::slotEFXparm8(int val) {
   }
 }
 
-void JVlibForm::slotEFXparm9(int val) {
+void JVlibForm::on_PerfEFXparm9_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparm9_select) {
     active_area->active_performance.perf_common.EFX_parameter[8] = val;
@@ -385,7 +385,7 @@ void JVlibForm::slotEFXparm9(int val) {
   }
 }
 
-void JVlibForm::slotEFXparmA(int val) {
+void JVlibForm::on_PerfEFXparmA_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparmA_select) {
     active_area->active_performance.perf_common.EFX_parameter[9] = val;
@@ -399,7 +399,7 @@ void JVlibForm::slotEFXparmA(int val) {
   }
 }
 
-void JVlibForm::slotEFXparmB(int val) {
+void JVlibForm::on_PerfEFXparmB_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparmB_select) {
     active_area->active_performance.perf_common.EFX_parameter[10] = val;
@@ -413,7 +413,7 @@ void JVlibForm::slotEFXparmB(int val) {
   }
 }
 
-void JVlibForm::slotEFXparmC(int val) {
+void JVlibForm::on_PerfEFXparmC_select_valueChanged(int val) {
  if (state_table->updates_enabled) {
   if (sender() == PerfEFXparmC_select) {
     active_area->active_performance.perf_common.EFX_parameter[11] = val;

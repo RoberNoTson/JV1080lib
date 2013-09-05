@@ -41,7 +41,7 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   }	// end SWITCH
 }	// end on_SysMode_select_currentIndexChanged
 
-void JVlibForm::slotSysSetPerf() {
+void JVlibForm::on_SysPerfSelect_currentIndexChanged() {
   // called by SIGNAL when the SysPerf group is changed
   // or from the Perf Tab when those values are changed.
    if (state_table->updates_enabled) {
@@ -68,7 +68,7 @@ void JVlibForm::slotSysSetPerf() {
   setPatchTabs(false);
 }	// end slotSysSetPerf
 
-void JVlibForm::slotSysSetPatch() {
+void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
   // called by SIGNAL when the Patch group or number is changed
   // System Tab display in Patch Mode
  if (state_table->updates_enabled) {
