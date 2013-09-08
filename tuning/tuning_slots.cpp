@@ -51,7 +51,7 @@ void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
   }
   Tuning_PartTuning_box->setEnabled(status);
   Tuning_Temperament_box->setEnabled(status);
-  Tuning_BaseKey_select->setEnabled(status);
+//  Tuning_BaseKey_select->setEnabled(status);
   state_table->tuningTab_enable = true;
   // update the system_area
   system_area->sys_common.scale_tune_switch = status;
@@ -123,7 +123,7 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
   Tuning_Sync_status->off();
   get_scales();
-  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);
+  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);  
 }	// end on_Tuning_Sync_button_clicked
 
 void JVlibForm::slotTuning_TempButtons(int val) {
@@ -132,34 +132,42 @@ void JVlibForm::slotTuning_TempButtons(int val) {
   switch(val) {
     case 0: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
+      Tuning_BaseKey_select->setEnabled(false);
       Tuning_QueryTemp(2);
       break;
     case 1:		// Just temp
       state_table->tuning_type = JustTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(3);
       break;
     case 2:		// Pythagorean
       state_table->tuning_type = PythagTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(6);
       break;
     case 3:		// Meantone
       state_table->tuning_type = MeantoneTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(4);
       break;
     case 4:		// Well
       state_table->tuning_type = WellTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(7);
       break;
     case 5:		// Pure
       state_table->tuning_type = PureTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(5);
       break;
     case 6:		// Arabic
       state_table->tuning_type = ArabicTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(1);
       break;
     case 7:		// custom tuning
       state_table->tuning_type = CustomTemp;
+      Tuning_BaseKey_select->setEnabled(true);
       break;
   }	// end Switch
   state_table->tuning_modified = false;
@@ -169,7 +177,7 @@ void JVlibForm::Tuning_QueryTemp(int val) {
   // fill Tuning_currentTuning from database
   // and call Tuning_setScaleTuning to update displays, which will update the synth
   QSqlQuery query(mysql);
-  query.prepare("Select cents from Tuning where tune_index = ?");
+  query.prepare("Select cents from Tuning where SerNumber = ?");
   query.bindValue(0, val);
   if (query.exec() == false) {
     puts("Query exec failed in Tuning_QueryTemp");
@@ -190,6 +198,7 @@ void JVlibForm::Tuning_QueryTemp(int val) {
     Tuning_currentTuning = query.value(0).toByteArray();
   else {
     puts("query.first failed in Tuning_QueryTemp");
+    query.finish();
     return;
   }
   query.finish();

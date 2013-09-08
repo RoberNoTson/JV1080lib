@@ -5,6 +5,8 @@
 #include	<QtGui>
 
 void JVlibForm::createSysActions() {
+  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
+  
   Tuning_ButtonGroup = new QButtonGroup();
   Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);
   Tuning_ButtonGroup->addButton(Tuning_JustTemp_button,1);
@@ -15,8 +17,8 @@ void JVlibForm::createSysActions() {
   Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,6);
   Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,7);
   Tuning_currentTuning.fill(0x40, 12); 
+  Tuning_EqualTemp_button->setChecked(true);
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));
-  connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
   
   connect(JVlibForm::PatchEFX_parm1_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm1_select_valueChanged(int)));
   connect(JVlibForm::PatchEFX_parm2_select, SIGNAL(valueChanged(int)), this, SLOT(on_PerfEFXparm2_select_valueChanged(int)));

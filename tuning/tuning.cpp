@@ -27,6 +27,7 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
 }
 
 int JVlibForm::get_scales() {
+  // download scale tunings from JV
   if (state_table->jv_connect && state_table->updates_enabled) {
   int	x,err;
   int	Stop=0;

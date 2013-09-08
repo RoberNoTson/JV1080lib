@@ -1,6 +1,5 @@
 #include	"JVlibForm.h"
 #include	<QtGui>
-//#include	"tuning_slots.h"
 
 void JVlibForm::setScaleTunings(int partnum) {
   // called after download from Synth, usually initiated by the Sync button
@@ -8,6 +7,7 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_ScaleTuning_enable->setEnabled(true);
 
   if (partnum>16) return;
+  int cur_chksum;
   if (state_table->patch_mode) {
     Tuning_PartTuneC_select->setValue(system_area->sys_patch_scale_tune.scale[0]-64);
     Tuning_PartTuneCs_select->setValue(system_area->sys_patch_scale_tune.scale[1]-64);
@@ -24,7 +24,8 @@ void JVlibForm::setScaleTunings(int partnum) {
     Tuning_PartTune_select->setEnabled(false);
     Tuning_Parts_box->setEnabled(false);
     Tuning_PartNoneTuning_select->setChecked(true);
-  } else {
+    cur_chksum = qChecksum((char *)&system_area->sys_patch_scale_tune.scale[0],12);
+  } else {	// Performance mode
     Tuning_PartTune_select->setValue(partnum);
     Tuning_PartTuneC_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[0]-64);
     Tuning_PartTuneCs_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[1]-64);
@@ -43,11 +44,21 @@ void JVlibForm::setScaleTunings(int partnum) {
       Tuning_PartTune_select->setEnabled(Tuning_ScaleTuning_enable->isEnabled());
       Tuning_Parts_box->setEnabled(Tuning_ScaleTuning_enable->isEnabled());
     }
+    cur_chksum = qChecksum((char *)&system_area->sys_part_scale_tune[partnum-1].scale[0],12);
   }
   
-  Tuning_BaseKey_select->setEnabled(Tuning_ScaleTuning_enable->isChecked());
-  Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
   Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
+  Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
+  // query the cur_chksum value to determine which temperament we are in
+printf("cur_chksum = %d\n",cur_chksum);
+  if (cur_chksum==35508) Tuning_ArabicTemp_button->setChecked(true);
+  else if (cur_chksum==14340) Tuning_EqualTemp_button->setChecked(true);
+  else if (cur_chksum==53569) Tuning_JustTemp_button->setChecked(true);
+  else if (cur_chksum==15732) Tuning_MeantoneTemp_button->setChecked(true);
+  else if (cur_chksum==52045) Tuning_PureTemp_button->setChecked(true);
+  else if (cur_chksum==11020) Tuning_PythagTemp_button->setChecked(true);
+  else if (cur_chksum==40503) Tuning_WellTemp_button->setChecked(true);
+  else Tuning_CustomTemp_button->setChecked(true);
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();
   state_table->tuning_sync = true;

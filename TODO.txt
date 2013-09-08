@@ -22,6 +22,7 @@ System_tab
 08/14/2013  - add "Play MIDI" function
 08/17/2013  - in PlayMidi use MIDI file directory from config for file selection starting dir
 08/21/2013  -  validate working of System_Sync LED
+  - Tuning tab, disable it when Mode switch changes
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
   - "Load Data" function/button

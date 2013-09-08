@@ -16,7 +16,6 @@ HEADERS	+= JVlibForm.h \
 	system/system_slots.h \
 	performance/performance.h \
 	performance/perf_slots.h \
-	tuning/tuning_slots.h \
 	EFX/EFX.h \
 	EFX/EFX_slots.h	\
 	config/ini_conf.h \

@@ -5619,7 +5619,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
+         <width>94</width>
          <height>2071</height>
         </rect>
        </property>
@@ -41927,7 +41927,7 @@
         <rect>
          <x>180</x>
          <y>30</y>
-         <width>131</width>
+         <width>149</width>
          <height>26</height>
         </rect>
        </property>
@@ -41956,7 +41956,7 @@
           </item>
           <item>
            <property name="text">
-            <string>C# Maj</string>
+            <string>C#/Db Maj</string>
            </property>
           </item>
           <item>
@@ -41976,12 +41976,12 @@
           </item>
           <item>
            <property name="text">
-            <string>D# Maj</string>
+            <string>Eb Maj</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>d# min</string>
+            <string>d#/eb min</string>
            </property>
           </item>
           <item>
@@ -42006,7 +42006,7 @@
           </item>
           <item>
            <property name="text">
-            <string>F# Maj</string>
+            <string>F#/Gb Maj</string>
            </property>
           </item>
           <item>
@@ -42026,12 +42026,12 @@
           </item>
           <item>
            <property name="text">
-            <string>G# Maj</string>
+            <string>Ab Maj</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>g# min</string>
+            <string>g#/ab min</string>
            </property>
           </item>
           <item>
@@ -42046,17 +42046,17 @@
           </item>
           <item>
            <property name="text">
-            <string>A# Maj</string>
+            <string>Bb Maj</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>a# min</string>
+            <string>a#/bb min</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>B Maj</string>
+            <string>B/Cb Maj</string>
            </property>
           </item>
           <item>
@@ -42120,7 +42120,7 @@
         <item row="0" column="0">
          <widget class="QPushButton" name="Tuning_Sync_button">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="minimumSize">
            <size>
