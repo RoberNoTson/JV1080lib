@@ -1147,7 +1147,7 @@ private:
   void setScaleTunings(int);
   int get_scales();
   QButtonGroup *Tuning_ButtonGroup;
-  QByteArray Tuning_currentTuning;
+  static QByteArray Tuning_currentTuning;
   void Tuning_BulkUpdate(int, int, int);
 
   // for Rhythm

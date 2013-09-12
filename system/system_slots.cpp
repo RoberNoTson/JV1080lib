@@ -274,8 +274,8 @@ void JVlibForm::slotSysSetPerformanceMode() {
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
     state_table->tuning_modified = false;
-    Tuning_ScaleTuning_enable->setChecked(false);
-    Tuning_ScaleTuning_enable->setEnabled(false);
+//    Tuning_ScaleTuning_enable->setChecked(false);
+//    Tuning_ScaleTuning_enable->setEnabled(false);
 }	// end slotSysSetPerformanceMode
 
 void JVlibForm::slotSysSetPatchMode() {
@@ -314,8 +314,8 @@ void JVlibForm::slotSysSetPatchMode() {
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
     state_table->tuning_modified = false;
-    Tuning_ScaleTuning_enable->setChecked(false);
-    Tuning_ScaleTuning_enable->setEnabled(false);
+//    Tuning_ScaleTuning_enable->setChecked(false);
+//    Tuning_ScaleTuning_enable->setEnabled(false);
 }	// end slotSysSetPatchMode
 
 void JVlibForm::slotSysSetGmMode() {

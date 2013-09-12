@@ -147,7 +147,7 @@ void JVlibForm::EnablePerf(bool val) {
   PerfChorus_box->setEnabled(val);
   Patch_tab->setEnabled(val);
   Rhythm_EnableAll(false);
-  Tuning_Sync_button->setEnabled(val);
+//  Tuning_Sync_button->setEnabled(val);
   if (val) Perf_Sync_status->on();
   else Perf_Sync_status->off();
   state_table->performance_sync = val;

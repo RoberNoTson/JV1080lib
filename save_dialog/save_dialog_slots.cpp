@@ -25,7 +25,6 @@
 #include        "JVlibForm.h"
 #include        <QtGui>
 #include	<QtSql>
-//#include        "ui_JVlib.h"
 
 void Save_Dialog::on_Save_PerfPart_All_select_toggled(bool val) {
   ui->Save_PerfPart_1_select->setChecked(val && ui->Save_PerfPart_1_select->isEnabled());
@@ -737,11 +736,9 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
 //    if (JVlibForm::Tuning_CustomTemp_button->isChecked()==false) return;
-//    table_name = "Tuning";
-//    sz = 0;	// NOTE: tbd
-//    ptr = NULL;	// NOTE: tbd
-//    db_insert_data(table_name, ptr, sz);
-  }
+    db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), 12);
+  }	// end IF Tuning
+  
   if (ui->Save_ReceiveUserDump_button->isChecked()) {
     // save all entries of User Performance, Patch or Rhythm
 //    table_name = "Dumps";

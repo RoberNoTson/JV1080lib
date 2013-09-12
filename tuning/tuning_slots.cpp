@@ -62,39 +62,51 @@ void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
 
 // Scale note tuning
 void JVlibForm::on_Tuning_PartTuneC_select_valueChanged(int val) {
+  Tuning_currentTuning[0] = val + 64;
   TuningStdUpdate(0x00, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneCs_select_valueChanged(int val) {
+  Tuning_currentTuning[1] = val + 64;
   TuningStdUpdate(0x01, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneD_select_valueChanged(int val) {
+  Tuning_currentTuning[2] = val + 64;
   TuningStdUpdate(0x02, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneDs_select_valueChanged(int val) {
+  Tuning_currentTuning[3] = val + 64;
   TuningStdUpdate(0x03, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneE_select_valueChanged(int val) {
+  Tuning_currentTuning[4] = val + 64;
   TuningStdUpdate(0x04, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneF_select_valueChanged(int val) {
+  Tuning_currentTuning[5] = val + 64;
   TuningStdUpdate(0x05, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneFs_select_valueChanged(int val) {
+  Tuning_currentTuning[6] = val + 64;
   TuningStdUpdate(0x06, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneG_select_valueChanged(int val) {
+  Tuning_currentTuning[7] = val + 64;
   TuningStdUpdate(0x07, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneGs_select_valueChanged(int val) {
+  Tuning_currentTuning[8] = val + 64;
   TuningStdUpdate(0x08, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneA_select_valueChanged(int val) {
+  Tuning_currentTuning[9] = val + 64;
   TuningStdUpdate(0x09, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneAs_select_valueChanged(int val) {
+  Tuning_currentTuning[10] = val + 64;
   TuningStdUpdate(0x0A, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneB_select_valueChanged(int val) {
+  Tuning_currentTuning[11] = val + 64;
   TuningStdUpdate(0x0B, val+64);
 }
 
@@ -130,27 +142,27 @@ void JVlibForm::slotTuning_TempButtons(int val) {
   // redirect to Tuning_QueryTemp with correct parm
   // QByteArray Tuning_currentTuning, filled with 0x40 from create_...
   switch(val) {
-    case 0: default:	// Equal temp
+    case 2: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
       Tuning_BaseKey_select->setEnabled(false);
       Tuning_QueryTemp(2);
       break;
-    case 1:		// Just temp
+    case 3:		// Just temp
       state_table->tuning_type = JustTemp;
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(3);
       break;
-    case 2:		// Pythagorean
+    case 6:		// Pythagorean
       state_table->tuning_type = PythagTemp;
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(6);
       break;
-    case 3:		// Meantone
+    case 4:		// Meantone
       state_table->tuning_type = MeantoneTemp;
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(4);
       break;
-    case 4:		// Well
+    case 7:		// Well
       state_table->tuning_type = WellTemp;
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(7);
@@ -160,12 +172,12 @@ void JVlibForm::slotTuning_TempButtons(int val) {
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(5);
       break;
-    case 6:		// Arabic
+    case 1:		// Arabic
       state_table->tuning_type = ArabicTemp;
       Tuning_BaseKey_select->setEnabled(true);
       Tuning_QueryTemp(1);
       break;
-    case 7:		// custom tuning
+    case 0:		// custom tuning
       state_table->tuning_type = CustomTemp;
       Tuning_BaseKey_select->setEnabled(true);
       break;

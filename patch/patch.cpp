@@ -42,7 +42,7 @@ void JVlibForm::EnablePatch(bool val) {
   PatchEFX_TestTone_switch->setEnabled(val);
   PatchEFX_TestTone_switch->setChecked(false);
   ToneSync_button->setEnabled(val);
-  Tuning_Sync_button->setEnabled(val);
+//  Tuning_Sync_button->setEnabled(val);
   setPatchTabs(val);
   if (val) {
     Patch_Sync_status->on();
