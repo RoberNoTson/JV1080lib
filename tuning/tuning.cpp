@@ -75,6 +75,5 @@ int JVlibForm::get_scales() {
   state_table->tuning_modified = false;
   state_table->tuning_sync = true;
   }	// end   if (state_table->jv_connect && state_table->updates_enabled)
-  return EXIT_SUCCESS;
+  return(EXIT_SUCCESS);
 }	// end GET_SCALES
-

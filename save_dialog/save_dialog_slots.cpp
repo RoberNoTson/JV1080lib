@@ -735,7 +735,6 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     SaveUserPerf();
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
-//    if (JVlibForm::Tuning_CustomTemp_button->isChecked()==false) return;
     db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), 12);
   }	// end IF Tuning
   

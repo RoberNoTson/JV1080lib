@@ -68,8 +68,6 @@ private slots:
   void initStateTable();
   
   // for System tab
-//  void slotSysSetPerf();
-//  void slotSysSetPatch();
   void on_SysPerfSelect_currentIndexChanged();
   void on_SysPatchSelect_currentIndexChanged();
   void slotSysSetPerformanceMode();

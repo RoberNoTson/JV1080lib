@@ -63,14 +63,14 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
   Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
   // query the cur_chksum value to determine which temperament we are in
-  if (cur_chksum==35508) Tuning_ArabicTemp_button->setChecked(true);
-  else if (cur_chksum==14340) Tuning_EqualTemp_button->setChecked(true);
-  else if (cur_chksum==53569) Tuning_JustTemp_button->setChecked(true);
-  else if (cur_chksum==15732) Tuning_MeantoneTemp_button->setChecked(true);
-  else if (cur_chksum==52045) Tuning_PureTemp_button->setChecked(true);
-  else if (cur_chksum==11020) Tuning_PythagTemp_button->setChecked(true);
-  else if (cur_chksum==40503) Tuning_WellTemp_button->setChecked(true);
-  else Tuning_CustomTemp_button->setChecked(true);
+  if (cur_chksum==35508) {Tuning_ArabicTemp_button->setChecked(true); state_table->tuning_type=ArabicTemp; }
+  else if (cur_chksum==14340) {Tuning_EqualTemp_button->setChecked(true); state_table->tuning_type=EqualTemp; }
+  else if (cur_chksum==53569) {Tuning_JustTemp_button->setChecked(true); state_table->tuning_type=JustTemp; }
+  else if (cur_chksum==15732) {Tuning_MeantoneTemp_button->setChecked(true); state_table->tuning_type=MeantoneTemp; }
+  else if (cur_chksum==52045) {Tuning_PureTemp_button->setChecked(true); state_table->tuning_type=PureTemp; }
+  else if (cur_chksum==11020) {Tuning_PythagTemp_button->setChecked(true); state_table->tuning_type=PythagTemp; }
+  else if (cur_chksum==40503) {Tuning_WellTemp_button->setChecked(true); state_table->tuning_type=WellTemp; }
+  else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; }
   
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();
