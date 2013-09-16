@@ -7,6 +7,7 @@ General
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
   - change cursor to "Wait" wherever ProgressBox is displayed
+  - add options to support Data Cards
 
 Menu
   - standalone/offline mode with all tabs functional

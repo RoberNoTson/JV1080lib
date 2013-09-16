@@ -269,7 +269,6 @@ void Save_Dialog::on_Save_System_button_toggled(bool val) {
 
 void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   clearPartLabels();
-  ui->Save_PerfNumber_select->setEnabled(val);
   ui->Save_PerfPart_box->setEnabled(val);
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
@@ -586,7 +585,6 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
 }	// end on_Save_UserPerformance_button_toggled
 
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
-  ui->Save_PatchNumber_select->setEnabled(val);
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
   unsigned char buf[16];
@@ -611,7 +609,6 @@ void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
 }	// end on_Save_UserPatch_button_toggled
 
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
-  ui->Save_RhythmNumber_select->setEnabled(val);
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
   unsigned char buf[16];

@@ -99,7 +99,7 @@
      <x>10</x>
      <y>10</y>
      <width>271</width>
-     <height>241</height>
+     <height>261</height>
     </rect>
    </property>
    <property name="title">
@@ -121,7 +121,7 @@
      <string>System</string>
     </property>
     <property name="checked">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="Save_CurrentPerformance_button">
@@ -206,7 +206,7 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>110</x>
       <y>30</y>
       <width>41</width>
       <height>21</height>
@@ -411,7 +411,7 @@
      <string>Recv Dump</string>
     </property>
     <property name="checked">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QCheckBox" name="Save_All_button">
@@ -435,6 +435,44 @@
     <property name="text">
      <string>All</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>131</x>
+      <y>210</y>
+      <width>103</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QSpinBox" name="Save_Timeout_select">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="maximum">
+        <number>60</number>
+       </property>
+       <property name="value">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_7">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Timeout</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QGroupBox" name="Save_PerfPart_box">
@@ -945,5 +983,70 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>Save_ReceiveUserDump_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Save_Timeout_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>209</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>189</x>
+     <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Save_UserPerformance_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Save_PerfNumber_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Save_UserPatch_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Save_PatchNumber_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Save_UserRhythm_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Save_RhythmNumber_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>140</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
