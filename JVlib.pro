@@ -22,6 +22,7 @@ HEADERS	+= JVlibForm.h \
 	save_dialog/Save_Dialog.h
 SOURCES     += main.cpp \
 	JVlibForm.cpp \
+	utils.cpp \
 	menu/create_menu_actions.cpp \
 	menu/menubar.cpp \
 	menu/menu_slots.cpp \
