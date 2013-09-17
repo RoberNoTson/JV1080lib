@@ -43,6 +43,7 @@ private:
   int SaveUserRhythm(int,int=0);
   int SaveUserPatch(int,int=0);
   int SaveUserPerf();
+  bool SaveDump();
   void clearPartLabels();
 };
 #endif	// SAVE_DIALOG_H
