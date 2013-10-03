@@ -100,7 +100,7 @@
     </rect>
    </property>
    <property name="title">
-    <string notr="true">Load</string>
+    <string notr="true">Destination</string>
    </property>
    <widget class="QRadioButton" name="Load_CurrentPerformance_button">
     <property name="geometry">
@@ -191,7 +191,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string notr="true">Current</string>
+     <string notr="true">Active</string>
     </property>
     <property name="textFormat">
      <enum>Qt::RichText</enum>
