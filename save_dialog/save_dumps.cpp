@@ -24,12 +24,12 @@ bool Save_Dialog::SaveDump() {
   if (JVlibForm::open_ports() == EXIT_FAILURE) {this->setCursor(Qt::ArrowCursor); return false; }
   // set up polling structs, prepare for reading data
   time=0;
-  npfds = snd_rawmidi_poll_descriptors_count(midiInHandle);
+  npfds = snd_rawmidi_poll_descriptors_count(JVlibForm::midiInHandle);
   pfds = new pollfd;
-  snd_rawmidi_poll_descriptors(midiInHandle, pfds, npfds);
-  snd_rawmidi_nonblock(midiInHandle,1);         // set to nonblocking mode
+  snd_rawmidi_poll_descriptors(JVlibForm::midiInHandle, pfds, npfds);
+  snd_rawmidi_nonblock(JVlibForm::midiInHandle,1);         // set to nonblocking mode
   memset(recv_buf,0xF7,sizeof(recv_buf));
-  read=0;
+  int readBytes=0;
   buf.clear();
   // big loop to read data
   for (;;) {
@@ -51,7 +51,7 @@ bool Save_Dialog::SaveDump() {
       }
       usleep(40000); continue;
     }
-    if ((err = snd_rawmidi_poll_descriptors_revents(midiInHandle, pfds, npfds, &revents)) < 0) {
+    if ((err = snd_rawmidi_poll_descriptors_revents(JVlibForm::midiInHandle, pfds, npfds, &revents)) < 0) {
       printf("Cannot get poll events: %s\n", snd_strerror(err));
       this->setCursor(Qt::ArrowCursor);
       return false;
@@ -59,18 +59,18 @@ bool Save_Dialog::SaveDump() {
     if (revents & (POLLERR | POLLHUP)) { this->setCursor(Qt::ArrowCursor); return false; }
     if (!(revents & POLLIN)) { usleep(40000); continue; }       // loop if no data and still polling
     // read the incoming data
-    err = snd_rawmidi_read(midiInHandle, recv_buf, sizeof(recv_buf));
+    err = snd_rawmidi_read(JVlibForm::midiInHandle, recv_buf, sizeof(recv_buf));
     if (err == -EAGAIN) { usleep(40000); continue; }
     if (err < 0) {
-      printf("cannot read from port \"%s\": %s", MIDI_dev, snd_strerror(err));
+      printf("cannot read from port \"%s\": %s", JVlibForm::MIDI_dev, snd_strerror(err));
       delete pfds;
       this->setCursor(Qt::ArrowCursor);
       return false;        // signal possible retry to calling routine
     }
     if (err == 0) { usleep(40000); continue; }
     time = 0;   // data received, reset the timeout value
-    read += err;
-    buf += recv_buf;
+    readBytes += err;
+    buf.append((const char *)&recv_buf,(int)err);
   }	// end FOR big loop
   
   // pause before parsing/saving data

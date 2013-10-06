@@ -62,51 +62,51 @@ void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
 
 // Scale note tuning
 void JVlibForm::on_Tuning_PartTuneC_select_valueChanged(int val) {
-  Tuning_currentTuning[0] = val + 64;
+//  Tuning_currentTuning[0] = val + 64;
   TuningStdUpdate(0x00, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneCs_select_valueChanged(int val) {
-  Tuning_currentTuning[1] = val + 64;
+//  Tuning_currentTuning[1] = val + 64;
   TuningStdUpdate(0x01, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneD_select_valueChanged(int val) {
-  Tuning_currentTuning[2] = val + 64;
+//  Tuning_currentTuning[2] = val + 64;
   TuningStdUpdate(0x02, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneDs_select_valueChanged(int val) {
-  Tuning_currentTuning[3] = val + 64;
+//  Tuning_currentTuning[3] = val + 64;
   TuningStdUpdate(0x03, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneE_select_valueChanged(int val) {
-  Tuning_currentTuning[4] = val + 64;
+//  Tuning_currentTuning[4] = val + 64;
   TuningStdUpdate(0x04, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneF_select_valueChanged(int val) {
-  Tuning_currentTuning[5] = val + 64;
+//  Tuning_currentTuning[5] = val + 64;
   TuningStdUpdate(0x05, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneFs_select_valueChanged(int val) {
-  Tuning_currentTuning[6] = val + 64;
+//  Tuning_currentTuning[6] = val + 64;
   TuningStdUpdate(0x06, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneG_select_valueChanged(int val) {
-  Tuning_currentTuning[7] = val + 64;
+//  Tuning_currentTuning[7] = val + 64;
   TuningStdUpdate(0x07, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneGs_select_valueChanged(int val) {
-  Tuning_currentTuning[8] = val + 64;
+//  Tuning_currentTuning[8] = val + 64;
   TuningStdUpdate(0x08, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneA_select_valueChanged(int val) {
-  Tuning_currentTuning[9] = val + 64;
+//  Tuning_currentTuning[9] = val + 64;
   TuningStdUpdate(0x09, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneAs_select_valueChanged(int val) {
-  Tuning_currentTuning[10] = val + 64;
+//  Tuning_currentTuning[10] = val + 64;
   TuningStdUpdate(0x0A, val+64);
 }
 void JVlibForm::on_Tuning_PartTuneB_select_valueChanged(int val) {
-  Tuning_currentTuning[11] = val + 64;
+//  Tuning_currentTuning[11] = val + 64;
   TuningStdUpdate(0x0B, val+64);
 }
 
@@ -145,7 +145,20 @@ void JVlibForm::slotTuning_TempButtons(int val) {
     case 2: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
       Tuning_BaseKey_select->setEnabled(false);
-      Tuning_QueryTemp(2);
+//      Tuning_QueryTemp(2);
+      Tuning_currentTuning.fill(0x40,12);
+      Tuning_PartTuneC_select->setValue(0);
+      Tuning_PartTuneCs_select->setValue(0);
+      Tuning_PartTuneD_select->setValue(0);
+      Tuning_PartTuneDs_select->setValue(0);
+      Tuning_PartTuneE_select->setValue(0);
+      Tuning_PartTuneF_select->setValue(0);
+      Tuning_PartTuneFs_select->setValue(0);
+      Tuning_PartTuneG_select->setValue(0);
+      Tuning_PartTuneGs_select->setValue(0);
+      Tuning_PartTuneA_select->setValue(0);
+      Tuning_PartTuneAs_select->setValue(0);
+      Tuning_PartTuneB_select->setValue(0);
       break;
     case 3:		// Just temp
       state_table->tuning_type = JustTemp;
@@ -222,6 +235,7 @@ void JVlibForm::Tuning_setScaleTuning(int val) {
   // uses val = Tuning_BaseKey_select->currentIndex()
   // updating the display will update the synth
   int x=0;
+  // set x = to where 'C' falls in the chosen key
   switch(val) {
     case 0: case 19:	// C Maj, a min
       x=0;
@@ -262,17 +276,17 @@ void JVlibForm::Tuning_setScaleTuning(int val) {
 
   }	// end Switch
   // x is the offset for C
-  Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
-  Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);x++;
+  Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
   Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
 }	// end Tuning_setScaleTuning
 

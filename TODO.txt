@@ -86,6 +86,7 @@ Tuning_tab
   - recognize existing tunings
   - save custom tuning
   - load saved tuning data
+  - changing keys does not always work correctly, need to zero out before setting new values
 
 config
 08/14/2013  - add MIDI file directory entry

@@ -127,7 +127,7 @@
        </font>
       </property>
       <property name="title">
-       <string notr="true">Switches</string>
+       <string notr="true">Receive Switches</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
@@ -179,7 +179,7 @@
            <string notr="true">Select to allow Program Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Program Change</string>
+           <string notr="true">Program Change</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptBankSel_switch">
@@ -187,7 +187,7 @@
            <string notr="true">Select to allow Bank Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Bank Select</string>
+           <string notr="true">Bank Select</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptControlChange_switch">
@@ -195,7 +195,7 @@
            <string notr="true">Select to allow Control Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Control Change</string>
+           <string notr="true">Control Change</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptModulation_switch">
@@ -203,7 +203,7 @@
            <string notr="true">Select to allow Modulation change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Modulation</string>
+           <string notr="true">Modulation</string>
           </property>
          </widget>
         </widget>
@@ -218,7 +218,7 @@
            <string notr="true">Select to allow Volume Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Volume Change</string>
+           <string notr="true">Volume Change</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptHold1Chg_switch">
@@ -226,7 +226,7 @@
            <string notr="true">Select to allow Hold-1 Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Hold-1 Change</string>
+           <string notr="true">Hold-1 Change</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptBender_switch">
@@ -234,7 +234,7 @@
            <string notr="true">Select to allow Bender Change messages</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Bender</string>
+           <string notr="true">Bender</string>
           </property>
          </widget>
          <widget class="QCheckBox" name="AcceptAftertouch_switch">
@@ -245,7 +245,7 @@
            <string notr="true">Aftertouch adds qualities such as vibrato, bending or other changes when a key that has already been played is then pressed with greater force. Not all keyboards send aftertouch messages.</string>
           </property>
           <property name="text">
-           <string notr="true">Accept Aftertouch</string>
+           <string notr="true">Aftertouch</string>
           </property>
          </widget>
         </widget>
@@ -1716,11 +1716,48 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="ButtonText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="ButtonText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="ButtonText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>137</red>
+            <green>135</green>
+            <blue>133</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
       <property name="toolTip">
        <string notr="true">Stop playing a file and stop all sounds on the synth</string>
       </property>
       <property name="text">
-       <string notr="true">Panic</string>
+       <string notr="true">Silence!</string>
       </property>
      </widget>
      <widget class="QPushButton" name="System_LoadData_button">
@@ -5619,7 +5656,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
