@@ -1,5 +1,6 @@
 // set_initial.cpp
-// for system tab
+// setSystemParms() for system tab
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 

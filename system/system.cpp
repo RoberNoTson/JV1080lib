@@ -1,4 +1,12 @@
 // system.cpp
+/* Includes:
+ * getSysPatchName()
+ * getSysPerfName()
+ * setSysGmMode()
+ * setSysSingleValue()
+ * EnableSys()
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 #include	<QDebug>

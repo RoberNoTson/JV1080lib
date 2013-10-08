@@ -175,12 +175,6 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
     getSysPatchName();
   }	// end state_table->jv_connect
   // get the current Patch Mode patch name, update other Tabs as needed
-  Patch_Group_select->setEnabled(true);
-  Patch_Number_select->setEnabled(true);
-  Patch_Name_edit->setEnabled(true);
-  PatchEFX_Group_display->setEnabled(true);
-  PatchEFX_Number_display->setEnabled(true);
-  PatchEFX_Name_display->setEnabled(true);
   Patch_Group_select->blockSignals(true);
   Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
   Patch_Group_select->blockSignals(false);
@@ -190,6 +184,12 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
   Patch_Name_edit->blockSignals(true);
   Patch_Name_edit->setText(SysPatchName->text());
   Patch_Name_edit->blockSignals(false);
+  Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
+  Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
+  Patch_Name_edit->setEnabled(true);
+  PatchEFX_Group_display->setEnabled(true);
+  PatchEFX_Number_display->setEnabled(true);
+  PatchEFX_Name_display->setEnabled(true);
   PatchEFX_Group_display->setText(SysPatchSelect->currentText());
   PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
   PatchEFX_Name_display->setText(Patch_Name_edit->text());
@@ -247,18 +247,21 @@ void JVlibForm::slotSysSetPerformanceMode() {
     setPerfTabs(false);
     MainTabWidget->setTabEnabled(3,false);	// Patch tab
     state_table->patchTab_enable = false;
-    PerfSync_button->setEnabled(true);
-    PerfGroup_select->setEnabled(true);
-    PerfNumber_select->setEnabled(true);
-    PerfName_edit->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(true);
     SysPerformance_box->setEnabled(true);
-    SysPerfNumber->setEnabled(true);
+    SysPerfSelect->setEnabled(AcceptBankSel_switch->isChecked());
+    SysPerfNumber->setEnabled(AcceptProgramChg_switch->isChecked());
     if (state_table->jv_connect && state_table->updates_enabled) {
       getSysPerfName();
     }
     SysPatch_box->setEnabled(false);
     SysPatchRecvChannel_select->setEnabled(false);
+    PerfSync_button->setEnabled(true);
+//    PerfGroup_select->setEnabled(true);
+//    PerfNumber_select->setEnabled(true);
+    PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
+    PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
+    PerfName_edit->setEnabled(true);
     Patch_Sync_button->setEnabled(false);
     Patch_PerfPartNum_select->blockSignals(true);
     if (Patch_PerfPartNum_select->itemText(0)=="0")
@@ -274,8 +277,6 @@ void JVlibForm::slotSysSetPerformanceMode() {
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
     state_table->tuning_modified = false;
-//    Tuning_ScaleTuning_enable->setChecked(false);
-//    Tuning_ScaleTuning_enable->setEnabled(false);
 }	// end slotSysSetPerformanceMode
 
 void JVlibForm::slotSysSetPatchMode() {
@@ -288,7 +289,8 @@ void JVlibForm::slotSysSetPatchMode() {
     PerfName_edit->setEnabled(false);
     SysPerformance_box->setEnabled(false);
     SysPatch_box->setEnabled(true);
-    SysPatchNumber->setEnabled(true);
+    SysPatchSelect->setEnabled(AcceptBankSel_switch->isChecked());
+    SysPatchNumber->setEnabled(AcceptProgramChg_switch->isChecked());
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
     MainTabWidget->setTabEnabled(1,false);	// Performance tab
@@ -305,8 +307,10 @@ void JVlibForm::slotSysSetPatchMode() {
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
     EnablePatch(false);
-    Patch_Group_select->setEnabled(true);
-    Patch_Number_select->setEnabled(true);
+//    Patch_Group_select->setEnabled(true);
+    Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
+//    Patch_Number_select->setEnabled(true);
+    Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
     Patch_Name_edit->setEnabled(true);
     Patch_Sync_button->setEnabled(true);
     setPatchTabs(false);
@@ -374,20 +378,49 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
   system_area->sys_common.receive_program_change = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_program_change,system_area->sys_common.receive_program_change);
-  Part1_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part2_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part3_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part4_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
-  Part5_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
+  Part1_ReceivePrgChg_enable->setEnabled(val);
+  Part2_ReceivePrgChg_enable->setEnabled(val);
+  Part3_ReceivePrgChg_enable->setEnabled(val);
+  Part4_ReceivePrgChg_enable->setEnabled(val);
+  Part5_ReceivePrgChg_enable->setEnabled(val);
+  Part6_ReceivePrgChg_enable->setEnabled(val);
+  Part7_ReceivePrgChg_enable->setEnabled(val);
+  Part8_ReceivePrgChg_enable->setEnabled(val);
+  Part9_ReceivePrgChg_enable->setEnabled(val);
+  Part10_ReceivePrgChg_enable->setEnabled(val);
+  Part11_ReceivePrgChg_enable->setEnabled(val);
+  Part12_ReceivePrgChg_enable->setEnabled(val);
+  Part13_ReceivePrgChg_enable->setEnabled(val);
+  Part14_ReceivePrgChg_enable->setEnabled(val);
+  Part15_ReceivePrgChg_enable->setEnabled(val);
+  Part16_ReceivePrgChg_enable->setEnabled(val);
+  if (state_table->perf_mode) {
+    SysPerfNumber->setEnabled(val);
+    PerfNumber_select->setEnabled(val);
+  }
+  if (state_table->patch_mode) {
+    SysPatchNumber->setEnabled(val);
+  }
+  Patch_Number_select->setEnabled(val);
   }
 }
+
 void JVlibForm::on_AcceptBankSel_switch_stateChanged(int val) { 
   if (state_table->updates_enabled) {
   system_area->sys_common.receive_bank_select = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_bank_select,system_area->sys_common.receive_bank_select);
   }
+  if (state_table->perf_mode) {
+    SysPerfSelect->setEnabled(val);
+    PerfGroup_select->setEnabled(val);
+  }
+  if (state_table->patch_mode) {
+    SysPatchSelect->setEnabled(val);
+  }
+  Patch_Group_select->setEnabled(val);
 }
+
 void JVlibForm::on_AcceptControlChange_switch_stateChanged(int val) { 
   if (state_table->updates_enabled) {
   system_area->sys_common.receive_control_change = val==Qt::Checked?true:false;

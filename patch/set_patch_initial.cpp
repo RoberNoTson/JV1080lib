@@ -363,8 +363,10 @@ void::JVlibForm::setPatchParms(int val) {
 
   switch(Patch_PerfPartNum_select->itemText(Patch_PerfPartNum_select->currentIndex()).toInt()) {
     case 0:
-      Patch_Number_select->setEnabled(true);
-      Patch_Group_select->setEnabled(true);
+//      Patch_Number_select->setEnabled(true);
+//      Patch_Group_select->setEnabled(true);
+      Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
+      Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
       Patch_Name_edit->setEnabled(true);
       break;
     case 1:
