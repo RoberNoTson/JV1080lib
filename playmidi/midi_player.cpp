@@ -1,19 +1,18 @@
 // midi_player.c
-// Function list:
-//  JVlibForm     -- constructor
-// ~JVlibForm     -- destructor
-// on_System_OpenMidi_button_clicked   -- SLOT
-// on_Play_button_clicked   -- SLOT
-// on_Stop_button_clicked   -- SLOT
-// on_Panic_button_clicked   -- SLOT
-// on_PortBox_currentIndexChanged   -- SLOT
-//  check_snd       -- INLINE
-// send_data
-// init_seq
-// close_seq
-// connect_port
-// disconnect_port
-// tickDisplay
+/* Function list:
+ * check_snd()       -- INLINE
+ * read_id()
+ * on_System_OpenMidi_button_clicked()
+ * on_SysPlayMidi_button_toggled(()
+ * on_System_PauseMidi_button_toggled()
+ * send_data()
+ * init_seq()
+ * close_seq()
+ * connect_port()
+ * disconnect_port()
+ * tickDisplay()
+ * stop_sound()
+*/
 
 //#include "midi_player.h"
 #include        "JVlibForm.h"
@@ -104,7 +103,7 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
             kill(pid,SIGKILL);
             waitpid(pid,NULL,0);
         }
-        pid = 0;
+        pid = 0;	
         disconnect_port();
         if (seqTimer->isActive()) {
             disconnect(JVlibForm::seqTimer, SIGNAL(timeout()), this, SLOT(tickDisplay()));
@@ -124,7 +123,7 @@ void JVlibForm::on_SysPlayMidi_button_toggled(bool checked) {
         System_OpenMidi_button->setEnabled(true);
 	close_seq();
     }
-}   // end on_Play_button_toggled
+}   // end on_SysPlayMidi_button_toggled
 
 void JVlibForm::on_System_PauseMidi_button_toggled(bool checked)
 {
@@ -135,6 +134,7 @@ void JVlibForm::on_System_PauseMidi_button_toggled(bool checked)
         }
         snd_seq_stop_queue(seq,queue,NULL);
         snd_seq_drain_output(seq);
+	stop_sound();
         System_PauseMidi_button->setText("Resume");
         qDebug() << "Paused queue" << queue;
     }
@@ -225,18 +225,16 @@ void JVlibForm::connect_port() {
 
 void JVlibForm::disconnect_port() {
     if (seq && strlen(SEQ_dev)) {
-        int err;
-        ports = (snd_seq_addr_t *)realloc(ports, sizeof(snd_seq_addr_t));
-//    snd_seq_addr_t *ports = new snd_seq_addr_t;
-        err = snd_seq_parse_address(seq, &ports[0], SEQ_dev);
-        if (err < 0) {
-            QMessageBox::critical(this, "MIDI Player", QString("Invalid port%1\n%2") .arg(SEQ_dev) .arg(snd_strerror(err)));
-            return;
-        }
-        err = snd_seq_disconnect_to(seq, 0, ports[0].client, ports[0].port);
-//        if (err < 0 && err != -6 )
-//            QMessageBox::critical(this, "MIDI Player", QString("%4 Cannot disconnect from port %1:%2 - %3") .arg(ports[0].client) .arg(ports[0].port) .arg(strerror(errno)) .arg(err));
-        qDebug() << "Disconnected current port" << SEQ_dev;
+      int err;
+      ports = (snd_seq_addr_t *)realloc(ports, sizeof(snd_seq_addr_t));
+      err = snd_seq_parse_address(seq, &ports[0], SEQ_dev);
+      if (err < 0) {
+        QMessageBox::critical(this, "MIDI Player", QString("Invalid port%1\n%2") .arg(SEQ_dev) .arg(snd_strerror(err)));
+        return;
+      }
+      stop_sound();
+      err = snd_seq_disconnect_to(seq, 0, ports[0].client, ports[0].port);
+      qDebug() << "Disconnected current port" << SEQ_dev;
     }   // end if seq
 }   // end disconnect_port
 
@@ -256,3 +254,19 @@ void JVlibForm::tickDisplay() {
         SysPlayMidi_button->setChecked(false);
 }
 }   // end tickDisplay
+
+void JVlibForm::stop_sound() {
+      // stop all sounds
+      char buf[3];
+      buf[1] = 0x78;
+      buf[2] = 0;
+      for (int x=0xB0;x<0xC0;x++) {
+	buf[0] = x;
+	send_data(buf,3);
+      }
+      buf[1] = 0x7B;
+      for (int x=0xB0;x<0xC0;x++) {
+	buf[0] = x;
+	send_data(buf,3);
+      }
+}

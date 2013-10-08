@@ -1211,6 +1211,7 @@ private:
     int parseFile(char *);
     int getSeqPort();
     void createPlayMidi();
+    void stop_sound();
   
 };	// end class JVlibForm
 
