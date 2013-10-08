@@ -26,14 +26,14 @@ System_tab
 08/21/2013  -  validate working of System_Sync LED
 10/08/2013  - Bank Select switch should enable/disable Perf/Patch selection
 10/08/2013  - Program Change switch should enable/disable Perf/Patch number selection
+10/08/2013  - MIDI player, STOP function should send All Notes Off, but not all controllers
+10/08/2013  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
   - "Load Data" function/button
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
-  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
   - when "Offline" is checked, change config file to start offline, et vice versa
-  - MIDI player, STOP function should send All Notes Off, but not all controllers
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64
@@ -86,10 +86,10 @@ Pitch_tab
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Tuning_tab
+10/07/2013  - changing keys does not always work correctly, need to zero out before setting new values
   - recognize existing tunings
   - save custom tuning
   - load saved tuning data
-  - changing keys does not always work correctly, need to zero out before setting new values
 
 config
 08/14/2013  - add MIDI file directory entry
