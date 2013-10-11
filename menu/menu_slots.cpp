@@ -91,36 +91,31 @@ void  JVlibForm::slotConfig() {
 }
 
 bool JVlibForm::open() {
-//    if (maybeSave()) {
-      if (!state_table->db_connect) {
-        QString fileName = QFileDialog::getOpenFileName(this);
-        if (!fileName.isEmpty())
-            loadFile(fileName);
-	else
-	  return false;
-      }
-      else {
-	Load_Dialog load_dialog;
-	if (!load_dialog.exec())
-	  return false;
-      }
-//   }	// end maybeSave
+  if (state_table->db_connect) {
+    Load_Dialog load_dialog;
+    if (!load_dialog.exec())
+      return false;
+  }
+  else {
+    QString fileName = QFileDialog::getOpenFileName(this);
+    if (fileName.isEmpty())
+      return false;
+    loadFile(fileName);
+  }
   return true;
 }
 
 bool JVlibForm::save() {
-  if (!state_table->db_connect) {
-    if (curFile.isEmpty()) {
-        return saveAs();
-    } 
-    else {
-        return saveFile(curFile);
-    }
-  } 
-  else {
+  if (state_table->db_connect) {
     Save_Dialog save_dialog;
     if (!save_dialog.exec())
       return false;
+  } 
+  else {
+    if (curFile.isEmpty())
+      return saveAs();
+    else
+      return saveFile(curFile);
   }
   return true;
 }

@@ -18,7 +18,7 @@ protected:
 
 private:
     Ui::Load_Dialog *ui;
-    bool init_data();
+    bool init_LoadDialog();
     
 private slots:
     void on_Load_buttonBox_helpRequested();
