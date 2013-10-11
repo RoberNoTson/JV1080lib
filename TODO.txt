@@ -34,6 +34,8 @@ System_tab
   - "Save Data" button, add bulk-dump options
   - "Upload" to Synth function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
+  - add master volume control for MIDI playback
+  - change MIDI player progress bar to slider, allow for interaction with MIDI file
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64

@@ -1,7 +1,7 @@
 # JVlib.pro
 CONFIG += warn_on qt
 TARGET = JVlib
-FORMS       = JVlib.ui save_dialog/Save_Dialog.ui config/ini_conf.ui
+FORMS       = JVlib.ui save_dialog/Save_Dialog.ui config/ini_conf.ui load_dialog/Load_Dialog.ui
 QT += sql
 DEFINES += QT_NO_DEBUG
 DEFINES += QT_NO_DEBUG_OUTPUT
@@ -19,7 +19,8 @@ HEADERS	+= JVlibForm.h \
 	EFX/EFX.h \
 	EFX/EFX_slots.h	\
 	config/ini_conf.h \
-	save_dialog/Save_Dialog.h
+	save_dialog/Save_Dialog.h \
+	load_dialog/Load_Dialog.h
 SOURCES     += main.cpp \
 	JVlibForm.cpp \
 	utils.cpp \
@@ -155,4 +156,6 @@ SOURCES     += main.cpp \
 	playmidi/create_playmidi_actions.cpp \
 	playmidi/player.cpp \
 	playmidi/file_parser.cpp \
-	playmidi/midi_player.cpp
+	playmidi/midi_player.cpp \
+	load_dialog/load_dialog.cpp \
+	load_dialog/load_dialog_slots.cpp

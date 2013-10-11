@@ -3,6 +3,7 @@
 #include	<QtGui>
 #include	"config/ini_conf.h"
 #include	"save_dialog/Save_Dialog.h"
+#include	"load_dialog/load_dialog.h"
 
 QSqlDatabase JVlibForm::db_mysql;
 
@@ -89,12 +90,22 @@ void  JVlibForm::slotConfig() {
   ini_conf.exec();
 }
 
-void JVlibForm::open() {
-    if (maybeSave()) {
+bool JVlibForm::open() {
+//    if (maybeSave()) {
+      if (!state_table->db_connect) {
         QString fileName = QFileDialog::getOpenFileName(this);
         if (!fileName.isEmpty())
             loadFile(fileName);
-    }
+	else
+	  return false;
+      }
+      else {
+	Load_Dialog load_dialog;
+	if (!load_dialog.exec())
+	  return false;
+      }
+//   }	// end maybeSave
+  return true;
 }
 
 bool JVlibForm::save() {
@@ -110,15 +121,6 @@ bool JVlibForm::save() {
     Save_Dialog save_dialog;
     if (!save_dialog.exec())
       return false;
-    
-/*    state_table->system_modified = false;
-    state_table->performance_modified = false;
-    state_table->parts_modified = false;
-    state_table->patch_modified = false;
-    state_table->rhythm_modified = false;
-    state_table->tone_modified = false;
-    state_table->tuning_modified = false;
-*/    
   }
   return true;
 }

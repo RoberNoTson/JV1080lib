@@ -8,9 +8,8 @@ TARGET = load_dialog
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        load_dialog.cpp
+SOURCES += load_dialog.cpp
 
 HEADERS  += load_dialog.h
 
-FORMS    += load_dialog.ui
+FORMS    += Load_Dialog.ui

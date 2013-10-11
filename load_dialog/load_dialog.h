@@ -1,23 +1,29 @@
 #ifndef LOAD_DIALOG_H
 #define LOAD_DIALOG_H
 
-#include <QMainWindow>
+#include <QtGui>
+#include <QDialog>
 
 namespace Ui {
-    class LOAD_DIALOG;
+    class Load_Dialog;
 }
 
-class LOAD_DIALOG : public QMainWindow {
+class Load_Dialog : public QDialog {
     Q_OBJECT
 public:
-    LOAD_DIALOG(QWidget *parent = 0);
-    ~LOAD_DIALOG();
+    Load_Dialog(QWidget *parent = 0);
+    ~Load_Dialog();
 
 protected:
-    void changeEvent(QEvent *e);
 
 private:
-    Ui::LOAD_DIALOG *ui;
+    Ui::Load_Dialog *ui;
+    bool init_data();
+    
+private slots:
+    void on_Load_buttonBox_helpRequested();
+    void on_Load_buttonBox_rejected();
+    void on_Load_buttonBox_accepted();
 };
 
 #endif // LOAD_DIALOG_H

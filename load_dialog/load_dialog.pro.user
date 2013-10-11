@@ -75,12 +75,209 @@
   <variable>buildconfiguration-Debug-buildstep0</variable>
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ATISTREAMSDKROOT=/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64</value>
+    <value type="QString">ATISTREAMSDKSAMPLESROOT=/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64</value>
+    <value type="QString">COLORTERM=1</value>
+    <value type="QString">CPU=x86_64</value>
+    <value type="QString">CSHEDIT=emacs</value>
+    <value type="QString">CVS_RSH=ssh</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-i9w4RnS5XI,guid=7513e4b0999ec9a75d959f880000002a</value>
+    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DISPLAY=:0</value>
+    <value type="QString">DM_CONTROL=/var/run/xdmctl</value>
+    <value type="QString">EDITOR=/usr/bin/kwrite</value>
+    <value type="QString">EXPERIMENTALLY_ALLOW_PULSE_AUDIO=1</value>
+    <value type="QString">FROM_HEADER=tx.rr.com</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-ob9GrN/S.gpg-agent:4454:1</value>
+    <value type="QString">GPG_TTY=not a tty</value>
+    <value type="QString">GS_LIB=/home/os2/.fonts</value>
+    <value type="QString">GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/os2/.gtkrc-2.0-kde4:/home/os2/.gtkrc-2.0-qtengine:/home/os2/.gtkrc-2.0:/home/os2/.kde4/share/config/gtkrc-2.0</value>
+    <value type="QString">GTK_IM_MODULE=cedilla</value>
+    <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/os2/.gtkrc::/home/os2/.kde4/share/config/gtkrc</value>
+    <value type="QString">G_BROKEN_FILENAMES=1</value>
+    <value type="QString">G_FILENAME_ENCODING=@locale,UTF-8,ISO-8859-15,CP1252</value>
+    <value type="QString">HISTSIZE=1000</value>
+    <value type="QString">HOME=/home/os2</value>
+    <value type="QString">HOST=os2</value>
+    <value type="QString">HOSTNAME=os2</value>
+    <value type="QString">HOSTTYPE=x86_64</value>
+    <value type="QString">INPUTRC=/home/os2/.inputrc</value>
+    <value type="QString">JAVA_BINDIR=/usr/lib64/jvm/java/bin</value>
+    <value type="QString">JAVA_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">JAVA_ROOT=/usr/lib64/jvm/java</value>
+    <value type="QString">JDK_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">JRE_HOME=/usr/lib64/jvm/jre</value>
+    <value type="QString">KDE_FULL_SESSION=true</value>
+    <value type="QString">KDE_MULTIHEAD=false</value>
+    <value type="QString">KDE_SESSION_UID=501</value>
+    <value type="QString">KDE_SESSION_VERSION=4</value>
+    <value type="QString">LANG=en_US.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/Development/linux/qt/qtsdk-2010.02/lib/qtcreator:/usr/lib64/mpi/gcc/openmpi/lib64:/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64/lib/x86_64</value>
+    <value type="QString">LESS=-M -I -R</value>
+    <value type="QString">LESSCLOSE=lessclose.sh %s %s</value>
+    <value type="QString">LESSKEY=/etc/lesskey.bin</value>
+    <value type="QString">LESSOPEN=lessopen.sh %s</value>
+    <value type="QString">LESS_ADVANCED_PREPROCESSOR=no</value>
+    <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib64/dri</value>
+    <value type="QString">LOGNAME=os2</value>
+    <value type="QString">MACHTYPE=x86_64-suse-linux</value>
+    <value type="QString">MAIL=/var/spool/mail/os2</value>
+    <value type="QString">MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man</value>
+    <value type="QString">MINICOM=-c on</value>
+    <value type="QString">MORE=-sl</value>
+    <value type="QString">NNTPSERVER=news</value>
+    <value type="QString">NSS_USE_SHARED_DB=enabled</value>
+    <value type="QString">OSTYPE=linux</value>
+    <value type="QString">PAGER=less</value>
+    <value type="QString">PATH=/usr/bin:/usr/local/Trolltech/Qt-4.6.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/kde3/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin</value>
+    <value type="QString">PILOTPORT=usb:</value>
+    <value type="QString">PROFILEREAD=true</value>
+    <value type="QString">PWD=/home/os2/Documents</value>
+    <value type="QString">PYTHONSTARTUP=/etc/pythonstart</value>
+    <value type="QString">QTDIR=/usr/share/qt4/</value>
+    <value type="QString">QT_IM_MODULE=xim</value>
+    <value type="QString">QT_IM_SWITCHER=imsw-multi</value>
+    <value type="QString">QT_PLUGIN_PATH=/home/os2/.kde4/lib64/kde4/plugins/:/usr/lib64/kde4/plugins/</value>
+    <value type="QString">QT_SYSTEM_DIR=/usr/share/desktop-data</value>
+    <value type="QString">SDK_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">SESSION_MANAGER=local/os2:@/tmp/.ICE-unix/4552,unix/os2:/tmp/.ICE-unix/4552</value>
+    <value type="QString">SHELL=/bin/bash</value>
+    <value type="QString">SHLVL=1</value>
+    <value type="QString">SSH_AGENT_PID=4455</value>
+    <value type="QString">SSH_ASKPASS=/usr/lib64/ssh/x11-ssh-askpass</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-OSSGJvXd4362/agent.4362</value>
+    <value type="QString">TERM=xterm</value>
+    <value type="QString">TMPDIR=/tmp</value>
+    <value type="QString">USER=os2</value>
+    <value type="QString">USE_FAM=</value>
+    <value type="QString">WINDOWMANAGER=/usr/bin/startkde</value>
+    <value type="QString">WINDOWPATH=7</value>
+    <value type="QString">WINEDEBUG=-all</value>
+    <value type="QString">XAUTHLOCALHOSTNAME=os2</value>
+    <value type="QString">XCURSOR_THEME=Oxygen_White</value>
+    <value type="QString">XDG_CONFIG_DIRS=/etc/xdg</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/local/share:/usr/share:/etc/opt/kde3/share:/opt/kde3/share</value>
+    <value type="QString">XDG_SESSION_COOKIE=d2f223773c984c89331a62fa493ee8fd-1380474212.276838-1758889203</value>
+    <value type="QString">XDM_MANAGED=method=classic,auto</value>
+    <value type="QString">XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB</value>
+    <value type="QString">XMODIFIERS=@im=local</value>
+    <value type="QString">XNLSPATH=/usr/share/X11/nls</value>
+    <value type="QString">XSESSION_IS_UP=yes</value>
+   </valuelist>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">/Development/linux/qt/work/JVlib/load_dialog/load_dialog.pro</value>
+    <value type="QString">-spec</value>
+    <value type="QString">linux-g++-64</value>
+    <value type="QString">-r</value>
+    <value type="QString">CONFIG+=debug</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">/usr/bin/qmake</value>
+   <value key="abstractProcess.enabled" type="bool">false</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/load_dialog</value>
   </valuemap>
  </data>
  <data>
   <variable>buildconfiguration-Debug-buildstep1</variable>
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
+   <valuelist key="abstractProcess.Environment" type="QVariantList">
+    <value type="QString">ATISTREAMSDKROOT=/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64</value>
+    <value type="QString">ATISTREAMSDKSAMPLESROOT=/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64</value>
+    <value type="QString">COLORTERM=1</value>
+    <value type="QString">CPU=x86_64</value>
+    <value type="QString">CSHEDIT=emacs</value>
+    <value type="QString">CVS_RSH=ssh</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-i9w4RnS5XI,guid=7513e4b0999ec9a75d959f880000002a</value>
+    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DISPLAY=:0</value>
+    <value type="QString">DM_CONTROL=/var/run/xdmctl</value>
+    <value type="QString">EDITOR=/usr/bin/kwrite</value>
+    <value type="QString">EXPERIMENTALLY_ALLOW_PULSE_AUDIO=1</value>
+    <value type="QString">FROM_HEADER=tx.rr.com</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/gpg-ob9GrN/S.gpg-agent:4454:1</value>
+    <value type="QString">GPG_TTY=not a tty</value>
+    <value type="QString">GS_LIB=/home/os2/.fonts</value>
+    <value type="QString">GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/os2/.gtkrc-2.0-kde4:/home/os2/.gtkrc-2.0-qtengine:/home/os2/.gtkrc-2.0:/home/os2/.kde4/share/config/gtkrc-2.0</value>
+    <value type="QString">GTK_IM_MODULE=cedilla</value>
+    <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/os2/.gtkrc::/home/os2/.kde4/share/config/gtkrc</value>
+    <value type="QString">G_BROKEN_FILENAMES=1</value>
+    <value type="QString">G_FILENAME_ENCODING=@locale,UTF-8,ISO-8859-15,CP1252</value>
+    <value type="QString">HISTSIZE=1000</value>
+    <value type="QString">HOME=/home/os2</value>
+    <value type="QString">HOST=os2</value>
+    <value type="QString">HOSTNAME=os2</value>
+    <value type="QString">HOSTTYPE=x86_64</value>
+    <value type="QString">INPUTRC=/home/os2/.inputrc</value>
+    <value type="QString">JAVA_BINDIR=/usr/lib64/jvm/java/bin</value>
+    <value type="QString">JAVA_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">JAVA_ROOT=/usr/lib64/jvm/java</value>
+    <value type="QString">JDK_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">JRE_HOME=/usr/lib64/jvm/jre</value>
+    <value type="QString">KDE_FULL_SESSION=true</value>
+    <value type="QString">KDE_MULTIHEAD=false</value>
+    <value type="QString">KDE_SESSION_UID=501</value>
+    <value type="QString">KDE_SESSION_VERSION=4</value>
+    <value type="QString">LANG=en_US.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/Development/linux/qt/qtsdk-2010.02/lib/qtcreator:/usr/lib64/mpi/gcc/openmpi/lib64:/Development/linux/OpenCL/ati-stream-sdk-v2.1-lnx64/lib/x86_64</value>
+    <value type="QString">LESS=-M -I -R</value>
+    <value type="QString">LESSCLOSE=lessclose.sh %s %s</value>
+    <value type="QString">LESSKEY=/etc/lesskey.bin</value>
+    <value type="QString">LESSOPEN=lessopen.sh %s</value>
+    <value type="QString">LESS_ADVANCED_PREPROCESSOR=no</value>
+    <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib64/dri</value>
+    <value type="QString">LOGNAME=os2</value>
+    <value type="QString">MACHTYPE=x86_64-suse-linux</value>
+    <value type="QString">MAIL=/var/spool/mail/os2</value>
+    <value type="QString">MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man</value>
+    <value type="QString">MINICOM=-c on</value>
+    <value type="QString">MORE=-sl</value>
+    <value type="QString">NNTPSERVER=news</value>
+    <value type="QString">NSS_USE_SHARED_DB=enabled</value>
+    <value type="QString">OSTYPE=linux</value>
+    <value type="QString">PAGER=less</value>
+    <value type="QString">PATH=/usr/bin:/usr/local/Trolltech/Qt-4.6.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/opt/kde3/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/usr/lib/qt3/bin</value>
+    <value type="QString">PILOTPORT=usb:</value>
+    <value type="QString">PROFILEREAD=true</value>
+    <value type="QString">PWD=/home/os2/Documents</value>
+    <value type="QString">PYTHONSTARTUP=/etc/pythonstart</value>
+    <value type="QString">QTDIR=/usr/share/qt4/</value>
+    <value type="QString">QT_IM_MODULE=xim</value>
+    <value type="QString">QT_IM_SWITCHER=imsw-multi</value>
+    <value type="QString">QT_PLUGIN_PATH=/home/os2/.kde4/lib64/kde4/plugins/:/usr/lib64/kde4/plugins/</value>
+    <value type="QString">QT_SYSTEM_DIR=/usr/share/desktop-data</value>
+    <value type="QString">SDK_HOME=/usr/lib64/jvm/java</value>
+    <value type="QString">SESSION_MANAGER=local/os2:@/tmp/.ICE-unix/4552,unix/os2:/tmp/.ICE-unix/4552</value>
+    <value type="QString">SHELL=/bin/bash</value>
+    <value type="QString">SHLVL=1</value>
+    <value type="QString">SSH_AGENT_PID=4455</value>
+    <value type="QString">SSH_ASKPASS=/usr/lib64/ssh/x11-ssh-askpass</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/ssh-OSSGJvXd4362/agent.4362</value>
+    <value type="QString">TERM=xterm</value>
+    <value type="QString">TMPDIR=/tmp</value>
+    <value type="QString">USER=os2</value>
+    <value type="QString">USE_FAM=</value>
+    <value type="QString">WINDOWMANAGER=/usr/bin/startkde</value>
+    <value type="QString">WINDOWPATH=7</value>
+    <value type="QString">WINEDEBUG=-all</value>
+    <value type="QString">XAUTHLOCALHOSTNAME=os2</value>
+    <value type="QString">XCURSOR_THEME=Oxygen_White</value>
+    <value type="QString">XDG_CONFIG_DIRS=/etc/xdg</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/local/share:/usr/share:/etc/opt/kde3/share:/opt/kde3/share</value>
+    <value type="QString">XDG_SESSION_COOKIE=d2f223773c984c89331a62fa493ee8fd-1380474212.276838-1758889203</value>
+    <value type="QString">XDM_MANAGED=method=classic,auto</value>
+    <value type="QString">XKEYSYMDB=/usr/X11R6/lib/X11/XKeysymDB</value>
+    <value type="QString">XMODIFIERS=@im=local</value>
+    <value type="QString">XNLSPATH=/usr/share/X11/nls</value>
+    <value type="QString">XSESSION_IS_UP=yes</value>
+   </valuelist>
+   <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
+   <valuelist key="abstractProcess.arguments" type="QVariantList">
+    <value type="QString">-w</value>
+   </valuelist>
+   <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
+   <value key="abstractProcess.enabled" type="bool">true</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/load_dialog</value>
   </valuemap>
  </data>
  <data>

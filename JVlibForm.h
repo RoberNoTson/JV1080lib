@@ -35,6 +35,7 @@ QT_END_NAMESPACE
 class JVlibForm : public QMainWindow, private Ui::JVlibForm
 {
   friend class Save_Dialog;
+  friend class Load_Dialog;
   
   Q_OBJECT
 
@@ -50,7 +51,7 @@ protected:
 
 private slots:
   // for menubar.cpp
-  void open();
+  bool open();
   bool save();
   bool saveAs();
   void about();

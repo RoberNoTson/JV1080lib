@@ -1,26 +1,37 @@
-#include "load_dialog.h"
-#include "ui_load_dialog.h"
+// load_dialog.cpp
 
-LOAD_DIALOG::LOAD_DIALOG(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::LOAD_DIALOG)
+#include "load_dialog/load_dialog.h"
+#include "ui_Load_Dialog.h"
+#include "JVlibForm.h"
+#include <QtGui>
+#include <QtSql>
+
+Load_Dialog::Load_Dialog(QWidget *parent) :
+  QDialog(parent),
+  ui(new Ui::Load_Dialog)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
+  if (!init_data())
+    this->close;
 }
 
-LOAD_DIALOG::~LOAD_DIALOG()
+Load_Dialog::~Load_Dialog()
 {
-    delete ui;
+  delete ui;
 }
 
-void LOAD_DIALOG::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui->retranslateUi(this);
-        break;
-    default:
-        break;
-    }
+bool Load_Dialog::init_data() {
+  QByteArray sysex;
+  QSqlQuery query(JVlibForm::db_mysql);
+  QString buf = "select name, date, comment from Dumps where name like \"Full%\" order by date";
+  if (!query.exec(buf)) {
+    QMessageBox::critical(this, "Load Dialog", QString("Query exec failed\n%1") .arg(query.lastError().text()));
+    query.finish();
+    return false;
+  }
+  
+  
+  query.finish();
+  return true;
 }
+
