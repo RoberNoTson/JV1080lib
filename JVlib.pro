@@ -8,7 +8,7 @@ DEFINES += QT_NO_DEBUG_OUTPUT
 OBJECTS_DIR = objects
 MOC_DIR = objects
 QMAKE_CLEAN += asdf
-LIBS += -lasound -lkdeui -liniparser
+LIBS += -lasound -lkdeui
 RESOURCES += JVlibForm.qrc
 HEADERS	+= JVlibForm.h \
 	JV-struct-defs.h \
