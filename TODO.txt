@@ -50,39 +50,39 @@ PerfParts_tab
 08/21/2013  - add Poly/Solo button on each part
 08/21/2013  - change label from "Play Tone" to "Play Patch" for consistency
 08/21/2013  - sync Parts and Patch tab Voice Mode buttons
+10/18/2013  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
+10/18/2013  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
   - are Part 10 controls the same as the ones on the Rhythm tab? (Reverb,Chorus, Level, Outputlevel, etc.)
-  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
-  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
 
 Patch_tab
 07/26/2013  - turn off Patch Sync light when a different patch is selected	
 07/26/2013  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
 07/26/2013  - update Patch group, number and name to match Part# values when PerfPartNum is scrolled
 08/21/2013  - turn off Patch Sync light when a different Part tab Part# patch is selected
+10/18/2013  - disable Patch_Group_select when AcceptBankSel_switch not checked
+10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - change cursor to Wait when Sync pressed
-  - disable Patch_Group_select when AcceptBankSel_switch not checked
-  - disable Patch_Number_select when AcceptProgramChg_switch not checked
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
+10/18/2013  - disable Rhythm_WaveGroup_select when AcceptBankSel_switch not checked
+10/18/2013  - disable Rhythm_WaveNumber_select when AcceptProgramChg_switch not checked
   - enable/disable Play button relative to Sync status
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
   - can Pitch, TVA, TVF use the same tabs as other patches?
-  - disable Rhythm_WaveGroup_select when AcceptBankSel_switch not checked
-  - disable Rhythm_WaveNumber_select when AcceptProgramChg_switch not checked
 
 PatchEFX_tab
   - fix Parm 11 ghost values
 
 Tone_tab
+10/18/2013  - disable Tone_Group_select when AcceptBankSel_switch not checked
+10/18/2013  - disable Tone_Number_select when AcceptProgramChg_switch not checked
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
-  - disable Tone_Group_select when AcceptBankSel_switch not checked
-  - disable Tone_Number_select when AcceptProgramChg_switch not checked
 
 ToneEFX_tab
   - Add waveform types to LFO graphic
