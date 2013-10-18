@@ -9,10 +9,13 @@ General
   - change cursor to "Wait" wherever ProgressBox is displayed
   - add options to support Data Cards
   - when closing app and asked to Save changes, close the app after the save completes
+  - create library maintenance form to rename, delete, etc. existing db entries
 
 Menu
   - standalone/offline mode with all tabs functional
-  - create Utility functions: Copy, Write, Bulk Dump
+  - create Utility function Copy
+  - create Utility function Write
+  - create Utility function Bulk Dump
 
 database
   - fill in missing database info for waves/patch, unknown families, etc.
@@ -30,8 +33,8 @@ System_tab
 10/08/2013  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
-  - "Load Data" function/button
-  - "Save Data" button, add bulk-dump options
+  - "Load Data" button functions
+  - "Save Data" button functions
   - "Upload" to Synth function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
@@ -39,6 +42,8 @@ System_tab
 
 Performance_tab
   - voice reserve per part should be locked if it causes the system total to exceed 64
+  - disable PerfGroup_select when AcceptBankSel_switch not checked
+  - disable PerfNumber_select when AcceptProgramChg_switch not checked
 
 PerfParts_tab
 07/24/2013  - verify Key Range Upper/Lower cannot cross each other.
@@ -49,6 +54,8 @@ PerfParts_tab
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
   - are Part 10 controls the same as the ones on the Rhythm tab? (Reverb,Chorus, Level, Outputlevel, etc.)
+  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
+  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
 
 Patch_tab
 07/26/2013  - turn off Patch Sync light when a different patch is selected	
@@ -57,6 +64,8 @@ Patch_tab
 08/21/2013  - turn off Patch Sync light when a different Part tab Part# patch is selected
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - change cursor to Wait when Sync pressed
+  - disable Patch_Group_select when AcceptBankSel_switch not checked
+  - disable Patch_Number_select when AcceptProgramChg_switch not checked
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
@@ -64,12 +73,16 @@ Rhythm_tab
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
   - can Pitch, TVA, TVF use the same tabs as other patches?
+  - disable Rhythm_WaveGroup_select when AcceptBankSel_switch not checked
+  - disable Rhythm_WaveNumber_select when AcceptProgramChg_switch not checked
 
 PatchEFX_tab
   - fix Parm 11 ghost values
 
 Tone_tab
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - disable Tone_Group_select when AcceptBankSel_switch not checked
+  - disable Tone_Number_select when AcceptProgramChg_switch not checked
 
 ToneEFX_tab
   - Add waveform types to LFO graphic
@@ -104,5 +117,8 @@ save_dialog
 08/30/2013  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.
 09/03/2013  - auto-fill Name field with suggested name when radio button is clicked
   - create missing functions
+  - connect something to the Help button
+
+load_dialog
   - connect something to the Help button
 

@@ -68,9 +68,9 @@ void JVlibForm::setPart3_Parms() {
   Part3_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[2].patch_common.name[0],12));
   Part3_LowLimit_display->setText(funcNoteCalc(Part3_LowLimit_select->value()));
   Part3_HighLimit_display->setText(funcNoteCalc(Part3_HighLimit_select->value()));
-  Part3_PatchGroup_select->setEnabled(Part3_ReceivePrgChg_enable->isChecked()); 
+  Part3_PatchGroup_select->setEnabled(Part3_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
   Part3_MidiChannel_select->setEnabled(Part3_ReceiveMidi_enable->isChecked());
-  Part3_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked());
+  Part3_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked() || AcceptBankSel_switch->isChecked());
   Part3_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
   Part3_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());  
   }
@@ -107,6 +107,6 @@ void JVlibForm::setPart3_Parms() {
   // following are used for both Perf and GM modes
   Part3_TestTone_switch->setChecked(false);
   Part3_SetPatchMax();
-  Part3_PatchNumber_select->setEnabled(Part3_ReceivePrgChg_enable->isChecked()); 
+  Part3_PatchNumber_select->setEnabled(Part3_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
   Part3_TestTone_switch->setEnabled(Part3_ReceiveMidi_enable->isChecked());
 }	// end setPart3_Parms

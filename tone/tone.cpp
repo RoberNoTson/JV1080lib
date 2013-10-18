@@ -86,8 +86,8 @@ QString JVlibForm::WaveName_query() {
 }
 
 void JVlibForm::Enable_Tone(bool val) {
-  Tone_Number_select->setEnabled(val);
-  Tone_Group_select->setEnabled(val);
+  Tone_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
+  Tone_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
   Tone_WaveName_display->setEnabled(val);
   Tone_Output_select->setEnabled(val);
   Tone_InstrFamily_select->setEnabled(val);

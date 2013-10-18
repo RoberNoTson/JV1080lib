@@ -378,28 +378,51 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
   system_area->sys_common.receive_program_change = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_program_change,system_area->sys_common.receive_program_change);
-  Part1_ReceivePrgChg_enable->setEnabled(val);
-  Part2_ReceivePrgChg_enable->setEnabled(val);
-  Part3_ReceivePrgChg_enable->setEnabled(val);
-  Part4_ReceivePrgChg_enable->setEnabled(val);
-  Part5_ReceivePrgChg_enable->setEnabled(val);
-  Part6_ReceivePrgChg_enable->setEnabled(val);
-  Part7_ReceivePrgChg_enable->setEnabled(val);
-  Part8_ReceivePrgChg_enable->setEnabled(val);
-  Part9_ReceivePrgChg_enable->setEnabled(val);
-  Part10_ReceivePrgChg_enable->setEnabled(val);
-  Part11_ReceivePrgChg_enable->setEnabled(val);
-  Part12_ReceivePrgChg_enable->setEnabled(val);
-  Part13_ReceivePrgChg_enable->setEnabled(val);
-  Part14_ReceivePrgChg_enable->setEnabled(val);
-  Part15_ReceivePrgChg_enable->setEnabled(val);
-  Part16_ReceivePrgChg_enable->setEnabled(val);
   if (state_table->perf_mode) {
     SysPerfNumber->setEnabled(val);
-    PerfNumber_select->setEnabled(val);
+    if (state_table->performance_sync) {
+      PerfNumber_select->setEnabled(val);
+      Part1_ReceivePrgChg_enable->setEnabled(val);
+      Part2_ReceivePrgChg_enable->setEnabled(val);
+      Part3_ReceivePrgChg_enable->setEnabled(val);
+      Part4_ReceivePrgChg_enable->setEnabled(val);
+      Part5_ReceivePrgChg_enable->setEnabled(val);
+      Part6_ReceivePrgChg_enable->setEnabled(val);
+      Part7_ReceivePrgChg_enable->setEnabled(val);
+      Part8_ReceivePrgChg_enable->setEnabled(val);
+      Part9_ReceivePrgChg_enable->setEnabled(val);
+      Part10_ReceivePrgChg_enable->setEnabled(val);
+      Part11_ReceivePrgChg_enable->setEnabled(val);
+      Part12_ReceivePrgChg_enable->setEnabled(val);
+      Part13_ReceivePrgChg_enable->setEnabled(val);
+      Part14_ReceivePrgChg_enable->setEnabled(val);
+      Part15_ReceivePrgChg_enable->setEnabled(val);
+      Part16_ReceivePrgChg_enable->setEnabled(val);
+      Part1_PatchNumber_select->setEnabled(val && Part1_ReceivePrgChg_enable->isChecked());
+      Part2_PatchNumber_select->setEnabled(val && Part2_ReceivePrgChg_enable->isChecked());
+      Part3_PatchNumber_select->setEnabled(val && Part3_ReceivePrgChg_enable->isChecked());
+      Part4_PatchNumber_select->setEnabled(val && Part4_ReceivePrgChg_enable->isChecked());
+      Part5_PatchNumber_select->setEnabled(val && Part5_ReceivePrgChg_enable->isChecked());
+      Part6_PatchNumber_select->setEnabled(val && Part6_ReceivePrgChg_enable->isChecked());
+      Part7_PatchNumber_select->setEnabled(val && Part7_ReceivePrgChg_enable->isChecked());
+      Part8_PatchNumber_select->setEnabled(val && Part8_ReceivePrgChg_enable->isChecked());
+      Part9_PatchNumber_select->setEnabled(val && Part9_ReceivePrgChg_enable->isChecked());
+      Part10_PatchNumber_select->setEnabled(val && Part10_ReceivePrgChg_enable->isChecked());
+      Part11_PatchNumber_select->setEnabled(val && Part11_ReceivePrgChg_enable->isChecked());
+      Part12_PatchNumber_select->setEnabled(val && Part12_ReceivePrgChg_enable->isChecked());
+      Part13_PatchNumber_select->setEnabled(val && Part13_ReceivePrgChg_enable->isChecked());
+      Part14_PatchNumber_select->setEnabled(val && Part14_ReceivePrgChg_enable->isChecked());
+      Part15_PatchNumber_select->setEnabled(val && Part15_ReceivePrgChg_enable->isChecked());
+      Part16_PatchNumber_select->setEnabled(val && Part16_ReceivePrgChg_enable->isChecked());
+    }
+    if (state_table->rhythm_sync) Rhythm_WaveNumber_select->setEnabled(val);
   }
   if (state_table->patch_mode) {
     SysPatchNumber->setEnabled(val);
+    if (state_table->patch_sync) Patch_Number_select->setEnabled(val);
+  }
+  if (state_table->tone_sync) {
+    Tone_Number_select->setEnabled(val);
   }
   Patch_Number_select->setEnabled(val);
   }
@@ -414,9 +437,34 @@ void JVlibForm::on_AcceptBankSel_switch_stateChanged(int val) {
   if (state_table->perf_mode) {
     SysPerfSelect->setEnabled(val);
     PerfGroup_select->setEnabled(val);
+    if (state_table->performance_sync) {
+      Part1_PatchGroup_select->setEnabled(val && Part1_ReceivePrgChg_enable->isChecked());
+      Part2_PatchGroup_select->setEnabled(val && Part2_ReceivePrgChg_enable->isChecked());
+      Part3_PatchGroup_select->setEnabled(val && Part3_ReceivePrgChg_enable->isChecked());
+      Part4_PatchGroup_select->setEnabled(val && Part4_ReceivePrgChg_enable->isChecked());
+      Part5_PatchGroup_select->setEnabled(val && Part5_ReceivePrgChg_enable->isChecked());
+      Part6_PatchGroup_select->setEnabled(val && Part6_ReceivePrgChg_enable->isChecked());
+      Part7_PatchGroup_select->setEnabled(val && Part7_ReceivePrgChg_enable->isChecked());
+      Part8_PatchGroup_select->setEnabled(val && Part8_ReceivePrgChg_enable->isChecked());
+      Part9_PatchGroup_select->setEnabled(val && Part9_ReceivePrgChg_enable->isChecked());
+      Part10_PatchGroup_select->setEnabled(val && Part10_ReceivePrgChg_enable->isChecked());
+      Part11_PatchGroup_select->setEnabled(val && Part11_ReceivePrgChg_enable->isChecked());
+      Part12_PatchGroup_select->setEnabled(val && Part12_ReceivePrgChg_enable->isChecked());
+      Part13_PatchGroup_select->setEnabled(val && Part13_ReceivePrgChg_enable->isChecked());
+      Part14_PatchGroup_select->setEnabled(val && Part14_ReceivePrgChg_enable->isChecked());
+      Part15_PatchGroup_select->setEnabled(val && Part15_ReceivePrgChg_enable->isChecked());
+      Part16_PatchGroup_select->setEnabled(val && Part16_ReceivePrgChg_enable->isChecked());
+    }
+    if (state_table->rhythm_sync) Rhythm_WaveGroup_select->setEnabled(val);
   }
   if (state_table->patch_mode) {
     SysPatchSelect->setEnabled(val);
+    if (state_table->patch_sync) {
+      Patch_Group_select->setEnabled(val);
+    }
+  }
+  if (state_table->tone_sync) {
+    Tone_Group_select->setEnabled(val);
   }
   Patch_Group_select->setEnabled(val);
 }

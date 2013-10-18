@@ -57,9 +57,11 @@ void JVlibForm::on_Part4_ReverbSend_select_valueChanged(int val) {
 void JVlibForm::on_Part4_ReceivePrgChg_enable_toggled(bool val) {
   if (state_table->perf_mode) {
     setPartSingleValue(3,0xE,val);
+    Part4_PatchGroup_select->setEnabled(val && AcceptBankSel_switch->isChecked());
+    Part4_PatchNumber_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
     if (Patch_PerfPartNum_select->currentIndex()==3 && state_table->patch_sync) {
-      Patch_Group_select->setEnabled(val);
-      Patch_Number_select->setEnabled(val);
+      Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
+      Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
       Patch_Name_edit->setEnabled(val);
     }
   }

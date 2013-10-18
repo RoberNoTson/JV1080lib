@@ -35,6 +35,8 @@ void JVlibForm::setPerfParms() {
   PerfControlSource2_select->setCurrentIndex(active_area->active_performance.perf_common.EFX_control_src_2);
   PerfControl1Depth_select->setValue(active_area->active_performance.perf_common.EFX_control_depth_1-63);
   PerfControl2Depth_select->setValue(active_area->active_performance.perf_common.EFX_control_depth_2-63);
+  PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
+  PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
   // set Part group,number,name
   setPartsParms();
   // set EFX parms
