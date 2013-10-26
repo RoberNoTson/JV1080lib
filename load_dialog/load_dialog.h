@@ -28,6 +28,7 @@ private:
     Ui::Load_Dialog *ui;
     bool fill_Data(const char *);
     void clearPartLabels();
+    void load_user_perf();
     
 private slots:
     void on_Load_PerfPart_All_select_clicked(bool checked);

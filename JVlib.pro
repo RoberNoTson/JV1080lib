@@ -158,4 +158,5 @@ SOURCES     += main.cpp \
 	playmidi/file_parser.cpp \
 	playmidi/midi_player.cpp \
 	load_dialog/load_dialog.cpp \
-	load_dialog/load_dialog_slots.cpp
+	load_dialog/load_dialog_slots.cpp \
+	load_dialog/load_user_perf.cpp

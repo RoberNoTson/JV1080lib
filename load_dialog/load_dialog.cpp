@@ -21,8 +21,55 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   ui(new Ui::Load_Dialog)
 {
   ui->setupUi(this);
-  if (!fill_Data(DumpsQuery))
-    QMessageBox::critical(this, "Load_Dialog", "Unable to initialize data");
+  if (!JVlibForm::state_table->jv_connect) {
+    QMessageBox::critical(0, "Load_Dialog", "Not connected to the JV-1080");
+    return;
+  }
+  // see if we can get database access
+  if (!JVlibForm::state_table->db_connect) {
+    QMessageBox::critical(0, "Load_Dialog", "Not connected to the database");
+    return;
+  }
+//  ui->setupUi(this);
+  if (!fill_Data(DumpsQuery)) {
+    QMessageBox::critical(0, "Load_Dialog", "Unable to initialize data");
+    return;
+  }
+  // check if we can write to User memory, else disable those buttons
+  unsigned char oldCh, newCh;
+  unsigned char buf[8];
+  unsigned char newBuf[5]; // = { 0x10, 0x00, 0x00, 0x00, 0x7F };
+  char oneSize[4];
+  memset(buf,0,8);
+  memset(oneSize,0,3);
+  memset(newBuf,0,5);
+  buf[0] = 0x10;
+  buf[7] = 1;
+  oneSize[3] = 1;
+  newBuf[0] = 0x10;
+  newBuf[4] = 0x7F;
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_get(&oldCh, oneSize);
+  JVlibForm::sysex_update(newBuf, 5);
+  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_get(&newCh, oneSize);
+  if (newCh == oldCh) {	// did not update
+    ui->Load_UserPerformance_button->setEnabled(false);
+    ui->Load_UserPatch_button->setEnabled(false);
+    ui->Load_UserRhythm_button->setEnabled(false);
+    ui->Load_LoadDump_button->setEnabled(false);
+    QMessageBox::critical(this, "Load_Dialog", "Exclusive protect is ON, User memory cannot be written");
+  }
+  else {
+    newBuf[4] = oldCh;
+    JVlibForm::sysex_update(newBuf, 5);
+    JVlibForm::sysex_request(buf, 8);
+    JVlibForm::sysex_get(&newCh, oneSize);
+    if (newCh != oldCh)  // OOPS, did not replace the original char
+      QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing, User 1 Performance name is corrupted");
+  }
+  JVlibForm::close_ports();
 }
 
 Load_Dialog::~Load_Dialog()

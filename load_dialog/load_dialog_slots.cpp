@@ -31,45 +31,66 @@ const char* Load_Dialog::TuningQuery = "select name, date, comment, SerNumber fr
 
 void Load_Dialog::on_Load_buttonBox_accepted()
 {
-  // parse what data to pull
-  
-  // pull data from db into QByteArray
-  QSqlQuery query(JVlibForm::db_mysql);
-  query.prepare("select sysex from Performances where SerNumber = ?");
-    int SerNum = (ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex())).toInt();
-  query.bindValue(0, SerNum);
-  if (query.exec() == false) {
-    puts("query error");
-    query.finish();
+  // must have an entry selected
+  if (ui->Load_Name_select->count()==0) // nothing selected
+    this->close();
+    return;
+  if (ui->Load_CurrentPerformance_button->isChecked()) {
+//    load_current_perf();
+    this->close();
     return;
   }
-  if (query.size() == 0) {
-    query.finish();
+  if (ui->Load_CurrentPatch_button->isChecked()) {
+//    load_current_patch();
+    this->close();
     return;
   }
-  query.next();
-  QByteArray SysEx(4,0);
-  SysEx.append(0x12);
-  SysEx.append(query.value(0).toByteArray());
-  
-  
-  // use sysex_update to load it
-
-  // done
-  query.finish();
+  if (ui->Load_CurrentRhythm_button->isChecked()) {
+//    load_current_rhythm();
+    this->close();
+    return;
+  }
+  if (ui->Load_UserPerformance_button->isChecked()) {
+    load_user_perf();
+    this->close();
+    return;
+  }
+  if (ui->Load_UserPatch_button->isChecked()) {
+//    load_user_patch();
+    this->close();
+    return;
+  }
+  if (ui->Load_UserRhythm_button->isChecked()) {
+//    load_user_rhythm();
+    this->close();
+    return;
+  }
+  if (ui->Load_CurrentTuning_button->isChecked()) {
+//    load_tuning();
+    this->close();
+    return;
+  }
+  if (ui->Load_System_button->isChecked()) {
+//    load_system();
+    this->close();
+    return;
+  }
+  if (ui->Load_LoadDump_button->isChecked()) {
+//    load_dump();
+    this->close();
+    return;
+  }
   this->close();
+  return;
 }
 
-void Load_Dialog::on_Load_buttonBox_rejected()
-{
+void Load_Dialog::on_Load_buttonBox_rejected() {
     this->close();
 }
 
-void Load_Dialog::on_Load_buttonBox_helpRequested()
-{
+void Load_Dialog::on_Load_buttonBox_helpRequested() {
     QMessageBox::critical(this, "Load Dialog", "Help not yet available for this function");
 }
-
 
 void Load_Dialog::on_Load_CurrentPerformance_button_toggled(bool checked)
 {
