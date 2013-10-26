@@ -9,7 +9,7 @@ void JVlibForm::getActivePerfCommon() {
   // called from on_PerfSync_button_clicked when Performance Sync button is clicked.
   int   err;
   int   Stop=0;
-  unsigned char  buf[15];
+  unsigned char  buf[8];
   char       active_perf_common[]={ 0x1,0x0,0x0,0x0 };
   char    perf_common_size[] = { 0x0,0x0,0x0,0x40 };
   char	perf_part_size[] = { 0x0,0x0,0x0,0x13 };
@@ -17,11 +17,8 @@ void JVlibForm::getActivePerfCommon() {
 
   // get active_area perf_common
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  memcpy(buf+5,active_perf_common,4);
-  memcpy(buf+9,perf_common_size,4);
-  buf[13] = chksum(buf+5, 8);
-  buf[14] = 0xF7;
+  memcpy(buf+0,active_perf_common,4);
+  memcpy(buf+4,perf_common_size,4);
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return;
   QProgressDialog progress("Getting Performance data...", "Abort Download", 0, 32, this);
@@ -29,24 +26,22 @@ void JVlibForm::getActivePerfCommon() {
   progress.setMinimumDuration(0);
   progress.setValue(0);
   RetryA:
-  if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&active_area->active_performance.perf_common.name[0], (char *)perf_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return; }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
   if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
   if (err != EXIT_SUCCESS) { close_ports(); return; }
   // get Performance Part_common headers for 15 parts, skipping over the rhythm set
-  memcpy(buf+9,perf_part_size,4);
+  memcpy(buf+4,perf_part_size,4);
   for (int x=0;x<16;x++) {
     progress.setValue(x);
     if (progress.wasCanceled()) goto breakout;
     printf("part %d\n",x+1);
-//    if (x==9) continue;
     usleep(200000);
-    buf[7] = 0x10+x;
-    buf[13] = chksum(buf+5, 8);
+    buf[2] = 0x10+x;
     RetryB:
-    if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_performance.perf_part[x].MIDI_receive, (char *)perf_part_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryB; }
@@ -56,20 +51,16 @@ void JVlibForm::getActivePerfCommon() {
   } // end FOR
   // get just the associated Part Patch names to match the Part_common headers
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  buf[5] = 0x2;
-  buf[12] = 0xC;	// just enough space for the name, ignore the rest of patch common for now.
-  buf[14] = 0xF7;
+  buf[0] = 0x2;
+  buf[7] = 0xC;	// just enough space for the name, ignore the rest of patch common for now.
   for (int x=0;x<16;x++) {		// get patch common
     progress.setValue(x+16);
     if (progress.wasCanceled()) goto breakout;
     printf("patch %d\n",x+1);
-//    if (x == 9) continue;	// skip over the rhythm set
     usleep(200000);
-    buf[6] = x;		// Patch number
-    buf[13] = chksum(buf+5, 8);	// checksum
+    buf[1] = x;		// Patch number
     RetryC:
-    if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)name_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryC; }
@@ -89,23 +80,19 @@ void JVlibForm::getActivePatchNames() {
   // get just the associated Part Patch names to match the Part_common headers
   int   err;
   int   Stop=0;
-  unsigned char  buf[15];
+  unsigned char  buf[8];
   char    name_size[] = { 0x0,0x0,0x0,0x0C };
   
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  buf[5] = 0x2;
-  buf[12] = 0xC;	// just enough space for the name, ignore the rest of patch common for now.
-  buf[14] = 0xF7;
+  buf[0] = 0x2;
+  buf[7] = 0xC;	// just enough space for the name, ignore the rest of patch common for now.
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return;
   for (int x=0;x<16;x++) {		// get patch common
-//    if (x == 9) continue;	// skip over the rhythm set
     usleep(200000);
-    buf[6] = x;		// Patch number
-    buf[13] = chksum(buf+5, 8);	// checksum
+    buf[1] = x;		// Patch number
     RetryC:
-    if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)name_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryC; }
@@ -121,16 +108,14 @@ void JVlibForm::setPerfSingleValue(int addr, int val) {
     char *ptr = (char *)&active_area->active_performance.perf_common.name[0];
     ptr[addr] = val;
     if (state_table->jv_connect) {
-      unsigned char buf[12];
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x01;
-      buf[8] = addr;
-      buf[9] = val;
-      buf[10] = chksum(buf+5, 5);
-      buf[11] = 0xF7;
+      unsigned char buf[5];
+      buf[0] = 0x01;
+      buf[1] = 0;
+      buf[2] = 0;
+      buf[3] = addr;
+      buf[4] = val;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,12) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_update(&buf[0],5) == EXIT_FAILURE) { close_ports(); return; }
       close_ports();
     }	// end jv_connect
   }	// end updates_enabled

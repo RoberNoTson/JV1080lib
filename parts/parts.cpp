@@ -39,17 +39,14 @@ void JVlibForm::setPartSingleValue(int partnum, int addr, int val) {
     char *ptr = (char *)&active_area->active_performance.perf_part[partnum].MIDI_receive;
     ptr[addr] = val;
     if (state_table->jv_connect) {
-      unsigned char buf[12];
+      unsigned char buf[5];
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x01;
-      buf[7] = 0x10+partnum;
-      buf[8] = addr;
-      buf[9] = val;
-      buf[10] = chksum(buf+5, 5);
-      buf[11] = 0xF7;
+      buf[0] = 0x01;
+      buf[2] = 0x10+partnum;
+      buf[3] = addr;
+      buf[4] = val;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,12) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_update(&buf[0],5) == EXIT_FAILURE) { close_ports(); return; }
       close_ports();
     }	// end state_table->jv_connect
   }  // end if updates enabled
@@ -59,19 +56,16 @@ QString JVlibForm::getPartPatchName(int val) {
   // passes Part offset (0-15) as val
   // returns Patch name as QSTring
   if (!state_table->GM_mode) {
-  unsigned char buf[16];
+  unsigned char buf[8];
   char    name_size[] = { 0x0,0x0,0x0,0x0C };  
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  buf[5] = 0x02;	// base address of active_area->perf_part
-  buf[6] = val;		// offset to part info
-  buf[12] = 0x0C;		// size of patch name
-  buf[13] = chksum(buf+5, 8);	// checksum  
-  buf[14] = 0xF7;
+  buf[0] = 0x02;	// base address of active_area->perf_part
+  buf[1] = val;		// offset to part info
+  buf[7] = 0x0C;		// size of patch name
   if (open_ports() == EXIT_FAILURE) return("");
   int	Stop=0;
   RetryA:
-  if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); puts("1 getPartPatchName failed!"); return(""); }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); puts("1 getPartPatchName failed!"); return(""); }
   int err = sysex_get((unsigned char *)&active_area->active_perf_patch[val].patch_common.name[0], (char *)&name_size);
   if (err == EXIT_FAILURE) { close_ports(); puts("2 getPartPatchName failed!"); return(""); }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; usleep(25000*Stop); goto RetryA; }

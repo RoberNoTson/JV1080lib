@@ -1,4 +1,11 @@
 // load_dialog.cpp
+/* Contains:
+ * Load_Dialog()
+ * ~Load_Dialog()
+ * fill_Data()
+ * clearPartLabels()
+ */
+
 
 #include "load_dialog/load_dialog.h"
 #include "ui_Load_Dialog.h"
@@ -55,7 +62,7 @@ bool Load_Dialog::fill_Data(const char* buf) {
   ui->Load_Timestamp_display->setText(Dates.at(0));
   ui->Load_Comment_display->setText(Comments.at(0));
   return true;
-}	// end init_LoadDialog
+}	// end fill_Data
 
 void Load_Dialog::clearPartLabels() {
   ui->Load_Part_1_data->clear();
@@ -108,5 +115,4 @@ void Load_Dialog::clearPartLabels() {
   ui->Load_PerfPart_15_select->setEnabled(false);
   ui->Load_PerfPart_16_select->setEnabled(false);
   ui->Load_PerfPart_All_select->setEnabled(false);
-}
-
+}	// end clearPartLabels()

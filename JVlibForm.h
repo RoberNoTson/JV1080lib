@@ -22,9 +22,9 @@
 #ifndef JV_REQ
 #define JV_REQ 0x11
 #endif
-#ifndef JV_UPD
-#define JV_UPD 0x12
-#endif
+//#ifndef JV_UPD
+//#define JV_UPD 0x12
+//#endif
 
 QT_BEGIN_NAMESPACE
 class QAction;
@@ -922,8 +922,10 @@ private:
   // generic functions
   void setInitial();
   static int  sysex_get(unsigned char *, char *);
-  static int  sysex_send(unsigned char *, int);
-  int  change_send(unsigned char *, int);
+  static int  sysex_send(unsigned char *, int);		// requires that passed buffer already have most of the header, etc.
+  static int  sysex_update(const unsigned char *, int);	// adds the update header, chksum and 0xF7 to raw data
+  static int  sysex_request(const unsigned char *, int);
+  static int  change_send(const unsigned char *, int);
   int  change_12(int, int, int,int, int, int,int, int, int,int, int, int);
   int  change_3(int, int, int);
   int  change_2(int, int);

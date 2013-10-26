@@ -6,6 +6,8 @@
 //	change_3()
 //	change_2()
 //	sysex_send()
+//	sysex_request()
+//	sysex_update()
 //	sysex_get()
 //	close_ports()
 //	open_ports()
@@ -19,21 +21,19 @@
 #include	<QtSql>
 #include	"JVlibForm.h"
 
-int JVlibForm::change_send(unsigned char *buf, int buf_size) {
-  if (state_table->jv_connect) {
+int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
+  if (!state_table->jv_connect) return EXIT_FAILURE;
     int	err;
   // set to blocking mode
   snd_rawmidi_nonblock(midiInHandle, 0);
   snd_rawmidi_drop(midiOutHandle);
   // transmit the data
   if ((err = snd_rawmidi_write(midiOutHandle, buf, buf_size)) < 0) { 
-    QMessageBox::critical(this, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
+    QMessageBox::critical(0, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
   return(err);
-  }	// end state_table->jv_connect
-  return EXIT_FAILURE;
 }	// end CHANGE_SEND
 int JVlibForm::change_12(int A, int B, int C, int D, int E, int F, int G, int H, int I, int J, int K, int L) {
   change_3(A,B,C);
@@ -62,28 +62,48 @@ int JVlibForm::change_2(int A, int B) {
     return 0;
 }
 int JVlibForm::sysex_send(unsigned char *buf, int buf_size) {
-  if (state_table->jv_connect) {
+  if (!state_table->jv_connect) return EXIT_FAILURE;
   int	err;
   char    JV_header[4] = { 0xF0,0x41,0x10,0x6A };
   // set to blocking mode
   snd_rawmidi_nonblock(midiInHandle, 0);
   snd_rawmidi_drop(midiOutHandle);
   for (int x=0;x<4;x++) buf[x]=JV_header[x];
-//  if (buf[4] == 0x12) MODIFIED ? : MODIFIED=true;
   // transmit the data
   if ((err = snd_rawmidi_write(midiOutHandle, buf, buf_size)) < 0) { 
-//    QMessageBox::critical(this, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     QMessageBox::critical(0, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
-  return(err);
-  }	// end state_table->jv_connect
-  return EXIT_FAILURE;
+  return(err);  
+}	// end SYSEX_SEND
+
+int JVlibForm::sysex_request(const unsigned char *buf, int buf_size) {
+  if (!state_table->jv_connect) return EXIT_FAILURE;
+  unsigned char *SysEx = new unsigned char[buf_size+7];
+  char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x11 };
+  for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
+  SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
+  SysEx[buf_size+6] = 0xF7;
+  // transmit the data
+  return(JVlibForm::change_send(SysEx, buf_size+7));
+}	// end SYSEX_SEND
+
+int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
+  if (!state_table->jv_connect) return EXIT_FAILURE;
+  unsigned char *SysEx = new unsigned char[buf_size+7];
+  char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x12 };
+  for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
+  SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
+  SysEx[buf_size+6] = 0xF7;
+  // transmit the data
+  return(JVlibForm::change_send(SysEx, buf_size+7));
 }	// end SYSEX_SEND
 
 int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
-  if (state_table->jv_connect) {
+  if (!state_table->jv_connect) return EXIT_FAILURE;
   int	data_size,x,buf_size,read;
   register int err;
   int npfds, time;
@@ -184,8 +204,6 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   memcpy(buf, (char *)hold_buf+9, data_size);
   delete pfds;
   return EXIT_SUCCESS;
-  }	// end state_table->jv_connect
-  return EXIT_FAILURE;
 }	// end SYSEX_GET
 
 void	JVlibForm::close_ports() {

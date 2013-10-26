@@ -203,20 +203,17 @@ int JVlibForm::on_System_Sync_button_clicked() {
     QMessageBox::critical(this, "JVlib", tr("No MIDI port selected"));
     return EXIT_FAILURE;
   }
-  unsigned char	buf[256];
+  unsigned char	buf[8];
   int	Stop=0;
   // get System common
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
   // get system_area common
-  for (int x=5;x<9;x++) buf[x]=system_common_addr[x-5];
-  for (int x=9;x<13;x++) buf[x]=system_common_size[x-9];
-  buf[13] = chksum(buf+5, 8);
-  buf[14] = 0xF7;
+  for (int x=0;x<4;x++) buf[x]=system_common_addr[x];
+  for (int x=4;x<8;x++) buf[x]=system_common_size[x-4];
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return EXIT_FAILURE;
   RetryA:
-  if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   int err = sysex_get((unsigned char *)&system_area->sys_common.panel_mode, (char *)system_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }

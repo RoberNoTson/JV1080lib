@@ -66,6 +66,7 @@ Patch_tab
 10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - change cursor to Wait when Sync pressed
+  - update other tabs when Patch name is edited
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd

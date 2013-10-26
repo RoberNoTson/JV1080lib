@@ -49,36 +49,33 @@ void JVlibForm::on_Tone_WaveChooser_select_currentIndexChanged(int val) {
     int val = Tone_Number_select->value() - 1;
     int Hval = val/16;
     int Lval = val%16;
-      unsigned char buf[15];
-      buf[4] = JV_UPD;
-      buf[5] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-      buf[6] = 0x00 + state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;	// select the Perf Part, if in that mode
-      buf[7] = 0x10 + (tn*2);
-      buf[8] = 0x01;
-      buf[9] = (Tone_Group_select->currentIndex()<2?0:2);	// wave_group
+      unsigned char buf[8];
+      buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+      buf[1] = 0x00 + state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;	// select the Perf Part, if in that mode
+      buf[2] = 0x10 + (tn*2);
+      buf[3] = 0x01;
+      buf[4] = (Tone_Group_select->currentIndex()<2?0:2);	// wave_group
       // wave_group_id
       switch(Tone_Group_select->currentIndex()) {
 	case 0:
 	default:
-	  buf[10] = 0x01;
+	  buf[5] = 0x01;
 	  break;
 	case 1:
 	case 2:
-	  buf[10] = 0x02;
+	  buf[5] = 0x02;
 	  break; 
 	case 3:
-	  buf[10] = 0x10;
+	  buf[5] = 0x10;
 	  break; 
 	case 4:
-	  buf[10] = 0x62;
+	  buf[5] = 0x62;
 	  break;
       }	// end Switch
-      buf[11] = Hval;
-      buf[12] = Lval;
-      buf[13] = chksum(buf+5, 8);
-      buf[14] = 0xF7;
+      buf[6] = Hval;
+      buf[7] = Lval;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,15) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],8) == EXIT_FAILURE) {
 	close_ports(); 
 	return;
       }
@@ -171,23 +168,20 @@ void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
     }
     if (state_table->jv_connect) {
     // update the synth
-      unsigned char buf[13];
+      unsigned char buf[6];
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-      buf[6] = 0x00 + pn;	// select the Perf Part, if in that mode
-      buf[7] = 0x10 + (tn*2);
-      buf[8] = 0x01;
-      buf[9] = (val<2?0:2);	// wave_group
+      buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+      buf[1] = 0x00 + pn;	// select the Perf Part, if in that mode
+      buf[2] = 0x10 + (tn*2);
+      buf[3] = 0x01;
+      buf[4] = (val<2?0:2);	// wave_group
       // wave_group_id
-      buf[10] = state_table->perf_mode ? active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id : active_area->active_patch_patch.patch_tone[tn].wave_group_id;
-      buf[11] = chksum(buf+5, 6);
-      buf[12] = 0xF7;
+      buf[5] = state_table->perf_mode ? active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id : active_area->active_patch_patch.patch_tone[tn].wave_group_id;
       if (open_ports() == EXIT_FAILURE) {
 	puts("Error! Unable to open MIDI ports in on_Tone_Group_select_currentIndexChanged");
 	return;
       }
-      if (sysex_send(buf,13) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
 	puts("Error! Unable to send sysex data in on_Tone_Group_select_currentIndexChanged");
 	close_ports(); 
 	return;
@@ -232,19 +226,15 @@ void JVlibForm::on_Tone_Number_select_valueChanged(int val) {
     }
     if (state_table->jv_connect) {
     // update the synth
-      unsigned char buf[13];
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-      buf[6] = 0x00 + state_table->perf_mode ? pn : 0;	// select the Perf Part, if in that mode
-      buf[7] = 0x10 + (tn*2);
-      buf[8] = 0x03;
-      buf[9] = Hval;
-      buf[10] = Lval;
-      buf[11] = chksum(buf+5, 6);
-      buf[12] = 0xF7;
+      unsigned char buf[6];
+      buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+      buf[1] = 0x00 + state_table->perf_mode ? pn : 0;	// select the Perf Part, if in that mode
+      buf[2] = 0x10 + (tn*2);
+      buf[3] = 0x03;
+      buf[4] = Hval;
+      buf[5] = Lval;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,13) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
 	close_ports(); 
 	return;
       }
@@ -276,19 +266,15 @@ void JVlibForm::ToneStdUpdate(int offset, int val) {
 void JVlibForm::setToneSingleValue(int toneNum, int addr, int val) {
   // automatically determines if we are in Performance or Patch mode, and sets the correct patch tone value as needed
   if (state_table->updates_enabled && state_table->jv_connect) {
-    unsigned char buf[12];
-    memset(buf,0,sizeof(buf));
-    buf[4] = JV_UPD;
-    buf[5] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-    buf[6] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
-    buf[7] = 0x10 + (toneNum*2);
+    unsigned char buf[5];
+    buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+    buf[1] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
+    buf[2] = 0x10 + (toneNum*2);
     if (addr>0x7F) buf[7] += 1;
-    buf[8] = addr<0x80 ? addr: addr-0x80;
-    buf[9] = val;
-    buf[10] = chksum(buf+5, 5);
-    buf[11] = 0xF7;
+    buf[3] = addr<0x80 ? addr: addr-0x80;
+    buf[4] = val;
     if (open_ports() == EXIT_FAILURE) return;
-    if (sysex_send(buf,12) == EXIT_FAILURE) {
+    if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
       close_ports(); 
       return;
     }

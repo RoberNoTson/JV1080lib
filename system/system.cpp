@@ -19,18 +19,15 @@ void JVlibForm::getSysPatchName() {
   if (state_table->jv_connect) {
   int	err;
   int	Stop=0;
-  unsigned char buf[16];
+  unsigned char buf[8];
   char r_buf[16];
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  buf[5] = 0x03;	// addr of active patch-mode patch
-  buf[12] = name_size[3];
-  buf[13] = chksum(buf+5, 8);	// checksum  
-  buf[14] = 0xF7;
+  buf[0] = 0x03;	// addr of active patch-mode patch
+  buf[7] = name_size[3];
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return;
   RetryA:
-  if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&r_buf, (char *)&name_size);
   if (err == EXIT_FAILURE) return;
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
@@ -49,21 +46,15 @@ void JVlibForm::getSysPerfName() {
   if (state_table->jv_connect) {
     int	err;
     int	Stop=0;
-    unsigned char buf[16];
+    unsigned char buf[8];
     char r_buf[256];
     memset(buf,0,sizeof(buf));
-    buf[4] = JV_REQ;
-    buf[5] = 0x01;	// address of active_area->perf_common.name
-    buf[12] = name_size[3];
-    buf[13] = chksum(buf+5, 8);	// checksum  
-    buf[14] = 0xF7;
+    buf[0] = 0x01;	// address of active_area->perf_common.name
+    buf[7] = name_size[3];
     // open the selected midi port
     if (open_ports() == EXIT_FAILURE) return;
     RetryA:
-    if (sysex_send(buf,15) == EXIT_FAILURE) {
-      close_ports(); 
-      return;
-    }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)r_buf, (char *)&name_size);
     if (err == EXIT_FAILURE) return;
     if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
@@ -130,15 +121,12 @@ void JVlibForm::setSysSingleValue(int addr, int val) {
 if (state_table->updates_enabled) {
   state_table->system_modified = true;
   if (state_table->jv_connect) {
-    unsigned char buf[12];
+    unsigned char buf[5];
     memset(buf,0,sizeof(buf));
-    buf[4] = JV_UPD;
-    buf[8] = addr;
-    buf[9] = val;
-    buf[10] = chksum(buf+5, 5);
-    buf[11] = 0xF7;
+    buf[3] = addr;
+    buf[4] = val;
     if (open_ports() == EXIT_FAILURE) return;
-    if (sysex_send(buf,12) == EXIT_FAILURE) {
+    if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
       close_ports(); 
       return;
     }

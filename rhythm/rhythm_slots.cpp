@@ -9,18 +9,14 @@ void JVlibForm::RhythmStdUpdate(int offset, int val) {
     bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;
     ptr[offset] = val;
     if (state_table->jv_connect) {
-      unsigned char buf[12];
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x02;
-      buf[6] = 0x09;
-      buf[7] = tn;
-      buf[8] = offset;
-      buf[9] = val;
-      buf[10] = chksum(buf+5, 5);
-      buf[11] = 0xF7;
+      unsigned char buf[5];
+      buf[0] = 0x02;
+      buf[1] = 0x09;
+      buf[2] = tn;
+      buf[3] = offset;
+      buf[4] = val;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,12) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
 	close_ports(); 
 	return;
       }
@@ -70,19 +66,15 @@ void JVlibForm::on_Rhythm_WaveGroup_select_currentIndexChanged(int val) {
     }	// end switch
     if (state_table->jv_connect) {
       // update the synth
-      unsigned char buf[13];
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x02;
-      buf[6] = 0x09;
-      buf[7] = Rhythm_KeyPress_select->value();
-      buf[8] = 0x01;
-      buf[9] = active_area->active_rhythm.rhythm_note[tn].wave_group;
-      buf[10] = active_area->active_rhythm.rhythm_note[tn].wave_group_id;
-      buf[11] = chksum(buf+5, 6);
-      buf[12] = 0xF7;
+      unsigned char buf[6];
+      buf[0] = 0x02;
+      buf[1] = 0x09;
+      buf[2] = Rhythm_KeyPress_select->value();
+      buf[3] = 0x01;
+      buf[4] = active_area->active_rhythm.rhythm_note[tn].wave_group;
+      buf[5] = active_area->active_rhythm.rhythm_note[tn].wave_group_id;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,13) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
         close_ports(); 
         return;
       }
@@ -102,19 +94,15 @@ void JVlibForm::on_Rhythm_WaveNumber_select_valueChanged(int val) {
     active_area->active_rhythm.rhythm_note[tn].wave_num_low = Lval;
     if (state_table->jv_connect) {
     // update the synth
-      unsigned char buf[13];
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x02;
-      buf[6] = 0x09;
-      buf[7] = Rhythm_KeyPress_select->value();
-      buf[8] = 0x03;
-      buf[9] = Hval;
-      buf[10] = Lval;
-      buf[11] = chksum(buf+5, 6);
-      buf[12] = 0xF7;
+      unsigned char buf[6];
+      buf[0] = 0x02;
+      buf[1] = 0x09;
+      buf[2] = Rhythm_KeyPress_select->value();
+      buf[3] = 0x03;
+      buf[4] = Hval;
+      buf[5] = Lval;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,13) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
         close_ports(); 
         return;
       }

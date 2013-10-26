@@ -4,21 +4,19 @@
 #include	<QtGui>
 
 void JVlibForm::setScaleSingleValue(int addr, int val) {
-  unsigned char buf[12];
+  unsigned char buf[5];
   if (state_table->jv_connect && state_table->updates_enabled) {
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_UPD;
   if (state_table->patch_mode)
-    buf[7] = 0x20;
+    buf[2] = 0x20;
   else
-    buf[7] = 0x10 + Tuning_PartTune_select->value() - 1;
-  buf[8] = addr;
-  buf[9] = val;
-  buf[10] = chksum(buf+5, 5);
-  buf[11] = 0xF7;
+    buf[2] = 0x10 + Tuning_PartTune_select->value() - 1;
+  buf[3] = addr;
+  buf[4] = val;
   if (open_ports() == EXIT_FAILURE) return;
-  if (sysex_send(buf,12) == EXIT_FAILURE) {
-    close_ports(); 
+  if (sysex_update(&buf[0], sizeof(buf)) == EXIT_FAILURE) {
+    puts("tuning udpate failed");
+    close_ports();
     return;
   }
   close_ports();
@@ -31,25 +29,21 @@ int JVlibForm::get_scales() {
   if (state_table->jv_connect && state_table->updates_enabled) {
   int	x,err;
   int	Stop=0;
-  unsigned char	buf[15];
+  unsigned char	buf[8];
   char scale_size[] = { 0x0,0x0,0x0,0x0C };
   
-  // open the selected midi port
   JVlibForm::statusbar->showMessage("Loading scale tunings",0);
   // get 16 system_area part scales  system_area.sys_part_scale_tune[x].scale
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  buf[12] = 0x0C;	// scale size
-  buf[14] = 0xF7;
+  buf[7] = 0x0C;	// scale size
   if (open_ports() == EXIT_FAILURE) return EXIT_FAILURE;
   if (state_table->perf_mode) {
     // get the 16 Part scales
     for (x=0;x<16;x++) {
       printf("Scale #%d\n",x);
-      buf[7] = 0x10 + x;		// scale number
-      buf[13] = chksum(buf+5, 8);	// checksum
+      buf[2] = 0x10 + x;		// scale number
       RetryB:
-      if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
+      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
       err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
       if (err == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
@@ -59,10 +53,9 @@ int JVlibForm::get_scales() {
     }	// end FOR 16 part scales
   } else {
     // get one remaining patch scale tune
-    buf[7] = 0x20;
-    buf[13] = chksum(buf+5, 8);	// checksum  
+    buf[2] = 0x20;
     RetryC:
-    if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
     err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
     if (err == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
     if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }

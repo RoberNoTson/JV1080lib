@@ -52,21 +52,18 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
       }
       if (state_table->jv_connect) {
       // update the synth
-      unsigned char buf[23];
+      unsigned char buf[16];
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
       if (state_table->perf_mode) {
-	buf[5] = 0x02;
-	buf[6] = Patch_PerfPartNum_select->currentIndex();
+	buf[0] = 0x02;
+	buf[1] = Patch_PerfPartNum_select->currentIndex();
       } else {
-	buf[5] = 0x03;
-	buf[6] = 0x0;
+	buf[0] = 0x03;
+	buf[1] = 0x0;
       }
-      memcpy(&buf[9], val.toAscii(), 12);
-      buf[21] = chksum(buf+5, 16);
-      buf[22] = 0xF7;
+      memcpy(&buf[4], val.toAscii(), 12);
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,sizeof(buf)) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) { close_ports(); return; }
       close_ports();	
       }
       state_table->patch_modified = true;
@@ -540,18 +537,15 @@ void JVlibForm::on_Patch_DefaultTempo_select_valueChanged(int val) {
     active_area->active_patch_patch.patch_common.default_tempo_low = LVal;
   }
   if (state_table->jv_connect) {
-    unsigned char buf[13];
-    buf[4] = JV_UPD;
-    buf[5] = (state_table->perf_mode?0x02:0x03);	// are we in Perf or Patch mode?
-    buf[6] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
-    buf[7] = 0x00;
-    buf[8] = 0x2C;
-    buf[9] = HVal;
-    buf[10] = LVal;
-    buf[11] = chksum(buf+5, 6);
-    buf[12] = 0xF7;
+    unsigned char buf[6];
+    buf[0] = (state_table->perf_mode?0x02:0x03);	// are we in Perf or Patch mode?
+    buf[1] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
+    buf[2] = 0x00;
+    buf[3] = 0x2C;
+    buf[4] = HVal;
+    buf[5] = LVal;
     if (open_ports() == EXIT_FAILURE) return;
-    if (sysex_send(buf,13) == EXIT_FAILURE) {
+    if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
       close_ports(); 
       return;
     close_ports();

@@ -34,22 +34,19 @@ void JVlibForm::on_PerfEFXtype_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   int	err;
   int	Stop=0;
-  unsigned char buf[16];
+  unsigned char buf[8];
     // update type
     active_area->active_performance.perf_common.EFX_type = val;
     if (state_table->jv_connect) {
       setPerfSingleValue(addr_Perf_EFX_type, active_area->active_performance.perf_common.EFX_type);
       // download the related parms for the new type
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_REQ;
-      buf[5] = 0x01;	// addr of active performance
-      buf[8] = 0x0E;	// addr_Perf_EFX_parameter;
-      buf[12] = 0x0C;	// number of parms to download
-      buf[13] = chksum(buf+5, 8);	// checksum  
-      buf[14] = 0xF7;
+      buf[0] = 0x01;	// addr of active performance
+      buf[3] = 0x0E;	// addr_Perf_EFX_parameter;
+      buf[7] = 0x0C;	// number of parms to download
       if (open_ports() == EXIT_FAILURE) return;
       RetryA:
-      if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
       err = sysex_get((unsigned char *)&active_area->active_performance.perf_common.EFX_parameter[0], (char *)&EFX_parm_size);
       if (err == EXIT_FAILURE) return;
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
@@ -66,22 +63,19 @@ void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
  if (state_table->updates_enabled) {
   int	err;
   int	Stop=0;
-  unsigned char buf[16];
+  unsigned char buf[8];
   if (state_table->patch_mode) {
     active_area->active_patch_patch.patch_common.EFX_type = val;
     if (state_table->jv_connect) {
       setPatchSingleValue(addr_Patch_EFX_type, active_area->active_patch_patch.patch_common.EFX_type);
       // download the related parms for the new type
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_REQ;
-      buf[5] = 0x03;	// addr of active Patch
-      buf[8] = 0x0D;	// addr_Patch_EFX parameters
-      buf[12] = 0x0C;	// number of parms to download
-      buf[13] = chksum(buf+5, 8);	// checksum  
-      buf[14] = 0xF7;
+      buf[0] = 0x03;	// addr of active Patch
+      buf[3] = 0x0D;	// addr_Patch_EFX parameters
+      buf[7] = 0x0C;	// number of parms to download
       if (open_ports() == EXIT_FAILURE) return;
       RetryB:
-      if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
       err = sysex_get((unsigned char *)&active_area->active_patch_patch.patch_common.EFX_parameter[0], (char *)&EFX_parm_size);
       if (err == EXIT_FAILURE) return;
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
@@ -96,16 +90,13 @@ void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
       setPatchSingleValue(addr_Patch_EFX_type, active_area->active_perf_patch[pn].patch_common.EFX_type);
       // download the related parms for the new type
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_REQ;
-      buf[5] = 0x02;	// addr of active Patch
-      buf[6] = pn;
-      buf[8] = 0x0D;	// addr_Patch_EFX parameters
-      buf[12] = 0x0C;	// number of parms to download
-      buf[13] = chksum(buf+5, 8);	// checksum  
-      buf[14] = 0xF7;
+      buf[0] = 0x02;	// addr of active Patch
+      buf[1] = pn;
+      buf[3] = 0x0D;	// addr_Patch_EFX parameters
+      buf[7] = 0x0C;	// number of parms to download
       if (open_ports() == EXIT_FAILURE) return;
       RetryF:
-      if (sysex_send(buf,15) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
       err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_common.EFX_parameter[0], (char *)&EFX_parm_size);
       if (err == EXIT_FAILURE) return;
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryF; }

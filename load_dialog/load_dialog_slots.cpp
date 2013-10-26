@@ -31,8 +31,33 @@ const char* Load_Dialog::TuningQuery = "select name, date, comment, SerNumber fr
 
 void Load_Dialog::on_Load_buttonBox_accepted()
 {
+  // parse what data to pull
+  
+  // pull data from db into QByteArray
+  QSqlQuery query(JVlibForm::db_mysql);
+  query.prepare("select sysex from Performances where SerNumber = ?");
+    int SerNum = (ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex())).toInt();
+  query.bindValue(0, SerNum);
+  if (query.exec() == false) {
+    puts("query error");
+    query.finish();
+    return;
+  }
+  if (query.size() == 0) {
+    query.finish();
+    return;
+  }
+  query.next();
+  QByteArray SysEx(4,0);
+  SysEx.append(0x12);
+  SysEx.append(query.value(0).toByteArray());
+  
+  
+  // use sysex_update to load it
 
-    this->close();
+  // done
+  query.finish();
+  this->close();
 }
 
 void Load_Dialog::on_Load_buttonBox_rejected()

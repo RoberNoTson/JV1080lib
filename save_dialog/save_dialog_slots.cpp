@@ -273,7 +273,7 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
   this->setCursor(Qt::WaitCursor);
-  unsigned char buf[16];
+  unsigned char buf[8];
   char r_name[12];
   char user1_perf_common[]={ 0x10,0x00,0x00,0x00 };  
   char perf_name_size[] = { 0x00,0x00,0x00,0x0C };
@@ -282,25 +282,21 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   
   // get the Perf name from the JV
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  memcpy(buf+5,user1_perf_common,4);
-  buf[6] = ui->Save_PerfNumber_select->value() - 1;
-  memcpy(buf+9,perf_name_size,4);
-  buf[13] = JVlibForm::chksum(buf+5,8);
-  buf[14] = 0xF7;
+  memcpy(buf,user1_perf_common,4);
+  buf[1] = ui->Save_PerfNumber_select->value() - 1;
+  memcpy(buf+4,perf_name_size,4);
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
-  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_request(buf,8);
   JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)perf_name_size);
   // fill out the Name field
   QString d_name = "User "+QString::number(ui->Save_PerfNumber_select->value())+" "+QString::fromAscii(r_name,12);
   ui->Save_Name_edit->setText(d_name);
   
   // see if a PerfPart has a User patch, enable the checkbox if so
-  buf[12] = 6;	// get 6 bytes from Part
+  buf[7] = 6;	// get 6 bytes from Part
   for (int x=0;x<16;x++) {
-    buf[7] = 0x10 + x;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    JVlibForm::sysex_send(buf,15);
+    buf[2] = 0x10 + x;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)part_data_size);
     bool valUser = (r_name[0]) && (r_name[3]==1);
     switch(x) {
@@ -372,210 +368,118 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
   }	// end FOR
   // all User Patch checkboxes are enabled,
   // get Patch name for User parts
+  memset(buf,0,sizeof(buf));
+  buf[0] = 0x11;
+  buf[7] = 0x0C;
   if (ui->Save_PerfPart_1_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_1_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_1_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_1_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_1_data->setText(t_text);
   }
   if (ui->Save_PerfPart_2_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_2_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_2_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_2_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_2_data->setText(t_text);
   }
   if (ui->Save_PerfPart_3_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_3_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_3_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_3_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_3_data->setText(t_text);
   }
   if (ui->Save_PerfPart_4_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_4_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_4_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_4_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_4_data->setText(t_text);
   }
   if (ui->Save_PerfPart_5_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_5_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_5_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_5_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_5_data->setText(t_text);
   }
   if (ui->Save_PerfPart_6_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_6_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_6_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_6_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_6_data->setText(t_text);
   }
   if (ui->Save_PerfPart_7_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_7_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_7_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_7_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_7_data->setText(t_text);
   }
   if (ui->Save_PerfPart_8_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_8_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_8_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_8_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_8_data->setText(t_text);
   }
   if (ui->Save_PerfPart_9_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_9_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_9_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_9_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_9_data->setText(t_text);
   }
   if (ui->Save_PerfPart_11_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_11_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_11_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_11_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_11_data->setText(t_text);
   }
   if (ui->Save_PerfPart_12_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_12_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_12_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_12_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_12_data->setText(t_text);
   }
   if (ui->Save_PerfPart_13_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_13_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_13_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_13_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_13_data->setText(t_text);
   }
   if (ui->Save_PerfPart_14_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_14_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_14_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_14_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_14_data->setText(t_text);
   }
   if (ui->Save_PerfPart_15_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_15_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_15_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_15_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_15_data->setText(t_text);
   }
   if (ui->Save_PerfPart_16_select->isEnabled()) {
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_16_data->text().right(3).toInt() - 1;
-    buf[4] = JV_REQ;
-    buf[5] = 0x11;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_16_data->text().right(3).toInt() - 1;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_16_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_16_data->setText(t_text);
   }
   if (ui->Save_PerfPart_10_select->isEnabled()) {	// Rhythm set
-    memset(buf,0,sizeof(buf));
-    buf[6] = ui->Save_Part_10_data->text().right(3).toInt() + 0x3F;
-    buf[4] = JV_REQ;
-    buf[5] = 0x10;
-    buf[12] = 0x0C;
-    buf[13] = JVlibForm::chksum(buf+5,8);
-    buf[14] = 0xF7;
-    JVlibForm::sysex_send(buf,15);
+    buf[1] = ui->Save_Part_10_data->text().right(3).toInt() + 0x3F;
+    buf[0] = 0x10;
+    JVlibForm::sysex_request(buf,8);
     JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
     QString t_text = ui->Save_Part_10_data->text()+QString::fromAscii(&r_name[0],12).rightJustified(15);
     ui->Save_Part_10_data->setText(t_text);
@@ -587,20 +491,17 @@ void Save_Dialog::on_Save_UserPerformance_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
-  unsigned char buf[16];
+  unsigned char buf[8];
   char r_name[12];
   char       user1_patch_common[]={ 0x11,0x00,0x00,0x00 };  
   char    patch_name_size[] = { 0x00,0x00,0x00,0x0C };
   // get the Patch name from the JV
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  memcpy(buf+5,user1_patch_common,4);
-  buf[6] = ui->Save_PatchNumber_select->value() - 1;
-  memcpy(buf+9,patch_name_size,4);
-  buf[13] = JVlibForm::chksum(buf+5,8);
-  buf[14] = 0xF7;
+  memcpy(buf,user1_patch_common,4);
+  buf[1] = ui->Save_PatchNumber_select->value() - 1;
+  memcpy(buf+4,patch_name_size,4);
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
-  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_request(buf,8);
   JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)patch_name_size);
   JVlibForm::close_ports();
   // fill out the Name field
@@ -611,21 +512,18 @@ void Save_Dialog::on_Save_UserPatch_button_toggled(bool val) {
 void Save_Dialog::on_Save_UserRhythm_button_toggled(bool val) {
   if (!val) return;
   ui->Save_All_button->setEnabled(true);
-  unsigned char buf[16];
+  unsigned char buf[8];
   char r_name[12];
   char       user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };  
   char    rhythm_name_size[] = { 0x0,0x0,0x0,0x0C };
   // get the Rhythmset name from the JV
   memset(buf,0,sizeof(buf));
-  buf[4] = JV_REQ;
-  memcpy(buf+5,user1_rhythm_common,4);
+  memcpy(buf,user1_rhythm_common,4);
   if (ui->Save_RhythmNumber_select->value()==2)
-    buf[6] = 0x41;
-  memcpy(buf+9,rhythm_name_size,4);
-  buf[13] = JVlibForm::chksum(buf+5,8);
-  buf[14] = 0xF7;
+    buf[1] = 0x41;
+  memcpy(buf+4,rhythm_name_size,4);
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
-  JVlibForm::sysex_send(buf,15);
+  JVlibForm::sysex_request(buf,8);
   JVlibForm::sysex_get((unsigned char *)&r_name[0], (char *)rhythm_name_size);
   JVlibForm::close_ports();
   // fill out the Name field

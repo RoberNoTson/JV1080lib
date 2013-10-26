@@ -69,17 +69,14 @@ void JVlibForm::on_PerfDefaultTempo_select_valueChanged(int val) {
     active_area->active_performance.perf_common.default_tempo_high = HVal;
     active_area->active_performance.perf_common.default_tempo_low = LVal;
     if (state_table->jv_connect) {
-      unsigned char buf[13];
+      unsigned char buf[6];
       memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x01;
-      buf[8] = 0x2D;
-      buf[9] = HVal;
-      buf[10] = LVal;
-      buf[11] = chksum(buf+5, 6);
-      buf[12] = 0xF7;
+      buf[0] = 0x01;
+      buf[3] = 0x2D;
+      buf[4] = HVal;
+      buf[5] = LVal;
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,13) == EXIT_FAILURE) {
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
 	close_ports();
 	return;
       }
@@ -100,16 +97,13 @@ void JVlibForm::on_PerfName_edit_editingFinished() {
     // update memory and the synth with the new Name
     memcpy(&active_area->active_performance.perf_common.name[0],val.toAscii(),12);
     //  setPerfMultiValue(0x00, val.toAscii(), 12);
-    unsigned char buf[23];
+    unsigned char buf[16];
     if (state_table->updates_enabled) {
-      memset(buf,0,sizeof(buf));
-      buf[4] = JV_UPD;
-      buf[5] = 0x01;
-      memcpy(&buf[9], &active_area->active_performance.perf_common.name[0], 12);
-      buf[21] = chksum(buf+5, 16);
-      buf[22] = 0xF7;
+      memset(&buf[1],0,3);
+      buf[0] = 0x01;
+      memcpy(&buf[4], &active_area->active_performance.perf_common.name[0], 12);
       if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_send(buf,sizeof(buf)) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) { close_ports(); return; }
       close_ports();
     } // end IF
     PerfName_edit->setModified(false);
