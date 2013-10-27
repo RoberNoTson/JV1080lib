@@ -101,7 +101,7 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
   SysEx[buf_size+6] = 0xF7;
   // transmit the data
-JVlibForm::hexdump(SysEx, buf_size+7);
+//JVlibForm::hexdump(SysEx, buf_size+7);
   int rc = JVlibForm::change_send(SysEx, buf_size+7);
   delete[] SysEx;
   return rc;

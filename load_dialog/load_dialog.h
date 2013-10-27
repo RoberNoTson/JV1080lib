@@ -28,7 +28,10 @@ private:
     Ui::Load_Dialog *ui;
     bool fill_Data(const char *);
     void clearPartLabels();
+    void load_current_perf();
     void load_user_perf();
+    void load_user_patch(int, int=0);
+    void load_user_rhythm(int, int=0);
     int hexdump(unsigned char *, int);
     
 private slots:

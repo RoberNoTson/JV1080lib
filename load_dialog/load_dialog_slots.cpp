@@ -55,14 +55,15 @@ void Load_Dialog::on_Load_buttonBox_accepted()
     return;
   }
   if (ui->Load_UserPerformance_button->isChecked()) {
-    puts("loading User Performance");
     load_user_perf();
     this->close();
     return;
   }
   if (ui->Load_UserPatch_button->isChecked()) {
-    puts("loading User Patch");
-//    load_user_patch();
+    int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+    int PN = ui->Load_PatchNumber_select->value();
+    printf("Load Patch sernum %d into User Patch # %d\n",SerNum, PN);
+    load_user_patch(SerNum, PN);
     this->close();
     return;
   }
@@ -213,7 +214,7 @@ void Load_Dialog::on_Load_Name_select_currentIndexChanged(int index)
       Part_9, Part_10, Part_11, Part_12, Part_13, Part_14, Part_15, Part_16 \
       from Perf_UserPatch_ref where Performance = ? limit 1");
     query.bindValue(0,SerNum);
-    printf("querying Perf_UserPatch_ref for Perf SerNum %d\n", SerNum);
+//    printf("querying Perf_UserPatch_ref for Perf SerNum %d\n", SerNum);
     if (query.exec() == false) {
       puts("query error");
       query.finish();
