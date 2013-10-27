@@ -933,7 +933,7 @@ private:
   static void close_ports();
   static int  open_ports();
   static short chksum(unsigned char *, int);
-  int hexdump(unsigned char *, int);
+  static void hexdump(unsigned char *, int);
   int db_connect(const QString, const QString);
   int readConfigFile();
 

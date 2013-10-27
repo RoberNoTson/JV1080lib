@@ -20,7 +20,6 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::Load_Dialog)
 {
-  ui->setupUi(this);
   if (!JVlibForm::state_table->jv_connect) {
     QMessageBox::critical(0, "Load_Dialog", "Not connected to the JV-1080");
     return;
@@ -30,7 +29,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     QMessageBox::critical(0, "Load_Dialog", "Not connected to the database");
     return;
   }
-//  ui->setupUi(this);
+  ui->setupUi(this);
   if (!fill_Data(DumpsQuery)) {
     QMessageBox::critical(0, "Load_Dialog", "Unable to initialize data");
     return;
@@ -70,6 +69,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
       QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing, User 1 Performance name is corrupted");
   }
   JVlibForm::close_ports();
+//  ui->Load_buttonBox->addButton("Open", QDialogButtonBox::AcceptRole);
 }
 
 Load_Dialog::~Load_Dialog()
@@ -163,3 +163,47 @@ void Load_Dialog::clearPartLabels() {
   ui->Load_PerfPart_16_select->setEnabled(false);
   ui->Load_PerfPart_All_select->setEnabled(false);
 }	// end clearPartLabels()
+
+int Load_Dialog::hexdump(unsigned char *buffer, int data_size) {
+  int	y,offset;
+  offset=0;
+  y=data_size%16;
+  for (int x=0;x<data_size-y;x+=16) {
+    // Print the offset in the file, followed by the bytes themselves
+    printf ("0x%06x : ", offset);
+    for (int i = 0; i < 16; i++) {
+      printf ("%02x ", buffer[x+i]);
+    }
+    printf ("  |  ");
+    for (int i = 0; i < 16; i++) {
+	if (isprint(buffer[x+i])) {
+	putchar(buffer[x+i]);
+	} else {
+	printf (".");
+	}
+    }
+    puts("");
+    // Keep count of our position in the file
+    offset += 16;
+  }
+  // print any remaining partial lines
+  if (y) {
+    // Print the offset in the file, followed by the bytes themselves
+    printf ("0x%06x : ", offset);
+    for (int i = data_size-y; i < data_size; i++) {
+      printf ("%02x ", buffer[i]);
+    }
+    for (int i=0;i<16-y;i++) printf("   ");
+    printf ("  |  ");
+    for (int i = data_size-y; i < data_size; i++) {
+      if (isprint(buffer[i])) {
+	putchar(buffer[i]);
+      } else {
+	printf (".");
+      }
+    }
+    puts("");
+  }	// end IF
+  return EXIT_SUCCESS;
+}	// end HEXDUMP
+

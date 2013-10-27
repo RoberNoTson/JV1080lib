@@ -101,6 +101,7 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
   SysEx[buf_size+6] = 0xF7;
   // transmit the data
+JVlibForm::hexdump(SysEx, buf_size+7);
   int rc = JVlibForm::change_send(SysEx, buf_size+7);
   delete[] SysEx;
   return rc;
@@ -254,7 +255,7 @@ short int JVlibForm::chksum(unsigned char *buf, int buf_size) {
   return sum;
 }	// end CHKSUM
 
-int JVlibForm::hexdump(unsigned char *buffer, int data_size) {
+void JVlibForm::hexdump(unsigned char *buffer, int data_size) {
   int	y,offset;
   offset=0;
   y=data_size%16;
@@ -294,7 +295,7 @@ int JVlibForm::hexdump(unsigned char *buffer, int data_size) {
     }
     puts("");
   }	// end IF
-  return EXIT_SUCCESS;
+  return;
 }	// end HEXDUMP
 
 QString JVlibForm::funcNoteCalc(int val) {

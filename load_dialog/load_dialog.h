@@ -29,6 +29,7 @@ private:
     bool fill_Data(const char *);
     void clearPartLabels();
     void load_user_perf();
+    int hexdump(unsigned char *, int);
     
 private slots:
     void on_Load_PerfPart_All_select_clicked(bool checked);
