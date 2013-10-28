@@ -266,12 +266,11 @@ void JVlibForm::ToneStdUpdate(int offset, int val) {
 void JVlibForm::setToneSingleValue(int toneNum, int addr, int val) {
   // automatically determines if we are in Performance or Patch mode, and sets the correct patch tone value as needed
   if (state_table->updates_enabled && state_table->jv_connect) {
-    unsigned char buf[5];
+    unsigned char buf[6];
     buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
     buf[1] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
-    buf[2] = 0x10 + (toneNum*2);
-    if (addr>0x7F) buf[7] += 1;
-    buf[3] = addr<0x80 ? addr: addr-0x80;
+    buf[2] = 0x10 + (toneNum*2) + (addr>0x7F ? 1 : 0);
+    buf[3] = addr>0x7F ? addr-0x80 : addr;
     buf[4] = val;
     if (open_ports() == EXIT_FAILURE) return;
     if (sysex_update(&buf[0],5) == EXIT_FAILURE) {

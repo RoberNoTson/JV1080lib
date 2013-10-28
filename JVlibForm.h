@@ -692,8 +692,6 @@ private slots:
   void on_Tuning_PartTuneFs_select_valueChanged(int);
   void on_Tuning_PartTuneG_select_valueChanged(int);
   void on_Tuning_PartTuneGs_select_valueChanged(int);
-  void Tuning_QueryTemp(int);
-  void Tuning_setScaleTuning(int);
   
   // for Rhythm tab
   void on_Rhythm_Sync_button_clicked();
@@ -1143,13 +1141,15 @@ private:
   void setPitchParms(int);
 
   // for Tuning
-  inline void TuningStdUpdate(int, int);
+  void TuningStdUpdate(int, int);
   void setScaleSingleValue(int, int);
   void setScaleTunings(int);
   int get_scales();
   QButtonGroup *Tuning_ButtonGroup;
   static QByteArray Tuning_currentTuning;
   void Tuning_BulkUpdate(int, int, int);
+  void Tuning_QueryTemp(int);
+  void Tuning_setScaleTuning(int);
 
   // for Rhythm
   static bool getActiveRhythm();

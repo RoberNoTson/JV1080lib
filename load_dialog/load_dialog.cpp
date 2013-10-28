@@ -34,6 +34,9 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     QMessageBox::critical(0, "Load_Dialog", "Unable to initialize data");
     return;
   }
+  ui->Load_CurrentPerformance_button->setEnabled(JVlibForm::state_table->perf_mode);
+  ui->Load_CurrentRhythm_button->setEnabled(JVlibForm::state_table->perf_mode);
+  ui->Load_CurrentPatch_button->setEnabled(JVlibForm::state_table->patch_mode);
   // check if we can write to User memory, else disable those buttons
   unsigned char oldCh, newCh;
   unsigned char buf[8];
@@ -69,7 +72,6 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
       QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing, User 1 Performance name is corrupted");
   }
   JVlibForm::close_ports();
-//  ui->Load_buttonBox->addButton("Open", QDialogButtonBox::AcceptRole);
 }
 
 Load_Dialog::~Load_Dialog()
