@@ -38,19 +38,21 @@ void Load_Dialog::on_Load_buttonBox_accepted()
   }
   if (ui->Load_CurrentPerformance_button->isChecked()) {
     puts("loading Current Performance");
-//    load_current_perf();
+    load_current_perf();
     this->close();
     return;
   }
   if (ui->Load_CurrentPatch_button->isChecked()) {
-    puts("loading Current Patch");
-//    load_current_patch();
+    int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+    printf("Load Patch sernum %d into Active area\n",SerNum);
+    load_user_patch(SerNum);
     this->close();
     return;
   }
   if (ui->Load_CurrentRhythm_button->isChecked()) {
-    puts("loading Current Rhythm");
-//    load_current_rhythm();
+    int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+    printf("Load Rhythm sernum %d into Active area\n",SerNum);
+    load_current_rhythm(SerNum);
     this->close();
     return;
   }
@@ -68,8 +70,10 @@ void Load_Dialog::on_Load_buttonBox_accepted()
     return;
   }
   if (ui->Load_UserRhythm_button->isChecked()) {
-    puts("loading User Rhythm");
-//    load_user_rhythm();
+    int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+    int PN = ui->Load_RhythmNumber_select->value();
+    printf("Load Rhythm sernum %d into User Patch # %d\n",SerNum, PN);
+    load_user_rhythm(SerNum, PN);
     this->close();
     return;
   }

@@ -31,10 +31,10 @@ System_tab
 10/08/2013  - Program Change switch should enable/disable Perf/Patch number selection
 10/08/2013  - MIDI player, STOP function should send All Notes Off, but not all controllers
 10/08/2013  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
+10/28/2013  - "Load Data" button functions
+10/28/2013  - "Save Data" button functions
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
-  - "Load Data" button functions
-  - "Save Data" button functions
   - "Upload" to Synth function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
