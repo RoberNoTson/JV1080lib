@@ -160,4 +160,6 @@ SOURCES     += main.cpp \
 	load_dialog/load_dialog.cpp \
 	load_dialog/load_dialog_slots.cpp \
 	load_dialog/load_user_perf.cpp \
-	load_dialog/load_user_patch.cpp
+	load_dialog/load_user_patch.cpp \
+	load_dialog/load_current_perf.cpp \
+	load_dialog/load_current_patch.cpp
