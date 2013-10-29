@@ -1,8 +1,4 @@
 General
-07/26/2013  - initialize part_sync entries in state_table
-07/30/2013  - Configuration dialog function
-08/21/2013  - implement GM (General Midi) functions
-09/03/2013  - when starting in Patch Mode, get error message "setWaveChooser did not find InstrFamily keyboards"
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
@@ -22,17 +18,6 @@ database
   - update Looped/Oneshot status for waves
 
 System_tab
-07/23/2013  - Patch Tempo controls disabled when in Performance mode
-07/26/2013  - fix enabled tabs when changing Perf/Patch modes
-08/14/2013  - add "Play MIDI" function
-08/17/2013  - in PlayMidi use MIDI file directory from config for file selection starting dir
-08/21/2013  -  validate working of System_Sync LED
-10/08/2013  - Bank Select switch should enable/disable Perf/Patch selection
-10/08/2013  - Program Change switch should enable/disable Perf/Patch number selection
-10/08/2013  - MIDI player, STOP function should send All Notes Off, but not all controllers
-10/08/2013  - in Patch Mode, unchecking "Accept Program Change" should disable Patch group and number selectors.
-10/28/2013  - "Load Data" button functions
-10/28/2013  - "Save Data" button functions
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
   - "Upload" to Synth function/button
@@ -46,10 +31,6 @@ Performance_tab
   - disable PerfNumber_select when AcceptProgramChg_switch not checked
 
 PerfParts_tab
-07/24/2013  - verify Key Range Upper/Lower cannot cross each other.
-08/21/2013  - add Poly/Solo button on each part
-08/21/2013  - change label from "Play Tone" to "Play Patch" for consistency
-08/21/2013  - sync Parts and Patch tab Voice Mode buttons
 10/18/2013  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
@@ -58,10 +39,6 @@ PerfParts_tab
   - are Part 10 controls the same as the ones on the Rhythm tab? (Reverb,Chorus, Level, Outputlevel, etc.)
 
 Patch_tab
-07/26/2013  - turn off Patch Sync light when a different patch is selected	
-07/26/2013  - only load 1 selected Perf patch initially, load others as they are selected. Use state_table to track.
-07/26/2013  - update Patch group, number and name to match Part# values when PerfPartNum is scrolled
-08/21/2013  - turn off Patch Sync light when a different Part tab Part# patch is selected
 10/18/2013  - disable Patch_Group_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
@@ -76,6 +53,7 @@ Rhythm_tab
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
   - can Pitch, TVA, TVF use the same tabs as other patches?
+  - add button to "List Notes"; pop up side box listing all instruments by pitch for the selected Rhythm Set
 
 PatchEFX_tab
   - fix Parm 11 ghost values
@@ -98,7 +76,6 @@ ToneTVA_tab
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Pitch_tab
-07/24/2013  - verify Key Range Upper/Lower cannot cross each other.
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Tuning_tab
@@ -108,15 +85,9 @@ Tuning_tab
   - load saved tuning data
 
 config
-08/14/2013  - add MIDI file directory entry
-07/31/2013  - provide selection list for Port name field
-07/31/2013  - allow choice of port number vs port name selection
   - improve aesthetics
 
 save_dialog
-07/30/2013  - create standalone header, remove definition from JVLibForm.h
-08/30/2013  - radio buttons should only be enabled for valid options, e.g. no Performance dump if it hasn't been sync yet.
-09/03/2013  - auto-fill Name field with suggested name when radio button is clicked
   - create missing functions
   - connect something to the Help button
 

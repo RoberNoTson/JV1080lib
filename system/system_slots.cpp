@@ -304,9 +304,7 @@ void JVlibForm::slotSysSetPatchMode() {
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
     EnablePatch(false);
-//    Patch_Group_select->setEnabled(true);
     Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
-//    Patch_Number_select->setEnabled(true);
     Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
     Patch_Name_edit->setEnabled(true);
     Patch_Sync_button->setEnabled(true);
@@ -416,12 +414,12 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
   }
   if (state_table->patch_mode) {
     SysPatchNumber->setEnabled(val);
-    if (state_table->patch_sync) Patch_Number_select->setEnabled(val);
+    if (state_table->patch_sync) Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
   }
   if (state_table->tone_sync) {
     Tone_Number_select->setEnabled(val);
   }
-  Patch_Number_select->setEnabled(val);
+  Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
   }
 }
 
@@ -457,13 +455,13 @@ void JVlibForm::on_AcceptBankSel_switch_stateChanged(int val) {
   if (state_table->patch_mode) {
     SysPatchSelect->setEnabled(val);
     if (state_table->patch_sync) {
-      Patch_Group_select->setEnabled(val);
+      Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
     }
   }
   if (state_table->tone_sync) {
-    Tone_Group_select->setEnabled(val);
+    Tone_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
   }
-  Patch_Group_select->setEnabled(val);
+  Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
 }
 
 void JVlibForm::on_AcceptControlChange_switch_stateChanged(int val) { 
@@ -741,8 +739,8 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
   PatchEFX_Name_display->setText(Patch_Name_edit->text());
   }	// end UPDATES_ENABLED
   EnablePatch(false);
-  Patch_Group_select->setEnabled(true);
-  Patch_Number_select->setEnabled(true);
+  Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
+  Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
   Patch_Name_edit->setEnabled(true);
   PatchEFX_Group_display->setEnabled(true);
   PatchEFX_Number_display->setEnabled(true);

@@ -2112,40 +2112,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QProgressBar" name="System_MIDI_progressBar">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>291</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>291</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>291</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="textVisible">
-        <bool>false</bool>
-       </property>
-       <property name="format">
-        <string notr="true">%p%</string>
-       </property>
-      </widget>
       <widget class="KLed" name="System_PlayMidi_status">
        <property name="geometry">
         <rect>
@@ -2281,6 +2247,22 @@
        </property>
        <property name="text">
         <string>Player</string>
+       </property>
+      </widget>
+      <widget class="QProgressBar" name="System_MIDI_progressBar">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>291</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="textVisible">
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
@@ -5656,7 +5638,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -43315,6 +43297,7 @@
     <addaction name="actionCopy"/>
     <addaction name="actionWrite"/>
     <addaction name="actionBulk_Dump"/>
+    <addaction name="actionDB_Maint"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Setup"/>
@@ -43422,6 +43405,11 @@
    </property>
    <property name="menuRole">
     <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="actionDB_Maint">
+   <property name="text">
+    <string>DB Maint</string>
    </property>
   </action>
  </widget>

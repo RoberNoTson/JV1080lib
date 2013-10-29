@@ -155,15 +155,15 @@ void JVlibForm::EnableSys(bool val) {
     SysPerfName->setEnabled(val);
     SysPerfNumber->setEnabled(val);
     PerfSync_button->setEnabled(val);
-    PerfGroup_select->setEnabled(val);
-    PerfNumber_select->setEnabled(val);
+    PerfGroup_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
+    PerfNumber_select->setEnabled(val && AcceptBankSel_switch->isChecked());
     PerfName_edit->setEnabled(val);
     SysPatch_box->setEnabled(!val);
     SysPatchName->setEnabled(!val);
     SysPatchNumber->setEnabled(!val);
     Patch_Sync_button->setEnabled(!val);
-    Patch_Group_select->setEnabled(!val);
-    Patch_Number_select->setEnabled(!val);
+    Patch_Group_select->setEnabled(!val && AcceptProgramChg_switch->isChecked());
+    Patch_Number_select->setEnabled(!val && AcceptBankSel_switch->isChecked());
     Patch_Name_edit->setEnabled(!val);
   }
   else if (state_table->patch_mode) {
@@ -178,8 +178,8 @@ void JVlibForm::EnableSys(bool val) {
     SysPatchName->setEnabled(val);
     SysPatchNumber->setEnabled(val);
     Patch_Sync_button->setEnabled(val);
-    Patch_Group_select->setEnabled(val);
-    Patch_Number_select->setEnabled(val);
+    Patch_Group_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
+    Patch_Number_select->setEnabled(val && AcceptBankSel_switch->isChecked());
     Patch_Name_edit->setEnabled(val);
   }
 }	// end EnableSys
