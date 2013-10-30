@@ -1,5 +1,4 @@
-// create_actions.cpp
-// for system tab
+// create_sys_actions.cpp
 
 #include	"JVlibForm.h"
 #include	<QtGui>

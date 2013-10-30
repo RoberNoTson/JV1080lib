@@ -1,4 +1,53 @@
 // system_slots.cpp
+/* Contains:
+ * on_System_Upload_button_clicked
+ * on_System_Upload_button_clicked
+ * on_System_SaveData_button_clicked
+ * on_System_LoadData_button_clicked
+ * on_SysMode_select_currentIndexChanged
+ * on_SysPerfSelect_currentIndexChanged
+ * on_SysPatchSelect_currentIndexChanged
+ * int JVlibForm::on_System_Sync_button_clicked
+ * slotSysSetPerformanceMode
+ * slotSysSetPatchMode
+ * slotSysSetGmMode
+ * on_EFX_switch_stateChanged
+ * on_Chorus_switch_stateChanged
+ * on_Reverb_switch_stateChanged
+ * on_PatchRemain_switch_stateChanged
+ * on_AcceptProgramChg_switch_stateChanged
+ * on_AcceptBankSel_switch_stateChanged
+ * on_AcceptControlChange_switch_stateChanged
+ * on_AcceptModulation_switch_stateChanged
+ * on_AcceptVolumeChg_switch_stateChanged
+ * on_AcceptHold1Chg_switch_stateChanged
+ * on_AcceptBender_switch_stateChanged
+ * on_AcceptAftertouch_switch_stateChanged
+ * on_SysClock_select_currentIndexChanged
+ * on_SysTapControl_select_currentIndexChanged
+ * on_SysHoldControl_select_currentIndexChanged
+ * on_SysPeakControl_select_currentIndexChanged
+ * on_SysVolumeControl_select_currentIndexChanged
+ * on_SysAftertouchControl_select_currentIndexChanged
+ * on_SysPatchRecvChannel_select_valueChanged
+ * on_SysControlRecvChannel_select_valueChanged
+ * on_SysPreviewMode_switch_toggled
+ * on_SysPreviewNote1_select_valueChanged
+ * on_SysPreviewNote2_select_valueChanged
+ * on_SysPreviewNote3_select_valueChanged
+ * on_SysPreviewNote4_select_valueChanged
+ * on_SysPreviewNote1_volume_valueChanged
+ * on_SysPreviewNote2_volume_valueChanged
+ * on_SysPreviewNote3_volume_valueChanged
+ * on_SysPreviewNote4_volume_valueChanged
+ * on_SysTestTone_button_clicked
+ * on_SysPanic_button_clicked
+ * on_SysPerfNumber_valueChanged
+ * on_SysPatchNumber_valueChanged
+ * setPerfTabs
+ * setPatchTabs
+ */
+
 #include	"JVlibForm.h"
 #include	"system_slots.h"
 #include	<QtGui>
