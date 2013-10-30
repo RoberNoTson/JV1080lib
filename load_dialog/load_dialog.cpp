@@ -72,6 +72,14 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
       QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing, User 1 Performance name is corrupted");
   }
   JVlibForm::close_ports();
+  if (ui->Load_CurrentPerformance_button->isEnabled() && JVlibForm::state_table->perf_mode)
+    ui->Load_CurrentPerformance_button->setChecked(true);
+  else if (ui->Load_CurrentPatch_button->isEnabled() && JVlibForm::state_table->patch_mode)
+    ui->Load_CurrentPatch_button->setChecked(true);
+  else if (ui->Load_System_button->isEnabled())
+    ui->Load_System_button->setChecked(true);
+  else 
+    ui->Load_LoadDump_button->setChecked(true);
 }
 
 Load_Dialog::~Load_Dialog()

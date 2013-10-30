@@ -31,6 +31,14 @@ Save_Dialog::Save_Dialog(QWidget *parent) :
     ui->Save_Name_edit->setPlaceholderText("Enter a valid name");
     ui->Save_Comment_edit->setFocus();
   }
+  if (ui->Save_CurrentPerformance_button->isEnabled() && JVlibForm::state_table->perf_mode)
+    ui->Save_CurrentPerformance_button->setChecked(true);
+  else if (ui->Save_CurrentPatch_button->isEnabled() && JVlibForm::state_table->patch_mode)
+    ui->Save_CurrentPatch_button->setChecked(true);
+  else if (ui->Save_System_button->isEnabled())
+    ui->Save_System_button->setChecked(true);
+  else 
+    ui->Save_ReceiveUserDump_button->setChecked(true);
 }
 
 Save_Dialog::~Save_Dialog() {

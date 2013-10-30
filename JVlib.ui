@@ -5638,7 +5638,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -41484,7 +41484,7 @@
          <x>10</x>
          <y>60</y>
          <width>311</width>
-         <height>171</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -41591,7 +41591,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>140</y>
+          <y>110</y>
           <width>93</width>
           <height>21</height>
          </rect>
@@ -41600,21 +41600,11 @@
          <string>Custom</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="Tuning_CustomTemp_edit">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>140</y>
-          <width>181</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QPushButton" name="Tuning_LoadCustomTemp_button">
         <property name="geometry">
          <rect>
           <x>110</x>
-          <y>120</y>
+          <y>110</y>
           <width>61</width>
           <height>23</height>
          </rect>
@@ -41626,14 +41616,40 @@
        <widget class="QPushButton" name="Tuning_SaveCustomTemp_button">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>120</y>
+          <x>190</x>
+          <y>110</y>
           <width>61</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
          <string>Save</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="Tuning_CustomName_display">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>281</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="Tuning_CustomComment_display">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>150</y>
+          <width>281</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>
@@ -42197,7 +42213,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>260</y>
+        <y>290</y>
         <width>831</width>
         <height>131</height>
        </rect>
@@ -44850,12 +44866,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>355</y>
+     <x>137</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>363</y>
+     <y>393</y>
     </hint>
    </hints>
   </connection>
@@ -44867,11 +44883,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>138</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
    </hints>
   </connection>
@@ -44882,12 +44898,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>113</x>
-     <y>417</y>
+     <x>137</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>422</y>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -44898,12 +44914,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>323</x>
-     <y>357</y>
+     <x>338</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>362</y>
+     <y>392</y>
     </hint>
    </hints>
   </connection>
@@ -44914,12 +44930,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>378</y>
+     <x>336</x>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
    </hints>
   </connection>
@@ -44931,11 +44947,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>335</x>
-     <y>422</y>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>422</y>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -44947,11 +44963,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>536</x>
-     <y>362</y>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>362</y>
+     <y>392</y>
     </hint>
    </hints>
   </connection>
@@ -44963,11 +44979,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>537</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
    </hints>
   </connection>
@@ -44978,12 +44994,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>410</y>
+     <x>538</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>422</y>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -44994,12 +45010,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>728</x>
-     <y>351</y>
+     <x>734</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>803</x>
-     <y>362</y>
+     <y>392</y>
     </hint>
    </hints>
   </connection>
@@ -45011,11 +45027,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>736</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
     <hint type="destinationlabel">
      <x>804</x>
-     <y>392</y>
+     <y>422</y>
     </hint>
    </hints>
   </connection>
@@ -45026,12 +45042,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>722</x>
-     <y>408</y>
+     <x>736</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>804</x>
-     <y>422</y>
+     <y>452</y>
     </hint>
    </hints>
   </connection>
@@ -50072,6 +50088,70 @@
     <hint type="destinationlabel">
      <x>343</x>
      <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_LoadCustomTemp_button</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>92</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>140</x>
+     <y>226</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_SaveCustomTemp_button</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_CustomName_display</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>101</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_CustomComment_display</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>77</x>
+     <y>263</y>
     </hint>
    </hints>
   </connection>

@@ -209,13 +209,11 @@ void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
 }	// end on_Tuning_BaseKey_select_currentIndexChanged
 
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
-// NOTE: tbd
-  QString buf;
+  open();
 }
 
 void JVlibForm::on_Tuning_SaveCustomTemp_button_clicked() {
-// NOTE: tbd
-  QString buf;
+  save();
 }
 
 void JVlibForm::slotTuning_TempButtons(int val) {
