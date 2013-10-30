@@ -1,6 +1,26 @@
 // part_8.cpp
-// contains slots and functions for Parts Tab Part 8
-// slots will set Part 8 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part8_TestTone_switch_toggled
+ * on_Part8_ReceiveMidi_enable_toggled
+ * on_Part8_MidiChannel_select_valueChanged
+ * on_Part8_Level_select_valueChanged
+ * on_Part8_Pan_select_valueChanged
+ * on_Part8_Transpose_select_valueChanged
+ * on_Part8_TuneAdj_select_valueChanged
+ * on_Part8_Output_select_currentIndexChanged
+ * on_Part8_OutputLevel_select_valueChanged
+ * on_Part8_ChorusSend_select_valueChanged
+ * on_Part8_ReverbSend_select_valueChanged
+ * on_Part8_ReceivePrgChg_enable_toggled
+ * on_Part8_ReceiveVolume_enable_toggled
+ * on_Part8_ReceiveHold_enable_toggled
+ * on_Part8_LowLimit_select_valueChanged
+ * on_Part8_HighLimit_select_valueChanged
+ * on_Part8_VoiceReserve_select_valueChanged
+ * on_Part8_PatchGroup_select_currentIndexChanged
+ * Part8_SetPatchMax
+ * on_Part8_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

@@ -1,5 +1,9 @@
 // set_patch_initial.cpp
 // for Patch tab
+/* Contains:
+ * setPatchParms
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 
@@ -52,6 +56,7 @@ void::JVlibForm::setPatchParms(int val) {
 
   Patch_Number_select->setValue((active_area->active_performance.perf_part[pn].patch_num_high*16) + active_area->active_performance.perf_part[pn].patch_num_low+1);
   Patch_Name_edit->setText(QString::fromAscii(&active_area->active_perf_patch[pn].patch_common.name[0],12));
+  Patch_Name_edit->setReadOnly(true);
   if (Patch_PerfPartNum_select->itemText(0)=="0")
     Patch_PerfPartNum_select->removeItem(0);
   
@@ -147,38 +152,47 @@ void::JVlibForm::setPatchParms(int val) {
     case 0x01:  // User
       Patch_Group_select->setCurrentIndex(0);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(false);
       break;
     case 0x02:  // Exp A
       Patch_Group_select->setCurrentIndex(1);
       Patch_Number_select->setMaximum(255);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x03:  // Preset A
       Patch_Group_select->setCurrentIndex(2);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x04:  // Preset B
       Patch_Group_select->setCurrentIndex(3);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x05:  // Preset C
       Patch_Group_select->setCurrentIndex(4);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x06:  // Preset D
       Patch_Group_select->setCurrentIndex(5);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x10:  // Exp B
       Patch_Group_select->setCurrentIndex(6);
       Patch_Number_select->setMaximum(255);
+      Patch_Name_edit->setReadOnly(true);
       break;
     case 0x62:  // Exp C
       Patch_Group_select->setCurrentIndex(7);
       Patch_Number_select->setMaximum(255);
+      Patch_Name_edit->setReadOnly(true);
       break;
     default:
       Patch_Group_select->setCurrentIndex(0);
       Patch_Number_select->setMaximum(128);
+      Patch_Name_edit->setReadOnly(true);
       break;
   }     // end switch patch source
   

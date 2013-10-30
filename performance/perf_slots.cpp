@@ -1,4 +1,23 @@
 // perf_slots.cpp
+/* Contains:
+ * on_PerfGroup_select_currentIndexChanged
+ * on_PerfNumber_select_valueChanged
+ * on_PerfSync_button_clicked
+ * on_PerfDefaultTempo_select_valueChanged
+ * on_PerfName_edit_editingFinished
+ * on_PerfChorusLevel_select_valueChanged
+ * on_PerfChorusRate_select_valueChanged
+ * on_PerfChorusDepth_select_valueChanged
+ * on_PerfChorusPreDelay_select_valueChanged
+ * on_PerfChorusFeedback_select_valueChanged
+ * on_PerfChorusOutput_select_currentIndexChanged
+ * on_PerfReverbType_select_currentIndexChanged
+ * on_PerfReverbLevel_select_valueChanged
+ * on_PerfReverbTime_select_valueChanged
+ * on_PerfReverbHiFreqDamp_select_currentIndexChanged
+ * on_PerfReverbFeedback_select_valueChanged
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 #include	"perf_slots.h"

@@ -1,6 +1,26 @@
 // part_12.cpp
-// contains slots and functions for Parts Tab Part 12
-// slots will set Part 12 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part12_TestTone_switch_toggled
+ * on_Part12_ReceiveMidi_enable_toggled
+ * on_Part12_MidiChannel_select_valueChanged
+ * on_Part12_Level_select_valueChanged
+ * on_Part12_Pan_select_valueChanged
+ * on_Part12_Transpose_select_valueChanged
+ * on_Part12_TuneAdj_select_valueChanged
+ * on_Part12_Output_select_currentIndexChanged
+ * on_Part12_OutputLevel_select_valueChanged
+ * on_Part12_ChorusSend_select_valueChanged
+ * on_Part12_ReverbSend_select_valueChanged
+ * on_Part12_ReceivePrgChg_enable_toggled
+ * on_Part12_ReceiveVolume_enable_toggled
+ * on_Part12_ReceiveHold_enable_toggled
+ * on_Part12_LowLimit_select_valueChanged
+ * on_Part12_HighLimit_select_valueChanged
+ * on_Part12_VoiceReserve_select_valueChanged
+ * on_Part12_PatchGroup_select_currentIndexChanged
+ * Part12_SetPatchMax
+ * on_Part12_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

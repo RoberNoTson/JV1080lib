@@ -1,5 +1,5 @@
 // patch.cpp
-/* includes
+/* Contains:
  * EnablePatch()
  * getSinglePerfPatch()
  * getActivePatchMode()

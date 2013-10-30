@@ -1,6 +1,26 @@
 // part_4.cpp
-// contains slots and functions for Parts Tab Part 4
-// slots will set Part 4 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part4_TestTone_switch_toggled
+ * on_Part4_ReceiveMidi_enable_toggled
+ * on_Part4_MidiChannel_select_valueChanged
+ * on_Part4_Level_select_valueChanged
+ * on_Part4_Pan_select_valueChanged
+ * on_Part4_Transpose_select_valueChanged
+ * on_Part4_TuneAdj_select_valueChanged
+ * on_Part4_Output_select_currentIndexChanged
+ * on_Part4_OutputLevel_select_valueChanged
+ * on_Part4_ChorusSend_select_valueChanged
+ * on_Part4_ReverbSend_select_valueChanged
+ * on_Part4_ReceivePrgChg_enable_toggled
+ * on_Part4_ReceiveVolume_enable_toggled
+ * on_Part4_ReceiveHold_enable_toggled
+ * on_Part4_LowLimit_select_valueChanged
+ * on_Part4_HighLimit_select_valueChanged
+ * on_Part4_VoiceReserve_select_valueChanged
+ * on_Part4_PatchGroup_select_currentIndexChanged
+ * Part4_SetPatchMax
+ * on_Part4_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

@@ -1,6 +1,26 @@
 // part_10.cpp
-// contains slots and functions for Parts Tab Part 10, Rhythm set is slightly different from other parts.
-// slots will set Part 10 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part10_TestTone_switch_toggled
+ * on_Part10_ReceiveMidi_enable_toggled
+ * on_Part10_MidiChannel_select_valueChanged
+ * on_Part10_Level_select_valueChanged
+ * on_Part10_Pan_select_valueChanged
+ * on_Part10_Transpose_select_valueChanged
+ * on_Part10_TuneAdj_select_valueChanged
+ * on_Part10_Output_select_currentIndexChanged
+ * on_Part10_OutputLevel_select_valueChanged
+ * on_Part10_ChorusSend_select_valueChanged
+ * on_Part10_ReverbSend_select_valueChanged
+ * on_Part10_ReceivePrgChg_enable_toggled
+ * on_Part10_ReceiveVolume_enable_toggled
+ * on_Part10_ReceiveHold_enable_toggled
+ * on_Part10_LowLimit_select_valueChanged
+ * on_Part10_HighLimit_select_valueChanged
+ * on_Part10_VoiceReserve_select_valueChanged
+ * on_Part10_PatchGroup_select_currentIndexChanged
+ * Part10_SetPatchMax
+ * on_Part10_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

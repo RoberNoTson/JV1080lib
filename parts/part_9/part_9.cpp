@@ -1,6 +1,26 @@
 // part_9.cpp
-// contains slots and functions for Parts Tab Part 9
-// slots will set Part 9 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part9_TestTone_switch_toggled
+ * on_Part9_ReceiveMidi_enable_toggled
+ * on_Part9_MidiChannel_select_valueChanged
+ * on_Part9_Level_select_valueChanged
+ * on_Part9_Pan_select_valueChanged
+ * on_Part9_Transpose_select_valueChanged
+ * on_Part9_TuneAdj_select_valueChanged
+ * on_Part9_Output_select_currentIndexChanged
+ * on_Part9_OutputLevel_select_valueChanged
+ * on_Part9_ChorusSend_select_valueChanged
+ * on_Part9_ReverbSend_select_valueChanged
+ * on_Part9_ReceivePrgChg_enable_toggled
+ * on_Part9_ReceiveVolume_enable_toggled
+ * on_Part9_ReceiveHold_enable_toggled
+ * on_Part9_LowLimit_select_valueChanged
+ * on_Part9_HighLimit_select_valueChanged
+ * on_Part9_VoiceReserve_select_valueChanged
+ * on_Part9_PatchGroup_select_currentIndexChanged
+ * Part9_SetPatchMax
+ * on_Part9_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

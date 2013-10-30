@@ -1,5 +1,8 @@
-// set_initial.cpp
-// for Parts tab
+// set_part_initial.cpp
+/* Contains:
+ * setPartsParms
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 

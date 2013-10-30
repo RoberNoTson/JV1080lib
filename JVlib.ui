@@ -23329,7 +23329,7 @@
           <bool>false</bool>
          </property>
          <property name="toolTip">
-          <string notr="true">Name of the selected Patch. Read-only unless the Parts Tab PrgChg box is enabled</string>
+          <string notr="true">Name of the selected Patch. Read-only unless in Patch Mode and it is a User patch</string>
          </property>
          <property name="inputMask">
           <string notr="true"/>
@@ -23341,7 +23341,7 @@
           <number>12</number>
          </property>
          <property name="readOnly">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="placeholderText">
           <string notr="true"/>

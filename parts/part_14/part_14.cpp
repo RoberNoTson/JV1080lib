@@ -1,6 +1,26 @@
 // part_14.cpp
-// contains slots and functions for Parts Tab Part 14
-// slots will set Part 14 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part14_TestTone_switch_toggled
+ * on_Part14_ReceiveMidi_enable_toggled
+ * on_Part14_MidiChannel_select_valueChanged
+ * on_Part14_Level_select_valueChanged
+ * on_Part14_Pan_select_valueChanged
+ * on_Part14_Transpose_select_valueChanged
+ * on_Part14_TuneAdj_select_valueChanged
+ * on_Part14_Output_select_currentIndexChanged
+ * on_Part14_OutputLevel_select_valueChanged
+ * on_Part14_ChorusSend_select_valueChanged
+ * on_Part14_ReverbSend_select_valueChanged
+ * on_Part14_ReceivePrgChg_enable_toggled
+ * on_Part14_ReceiveVolume_enable_toggled
+ * on_Part14_ReceiveHold_enable_toggled
+ * on_Part14_LowLimit_select_valueChanged
+ * on_Part14_HighLimit_select_valueChanged
+ * on_Part14_VoiceReserve_select_valueChanged
+ * on_Part14_PatchGroup_select_currentIndexChanged
+ * Part14_SetPatchMax
+ * on_Part14_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

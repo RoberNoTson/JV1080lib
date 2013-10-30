@@ -1,4 +1,61 @@
 // patch_slots.cpp
+/* Contains:
+ * on_Patch_Sync_button_clicked
+ * on_Patch_Name_edit_editingFinished
+ * on_Patch_PerfPartNum_select_currentIndexChanged
+ * on_Patch_Level_select_valueChanged
+ * on_Patch_Pan_select_valueChanged
+ * on_Patch_AnalogFeel_select_valueChanged
+ * on_Patch_PortamentoTime_select_valueChanged
+ * on_Patch_BenderUp_select_valueChanged
+ * on_Patch_BenderDown_select_valueChanged
+ * on_Patch_HoldPeak_select_currentIndexChanged
+ * on_Patch_C1_HoldPeak_select_currentIndexChanged
+ * on_Patch_C2_HoldPeak_select_currentIndexChanged
+ * on_Patch_C3_HoldPeak_select_currentIndexChanged
+ * on_Patch_Struct12_select_valueChanged
+ * on_Patch_Booster12_select_valueChanged
+ * on_Patch_Struct34_select_valueChanged
+ * on_Patch_Booster34_select_valueChanged
+ * on_Patch_DefaultTempo_select_valueChanged
+ * on_Patch_VoicePriority_switch_toggled
+ * on_Patch_VoiceMode_switch_toggled
+ * on_Patch_SoloLegato_enable_toggled
+ * on_Patch_PortamentoEnable_switch_toggled
+ * on_Patch_PortamentoMode_switch_toggled
+ * on_Patch_PortamentoType_switch_toggled
+ * on_Patch_PortamentoStart_switch_toggled
+ * on_Patch_ControlSource2_select_currentIndexChanged
+ * on_Patch_ControlSource3_select_currentIndexChanged
+ * on_Patch_VelocityRange_enable_toggled
+ * on_Patch_Tone1_enable_toggled
+ * on_Patch_Tone2_enable_toggled
+ * on_Patch_Tone3_enable_toggled
+ * on_Patch_Tone4_enable_toggled
+ * on_Patch_Group_select_currentIndexChanged
+ * on_Patch_Number_select_valueChanged
+ * on_Patch_TestTone_switch_toggled
+ * on_PatchEFX_Control1Source_select_currentIndexChanged
+ * on_PatchEFX_Control1Depth_select_valueChanged
+ * on_PatchEFX_Control2Source_select_currentIndexChanged
+ * on_PatchEFX_Control2Depth_select_valueChanged
+ * on_PatchEFX_ReverbHiFreqDamp_select_currentIndexChanged
+ * on_PatchEFX_ReverbLevel_select_valueChanged
+ * on_PatchEFX_ReverbTime_select_valueChanged
+ * on_PatchEFX_ReverbType_select_currentIndexChanged
+ * on_PatchEFX_ReverbFeedback_select_valueChanged
+ * on_PatchEFX_ChorusLevel_select_valueChanged
+ * on_PatchEFX_ChorusRate_select_valueChanged
+ * on_PatchEFX_ChorusDepth_select_valueChanged
+ * on_PatchEFX_ChorusPreDelay_select_valueChanged
+ * on_PatchEFX_ChorusFeedback_select_valueChanged
+ * on_PatchEFX_ChorusOutput_select_currentIndexChanged
+ * on_PatchEFX_Output_select_currentIndexChanged
+ * on_PatchEFX_OutputLevel_select_valueChanged
+ * on_PatchEFX_ChorusSend_select_valueChanged
+ * on_PatchEFX_ReverbSend_select_valueChanged
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 
@@ -569,7 +626,6 @@ void JVlibForm::on_Patch_Booster34_select_valueChanged(int val) {
     setPatchSingleValue(0x47, val/6);
   }
 }
-//void JVlibForm::slotPatch_DefaultTempo(int val) {
 void JVlibForm::on_Patch_DefaultTempo_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
     int HVal = val/16;

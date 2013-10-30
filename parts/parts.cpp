@@ -1,4 +1,13 @@
 // parts.cpp
+/* Contains:
+ * EnableParts
+ * PartsToneSwitch
+ * setPartSingleValue
+ * getPartPatchName
+ * toggleControlChannel
+ * setVoiceCounters
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 

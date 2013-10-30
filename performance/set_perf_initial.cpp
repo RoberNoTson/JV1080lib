@@ -1,9 +1,10 @@
-// set_initial.cpp
-// for Performance tab
+// set_perf_initial.cpp
+/* Contains:
+ * setPerfParms
+ */
 
 #include	"JVlibForm.h"
 #include	<QtGui>
-//#include	"performance.h"
 
 void JVlibForm::setPerfParms() {
   // called after the Sync button is pushed to update displays/controls to reflect the synth configuration

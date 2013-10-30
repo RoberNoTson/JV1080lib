@@ -1,6 +1,26 @@
 // part_2.cpp
-// contains slots and functions for Parts Tab Part 2
-// slots will set Part 2 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part2_TestTone_switch_toggled
+ * on_Part2_ReceiveMidi_enable_toggled
+ * on_Part2_MidiChannel_select_valueChanged
+ * on_Part2_Level_select_valueChanged
+ * on_Part2_Pan_select_valueChanged
+ * on_Part2_Transpose_select_valueChanged
+ * on_Part2_TuneAdj_select_valueChanged
+ * on_Part2_Output_select_currentIndexChanged
+ * on_Part2_OutputLevel_select_valueChanged
+ * on_Part2_ChorusSend_select_valueChanged
+ * on_Part2_ReverbSend_select_valueChanged
+ * on_Part2_ReceivePrgChg_enable_toggled
+ * on_Part2_ReceiveVolume_enable_toggled
+ * on_Part2_ReceiveHold_enable_toggled
+ * on_Part2_LowLimit_select_valueChanged
+ * on_Part2_HighLimit_select_valueChanged
+ * on_Part2_VoiceReserve_select_valueChanged
+ * on_Part2_PatchGroup_select_currentIndexChanged
+ * Part2_SetPatchMax
+ * on_Part2_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

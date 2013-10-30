@@ -1,4 +1,9 @@
 // parts_slots.cpp
+/* Contains:
+ * on_PartsRangeLimitEnable_select_toggled
+ * VoiceMode_select
+ */
+ 
 #include        "JVlibForm.h"
 #include        <QtGui>
 

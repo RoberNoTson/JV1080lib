@@ -1,6 +1,26 @@
 // part_15.cpp
-// contains slots and functions for Parts Tab Part 15
-// slots will set Part 15 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part15_TestTone_switch_toggled
+ * on_Part15_ReceiveMidi_enable_toggled
+ * on_Part15_MidiChannel_select_valueChanged
+ * on_Part15_Level_select_valueChanged
+ * on_Part15_Pan_select_valueChanged
+ * on_Part15_Transpose_select_valueChanged
+ * on_Part15_TuneAdj_select_valueChanged
+ * on_Part15_Output_select_currentIndexChanged
+ * on_Part15_OutputLevel_select_valueChanged
+ * on_Part15_ChorusSend_select_valueChanged
+ * on_Part15_ReverbSend_select_valueChanged
+ * on_Part15_ReceivePrgChg_enable_toggled
+ * on_Part15_ReceiveVolume_enable_toggled
+ * on_Part15_ReceiveHold_enable_toggled
+ * on_Part15_LowLimit_select_valueChanged
+ * on_Part15_HighLimit_select_valueChanged
+ * on_Part15_VoiceReserve_select_valueChanged
+ * on_Part15_PatchGroup_select_currentIndexChanged
+ * Part15_SetPatchMax
+ * on_Part15_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

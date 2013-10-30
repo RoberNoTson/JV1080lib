@@ -1,4 +1,10 @@
-// perf_mode.cpp
+// performance.cpp
+/* Contains:
+ * getActivePerfCommon
+ * getActivePatchNames
+ * setPerfSingleValue
+ * EnablePerf
+ */
 
 #include	"JVlibForm.h"
 #include	<QtGui>
@@ -70,7 +76,6 @@ void JVlibForm::getActivePerfCommon() {
   }
   breakout:
   close_ports();
-//  getActivePatchNames();
   progress.setValue(32);
   progress.reset();
   EnableParts(true);

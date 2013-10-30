@@ -1,6 +1,26 @@
 // part_7.cpp
-// contains slots and functions for Parts Tab Part 7
-// slots will set Part 7 displays to reflect a local control change and update active_area memory, then update the synth 
+/* Contains:
+ * on_Part7_TestTone_switch_toggled
+ * on_Part7_ReceiveMidi_enable_toggled
+ * on_Part7_MidiChannel_select_valueChanged
+ * on_Part7_Level_select_valueChanged
+ * on_Part7_Pan_select_valueChanged
+ * on_Part7_Transpose_select_valueChanged
+ * on_Part7_TuneAdj_select_valueChanged
+ * on_Part7_Output_select_currentIndexChanged
+ * on_Part7_OutputLevel_select_valueChanged
+ * on_Part7_ChorusSend_select_valueChanged
+ * on_Part7_ReverbSend_select_valueChanged
+ * on_Part7_ReceivePrgChg_enable_toggled
+ * on_Part7_ReceiveVolume_enable_toggled
+ * on_Part7_ReceiveHold_enable_toggled
+ * on_Part7_LowLimit_select_valueChanged
+ * on_Part7_HighLimit_select_valueChanged
+ * on_Part7_VoiceReserve_select_valueChanged
+ * on_Part7_PatchGroup_select_currentIndexChanged
+ * Part7_SetPatchMax
+ * on_Part7_PatchNumber_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>
