@@ -17,8 +17,7 @@ void JVlibForm::createSysActions() {
   Tuning_ButtonGroup->addButton(Tuning_PureTemp_button,5);
   Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,1);
   Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,0);
-  Tuning_currentTuning.resize(12);
-  Tuning_currentTuning.fill(0x40, 12); 
+  Tuning_currentTuning.fill(0x40, 12*16); 
   Tuning_EqualTemp_button->setChecked(true);
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));
   

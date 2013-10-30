@@ -5,7 +5,6 @@
  * Tuning_BulkUpdate
  * TuningStdUpdate
  * Tuning_QueryTemp
- * Tuning_setScaleTuning
  */
 
 #include	"JVlibForm.h"
@@ -13,7 +12,7 @@
 
 void JVlibForm::setScaleSingleValue(int addr, int val) {
   unsigned char buf[5];
-  if (state_table->jv_connect && state_table->updates_enabled) {
+  if (!state_table->jv_connect || !state_table->updates_enabled) return;
   memset(buf,0,sizeof(buf));
   if (state_table->patch_mode)
     buf[2] = 0x20;
@@ -29,12 +28,11 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
   }
   close_ports();
   state_table->tuning_modified = true;
-  }
 }
 
 int JVlibForm::get_scales() {
   // download scale tunings from JV
-  if (state_table->jv_connect && state_table->updates_enabled) {
+  if (!state_table->jv_connect || !state_table->updates_enabled)   return(EXIT_FAILURE);
   int	x,err;
   int	Stop=0;
   unsigned char	buf[8];
@@ -59,8 +57,9 @@ int JVlibForm::get_scales() {
       if (err != EXIT_SUCCESS) { close_ports(); return(EXIT_FAILURE); }
       Stop=0;
     }	// end FOR 16 part scales
-  } else {
-    // get one remaining patch scale tune
+  } 
+  else if (state_table->patch_mode) {
+    // get one patch scale tune
     buf[2] = 0x20;
     RetryC:
     if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
@@ -72,10 +71,9 @@ int JVlibForm::get_scales() {
     Stop=0;
   }
   close_ports();
-  statusbar->showMessage("Scale tunings loaded",0);
+  statusbar->showMessage("Scale tunings downloaded",0);
   state_table->tuning_modified = false;
   state_table->tuning_sync = true;
-  }	// end   if (state_table->jv_connect && state_table->updates_enabled)
   return(EXIT_SUCCESS);
 }	// end GET_SCALES
 
@@ -87,17 +85,18 @@ void JVlibForm::Tuning_BulkUpdate(int pn, int offset, int val) {
 }	// end Tuning_BulkUpdate
 
 void JVlibForm::TuningStdUpdate(int offset, int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     if (state_table->patch_mode) {
       system_area->sys_patch_scale_tune.scale[offset] = val;
       if (state_table->jv_connect)
 	setScaleSingleValue(offset,val);
-    } else {
-      if (Tuning_PartNoneTuning_select->isChecked()) {
-	system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
-	if (state_table->jv_connect)
-	  setScaleSingleValue(offset,val);
-      } else {
+    } 
+    if (state_table->perf_mode) {
+//      if (Tuning_PartNoneTuning_select->isChecked()) {
+//	system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
+//	if (state_table->jv_connect)
+//	  setScaleSingleValue(offset,val);
+//      } else {
 	if (Tuning_Part1Tuning_select->isChecked()) Tuning_BulkUpdate(1,offset,val);
 	if (Tuning_Part2Tuning_select->isChecked()) Tuning_BulkUpdate(2,offset,val);
 	if (Tuning_Part3Tuning_select->isChecked()) Tuning_BulkUpdate(3,offset,val);
@@ -114,10 +113,9 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
 	if (Tuning_Part14Tuning_select->isChecked()) Tuning_BulkUpdate(14,offset,val);
 	if (Tuning_Part15Tuning_select->isChecked()) Tuning_BulkUpdate(15,offset,val);
 	if (Tuning_Part16Tuning_select->isChecked()) Tuning_BulkUpdate(16,offset,val);
-      }	// end ELSE PartAllTuning checked
-    }	// end ELSE perf mode
+//      }	// end ELSE PartAllTuning checked
+    }	// end IF perf mode
     state_table->tuning_modified = true;
-  }	// end state_table->updates_enabled
 }	// end TuningStdUpdate
 
 void JVlibForm::Tuning_QueryTemp(int val) {
@@ -149,66 +147,6 @@ void JVlibForm::Tuning_QueryTemp(int val) {
     return;
   }
   query.finish();
-  Tuning_setScaleTuning(Tuning_BaseKey_select->currentIndex());
+//  Tuning_setScaleTuning(Tuning_BaseKey_select->currentIndex());
+  on_Tuning_BaseKey_select_currentIndexChanged(Tuning_BaseKey_select->currentIndex());
 }	// end Tuning_QueryTemp
-
-void JVlibForm::Tuning_setScaleTuning(int val) {
-  // set individual scale note tunings from the QByteArray Tuning_currentTuning
-  // uses val = Tuning_BaseKey_select->currentIndex()
-  // updating the display will update the synth
-  int x=0;
-  // set x = to where 'C' falls in the chosen key
-  switch(val) {
-    case 0: case 19:	// C Maj, a min
-      x=0;
-      break;
-    case 2: case 21:	// D-flat Maj, b-flat min
-      x=11;
-      break;
-    case 4: case 23:	// D 
-      x=10;
-      break;
-    case 6: case 1:	// E-flat
-      x=9;
-      break;
-    case 8: case 3:	// E
-      x=8;
-      break;
-    case 10: case 5:	// F
-      x=7;
-      break;
-    case 12: case 7:	// F#
-      x=6;
-      break;
-    case 14: case 9:	// G
-      x=5;
-      break;
-    case 16: case 11:	// A-flat
-      x=4;
-      break;
-    case 18: case 13:	// A
-      x=3;
-      break;
-    case 20: case 15:	// B-flat
-      x=2;
-      break;
-    case 22: case 17:	// B
-      x=1;
-      break;
-
-  }	// end Switch
-  // x is the offset for C
-  Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-  Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
-}	// end Tuning_setScaleTuning
-

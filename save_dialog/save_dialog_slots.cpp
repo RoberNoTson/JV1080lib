@@ -630,7 +630,7 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     SaveUserPerf();
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
-    db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), 12);
+    db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), JVlibForm::state_table->perf_mode ? 12*16 : 12);
   }	// end IF Tuning
   
   if (ui->Save_ReceiveUserDump_button->isChecked()) {

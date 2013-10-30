@@ -33,7 +33,6 @@ void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
   }
   Tuning_PartTuning_box->setEnabled(status);
   Tuning_Temperament_box->setEnabled(status);
-//  Tuning_BaseKey_select->setEnabled(status);
   state_table->tuningTab_enable = true;
   // update the system_area
   system_area->sys_common.scale_tune_switch = status;
@@ -104,32 +103,87 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   Tuning_Sync_status->off();
-  get_scales();
-  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);
+  get_scales();	// download all scale data, relative to Patch or Perf mode
+  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);	// set for currently synced Part Patch, if any; parm is ignored when in Patch mode
   QApplication::restoreOverrideCursor();
 }	// end on_Tuning_Sync_button_clicked
 
 void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
-  Tuning_setScaleTuning(val);
+//  Tuning_setScaleTuning(val);
+  int x=0;
+  // set 'x' to where 'C' falls in the chosen key
+  switch(val) {
+    case 0: case 19:	// C Maj, a min
+      x=0;
+      break;
+    case 2: case 21:	// D-flat Maj, b-flat min
+      x=11;
+      break;
+    case 4: case 23:	// D 
+      x=10;
+      break;
+    case 6: case 1:	// E-flat
+      x=9;
+      break;
+    case 8: case 3:	// E
+      x=8;
+      break;
+    case 10: case 5:	// F
+      x=7;
+      break;
+    case 12: case 7:	// F#
+      x=6;
+      break;
+    case 14: case 9:	// G
+      x=5;
+      break;
+    case 16: case 11:	// A-flat
+      x=4;
+      break;
+    case 18: case 13:	// A
+      x=3;
+      break;
+    case 20: case 15:	// B-flat
+      x=2;
+      break;
+    case 22: case 17:	// B
+      x=1;
+      break;
+
+  }	// end Switch
+  // x is the offset for C
+    Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+    Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
 }
 
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
+// NOTE: tbd
   QString buf;
-  
 }
+
 void JVlibForm::on_Tuning_SaveCustomTemp_button_clicked() {
+// NOTE: tbd
   QString buf;
-  
 }
 
 void JVlibForm::slotTuning_TempButtons(int val) {
   // redirect to Tuning_QueryTemp with correct parm
-  // QByteArray Tuning_currentTuning, filled with 0x40 from create_...
+  // NOTE: button numbers do not correspond to the display order
   switch(val) {
     case 2: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
       Tuning_BaseKey_select->setEnabled(false);
-      Tuning_currentTuning.fill(0x40,12);
+      Tuning_currentTuning.fill(0x40,12*16);
       Tuning_PartTuneC_select->setValue(0);
       Tuning_PartTuneCs_select->setValue(0);
       Tuning_PartTuneD_select->setValue(0);

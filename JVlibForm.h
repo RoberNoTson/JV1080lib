@@ -1149,7 +1149,7 @@ private:
   static QByteArray Tuning_currentTuning;
   void Tuning_BulkUpdate(int, int, int);
   void Tuning_QueryTemp(int);
-  void Tuning_setScaleTuning(int);
+//  void Tuning_setScaleTuning(int);
 
   // for Rhythm
   static bool getActiveRhythm();

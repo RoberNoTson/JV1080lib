@@ -5,26 +5,26 @@ General
   - fix Color gradient error message from QDials throughout 
   - add options to support Data Cards
   - when closing app and asked to Save changes, close the app after the save completes
-  - create library maintenance form to rename, delete, etc. existing db entries
 
 Menu
   - standalone/offline mode with all tabs functional
   - create Utility function Copy
   - create Utility function Write
   - create Utility function Bulk Dump
+  - create Utility function DB Maint
 
 database
   - fill in missing database info for waves/patch, unknown families, etc.
   - update Looped/Oneshot status for waves
 
 System_tab
+10/29/2013  - when changing from Patch to Performance mode, disable tabs for PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
-  - "Upload" to Synth function/button
+  - create "Upload" (to Synth) function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
   - change MIDI player progress bar to slider, allow for interaction with MIDI file
-  - when changing from Patch to Performance mode, disable tabs for PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch
 
 Performance_tab
 10/26/2013  - disable PerfGroup_select when AcceptBankSel_switch not checked
@@ -33,7 +33,7 @@ Performance_tab
 PerfParts_tab
 10/18/2013  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
-  - voice reserve per part should be locked if it causes the system total to exceed 64
+  - voice reserve per part should be prevented from increasing if it causes the system total to exceed 64
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
@@ -83,6 +83,7 @@ Pitch_tab
 Tuning_tab
 10/07/2013  - changing keys does not always work correctly, need to zero out before setting new values
 10/29/2013  - change cursor to "Wait" when Sync is clicked
+  - save each part separately in Perf mode
   - recognize existing tunings
   - save custom tuning
   - load saved tuning data
@@ -91,10 +92,13 @@ config
   - improve aesthetics
 
 save_dialog
-  - create missing functions
+  - save each Perf Part as part of a group save
+  - create Receive User Dump function
   - connect something to the Help button
 
 load_dialog
-  - create missing functions
+  - create Load System function
+  - create Load Tuning function
+  - create Load Dump function
   - connect something to the Help button
   - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System
