@@ -101,15 +101,57 @@ void JVlibForm::on_Tuning_MasterTune_select_valueChanged(double val) {
 
 void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  if (!state_table->jv_connect || !state_table->updates_enabled) return;
   Tuning_Sync_status->off();
-  get_scales();	// download all scale data, relative to Patch or Perf mode
+//  get_scales();	// download all scale data, relative to Patch or Perf mode
+  int	x,err;
+  int	Stop=0;
+  unsigned char	buf[8];
+  char scale_size[] = { 0x0,0x0,0x0,0x0C };
+  
+  JVlibForm::statusbar->showMessage("Loading scale tunings",0);
+  memset(buf,0,sizeof(buf));
+  buf[7] = 0x0C;	// scale size
+  if (open_ports() == EXIT_FAILURE) return;
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  if (state_table->perf_mode) {
+    // get the 16 Part scales
+    for (x=0;x<16;x++) {
+      printf("Scale #%d\n",x);
+      buf[2] = 0x10 + x;		// scale number
+      RetryB:
+      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+      err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
+      if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+      if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
+      if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
+      if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+      Stop=0;
+      Tuning_currentTuning.insert(x*12, (char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
+    }	// end FOR 16 part scales
+  } 
+  else if (state_table->patch_mode) {
+    // get one patch scale tune
+    buf[2] = 0x20;
+    RetryC:
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+    err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
+    if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+    if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
+    if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
+    if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+    Stop=0;
+    Tuning_currentTuning.insert(0, (char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
+  }
+  close_ports();
+  statusbar->showMessage("Scale tunings downloaded",0);
+  state_table->tuning_modified = false;
+  state_table->tuning_sync = true;
   setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);	// set for currently synced Part Patch, if any; parm is ignored when in Patch mode
   QApplication::restoreOverrideCursor();
 }	// end on_Tuning_Sync_button_clicked
 
 void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
-//  Tuning_setScaleTuning(val);
   int x=0;
   // set 'x' to where 'C' falls in the chosen key
   switch(val) {
@@ -149,22 +191,22 @@ void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
     case 22: case 17:	// B
       x=1;
       break;
-
   }	// end Switch
+  // set Display to adjusted value based on the first 12 entries in the ByteArray
   // x is the offset for C
-    Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
-    Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
-}
+  Tuning_PartTuneC_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneCs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneD_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneDs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneE_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneF_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneFs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneG_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneGs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneA_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneAs_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64); x++;
+  Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
+}	// end on_Tuning_BaseKey_select_currentIndexChanged
 
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
 // NOTE: tbd
@@ -182,20 +224,11 @@ void JVlibForm::slotTuning_TempButtons(int val) {
   switch(val) {
     case 2: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
+      Tuning_BaseKey_select->blockSignals(true);
+      Tuning_BaseKey_select->setCurrentIndex(0);
       Tuning_BaseKey_select->setEnabled(false);
-      Tuning_currentTuning.fill(0x40,12*16);
-      Tuning_PartTuneC_select->setValue(0);
-      Tuning_PartTuneCs_select->setValue(0);
-      Tuning_PartTuneD_select->setValue(0);
-      Tuning_PartTuneDs_select->setValue(0);
-      Tuning_PartTuneE_select->setValue(0);
-      Tuning_PartTuneF_select->setValue(0);
-      Tuning_PartTuneFs_select->setValue(0);
-      Tuning_PartTuneG_select->setValue(0);
-      Tuning_PartTuneGs_select->setValue(0);
-      Tuning_PartTuneA_select->setValue(0);
-      Tuning_PartTuneAs_select->setValue(0);
-      Tuning_PartTuneB_select->setValue(0);
+      Tuning_BaseKey_select->blockSignals(false);
+      Tuning_QueryTemp(2);
       break;
     case 3:		// Just temp
       state_table->tuning_type = JustTemp;

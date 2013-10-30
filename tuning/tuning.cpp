@@ -30,56 +30,11 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
   state_table->tuning_modified = true;
 }
 
-int JVlibForm::get_scales() {
-  // download scale tunings from JV
-  if (!state_table->jv_connect || !state_table->updates_enabled)   return(EXIT_FAILURE);
-  int	x,err;
-  int	Stop=0;
-  unsigned char	buf[8];
-  char scale_size[] = { 0x0,0x0,0x0,0x0C };
-  
-  JVlibForm::statusbar->showMessage("Loading scale tunings",0);
-  // get 16 system_area part scales  system_area.sys_part_scale_tune[x].scale
-  memset(buf,0,sizeof(buf));
-  buf[7] = 0x0C;	// scale size
-  if (open_ports() == EXIT_FAILURE) return EXIT_FAILURE;
-  if (state_table->perf_mode) {
-    // get the 16 Part scales
-    for (x=0;x<16;x++) {
-      printf("Scale #%d\n",x);
-      buf[2] = 0x10 + x;		// scale number
-      RetryB:
-      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
-      err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
-      if (err == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
-      if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
-      if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
-      if (err != EXIT_SUCCESS) { close_ports(); return(EXIT_FAILURE); }
-      Stop=0;
-    }	// end FOR 16 part scales
-  } 
-  else if (state_table->patch_mode) {
-    // get one patch scale tune
-    buf[2] = 0x20;
-    RetryC:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
-    err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
-    if (err == EXIT_FAILURE) { close_ports(); return(EXIT_FAILURE); }
-    if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
-    if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
-    if (err != EXIT_SUCCESS) { close_ports(); return(EXIT_FAILURE); }
-    Stop=0;
-  }
-  close_ports();
-  statusbar->showMessage("Scale tunings downloaded",0);
-  state_table->tuning_modified = false;
-  state_table->tuning_sync = true;
-  return(EXIT_SUCCESS);
-}	// end GET_SCALES
-
 void JVlibForm::Tuning_BulkUpdate(int pn, int offset, int val) {
   system_area->sys_part_scale_tune[pn-1].scale[offset] = val;
+  Tuning_PartTune_select->blockSignals(true);
   Tuning_PartTune_select->setValue(pn);
+  Tuning_PartTune_select->blockSignals(false);
   if (state_table->jv_connect)
     setScaleSingleValue(offset,val);  
 }	// end Tuning_BulkUpdate
@@ -92,11 +47,6 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
 	setScaleSingleValue(offset,val);
     } 
     if (state_table->perf_mode) {
-//      if (Tuning_PartNoneTuning_select->isChecked()) {
-//	system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
-//	if (state_table->jv_connect)
-//	  setScaleSingleValue(offset,val);
-//      } else {
 	if (Tuning_Part1Tuning_select->isChecked()) Tuning_BulkUpdate(1,offset,val);
 	if (Tuning_Part2Tuning_select->isChecked()) Tuning_BulkUpdate(2,offset,val);
 	if (Tuning_Part3Tuning_select->isChecked()) Tuning_BulkUpdate(3,offset,val);
@@ -113,7 +63,6 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
 	if (Tuning_Part14Tuning_select->isChecked()) Tuning_BulkUpdate(14,offset,val);
 	if (Tuning_Part15Tuning_select->isChecked()) Tuning_BulkUpdate(15,offset,val);
 	if (Tuning_Part16Tuning_select->isChecked()) Tuning_BulkUpdate(16,offset,val);
-//      }	// end ELSE PartAllTuning checked
     }	// end IF perf mode
     state_table->tuning_modified = true;
 }	// end TuningStdUpdate
@@ -139,14 +88,12 @@ void JVlibForm::Tuning_QueryTemp(int val) {
     query.finish();
     return;
   }
-  if (query.first())
-    Tuning_currentTuning = query.value(0).toByteArray();
-  else {
+  if (!query.first()) {
     puts("query.first failed in Tuning_QueryTemp");
     query.finish();
     return;
   }
+  Tuning_currentTuning.insert(0, query.value(0).toByteArray(), 12);
   query.finish();
-//  Tuning_setScaleTuning(Tuning_BaseKey_select->currentIndex());
   on_Tuning_BaseKey_select_currentIndexChanged(Tuning_BaseKey_select->currentIndex());
 }	// end Tuning_QueryTemp

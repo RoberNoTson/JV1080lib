@@ -257,7 +257,10 @@ void Save_Dialog::on_Save_CurrentRhythm_button_toggled(bool val) {
 void Save_Dialog::on_Save_CurrentTuning_button_toggled(bool val) {
   if (!val) return;
   ui->Save_All_button->setEnabled(false);
-  ui->Save_Name_edit->setText("Tuning Custom Settings");
+  if (JVlibForm::state_table->perf_mode)
+    ui->Save_Name_edit->setText("Performance Tuning Custom Settings");
+  if (JVlibForm::state_table->patch_mode)
+    ui->Save_Name_edit->setText("Patch Tuning Custom Settings");
 }	// end on_Save_CurrentTuning_button_toggled
 
 void Save_Dialog::on_Save_System_button_toggled(bool val) {
