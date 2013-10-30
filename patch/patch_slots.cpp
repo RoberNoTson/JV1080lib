@@ -3,6 +3,7 @@
 #include        <QtGui>
 
 void JVlibForm::on_Patch_Sync_button_clicked() {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
@@ -15,6 +16,7 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   EnablePatch(true);
   state_table->updates_enabled=true;
   statusbar->showMessage("Patch data loaded",0);
+  QApplication::restoreOverrideCursor();
 }
 
 void JVlibForm::on_Patch_Name_edit_editingFinished() {
@@ -29,26 +31,69 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
 	memcpy(&active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.name[0],val.toAscii(),12);
 	PatchEFX_Name_display->setText(val);
 	Tone_PatchName_display->setText(val);
-	switch(Patch_PerfPartNum_select->currentIndex()+1) {
-	case 1: case 6: case 12:
+	ToneEFX_PatchName_display->setText(val);
+	ToneTVF_PatchName_display->setText(val);
+	ToneTVA_PatchName_display->setText(val);
+	Pitch_PatchName_display->setText(val);
+	switch(Patch_PerfPartNum_select->currentIndex()) {
+	case 0:
 	  Part1_PatchName_display->setText(val);
 	  break;
-	case 2: case 7: case 13:
+	case 1:
 	  Part2_PatchName_display->setText(val);
 	  break;     
-	case 3: case 8: case 14:
+	case 2:
 	  Part3_PatchName_display->setText(val);
 	  break;     
-	case 4: case 9: case 15:
+	case 3:
 	  Part4_PatchName_display->setText(val);
 	  break;      
-	case 5: case 11: case 16:
+	case 4:
 	  Part5_PatchName_display->setText(val);
+	  break;
+	case 5:
+	  Part6_PatchName_display->setText(val);
+	  break;
+	case 6:
+	  Part7_PatchName_display->setText(val);
+	  break;
+	case 7:
+	  Part8_PatchName_display->setText(val);
+	  break;
+	case 8:
+	  Part9_PatchName_display->setText(val);
+	  break;
+	case 9:
+	  Part10_PatchName_display->setText(val);
+	  break;
+	case 10:
+	  Part11_PatchName_display->setText(val);
+	  break;
+	case 11:
+	  Part12_PatchName_display->setText(val);
+	  break;
+	case 12:
+	  Part13_PatchName_display->setText(val);
+	  break;
+	case 13:
+	  Part14_PatchName_display->setText(val);
+	  break;
+	case 14:
+	  Part15_PatchName_display->setText(val);
+	  break;
+	case 15:
+	  Part16_PatchName_display->setText(val);
 	  break;
 	}	// end Switch  
       } else {
 	memcpy(&active_area->active_patch_patch.patch_common.name[0],val.toAscii(),12);
 	SysPatchName->setText(val);
+	PatchEFX_Name_display->setText(val);
+	Tone_PatchName_display->setText(val);
+	ToneEFX_PatchName_display->setText(val);
+	ToneTVF_PatchName_display->setText(val);
+	ToneTVA_PatchName_display->setText(val);
+	Pitch_PatchName_display->setText(val);
       }
       if (state_table->jv_connect) {
       // update the synth

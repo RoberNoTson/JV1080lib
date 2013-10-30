@@ -24,15 +24,16 @@ System_tab
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
   - change MIDI player progress bar to slider, allow for interaction with MIDI file
+  - when changing from Patch to Performance mode, disable tabs for PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch
 
 Performance_tab
-  - voice reserve per part should be locked if it causes the system total to exceed 64
-  - disable PerfGroup_select when AcceptBankSel_switch not checked
-  - disable PerfNumber_select when AcceptProgramChg_switch not checked
+10/26/2013  - disable PerfGroup_select when AcceptBankSel_switch not checked
+10/26/2013  - disable PerfNumber_select when AcceptProgramChg_switch not checked
 
 PerfParts_tab
 10/18/2013  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
+  - voice reserve per part should be locked if it causes the system total to exceed 64
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
@@ -41,9 +42,10 @@ PerfParts_tab
 Patch_tab
 10/18/2013  - disable Patch_Group_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
+10/29/2013  - change cursor to Wait when Sync pressed
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
-  - change cursor to Wait when Sync pressed
-  - update other tabs when Patch name is edited
+  - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
+  - set Patch_Name_edit Read-Only unless in Patch mode and the Patch_Group is "User"
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
@@ -80,6 +82,7 @@ Pitch_tab
 
 Tuning_tab
 10/07/2013  - changing keys does not always work correctly, need to zero out before setting new values
+10/29/2013  - change cursor to "Wait" when Sync is clicked
   - recognize existing tunings
   - save custom tuning
   - load saved tuning data
@@ -92,5 +95,6 @@ save_dialog
   - connect something to the Help button
 
 load_dialog
+  - create missing functions
   - connect something to the Help button
-
+  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System

@@ -11,12 +11,12 @@
 bool Save_Dialog::SaveDump() {
   // ui->Save_Timeout_select->value() holds number of seconds to wait for first byte, and after last byte
   if (!JVlibForm::state_table->jv_connect) return false;
-  int err, npfds, time, timeout, Stop=0;
+  int err, npfds, time, timeout;
   struct pollfd *pfds;
   unsigned char recv_buf[256];
   QByteArray buf;
   unsigned short revents;
-  snd_rawmidi_status_t *ptr;
+//  snd_rawmidi_status_t *ptr;
   
   this->setCursor(Qt::WaitCursor);
   timeout = ui->Save_Timeout_select->value() * 1000;
