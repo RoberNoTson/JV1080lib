@@ -1,5 +1,8 @@
-// set_initial.cpp
-// for Performance tab, EFX section
+// set_EFX_initial.cpp
+/* Contains:
+ * setPerfEFXparms
+ * setPatchEFXparms
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>

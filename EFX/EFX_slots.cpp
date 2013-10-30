@@ -1,4 +1,30 @@
 // EFX_slots.cpp
+/* Contains:
+ * on_PerfEFXsource_select_currentIndexChanged
+ * on_PatchEFX_TestTone_switch_toggled
+ * on_PerfEFXtype_select_currentIndexChanged
+ * on_PatchEFX_Type_select_currentIndexChanged
+ * on_PerfEFXoutput_select_currentIndexChanged
+ * on_PerfEFXoutputLevel_select_valueChanged
+ * on_PerfEFXchorusSend_select_valueChanged
+ * on_PerfEFXreverbSend_select_valueChanged
+ * on_PerfControlSource1_select_currentIndexChanged
+ * on_PerfControl1Depth_select_valueChanged
+ * on_PerfControlSource2_select_currentIndexChanged
+ * on_PerfControl2Depth_select_valueChanged
+ * on_PerfEFXparm1_select_valueChanged
+ * on_PerfEFXparm2_select_valueChanged
+ * on_PerfEFXparm3_select_valueChanged
+ * on_PerfEFXparm4_select_valueChanged
+ * on_PerfEFXparm5_select_valueChanged
+ * on_PerfEFXparm6_select_valueChanged
+ * on_PerfEFXparm7_select_valueChanged
+ * on_PerfEFXparm8_select_valueChanged
+ * on_PerfEFXparm9_select_valueChanged
+ * on_PerfEFXparmA_select_valueChanged
+ * on_PerfEFXparmB_select_valueChanged
+ * on_PerfEFXparmC_select_valueChanged
+ */
 
 #include        "JVlibForm.h"
 #include        <QtGui>
