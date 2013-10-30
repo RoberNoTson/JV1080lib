@@ -1,4 +1,10 @@
 // tone.cpp
+/* Contains:
+ * setWaveChooser
+ * WaveName_query
+ * Enable_Tone
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 #include	<QDebug>
