@@ -3,10 +3,12 @@
 #include        <QtGui>
 
 void JVlibForm::on_ToneSync_button_clicked() {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   state_table->updates_enabled = false;
   setToneParms(state_table->perf_mode?Patch_PerfPartNum_select->currentIndex()+1:0);
   Enable_Tone(true);
   state_table->updates_enabled = true;
+  QApplication::restoreOverrideCursor();
 }	// end on_ToneSync_button_clicked
 
 void JVlibForm::on_Tone_TestTone_switch_toggled(bool val) {

@@ -1,8 +1,8 @@
 General
+10/29/2013  - change cursor to "Wait" wherever ProgressBox is not displayed
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
-  - change cursor to "Wait" wherever ProgressBox is displayed
   - add options to support Data Cards
   - when closing app and asked to Save changes, close the app after the save completes
   - create library maintenance form to rename, delete, etc. existing db entries

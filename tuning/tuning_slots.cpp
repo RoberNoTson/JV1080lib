@@ -102,9 +102,11 @@ void JVlibForm::on_Tuning_MasterTune_select_valueChanged(double val) {
 
 void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   Tuning_Sync_status->off();
   get_scales();
-  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);  
+  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);
+  QApplication::restoreOverrideCursor();
 }	// end on_Tuning_Sync_button_clicked
 
 void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {

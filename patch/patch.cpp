@@ -118,7 +118,7 @@ void JVlibForm::getSinglePerfPatch(int pn) {
       if (state_table->part16_sync) return;
       break;
   }	// end switch
-  
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   int   err;
   int   Stop=0;
   unsigned char  buf[8];
@@ -130,15 +130,15 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   buf[2] = 0;
   buf[7] = 0x48;
   usleep(200000);
-  if (open_ports() == EXIT_FAILURE) return;
+  if (open_ports() == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
   RetryC:
   usleep(200000*Stop);
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
   err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_common.name[0], (char *)patch_common_size);
-  if (err == EXIT_FAILURE) { close_ports(); puts("error1"); return; }
+  if (err == EXIT_FAILURE) { close_ports(); puts("error1"); QApplication::restoreOverrideCursor(); return; }
   if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
   if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
-  if (err != EXIT_SUCCESS) { close_ports(); puts("error2"); return; }
+  if (err != EXIT_SUCCESS) { close_ports(); puts("error2"); QApplication::restoreOverrideCursor(); return; }
   Stop=0;
   // build parms for 4 tones
   memcpy(buf+4,patch_tone_size,4);
@@ -147,12 +147,12 @@ void JVlibForm::getSinglePerfPatch(int pn) {
     usleep(200000);
     RetryD:
     usleep(200000*Stop);
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_tone[y].tone, (char *)patch_tone_size);
-    if (err == EXIT_FAILURE) { close_ports(); puts("error3"); return; }
+    if (err == EXIT_FAILURE) { close_ports(); puts("error3"); QApplication::restoreOverrideCursor(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
     if (err==3 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
-    if (err != EXIT_SUCCESS) { close_ports(); puts("error4"); return; }
+    if (err != EXIT_SUCCESS) { close_ports(); puts("error4"); QApplication::restoreOverrideCursor(); return; }
     Stop=0;
   }	// end FOR 4 tones
   close_ports();
@@ -207,6 +207,7 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   }	// end switch
  state_table->patch_modified = false;
  state_table->patch_sync = true;
+ QApplication::restoreOverrideCursor();
 }	// end getSinglePerfPatch
 
 void JVlibForm::getActivePatchMode() {
