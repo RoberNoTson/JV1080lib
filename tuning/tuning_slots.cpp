@@ -28,11 +28,11 @@
 void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
   // Tuning_ScaleTuning_enable
   if (state_table->perf_mode)  { 
-    Tuning_Parts_box->setEnabled(status);
-    Tuning_PartTune_select->setEnabled(status);
+    Tuning_Parts_box->setEnabled(status && state_table->tuning_sync);
+    Tuning_PartTune_select->setEnabled(status && state_table->tuning_sync);
   }
-  Tuning_PartTuning_box->setEnabled(status);
-  Tuning_Temperament_box->setEnabled(status);
+  Tuning_PartTuning_box->setEnabled(status && state_table->tuning_sync);
+  Tuning_Temperament_box->setEnabled(status && state_table->tuning_sync);
   state_table->tuningTab_enable = true;
   // update the system_area
   system_area->sys_common.scale_tune_switch = status;
@@ -141,7 +141,8 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
     if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
     if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     Stop=0;
-    Tuning_currentTuning.insert(0, (char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
+//    Tuning_currentTuning.insert(0, (char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
+    Tuning_currentTuning.setRawData((char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
   }
   close_ports();
   statusbar->showMessage("Scale tunings downloaded",0);
@@ -210,6 +211,7 @@ void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
 
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
   open();
+  setScaleTunings(1);
 }
 
 void JVlibForm::on_Tuning_SaveCustomTemp_button_clicked() {

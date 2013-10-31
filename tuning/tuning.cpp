@@ -43,9 +43,15 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
   if (!state_table->updates_enabled) return;
     if (state_table->patch_mode) {
       system_area->sys_patch_scale_tune.scale[offset] = val;
-      if (state_table->jv_connect)
-	setScaleSingleValue(offset,val);
-    } 
+      Tuning_currentTuning[offset] = val;
+    }
+    if (state_table->perf_mode) {
+      system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
+      Tuning_currentTuning[(Tuning_PartTune_select->value()-1)*12 + offset] = val;
+    }
+    if (state_table->jv_connect)
+      setScaleSingleValue(offset,val);
+/*
     if (state_table->perf_mode) {
 	if (Tuning_Part1Tuning_select->isChecked()) Tuning_BulkUpdate(1,offset,val);
 	if (Tuning_Part2Tuning_select->isChecked()) Tuning_BulkUpdate(2,offset,val);
@@ -64,6 +70,7 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
 	if (Tuning_Part15Tuning_select->isChecked()) Tuning_BulkUpdate(15,offset,val);
 	if (Tuning_Part16Tuning_select->isChecked()) Tuning_BulkUpdate(16,offset,val);
     }	// end IF perf mode
+*/
     state_table->tuning_modified = true;
 }	// end TuningStdUpdate
 

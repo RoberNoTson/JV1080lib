@@ -1,25 +1,26 @@
 // save_dialog_slots.cpp
 // Create and display a valid Name for the selected option.
 // Contains:
-//	on_Save_System_button_toggled()
-//	on_Save_PerfPart_All_select_toggled()
-//	on_Save_CurrentPerformance_button_toggled()
-//	on_Save_CurrentPatch_button_toggled()
-//	on_Save_CurrentRhythm_button_toggled()
-//	on_Save_CurrentTuning_button_toggled()
-//	on_Save_UserPerformance_button_toggled()
-//	on_Save_UserPatch_button_toggled()
-//	on_Save_UserRhythm_button_toggled()
-//	on_Save_UserDump_button_toggled()
-//	on_Save_buttonBox_rejected()
-//	on_Save_buttonBox_helpRequested()
-//	on_Save_buttonBox_accepted()
-//	on_Save_RhythmNumber_select_valueChanged()
-//	on_Save_PatchNumber_select_valueChanged()
-//	on_Save_PerfNumber_select_valueChanged()
-//	on_Save_All_button_toggled()
-//	on_Save_ReceiveUserDump_button_toggled()
-
+/* on_Save_System_button_toggled()
+ * on_Save_PerfPart_All_select_toggled()
+ * on_Save_CurrentPerformance_button_toggled()
+ * on_Save_CurrentPatch_button_toggled()
+ * on_Save_CurrentRhythm_button_toggled()
+ * on_Save_CurrentTuning_button_toggled()
+ * on_Save_UserPerformance_button_toggled()
+ * on_Save_UserPatch_button_toggled()
+ * on_Save_UserRhythm_button_toggled()
+ * on_Save_UserDump_button_toggled()
+ * on_Save_buttonBox_rejected()
+ * on_Save_buttonBox_helpRequested()
+ * on_Save_buttonBox_accepted()
+ * on_Save_RhythmNumber_select_valueChanged()
+ * on_Save_PatchNumber_select_valueChanged()
+ * on_Save_PerfNumber_select_valueChanged()
+ * on_Save_All_button_toggled()
+ * on_Save_ReceiveUserDump_button_toggled()
+ * hexdump()
+*/
 #include	"save_dialog/Save_Dialog.h"
 #include	"ui_Save_Dialog.h"
 #include        "JVlibForm.h"
@@ -634,6 +635,7 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
     db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), JVlibForm::state_table->perf_mode ? 12*16 : 12);
+//hexdump((unsigned char *)JVlibForm::Tuning_currentTuning.constData(), JVlibForm::state_table->perf_mode ? 12*16 : 12);
   }	// end IF Tuning
   
   if (ui->Save_ReceiveUserDump_button->isChecked()) {
@@ -645,3 +647,47 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
   }
   this->close();
 }	// end on_Save_buttonBox_accepted
+
+void Save_Dialog::hexdump(unsigned char *buffer, int data_size) {
+  int	y,offset;
+  offset=0;
+  y=data_size%16;
+  for (int x=0;x<data_size-y;x+=16) {
+    // Print the offset in the file, followed by the bytes themselves
+    printf ("0x%06x : ", offset);
+    for (int i = 0; i < 16; i++) {
+      printf ("%02x ", buffer[x+i]);
+    }
+    printf ("  |  ");
+    for (int i = 0; i < 16; i++) {
+	if (isprint(buffer[x+i])) {
+	putchar(buffer[x+i]);
+	} else {
+	printf (".");
+	}
+    }
+    puts("");
+    // Keep count of our position in the file
+    offset += 16;
+  }
+  // print any remaining partial lines
+  if (y) {
+    // Print the offset in the file, followed by the bytes themselves
+    printf ("0x%06x : ", offset);
+    for (int i = data_size-y; i < data_size; i++) {
+      printf ("%02x ", buffer[i]);
+    }
+    for (int i=0;i<16-y;i++) printf("   ");
+    printf ("  |  ");
+    for (int i = data_size-y; i < data_size; i++) {
+      if (isprint(buffer[i])) {
+	putchar(buffer[i]);
+      } else {
+	printf (".");
+      }
+    }
+    puts("");
+  }	// end IF
+  return;
+}	// end HEXDUMP
+

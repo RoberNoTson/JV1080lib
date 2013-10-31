@@ -4,14 +4,14 @@
  * on_Load_buttonBox_rejected
  * on_Load_buttonBox_helpRequested
  * on_Load_CurrentPerformance_button_toggled
- * on_Load_CurrentPatch_button_clicked
- * on_Load_CurrentRhythm_button_clicked
- * on_Load_CurrentTuning_button_clicked
- * on_Load_System_button_clicked
+ * on_Load_CurrentPatch_button_toggled
+ * on_Load_CurrentRhythm_button_toggled
+ * on_Load_CurrentTuning_button_toggled
+ * on_Load_System_button_toggled
  * on_Load_UserPerformance_button_toggled
- * on_Load_UserPatch_button_clicked
- * on_Load_UserRhythm_button_clicked
- * on_Load_LoadDump_button_clicked
+ * on_Load_UserPatch_button_toggled
+ * on_Load_UserRhythm_button_toggled
+ * on_Load_LoadDump_button_toggled
  * on_Load_PerfPart_All_select_clicked
  * on_Load_Name_select_currentIndexChanged
  */
@@ -79,19 +79,19 @@ void Load_Dialog::on_Load_buttonBox_accepted()
   }
   if (ui->Load_CurrentTuning_button->isChecked()) {
     puts("loading Tuning");
-//    load_tuning();
+    load_tuning();
     this->close();
     return;
   }
   if (ui->Load_System_button->isChecked()) {
     puts("loading System");
-//    load_system();
+    load_system();
     this->close();
     return;
   }
   if (ui->Load_LoadDump_button->isChecked()) {
     puts("loading Dump file");
-//    load_dump();
+    load_dump();
     this->close();
     return;
   }
@@ -116,9 +116,9 @@ void Load_Dialog::on_Load_CurrentPerformance_button_toggled(bool checked)
   if (!fill_Data(PerfQuery))
     QMessageBox::critical(this, "Load_Dialog", "Unable to load current Perf data");
   on_Load_Name_select_currentIndexChanged(ui->Load_Name_select->currentIndex());   
-}	// end on_Load_CurrentPerformance_button_clicked
+}	// end on_Load_CurrentPerformance_button_toggled
 
-void Load_Dialog::on_Load_CurrentPatch_button_clicked(bool checked)
+void Load_Dialog::on_Load_CurrentPatch_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(true);
@@ -126,7 +126,7 @@ void Load_Dialog::on_Load_CurrentPatch_button_clicked(bool checked)
     QMessageBox::critical(this, "Load_Dialog", "Unable to load current Patch data");
 }
 
-void Load_Dialog::on_Load_CurrentRhythm_button_clicked(bool checked)
+void Load_Dialog::on_Load_CurrentRhythm_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(true);
@@ -134,7 +134,7 @@ void Load_Dialog::on_Load_CurrentRhythm_button_clicked(bool checked)
     QMessageBox::critical(this, "Load_Dialog", "Unable to load current Rhythm data");
 }
 
-void Load_Dialog::on_Load_CurrentTuning_button_clicked(bool checked)
+void Load_Dialog::on_Load_CurrentTuning_button_toggled(bool checked)
 {
   if (checked) {
     if (!fill_Data(TuningQuery))
@@ -142,7 +142,7 @@ void Load_Dialog::on_Load_CurrentTuning_button_clicked(bool checked)
   }
 }
 
-void Load_Dialog::on_Load_System_button_clicked(bool checked)
+void Load_Dialog::on_Load_System_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(true);
@@ -161,7 +161,7 @@ void Load_Dialog::on_Load_UserPerformance_button_toggled(bool checked)
   ui->Load_PerfPart_box->setEnabled(true);
 }
 
-void Load_Dialog::on_Load_UserPatch_button_clicked(bool checked)
+void Load_Dialog::on_Load_UserPatch_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(false);
@@ -169,7 +169,7 @@ void Load_Dialog::on_Load_UserPatch_button_clicked(bool checked)
     QMessageBox::critical(this, "Load_Dialog", "Unable to load User Patch data");
 }
 
-void Load_Dialog::on_Load_UserRhythm_button_clicked(bool checked)
+void Load_Dialog::on_Load_UserRhythm_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(false);
@@ -177,7 +177,7 @@ void Load_Dialog::on_Load_UserRhythm_button_clicked(bool checked)
     QMessageBox::critical(this, "Load_Dialog", "Unable to load User Rhythm data");
 }
 
-void Load_Dialog::on_Load_LoadDump_button_clicked(bool checked)
+void Load_Dialog::on_Load_LoadDump_button_toggled(bool checked)
 {
   if (!checked) return;
   ui->Load_UpdateLocal_select->setChecked(false);

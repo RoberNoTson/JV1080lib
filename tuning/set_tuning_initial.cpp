@@ -9,7 +9,7 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_ScaleTuning_enable->setChecked(system_area->sys_common.scale_tune_switch);
   
   if (partnum>16) return;
-  int cur_chksum;
+  int cur_chksum=0;
   if (state_table->patch_mode) {	// Patch mode
     Tuning_PartTuneC_select->setValue(system_area->sys_patch_scale_tune.scale[0]-64);
     Tuning_PartTuneCs_select->setValue(system_area->sys_patch_scale_tune.scale[1]-64);
@@ -75,8 +75,8 @@ void JVlibForm::setScaleTunings(int partnum) {
     cur_chksum = qChecksum((char *)&system_area->sys_part_scale_tune[partnum-1].scale[0],12);
   }	// end Perf mode
 
-  Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
-  Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked());
+  Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
+  Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
   // query the cur_chksum value to determine which temperament we are in
   if (cur_chksum==35508) {Tuning_ArabicTemp_button->setChecked(true); state_table->tuning_type=ArabicTemp; Tuning_BaseKey_select->setEnabled(true);}
   else if (cur_chksum==14340) {Tuning_EqualTemp_button->setChecked(true); state_table->tuning_type=EqualTemp; Tuning_BaseKey_select->setEnabled(false);}
@@ -86,6 +86,8 @@ void JVlibForm::setScaleTunings(int partnum) {
   else if (cur_chksum==11020) {Tuning_PythagTemp_button->setChecked(true); state_table->tuning_type=PythagTemp; Tuning_BaseKey_select->setEnabled(true);}
   else if (cur_chksum==40503) {Tuning_WellTemp_button->setChecked(true); state_table->tuning_type=WellTemp; Tuning_BaseKey_select->setEnabled(true);}
   else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; Tuning_BaseKey_select->setEnabled(false);}
+  Tuning_LoadCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
+  Tuning_SaveCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
   
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();

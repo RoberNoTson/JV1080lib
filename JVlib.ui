@@ -1773,7 +1773,7 @@
        <string notr="true">Load a save file of synth settings</string>
       </property>
       <property name="text">
-       <string notr="true">Load Data</string>
+       <string notr="true">Load</string>
       </property>
      </widget>
      <widget class="QPushButton" name="System_SaveData_button">
@@ -1789,7 +1789,7 @@
        <string notr="true">Save the current settings to a file</string>
       </property>
       <property name="text">
-       <string notr="true">Save Data</string>
+       <string notr="true">Save</string>
       </property>
      </widget>
      <widget class="QPushButton" name="System_Sync_button">
@@ -41638,6 +41638,9 @@
         <property name="readOnly">
          <bool>true</bool>
         </property>
+        <property name="placeholderText">
+         <string>Name</string>
+        </property>
        </widget>
        <widget class="QLineEdit" name="Tuning_CustomComment_display">
         <property name="geometry">
@@ -41650,6 +41653,9 @@
         </property>
         <property name="readOnly">
          <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Description</string>
         </property>
        </widget>
       </widget>

@@ -4,6 +4,10 @@
  * ~Load_Dialog()
  * fill_Data()
  * clearPartLabels()
+ * hexdump()
+ * load_tuning()
+ * load_system()
+ * load_dump()
  */
 
 
@@ -80,6 +84,8 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     ui->Load_System_button->setChecked(true);
   else 
     ui->Load_LoadDump_button->setChecked(true);
+  if (ui->Load_CurrentTuning_button->isEnabled() && JVlibForm::state_table->tuning_type == CustomTemp)
+    ui->Load_CurrentTuning_button->setChecked(true);
 }
 
 Load_Dialog::~Load_Dialog()
@@ -109,10 +115,8 @@ bool Load_Dialog::fill_Data(const char* buf) {
   }
   while (query.next()) {
     ui->Load_Name_select->insertItem(0,query.value(0).toString(),query.value(3));
-//    Dates.prepend(query.value(1).toDateTime().toString("mm/dd/yyyy  hh:mm:ss"));
     Dates.prepend(query.value(1).toDateTime().toString(Qt::DefaultLocaleLongDate));
     Comments.prepend(query.value(2).toString());
-//    printf("added %d %s %s %x\n",query.value(3).toInt(), query.value(0).toByteArray().data(), query.value(2).toByteArray().data(), (query.value(1).toDouble()));
   }
   ui->Load_Name_select->blockSignals(false);
   query.finish();
@@ -216,4 +220,54 @@ int Load_Dialog::hexdump(unsigned char *buffer, int data_size) {
   }	// end IF
   return EXIT_SUCCESS;
 }	// end HEXDUMP
+
+void Load_Dialog::load_tuning() {
+  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+  QSqlQuery query(JVlibForm::db_mysql);
+  query.prepare("select cents from Tuning where SerNumber = ?");
+  query.bindValue(0, SerNum);
+  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
+  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  query.first();
+  QByteArray SysEx;
+  SysEx = query.value(0).toByteArray();
+hexdump((unsigned char*)SysEx.constData(), SysEx.size());
+  unsigned char* buf = new unsigned char[12*16];
+  memset(buf,0,sizeof(buf));
+  if (ui->Load_UpdateLocal_select->isChecked()) {
+    if (JVlibForm::state_table->patch_mode)
+      memcpy(&JVlibForm::system_area->sys_patch_scale_tune.scale[0], SysEx.constData(), 12);
+    else
+      memcpy(&JVlibForm::system_area->sys_part_scale_tune[0].scale[0], SysEx.constData(), SysEx.size());
+  }
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  this->setCursor(Qt::WaitCursor);
+  usleep(20000);
+  if (JVlibForm::state_table->patch_mode) {
+    buf[2] = 0x20;
+    memcpy((void *)&buf[4], SysEx.constData(), 12);
+    JVlibForm::sysex_update(buf, 16);
+  }
+  else {
+    for (int x=0;x<16;x++) {
+      buf[2] = 0x10 + x;
+      memcpy((void *)&buf[4], SysEx.mid(x*12, 12), 12);
+      JVlibForm::sysex_update(buf, 16);
+    }
+  }
+  JVlibForm::close_ports();
+  delete[] buf;
+  query.finish();
+  this->setCursor(Qt::ArrowCursor);
+}	// end load_tuning
+
+void Load_Dialog::load_system() {
+//  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+  
+}
+
+void Load_Dialog::load_dump() {
+//  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+  
+}
 

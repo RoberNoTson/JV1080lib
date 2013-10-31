@@ -45,5 +45,6 @@ private:
   int SaveUserPerf();
   bool SaveDump();
   void clearPartLabels();
+  void hexdump(unsigned char *, int);
 };
 #endif	// SAVE_DIALOG_H

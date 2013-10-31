@@ -39,6 +39,8 @@ Save_Dialog::Save_Dialog(QWidget *parent) :
     ui->Save_System_button->setChecked(true);
   else 
     ui->Save_ReceiveUserDump_button->setChecked(true);
+  if (JVlibForm::state_table->tuning_type == CustomTemp &&  ui->Save_CurrentTuning_button->isEnabled())
+    ui->Save_CurrentTuning_button->setChecked(true);
 }
 
 Save_Dialog::~Save_Dialog() {
