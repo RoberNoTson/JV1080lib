@@ -3,12 +3,14 @@
  * setScaleSingleValue
  * get_scales
  * Tuning_BulkUpdate
- * TuningStdUpdate
+ * Tuning_NoteUpdate
  * Tuning_QueryTemp
  */
 
 #include	"JVlibForm.h"
 #include	<QtGui>
+
+QByteArray JVlibForm::Tuning_currentTuning = 0;
 
 void JVlibForm::setScaleSingleValue(int addr, int val) {
   unsigned char buf[5];
@@ -28,18 +30,21 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
   }
   close_ports();
   state_table->tuning_modified = true;
-}
+}	// end setScaleSingleValue
 
 void JVlibForm::Tuning_BulkUpdate(int pn, int offset, int val) {
+  // synchronize parts so the given note(offset) is the same val in every enabled part
   system_area->sys_part_scale_tune[pn-1].scale[offset] = val;
+  Tuning_currentTuning[(12*(pn-1))+offset] = val;
   Tuning_PartTune_select->blockSignals(true);
-  Tuning_PartTune_select->setValue(pn);
+  Tuning_PartTune_select->setValue(pn);	// set this part number for use by setScaleSingleValue
   Tuning_PartTune_select->blockSignals(false);
   if (state_table->jv_connect)
     setScaleSingleValue(offset,val);  
 }	// end Tuning_BulkUpdate
 
-void JVlibForm::TuningStdUpdate(int offset, int val) {
+void JVlibForm::Tuning_NoteUpdate(int offset, int val) {
+  // update local memory and JV with new Note(offset) value(val) for the specified individual Part displayed in the Part Tuning box
   if (!state_table->updates_enabled) return;
     if (state_table->patch_mode) {
       system_area->sys_patch_scale_tune.scale[offset] = val;
@@ -47,60 +52,75 @@ void JVlibForm::TuningStdUpdate(int offset, int val) {
     }
     if (state_table->perf_mode) {
       system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
-      Tuning_currentTuning[(Tuning_PartTune_select->value()-1)*12 + offset] = val;
+      Tuning_currentTuning[((Tuning_PartTune_select->value()-1)*12) + offset] = val;
     }
     if (state_table->jv_connect)
       setScaleSingleValue(offset,val);
-/*
-    if (state_table->perf_mode) {
-	if (Tuning_Part1Tuning_select->isChecked()) Tuning_BulkUpdate(1,offset,val);
-	if (Tuning_Part2Tuning_select->isChecked()) Tuning_BulkUpdate(2,offset,val);
-	if (Tuning_Part3Tuning_select->isChecked()) Tuning_BulkUpdate(3,offset,val);
-	if (Tuning_Part4Tuning_select->isChecked()) Tuning_BulkUpdate(4,offset,val);
-	if (Tuning_Part5Tuning_select->isChecked()) Tuning_BulkUpdate(5,offset,val);
-	if (Tuning_Part6Tuning_select->isChecked()) Tuning_BulkUpdate(6,offset,val);
-	if (Tuning_Part7Tuning_select->isChecked()) Tuning_BulkUpdate(7,offset,val);
-	if (Tuning_Part8Tuning_select->isChecked()) Tuning_BulkUpdate(8,offset,val);
-	if (Tuning_Part9Tuning_select->isChecked()) Tuning_BulkUpdate(9,offset,val);
-	if (Tuning_Part10Tuning_select->isChecked()) Tuning_BulkUpdate(10,offset,val);
-	if (Tuning_Part11Tuning_select->isChecked()) Tuning_BulkUpdate(11,offset,val);
-	if (Tuning_Part12Tuning_select->isChecked()) Tuning_BulkUpdate(12,offset,val);
-	if (Tuning_Part13Tuning_select->isChecked()) Tuning_BulkUpdate(13,offset,val);
-	if (Tuning_Part14Tuning_select->isChecked()) Tuning_BulkUpdate(14,offset,val);
-	if (Tuning_Part15Tuning_select->isChecked()) Tuning_BulkUpdate(15,offset,val);
-	if (Tuning_Part16Tuning_select->isChecked()) Tuning_BulkUpdate(16,offset,val);
-    }	// end IF perf mode
-*/
     state_table->tuning_modified = true;
-}	// end TuningStdUpdate
+}	// end Tuning_NoteUpdate
 
 void JVlibForm::Tuning_QueryTemp(int val) {
-  // fill Tuning_currentTuning from database
-  // and call Tuning_setScaleTuning to update displays, which will update the synth
-  QSqlQuery query(mysql);
-  query.prepare("Select cents from Tuning where SerNumber = ?");
-  query.bindValue(0, val);
-  if (query.exec() == false) {
-    puts("Query exec failed in Tuning_QueryTemp");
-    query.finish();
-    return;
+  QByteArray Cents('\0');
+  char Temp[12];
+  switch(val) {
+    case 0:
+      Cents.fill(0x40, 12);
+      break;
+    case 1:
+      Temp = { 0x40, 0x4C, 0x44, 0x50, 0x32, 0x3E, 0x2E, 0x42, 0x24, 0x30, 0x52, 0x34 };
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    case 2:
+      Temp = {  0x40, 0x36, 0x44, 0x3A, 0x48, 0x3E, 0x4C, 0x42, 0x38, 0x46, 0x3C, 0x4A};
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    case 3:
+      Temp = { 0x40, 0x38, 0x44, 0x50, 0x32, 0x3E, 0x36, 0x42, 0x4E, 0x30, 0x4E, 0x34 };
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    case 4:
+      Temp = { 0x46, 0x40, 0x42, 0x44, 0x3E, 0x46, 0x3E, 0x44, 0x42, 0x40, 0x46, 0x3E };
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    case 5:
+      Temp = { 0x40, 0x28, 0x39, 0x4B, 0x32, 0x44, 0x2B, 0x3D, 0x24, 0x36, 0x47, 0x2E };
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    case 6:
+      Temp = { 0x3A, 0x6D, 0x3E, 0x34, 0x0D, 0x38, 0x6B, 0x3C, 0x6F, 0x40, 0x36, 0x0F };
+      Cents = QByteArray::fromRawData(Temp, 12);
+      break;
+    default:
+      return;
+      break;
+  }	// end switch
+  // fill Tuning_currentTuning with new data
+  if (state_table->patch_mode) {
+    Tuning_currentTuning.truncate(0);
+    Tuning_currentTuning.replace(0, 12, Cents);
   }
-  if (query.size()==0) {
-    puts("0 rows found in Tuning_QueryTemp");
-    query.finish();
-    return;
-  } 
-  if (query.size() > 1) {
-    puts("Too many rows found in Tuning_QueryTemp");
-    query.finish();
-    return;
-  }
-  if (!query.first()) {
-    puts("query.first failed in Tuning_QueryTemp");
-    query.finish();
-    return;
-  }
-  Tuning_currentTuning.insert(0, query.value(0).toByteArray(), 12);
-  query.finish();
+  if (state_table->perf_mode) {
+    // update each part with the new Temperament settings, initially in C Major
+    for (int offset=0;offset<12;offset++) {
+	if (Tuning_Part1Tuning_select->isChecked()) Tuning_BulkUpdate(1, offset, Cents.at(offset));
+	if (Tuning_Part2Tuning_select->isChecked()) Tuning_BulkUpdate(2, offset, Cents.at(offset));
+	if (Tuning_Part3Tuning_select->isChecked()) Tuning_BulkUpdate(3, offset, Cents.at(offset));
+	if (Tuning_Part4Tuning_select->isChecked()) Tuning_BulkUpdate(4, offset, Cents.at(offset));
+	if (Tuning_Part5Tuning_select->isChecked()) Tuning_BulkUpdate(5, offset, Cents.at(offset));
+	if (Tuning_Part6Tuning_select->isChecked()) Tuning_BulkUpdate(6, offset, Cents.at(offset));
+	if (Tuning_Part7Tuning_select->isChecked()) Tuning_BulkUpdate(7, offset, Cents.at(offset));
+	if (Tuning_Part8Tuning_select->isChecked()) Tuning_BulkUpdate(8, offset, Cents.at(offset));
+	if (Tuning_Part9Tuning_select->isChecked()) Tuning_BulkUpdate(9, offset, Cents.at(offset));
+	if (Tuning_Part10Tuning_select->isChecked()) Tuning_BulkUpdate(10, offset, Cents.at(offset));
+	if (Tuning_Part11Tuning_select->isChecked()) Tuning_BulkUpdate(11, offset, Cents.at(offset));
+	if (Tuning_Part12Tuning_select->isChecked()) Tuning_BulkUpdate(12, offset, Cents.at(offset));
+	if (Tuning_Part13Tuning_select->isChecked()) Tuning_BulkUpdate(13, offset, Cents.at(offset));
+	if (Tuning_Part14Tuning_select->isChecked()) Tuning_BulkUpdate(14, offset, Cents.at(offset));
+	if (Tuning_Part15Tuning_select->isChecked()) Tuning_BulkUpdate(15, offset, Cents.at(offset));
+	if (Tuning_Part16Tuning_select->isChecked()) Tuning_BulkUpdate(16, offset, Cents.at(offset));
+    }	// end FOR
+  }	// end IF perf mode
+//hexdump((unsigned char *)Tuning_currentTuning.constData(), Tuning_currentTuning.size());
+  // transpose to desired key signature
   on_Tuning_BaseKey_select_currentIndexChanged(Tuning_BaseKey_select->currentIndex());
 }	// end Tuning_QueryTemp

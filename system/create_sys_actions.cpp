@@ -3,20 +3,18 @@
 #include	"JVlibForm.h"
 #include	<QtGui>
 
-QByteArray JVlibForm::Tuning_currentTuning = 0;
-
 void JVlibForm::createSysActions() {
   connect(JVlibForm::SysExit_button, SIGNAL(clicked()), this, SLOT(close()));
   
   Tuning_ButtonGroup = new QButtonGroup();
-  Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,2);
-  Tuning_ButtonGroup->addButton(Tuning_JustTemp_button,3);
-  Tuning_ButtonGroup->addButton(Tuning_PythagTemp_button,6);
-  Tuning_ButtonGroup->addButton(Tuning_MeantoneTemp_button,4);
-  Tuning_ButtonGroup->addButton(Tuning_WellTemp_button,7);
-  Tuning_ButtonGroup->addButton(Tuning_PureTemp_button,5);
-  Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,1);
-  Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,0);
+  Tuning_ButtonGroup->addButton(Tuning_EqualTemp_button,0);
+  Tuning_ButtonGroup->addButton(Tuning_JustTemp_button,1);
+  Tuning_ButtonGroup->addButton(Tuning_PythagTemp_button,2);
+  Tuning_ButtonGroup->addButton(Tuning_PureTemp_button,3);
+  Tuning_ButtonGroup->addButton(Tuning_WellTemp_button,4);
+  Tuning_ButtonGroup->addButton(Tuning_MeantoneTemp_button,5);
+  Tuning_ButtonGroup->addButton(Tuning_ArabicTemp_button,6);
+  Tuning_ButtonGroup->addButton(Tuning_CustomTemp_button,7);
   Tuning_currentTuning.fill(0x40, 12*16); 
   Tuning_EqualTemp_button->setChecked(true);
   connect(Tuning_ButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotTuning_TempButtons(int)));

@@ -87,6 +87,7 @@ Tuning_tab
   - recognize existing tunings in keys other than C Major
   - save custom tuning
   - load saved tuning data
+  - link BaseKey to individual parts in Perf mode
 
 config
   - improve aesthetics

@@ -46,5 +46,6 @@ private:
   bool SaveDump();
   void clearPartLabels();
   void hexdump(unsigned char *, int);
+  QByteArray Tuning_currentTuning;
 };
 #endif	// SAVE_DIALOG_H

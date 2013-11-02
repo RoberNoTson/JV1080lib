@@ -1141,7 +1141,7 @@ private:
   void setPitchParms(int);
 
   // for Tuning
-  void TuningStdUpdate(int, int);
+  void Tuning_NoteUpdate(int, int);
   void setScaleSingleValue(int, int);
   void setScaleTunings(int);
   int get_scales();

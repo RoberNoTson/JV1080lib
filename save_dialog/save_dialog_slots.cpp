@@ -634,8 +634,15 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     SaveUserPerf();
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
-    db_insert_data("Tuning", (char *)JVlibForm::Tuning_currentTuning.constData(), JVlibForm::state_table->perf_mode ? 12*16 : 12);
-//hexdump((unsigned char *)JVlibForm::Tuning_currentTuning.constData(), JVlibForm::state_table->perf_mode ? 12*16 : 12);
+    Tuning_currentTuning.truncate(0);
+    if (JVlibForm::state_table->patch_mode) {
+      Tuning_currentTuning.setRawData(&JVlibForm::system_area->sys_patch_scale_tune.scale[0], 12);
+    }
+    if (JVlibForm::state_table->perf_mode) {
+      Tuning_currentTuning.setRawData(&JVlibForm::system_area->sys_part_scale_tune[0].scale[0], 12*16);      
+    }
+    db_insert_data("Tuning", (char *)Tuning_currentTuning.constData(), Tuning_currentTuning.size());
+hexdump((unsigned char *)JVlibForm::Tuning_currentTuning.constData(), Tuning_currentTuning.size());
   }	// end IF Tuning
   
   if (ui->Save_ReceiveUserDump_button->isChecked()) {

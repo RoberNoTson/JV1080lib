@@ -11,6 +11,10 @@ void JVlibForm::setScaleTunings(int partnum) {
   if (partnum>16) return;
   int cur_chksum=0;
   if (state_table->patch_mode) {	// Patch mode
+    Tuning_currentTuning.truncate(0);
+    for (int x=0;x<12;x++) {
+      Tuning_currentTuning[x] = system_area->sys_patch_scale_tune.scale[x];
+    }
     Tuning_PartTuneC_select->setValue(system_area->sys_patch_scale_tune.scale[0]-64);
     Tuning_PartTuneCs_select->setValue(system_area->sys_patch_scale_tune.scale[1]-64);
     Tuning_PartTuneD_select->setValue(system_area->sys_patch_scale_tune.scale[2]-64);
@@ -27,20 +31,15 @@ void JVlibForm::setScaleTunings(int partnum) {
     Tuning_Parts_box->setEnabled(false);
     Tuning_PartNoneTuning_select->setChecked(true);
     cur_chksum = qChecksum((char *)&system_area->sys_patch_scale_tune.scale[0],12);
-    JVlibForm::Tuning_currentTuning[0] = JVlibForm::Tuning_PartTuneC_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[1] = JVlibForm::Tuning_PartTuneCs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[2] = JVlibForm::Tuning_PartTuneD_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[3] = JVlibForm::Tuning_PartTuneDs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[4] = JVlibForm::Tuning_PartTuneE_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[5] = JVlibForm::Tuning_PartTuneF_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[6] = JVlibForm::Tuning_PartTuneFs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[7] = JVlibForm::Tuning_PartTuneG_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[8] = JVlibForm::Tuning_PartTuneGs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[9] = JVlibForm::Tuning_PartTuneA_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[10] = JVlibForm::Tuning_PartTuneAs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[11] = JVlibForm::Tuning_PartTuneB_select->value() + 64;
   }	// end Patch mode
   else if (state_table->perf_mode) {	// Performance mode
+    Tuning_currentTuning.truncate(0);
+    for (int y=0;y<16;y++) {
+      int x = 12 * y;
+      for (int z=0;z<12;z++) {
+	JVlibForm::Tuning_currentTuning[z+x] = system_area->sys_part_scale_tune[y].scale[z];
+      }
+    }
     Tuning_PartTune_select->setValue(partnum);
     Tuning_PartTuneC_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[0]-64);
     Tuning_PartTuneCs_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[1]-64);
@@ -54,19 +53,6 @@ void JVlibForm::setScaleTunings(int partnum) {
     Tuning_PartTuneA_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[9]-64);
     Tuning_PartTuneAs_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[10]-64);
     Tuning_PartTuneB_select->setValue(system_area->sys_part_scale_tune[partnum-1].scale[11]-64);
-    int x = 12 * (partnum-1);
-    JVlibForm::Tuning_currentTuning[0+x] = JVlibForm::Tuning_PartTuneC_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[1+x] = JVlibForm::Tuning_PartTuneCs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[2+x] = JVlibForm::Tuning_PartTuneD_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[3+x] = JVlibForm::Tuning_PartTuneDs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[4+x] = JVlibForm::Tuning_PartTuneE_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[5+x] = JVlibForm::Tuning_PartTuneF_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[6+x] = JVlibForm::Tuning_PartTuneFs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[7+x] = JVlibForm::Tuning_PartTuneG_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[8+x] = JVlibForm::Tuning_PartTuneGs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[9+x] = JVlibForm::Tuning_PartTuneA_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[10+x] = JVlibForm::Tuning_PartTuneAs_select->value() + 64;
-    JVlibForm::Tuning_currentTuning[11+x] = JVlibForm::Tuning_PartTuneB_select->value() + 64;
     if (Tuning_ScaleTuning_enable->isChecked()) {
       Tuning_PartAllTuning_select->setChecked(true);
       Tuning_PartTune_select->setEnabled(Tuning_ScaleTuning_enable->isEnabled());

@@ -41419,10 +41419,10 @@
      <widget class="QGroupBox" name="Tuning_groupbox">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>0</y>
-        <width>811</width>
-        <height>231</height>
+        <width>821</width>
+        <height>451</height>
        </rect>
       </property>
       <property name="title">
@@ -41484,7 +41484,7 @@
          <x>10</x>
          <y>60</y>
          <width>311</width>
-         <height>191</height>
+         <height>271</height>
         </rect>
        </property>
        <property name="title">
@@ -41539,7 +41539,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>80</y>
+          <y>150</y>
           <width>93</width>
           <height>21</height>
          </rect>
@@ -41551,8 +41551,8 @@
        <widget class="QRadioButton" name="Tuning_MeantoneTemp_button">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>60</y>
+          <x>10</x>
+          <y>120</y>
           <width>93</width>
           <height>21</height>
          </rect>
@@ -41564,8 +41564,8 @@
        <widget class="QRadioButton" name="Tuning_WellTemp_button">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>20</y>
+          <x>10</x>
+          <y>100</y>
           <width>111</width>
           <height>21</height>
          </rect>
@@ -41577,8 +41577,8 @@
        <widget class="QRadioButton" name="Tuning_PureTemp_button">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>40</y>
+          <x>10</x>
+          <y>80</y>
           <width>111</width>
           <height>21</height>
          </rect>
@@ -41591,7 +41591,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>110</y>
+          <y>180</y>
           <width>93</width>
           <height>21</height>
          </rect>
@@ -41599,12 +41599,15 @@
         <property name="text">
          <string>Custom</string>
         </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
        </widget>
        <widget class="QPushButton" name="Tuning_LoadCustomTemp_button">
         <property name="geometry">
          <rect>
           <x>110</x>
-          <y>110</y>
+          <y>180</y>
           <width>61</width>
           <height>23</height>
          </rect>
@@ -41617,7 +41620,7 @@
         <property name="geometry">
          <rect>
           <x>190</x>
-          <y>110</y>
+          <y>180</y>
           <width>61</width>
           <height>23</height>
          </rect>
@@ -41630,7 +41633,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>130</y>
+          <y>200</y>
           <width>281</width>
           <height>22</height>
          </rect>
@@ -41646,7 +41649,7 @@
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>150</y>
+          <y>220</y>
           <width>281</width>
           <height>22</height>
          </rect>
@@ -41665,14 +41668,14 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>330</x>
          <y>60</y>
-         <width>231</width>
-         <height>141</height>
+         <width>321</width>
+         <height>151</height>
         </rect>
        </property>
        <property name="title">
-        <string>Parts</string>
+        <string>Apply Temperament to Parts</string>
        </property>
        <widget class="QCheckBox" name="Tuning_Part1Tuning_select">
         <property name="geometry">
@@ -41744,7 +41747,7 @@
        <widget class="QCheckBox" name="Tuning_Part5Tuning_select">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>90</x>
           <y>20</y>
           <width>41</width>
           <height>21</height>
@@ -41760,7 +41763,7 @@
        <widget class="QCheckBox" name="Tuning_Part9Tuning_select">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>160</x>
           <y>20</y>
           <width>41</width>
           <height>21</height>
@@ -41776,7 +41779,7 @@
        <widget class="QCheckBox" name="Tuning_Part13Tuning_select">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>230</x>
           <y>20</y>
           <width>41</width>
           <height>21</height>
@@ -41792,7 +41795,7 @@
        <widget class="QCheckBox" name="Tuning_Part6Tuning_select">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>90</x>
           <y>40</y>
           <width>41</width>
           <height>21</height>
@@ -41808,7 +41811,7 @@
        <widget class="QCheckBox" name="Tuning_Part7Tuning_select">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>90</x>
           <y>60</y>
           <width>41</width>
           <height>21</height>
@@ -41824,7 +41827,7 @@
        <widget class="QCheckBox" name="Tuning_Part10Tuning_select">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>160</x>
           <y>40</y>
           <width>41</width>
           <height>21</height>
@@ -41840,7 +41843,7 @@
        <widget class="QCheckBox" name="Tuning_Part8Tuning_select">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>90</x>
           <y>80</y>
           <width>41</width>
           <height>21</height>
@@ -41856,7 +41859,7 @@
        <widget class="QCheckBox" name="Tuning_Part14Tuning_select">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>230</x>
           <y>40</y>
           <width>41</width>
           <height>21</height>
@@ -41872,7 +41875,7 @@
        <widget class="QCheckBox" name="Tuning_Part11Tuning_select">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>160</x>
           <y>60</y>
           <width>41</width>
           <height>21</height>
@@ -41888,7 +41891,7 @@
        <widget class="QCheckBox" name="Tuning_Part15Tuning_select">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>230</x>
           <y>60</y>
           <width>41</width>
           <height>21</height>
@@ -41904,7 +41907,7 @@
        <widget class="QCheckBox" name="Tuning_Part12Tuning_select">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>160</x>
           <y>80</y>
           <width>41</width>
           <height>21</height>
@@ -41920,7 +41923,7 @@
        <widget class="QCheckBox" name="Tuning_Part16Tuning_select">
         <property name="geometry">
          <rect>
-          <x>170</x>
+          <x>230</x>
           <y>80</y>
           <width>41</width>
           <height>21</height>
@@ -41952,7 +41955,7 @@
        <widget class="QRadioButton" name="Tuning_PartNoneTuning_select">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>160</x>
           <y>110</y>
           <width>61</width>
           <height>21</height>
@@ -41962,6 +41965,25 @@
          <string>None</string>
         </property>
        </widget>
+       <zorder>Tuning_Part1Tuning_select</zorder>
+       <zorder>Tuning_Part2Tuning_select</zorder>
+       <zorder>Tuning_Part3Tuning_select</zorder>
+       <zorder>Tuning_Part4Tuning_select</zorder>
+       <zorder>Tuning_Part5Tuning_select</zorder>
+       <zorder>Tuning_Part9Tuning_select</zorder>
+       <zorder>Tuning_Part13Tuning_select</zorder>
+       <zorder>Tuning_Part6Tuning_select</zorder>
+       <zorder>Tuning_Part7Tuning_select</zorder>
+       <zorder>Tuning_Part10Tuning_select</zorder>
+       <zorder>Tuning_Part8Tuning_select</zorder>
+       <zorder>Tuning_Part14Tuning_select</zorder>
+       <zorder>Tuning_Part11Tuning_select</zorder>
+       <zorder>Tuning_Part15Tuning_select</zorder>
+       <zorder>Tuning_Part12Tuning_select</zorder>
+       <zorder>Tuning_Part16Tuning_select</zorder>
+       <zorder>Tuning_PartAllTuning_select</zorder>
+       <zorder>Tuning_PartNoneTuning_select</zorder>
+       <zorder>Tuning_BaseKey_box</zorder>
       </widget>
       <widget class="QWidget" name="layoutWidget22">
        <property name="geometry">
@@ -42026,50 +42048,11 @@
         </item>
        </layout>
       </widget>
-      <widget class="QSplitter" name="splitter_15">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>30</y>
-         <width>131</width>
-         <height>24</height>
-        </rect>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <widget class="QCheckBox" name="Tuning_ScaleTuning_enable">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="mouseTracking">
-         <bool>false</bool>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::WheelFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Check to enable tuning adjustments for individual pitches</string>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text">
-         <string notr="true">Allow Scale Tuning</string>
-        </property>
-       </widget>
-      </widget>
       <widget class="QWidget" name="layoutWidget_3">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>30</y>
+         <x>660</x>
+         <y>220</y>
          <width>149</width>
          <height>25</height>
         </rect>
@@ -42211,6 +42194,218 @@
         </item>
        </layout>
       </widget>
+      <widget class="QGroupBox" name="Tuning_BaseKey_box">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>220</y>
+         <width>321</width>
+         <height>101</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>BaseKey</string>
+       </property>
+       <widget class="QRadioButton" name="Tuning_BaseKey_C_select">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>C</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_D_select">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>D</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_E_select">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>E</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_F_select">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>F</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_G_select">
+        <property name="geometry">
+         <rect>
+          <x>180</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>G</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_A_select">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>A</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_B_select">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>50</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>B</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_Cs_select">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>20</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>C#</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_Ds_select">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>20</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>D#</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_Fs_select">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>20</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>F#</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_Gs_select">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>20</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>G#</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="Tuning_BaseKey_As_select">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>20</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>A#</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QCheckBox" name="Tuning_ScaleTuning_enable">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>30</y>
+         <width>131</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::WheelFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Check to enable tuning adjustments for individual pitches</string>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string notr="true">Allow Scale Tuning</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="Tuning_PartTuning_box">
       <property name="enabled">
@@ -42219,7 +42414,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>290</y>
+        <y>350</y>
         <width>831</width>
         <height>131</height>
        </rect>
@@ -42286,7 +42481,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for G-sharp scale in cents</string>
+            <string notr="true">Adjust Custom tuning for G-sharp in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42367,7 +42562,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for A scale in cents</string>
+            <string notr="true">Adjust Custom tuning for A in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42448,7 +42643,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for A-sharp scale in cents</string>
+            <string notr="true">Adjust Custom tuning for A-sharp in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42529,7 +42724,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for B scale in cents</string>
+            <string notr="true">Adjust Custom tuning for B in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42629,7 +42824,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for E scale in cents</string>
+            <string notr="true">Adjust Custom tuning for E in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42697,7 +42892,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for F-sharp scale in cents</string>
+            <string notr="true">Adjust Custom tuning for F-sharp in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42778,7 +42973,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for G scale in cents</string>
+            <string notr="true">Adjust Custom tuning for G in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42859,7 +43054,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for C scale in cents</string>
+            <string notr="true">Adjust Custom tuning for C  in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -42940,7 +43135,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for C-sharp scale in cents</string>
+            <string notr="true">Adjust Custom tuning for C-sharp  in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -43021,7 +43216,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for D scale in cents</string>
+            <string notr="true">Adjust Custom tuning for D in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -43102,7 +43297,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for D-sharp scale in cents</string>
+            <string notr="true">Adjust Custom tuning for D-sharp in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -43183,7 +43378,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string notr="true">Adjust tuning for F scale in cents</string>
+            <string notr="true">Adjust Custom tuning for F in cents</string>
            </property>
            <property name="statusTip">
             <string notr="true"/>
@@ -43674,7 +43869,6 @@
   <tabstop>Tuning_PartTuneD_select</tabstop>
   <tabstop>Tuning_PartTuneDs_select</tabstop>
   <tabstop>Tuning_PartTuneF_select</tabstop>
-  <tabstop>Tuning_ScaleTuning_enable</tabstop>
   <tabstop>Tuning_PartTune_select</tabstop>
  </tabstops>
  <resources>
@@ -44380,8 +44574,8 @@
      <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>563</x>
-     <y>374</y>
+     <x>533</x>
+     <y>353</y>
     </hint>
    </hints>
   </connection>
@@ -44412,8 +44606,8 @@
      <y>347</y>
     </hint>
     <hint type="destinationlabel">
-     <x>763</x>
-     <y>374</y>
+     <x>733</x>
+     <y>353</y>
     </hint>
    </hints>
   </connection>
@@ -44556,8 +44750,8 @@
      <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>730</x>
-     <y>375</y>
+     <x>693</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -44584,12 +44778,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>465</x>
-     <y>424</y>
+     <x>469</x>
+     <y>423</y>
     </hint>
     <hint type="destinationlabel">
-     <x>530</x>
-     <y>444</y>
+     <x>534</x>
+     <y>423</y>
     </hint>
    </hints>
   </connection>
@@ -44856,12 +45050,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>424</y>
+     <x>599</x>
+     <y>423</y>
     </hint>
     <hint type="destinationlabel">
-     <x>703</x>
-     <y>431</y>
+     <x>693</x>
+     <y>423</y>
     </hint>
    </hints>
   </connection>
@@ -44873,11 +45067,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>137</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>393</y>
+     <y>353</y>
     </hint>
    </hints>
   </connection>
@@ -44889,11 +45083,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>138</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
    </hints>
   </connection>
@@ -44905,11 +45099,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>137</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>206</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
    </hints>
   </connection>
@@ -44921,11 +45115,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>338</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
    </hints>
   </connection>
@@ -44937,11 +45131,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>336</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
    </hints>
   </connection>
@@ -44953,11 +45147,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>335</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
    </hints>
   </connection>
@@ -44969,11 +45163,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>536</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
    </hints>
   </connection>
@@ -44985,11 +45179,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>537</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
    </hints>
   </connection>
@@ -45001,11 +45195,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>538</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>603</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
    </hints>
   </connection>
@@ -45017,11 +45211,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>734</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
      <x>803</x>
-     <y>392</y>
+     <y>352</y>
     </hint>
    </hints>
   </connection>
@@ -45033,11 +45227,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>736</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
      <x>804</x>
-     <y>422</y>
+     <y>382</y>
     </hint>
    </hints>
   </connection>
@@ -45049,11 +45243,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>736</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>804</x>
-     <y>452</y>
+     <y>412</y>
     </hint>
    </hints>
   </connection>
@@ -45340,8 +45534,8 @@
      <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>353</x>
-     <y>152</y>
+     <x>343</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -45356,8 +45550,8 @@
      <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>152</y>
+     <x>453</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -45372,8 +45566,8 @@
      <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>243</x>
-     <y>152</y>
+     <x>233</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -45404,8 +45598,8 @@
      <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>353</x>
-     <y>202</y>
+     <x>343</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
@@ -45420,8 +45614,8 @@
      <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>202</y>
+     <x>453</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
@@ -45432,12 +45626,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>665</x>
-     <y>364</y>
+     <x>669</x>
+     <y>363</y>
     </hint>
     <hint type="destinationlabel">
-     <x>737</x>
-     <y>384</y>
+     <x>741</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -45448,12 +45642,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>515</x>
-     <y>364</y>
+     <x>519</x>
+     <y>363</y>
     </hint>
     <hint type="destinationlabel">
-     <x>587</x>
-     <y>384</y>
+     <x>591</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -45496,11 +45690,11 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>485</x>
-     <y>125</y>
+     <x>489</x>
+     <y>123</y>
     </hint>
     <hint type="destinationlabel">
-     <x>563</x>
+     <x>623</x>
      <y>135</y>
     </hint>
    </hints>
@@ -46300,7 +46494,7 @@
      <y>321</y>
     </hint>
     <hint type="destinationlabel">
-     <x>797</x>
+     <x>798</x>
      <y>321</y>
     </hint>
    </hints>
@@ -46380,7 +46574,7 @@
      <y>460</y>
     </hint>
     <hint type="destinationlabel">
-     <x>534</x>
+     <x>538</x>
      <y>460</y>
     </hint>
    </hints>
@@ -46460,7 +46654,7 @@
      <y>549</y>
     </hint>
     <hint type="destinationlabel">
-     <x>407</x>
+     <x>408</x>
      <y>549</y>
     </hint>
    </hints>
@@ -46476,7 +46670,7 @@
      <y>549</y>
     </hint>
     <hint type="destinationlabel">
-     <x>536</x>
+     <x>538</x>
      <y>549</y>
     </hint>
    </hints>
@@ -46604,7 +46798,7 @@
      <y>718</y>
     </hint>
     <hint type="destinationlabel">
-     <x>536</x>
+     <x>538</x>
      <y>718</y>
     </hint>
    </hints>
@@ -46620,7 +46814,7 @@
      <y>718</y>
     </hint>
     <hint type="destinationlabel">
-     <x>667</x>
+     <x>668</x>
      <y>718</y>
     </hint>
    </hints>
@@ -46684,7 +46878,7 @@
      <y>807</y>
     </hint>
     <hint type="destinationlabel">
-     <x>404</x>
+     <x>408</x>
      <y>807</y>
     </hint>
    </hints>
@@ -46812,7 +47006,7 @@
      <y>936</y>
     </hint>
     <hint type="destinationlabel">
-     <x>535</x>
+     <x>538</x>
      <y>936</y>
     </hint>
    </hints>
@@ -46844,7 +47038,7 @@
      <y>976</y>
     </hint>
     <hint type="destinationlabel">
-     <x>666</x>
+     <x>668</x>
      <y>976</y>
     </hint>
    </hints>
@@ -46940,7 +47134,7 @@
      <y>1105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>536</x>
+     <x>538</x>
      <y>1105</y>
     </hint>
    </hints>
@@ -46956,7 +47150,7 @@
      <y>1105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>664</x>
+     <x>668</x>
      <y>1105</y>
     </hint>
    </hints>
@@ -46988,7 +47182,7 @@
      <y>1194</y>
     </hint>
     <hint type="destinationlabel">
-     <x>146</x>
+     <x>148</x>
      <y>1194</y>
     </hint>
    </hints>
@@ -47388,7 +47582,7 @@
      <y>1621</y>
     </hint>
     <hint type="destinationlabel">
-     <x>533</x>
+     <x>538</x>
      <y>1621</y>
     </hint>
    </hints>
@@ -47420,7 +47614,7 @@
      <y>1611</y>
     </hint>
     <hint type="destinationlabel">
-     <x>796</x>
+     <x>798</x>
      <y>1611</y>
     </hint>
    </hints>
@@ -47436,7 +47630,7 @@
      <y>1710</y>
     </hint>
     <hint type="destinationlabel">
-     <x>146</x>
+     <x>148</x>
      <y>1710</y>
     </hint>
    </hints>
@@ -47624,11 +47818,11 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>627</x>
+     <x>628</x>
      <y>1879</y>
     </hint>
     <hint type="destinationlabel">
-     <x>666</x>
+     <x>668</x>
      <y>1879</y>
     </hint>
    </hints>
@@ -47708,7 +47902,7 @@
      <y>1968</y>
     </hint>
     <hint type="destinationlabel">
-     <x>537</x>
+     <x>538</x>
      <y>1968</y>
     </hint>
    </hints>
@@ -47788,7 +47982,7 @@
      <y>2097</y>
     </hint>
     <hint type="destinationlabel">
-     <x>277</x>
+     <x>278</x>
      <y>2097</y>
     </hint>
    </hints>
@@ -47820,7 +48014,7 @@
      <y>2097</y>
     </hint>
     <hint type="destinationlabel">
-     <x>537</x>
+     <x>538</x>
      <y>2097</y>
     </hint>
    </hints>
@@ -47836,7 +48030,7 @@
      <y>2137</y>
     </hint>
     <hint type="destinationlabel">
-     <x>537</x>
+     <x>538</x>
      <y>2137</y>
     </hint>
    </hints>
@@ -47852,7 +48046,7 @@
      <y>2137</y>
     </hint>
     <hint type="destinationlabel">
-     <x>667</x>
+     <x>668</x>
      <y>2137</y>
     </hint>
    </hints>
@@ -48872,11 +49066,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
+     <x>494</x>
      <y>251</y>
     </hint>
     <hint type="destinationlabel">
-     <x>781</x>
+     <x>786</x>
      <y>253</y>
     </hint>
    </hints>
@@ -48904,11 +49098,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>488</x>
+     <x>493</x>
      <y>380</y>
     </hint>
     <hint type="destinationlabel">
-     <x>768</x>
+     <x>773</x>
      <y>382</y>
     </hint>
    </hints>
@@ -48936,11 +49130,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>490</x>
+     <x>495</x>
      <y>509</y>
     </hint>
     <hint type="destinationlabel">
-     <x>774</x>
+     <x>779</x>
      <y>511</y>
     </hint>
    </hints>
@@ -48952,7 +49146,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>485</x>
+     <x>490</x>
      <y>509</y>
     </hint>
     <hint type="destinationlabel">
@@ -49000,7 +49194,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
+     <x>498</x>
      <y>767</y>
     </hint>
     <hint type="destinationlabel">
@@ -49020,7 +49214,7 @@
      <y>896</y>
     </hint>
     <hint type="destinationlabel">
-     <x>789</x>
+     <x>794</x>
      <y>898</y>
     </hint>
    </hints>
@@ -49032,7 +49226,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>488</x>
+     <x>493</x>
      <y>896</y>
     </hint>
     <hint type="destinationlabel">
@@ -49052,7 +49246,7 @@
      <y>1025</y>
     </hint>
     <hint type="destinationlabel">
-     <x>792</x>
+     <x>797</x>
      <y>1027</y>
     </hint>
    </hints>
@@ -49080,11 +49274,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>495</x>
+     <x>498</x>
      <y>1154</y>
     </hint>
     <hint type="destinationlabel">
-     <x>783</x>
+     <x>788</x>
      <y>1156</y>
     </hint>
    </hints>
@@ -49112,7 +49306,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
+     <x>497</x>
      <y>1283</y>
     </hint>
     <hint type="destinationlabel">
@@ -49128,7 +49322,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
+     <x>498</x>
      <y>1283</y>
     </hint>
     <hint type="destinationlabel">
@@ -49148,7 +49342,7 @@
      <y>1412</y>
     </hint>
     <hint type="destinationlabel">
-     <x>795</x>
+     <x>797</x>
      <y>1414</y>
     </hint>
    </hints>
@@ -49160,7 +49354,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>494</x>
+     <x>498</x>
      <y>1412</y>
     </hint>
     <hint type="destinationlabel">
@@ -49176,11 +49370,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>491</x>
+     <x>496</x>
      <y>1541</y>
     </hint>
     <hint type="destinationlabel">
-     <x>782</x>
+     <x>787</x>
      <y>1543</y>
     </hint>
    </hints>
@@ -49208,11 +49402,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
+     <x>498</x>
      <y>1670</y>
     </hint>
     <hint type="destinationlabel">
-     <x>774</x>
+     <x>779</x>
      <y>1672</y>
     </hint>
    </hints>
@@ -49240,11 +49434,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>490</x>
+     <x>495</x>
      <y>1799</y>
     </hint>
     <hint type="destinationlabel">
-     <x>773</x>
+     <x>778</x>
      <y>1801</y>
     </hint>
    </hints>
@@ -49272,7 +49466,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
+     <x>498</x>
      <y>1928</y>
     </hint>
     <hint type="destinationlabel">
@@ -49288,7 +49482,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
+     <x>498</x>
      <y>1928</y>
     </hint>
     <hint type="destinationlabel">
@@ -49308,7 +49502,7 @@
      <y>2057</y>
     </hint>
     <hint type="destinationlabel">
-     <x>758</x>
+     <x>763</x>
      <y>2059</y>
     </hint>
    </hints>
@@ -49320,7 +49514,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
+     <x>498</x>
      <y>2057</y>
     </hint>
     <hint type="destinationlabel">
@@ -49368,7 +49562,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
+     <x>494</x>
      <y>251</y>
     </hint>
     <hint type="destinationlabel">
@@ -49384,11 +49578,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
+     <x>486</x>
      <y>251</y>
     </hint>
     <hint type="destinationlabel">
-     <x>681</x>
+     <x>686</x>
      <y>251</y>
     </hint>
    </hints>
@@ -49400,7 +49594,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
+     <x>486</x>
      <y>380</y>
     </hint>
     <hint type="destinationlabel">
@@ -49420,7 +49614,7 @@
      <y>380</y>
     </hint>
     <hint type="destinationlabel">
-     <x>678</x>
+     <x>683</x>
      <y>380</y>
     </hint>
    </hints>
@@ -49436,7 +49630,7 @@
      <y>509</y>
     </hint>
     <hint type="destinationlabel">
-     <x>617</x>
+     <x>622</x>
      <y>509</y>
     </hint>
    </hints>
@@ -49452,7 +49646,7 @@
      <y>509</y>
     </hint>
     <hint type="destinationlabel">
-     <x>683</x>
+     <x>688</x>
      <y>509</y>
     </hint>
    </hints>
@@ -49480,11 +49674,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>491</x>
+     <x>496</x>
      <y>638</y>
     </hint>
     <hint type="destinationlabel">
-     <x>682</x>
+     <x>687</x>
      <y>638</y>
     </hint>
    </hints>
@@ -49500,7 +49694,7 @@
      <y>767</y>
     </hint>
     <hint type="destinationlabel">
-     <x>618</x>
+     <x>623</x>
      <y>767</y>
     </hint>
    </hints>
@@ -49516,7 +49710,7 @@
      <y>767</y>
     </hint>
     <hint type="destinationlabel">
-     <x>686</x>
+     <x>691</x>
      <y>767</y>
     </hint>
    </hints>
@@ -49532,7 +49726,7 @@
      <y>896</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
+     <x>627</x>
      <y>896</y>
     </hint>
    </hints>
@@ -49548,7 +49742,7 @@
      <y>896</y>
     </hint>
     <hint type="destinationlabel">
-     <x>682</x>
+     <x>687</x>
      <y>896</y>
     </hint>
    </hints>
@@ -49560,11 +49754,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
+     <x>492</x>
      <y>1025</y>
     </hint>
     <hint type="destinationlabel">
-     <x>624</x>
+     <x>628</x>
      <y>1025</y>
     </hint>
    </hints>
@@ -49580,7 +49774,7 @@
      <y>1025</y>
     </hint>
     <hint type="destinationlabel">
-     <x>690</x>
+     <x>695</x>
      <y>1025</y>
     </hint>
    </hints>
@@ -49592,7 +49786,7 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>497</x>
+     <x>498</x>
      <y>1154</y>
     </hint>
     <hint type="destinationlabel">
@@ -49608,11 +49802,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
+     <x>486</x>
      <y>1154</y>
     </hint>
     <hint type="destinationlabel">
-     <x>692</x>
+     <x>697</x>
      <y>1154</y>
     </hint>
    </hints>
@@ -49644,7 +49838,7 @@
      <y>1283</y>
     </hint>
     <hint type="destinationlabel">
-     <x>688</x>
+     <x>693</x>
      <y>1283</y>
     </hint>
    </hints>
@@ -49660,7 +49854,7 @@
      <y>1412</y>
     </hint>
     <hint type="destinationlabel">
-     <x>620</x>
+     <x>625</x>
      <y>1412</y>
     </hint>
    </hints>
@@ -49676,7 +49870,7 @@
      <y>1412</y>
     </hint>
     <hint type="destinationlabel">
-     <x>680</x>
+     <x>685</x>
      <y>1412</y>
     </hint>
    </hints>
@@ -49704,11 +49898,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
+     <x>494</x>
      <y>1541</y>
     </hint>
     <hint type="destinationlabel">
-     <x>680</x>
+     <x>685</x>
      <y>1541</y>
     </hint>
    </hints>
@@ -49740,7 +49934,7 @@
      <y>1670</y>
     </hint>
     <hint type="destinationlabel">
-     <x>689</x>
+     <x>694</x>
      <y>1670</y>
     </hint>
    </hints>
@@ -49752,11 +49946,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>486</x>
+     <x>491</x>
      <y>1799</y>
     </hint>
     <hint type="destinationlabel">
-     <x>627</x>
+     <x>628</x>
      <y>1799</y>
     </hint>
    </hints>
@@ -49800,11 +49994,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
+     <x>498</x>
      <y>1928</y>
     </hint>
     <hint type="destinationlabel">
-     <x>677</x>
+     <x>682</x>
      <y>1928</y>
     </hint>
    </hints>
@@ -49820,7 +50014,7 @@
      <y>2057</y>
     </hint>
     <hint type="destinationlabel">
-     <x>623</x>
+     <x>628</x>
      <y>2057</y>
     </hint>
    </hints>
@@ -49864,11 +50058,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>484</x>
+     <x>489</x>
      <y>767</y>
     </hint>
     <hint type="destinationlabel">
-     <x>773</x>
+     <x>778</x>
      <y>769</y>
     </hint>
    </hints>
@@ -50060,8 +50254,8 @@
      <y>213</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>234</y>
+     <x>113</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -50092,8 +50286,8 @@
      <y>206</y>
     </hint>
     <hint type="destinationlabel">
-     <x>343</x>
-     <y>231</y>
+     <x>333</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -50152,12 +50346,204 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
+     <x>86</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>86</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneC_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
      <x>43</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>82</x>
+     <y>344</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneCs_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>57</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneD_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>56</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneDs_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>116</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>278</x>
+     <y>340</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneE_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
      <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>77</x>
-     <y>263</y>
+     <x>257</x>
+     <y>369</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneF_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>398</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneFs_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>468</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneG_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>481</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneGs_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneA_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>657</x>
+     <y>340</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneAs_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>118</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>665</x>
+     <y>373</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Tuning_CustomTemp_button</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Tuning_PartTuneB_select</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>688</x>
+     <y>398</y>
     </hint>
    </hints>
   </connection>
