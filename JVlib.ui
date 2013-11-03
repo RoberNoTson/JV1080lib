@@ -5638,7 +5638,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
+         <width>94</width>
          <height>2071</height>
         </rect>
        </property>
@@ -41965,25 +41965,6 @@
          <string>None</string>
         </property>
        </widget>
-       <zorder>Tuning_Part1Tuning_select</zorder>
-       <zorder>Tuning_Part2Tuning_select</zorder>
-       <zorder>Tuning_Part3Tuning_select</zorder>
-       <zorder>Tuning_Part4Tuning_select</zorder>
-       <zorder>Tuning_Part5Tuning_select</zorder>
-       <zorder>Tuning_Part9Tuning_select</zorder>
-       <zorder>Tuning_Part13Tuning_select</zorder>
-       <zorder>Tuning_Part6Tuning_select</zorder>
-       <zorder>Tuning_Part7Tuning_select</zorder>
-       <zorder>Tuning_Part10Tuning_select</zorder>
-       <zorder>Tuning_Part8Tuning_select</zorder>
-       <zorder>Tuning_Part14Tuning_select</zorder>
-       <zorder>Tuning_Part11Tuning_select</zorder>
-       <zorder>Tuning_Part15Tuning_select</zorder>
-       <zorder>Tuning_Part12Tuning_select</zorder>
-       <zorder>Tuning_Part16Tuning_select</zorder>
-       <zorder>Tuning_PartAllTuning_select</zorder>
-       <zorder>Tuning_PartNoneTuning_select</zorder>
-       <zorder>Tuning_BaseKey_box</zorder>
       </widget>
       <widget class="QWidget" name="layoutWidget22">
        <property name="geometry">
@@ -42044,152 +42025,6 @@
             <blue>255</blue>
            </color>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="layoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>660</x>
-         <y>220</y>
-         <width>149</width>
-         <height>25</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_26">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>Base Key</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="Tuning_BaseKey_select">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <item>
-           <property name="text">
-            <string>C Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>c min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>C#/Db Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>c# min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>D Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>d min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Eb Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>d#/eb min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>E Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>e min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>F Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>f min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>F#/Gb Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>f# min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>G Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>g min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Ab Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>g#/ab min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>A Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>a min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Bb Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>a#/bb min</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>B/Cb Maj</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>b min</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
@@ -43856,7 +43691,6 @@
   <tabstop>Tuning_Part15Tuning_select</tabstop>
   <tabstop>Tuning_Part12Tuning_select</tabstop>
   <tabstop>Tuning_Part16Tuning_select</tabstop>
-  <tabstop>Tuning_BaseKey_select</tabstop>
   <tabstop>Tuning_PartTuneGs_select</tabstop>
   <tabstop>Tuning_PartTuneA_select</tabstop>
   <tabstop>Tuning_PartTuneAs_select</tabstop>
