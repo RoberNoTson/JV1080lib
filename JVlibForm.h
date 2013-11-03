@@ -692,6 +692,18 @@ private slots:
   void on_Tuning_PartTuneFs_select_valueChanged(int);
   void on_Tuning_PartTuneG_select_valueChanged(int);
   void on_Tuning_PartTuneGs_select_valueChanged(int);
+  void on_Tuning_BaseKey_A_select_toggled(bool);
+  void on_Tuning_BaseKey_As_select_toggled(bool);
+  void on_Tuning_BaseKey_B_select_toggled(bool);
+  void on_Tuning_BaseKey_C_select_toggled(bool);
+  void on_Tuning_BaseKey_Cs_select_toggled(bool);
+  void on_Tuning_BaseKey_D_select_toggled(bool);
+  void on_Tuning_BaseKey_Ds_select_toggled(bool);
+  void on_Tuning_BaseKey_E_select_toggled(bool);
+  void on_Tuning_BaseKey_F_select_toggled(bool);
+  void on_Tuning_BaseKey_Fs_select_toggled(bool);
+  void on_Tuning_BaseKey_G_select_toggled(bool);
+  void on_Tuning_BaseKey_Gs_select_toggled(bool);
   
   // for Rhythm tab
   void on_Rhythm_Sync_button_clicked();

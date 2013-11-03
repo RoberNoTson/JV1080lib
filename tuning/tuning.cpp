@@ -123,4 +123,5 @@ void JVlibForm::Tuning_QueryTemp(int val) {
 //hexdump((unsigned char *)Tuning_currentTuning.constData(), Tuning_currentTuning.size());
   // transpose to desired key signature
   on_Tuning_BaseKey_select_currentIndexChanged(Tuning_BaseKey_select->currentIndex());
+  Tuning_BaseKey_C_select->setChecked(true);
 }	// end Tuning_QueryTemp

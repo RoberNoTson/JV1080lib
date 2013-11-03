@@ -1,5 +1,6 @@
 // tuning_slots.cpp
 /* Contains:
+ * on_Tuning_Sync_button_clicked
  * on_Tuning_ScaleTuning_enable_toggled
  * on_Tuning_PartTuneC_select_valueChanged
  * on_Tuning_PartTuneCs_select_valueChanged
@@ -15,8 +16,19 @@
  * on_Tuning_PartTuneB_select_valueChanged
  * on_Tuning_PartTune_select_valueChanged
  * on_Tuning_MasterTune_select_valueChanged
- * on_Tuning_Sync_button_clicked
  * on_Tuning_BaseKey_select_currentIndexChanged
+ * on_Tuning_BaseKey_A_select_toggled
+ * on_Tuning_BaseKey_As_select_toggled
+ * on_Tuning_BaseKey_B_select_toggled
+ * on_Tuning_BaseKey_C_select_toggled
+ * on_Tuning_BaseKey_Cs_select_toggled
+ * on_Tuning_BaseKey_D_select_toggled
+ * on_Tuning_BaseKey_Ds_select_toggled
+ * on_Tuning_BaseKey_E_select_toggled
+ * on_Tuning_BaseKey_F_select_toggled
+ * on_Tuning_BaseKey_Fs_select_toggled
+ * on_Tuning_BaseKey_G_select_toggled
+ * on_Tuning_BaseKey_Gs_select_toggled
  * on_Tuning_LoadCustomTemp_button_clicked
  * on_Tuning_SaveCustomTemp_button_clicked
  * slotTuning_TempButtons
@@ -208,6 +220,43 @@ void JVlibForm::on_Tuning_BaseKey_select_currentIndexChanged(int val) {
   Tuning_PartTuneB_select->setValue(Tuning_currentTuning.at(x>11 ? x - 12 : x)-64);
 }	// end on_Tuning_BaseKey_select_currentIndexChanged
 
+void JVlibForm::on_Tuning_BaseKey_A_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(13);
+}
+void JVlibForm::on_Tuning_BaseKey_As_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(15);
+}
+void JVlibForm::on_Tuning_BaseKey_B_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(17);
+}
+void JVlibForm::on_Tuning_BaseKey_C_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(0);
+}
+void JVlibForm::on_Tuning_BaseKey_Cs_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(2);
+}
+void JVlibForm::on_Tuning_BaseKey_D_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(4);
+}
+void JVlibForm::on_Tuning_BaseKey_Ds_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(1);
+}
+void JVlibForm::on_Tuning_BaseKey_E_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(3);
+}
+void JVlibForm::on_Tuning_BaseKey_F_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(5);
+}
+void JVlibForm::on_Tuning_BaseKey_Fs_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(7);
+}
+void JVlibForm::on_Tuning_BaseKey_G_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(9);
+}
+void JVlibForm::on_Tuning_BaseKey_Gs_select_toggled(bool status) {
+  on_Tuning_BaseKey_select_currentIndexChanged(11);
+}
+
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
   open();
   setScaleTunings(1);
@@ -226,44 +275,47 @@ void JVlibForm::slotTuning_TempButtons(int val) {
       Tuning_BaseKey_select->setCurrentIndex(0);
       Tuning_BaseKey_select->setEnabled(false);
       Tuning_BaseKey_select->blockSignals(false);
-//      Tuning_QueryTemp(2);
+      Tuning_BaseKey_box->setEnabled(false);
+      Tuning_BaseKey_C_select->blockSignals(true);
+      Tuning_BaseKey_C_select->setChecked(true);
+      Tuning_BaseKey_C_select->blockSignals(false);
       Tuning_QueryTemp(0);
       break;
     case 1:		// Just temp
       state_table->tuning_type = JustTemp;
       Tuning_BaseKey_select->setEnabled(true);
-//      Tuning_QueryTemp(3);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(1);
       break;
     case 2:		// Pythagorean
       state_table->tuning_type = PythagTemp;
       Tuning_BaseKey_select->setEnabled(true);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(2);
-//      Tuning_QueryTemp(6);
       break;
     case 3:		// Pure
       state_table->tuning_type = PureTemp;
       Tuning_BaseKey_select->setEnabled(true);
-//      Tuning_QueryTemp(5);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(3);
     break;
     case 4:		// Well
       state_table->tuning_type = WellTemp;
       Tuning_BaseKey_select->setEnabled(true);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(4);
-//      Tuning_QueryTemp(7);
       break;
     case 5:		// Meantone
       state_table->tuning_type = MeantoneTemp;
       Tuning_BaseKey_select->setEnabled(true);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(5);
-//      Tuning_QueryTemp(4);
       break;
     case 6:		// Arabic
       state_table->tuning_type = ArabicTemp;
       Tuning_BaseKey_select->setEnabled(true);
+      Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(6);
-//      Tuning_QueryTemp(1);
       break;
     case 7:		// custom tuning
       state_table->tuning_type = CustomTemp;
