@@ -81,13 +81,11 @@ Pitch_tab
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Tuning_tab
-10/07/2013  - changing keys does not always work correctly, need to zero out before setting new values
-10/29/2013  - change cursor to "Wait" when Sync is clicked
 10/30/2013  - save each part separately in Perf mode
 11/04/2013  - link BaseKey to individual parts in Perf mode
+11/04/2013  - save custom tuning
+11/04/2013  - load saved tuning data
   - recognize existing tunings in keys other than C Major
-  - save custom tuning
-  - load saved tuning data
 
 config
   - improve aesthetics
@@ -98,8 +96,8 @@ save_dialog
   - connect something to the Help button
 
 load_dialog
+11/04/2013  - create Load Tuning function
+11/04/2013  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System
   - create Load System function
-  - create Load Tuning function
   - create Load Dump function
   - connect something to the Help button
-  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System

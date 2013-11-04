@@ -79,12 +79,14 @@ void Load_Dialog::on_Load_buttonBox_accepted()
   }
   if (ui->Load_CurrentTuning_button->isChecked()) {
     puts("loading Tuning");
+    ui->Load_UpdateLocal_select->setChecked(true);
     load_tuning();
     this->close();
     return;
   }
   if (ui->Load_System_button->isChecked()) {
     puts("loading System");
+    ui->Load_UpdateLocal_select->setChecked(true);
     load_system();
     this->close();
     return;
