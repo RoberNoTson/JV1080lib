@@ -84,10 +84,10 @@ Tuning_tab
 10/07/2013  - changing keys does not always work correctly, need to zero out before setting new values
 10/29/2013  - change cursor to "Wait" when Sync is clicked
 10/30/2013  - save each part separately in Perf mode
+11/04/2013  - link BaseKey to individual parts in Perf mode
   - recognize existing tunings in keys other than C Major
   - save custom tuning
   - load saved tuning data
-  - link BaseKey to individual parts in Perf mode
 
 config
   - improve aesthetics
