@@ -93,6 +93,8 @@ void  JVlibForm::slotConfig() {
 bool JVlibForm::open() {
   if (state_table->db_connect) {
     Load_Dialog load_dialog;
+    connect(&load_dialog, SIGNAL(System_Loaded()), this, SLOT(System_Loaded()) );
+    connect(&load_dialog, SIGNAL(Tuning_Loaded(int)), this, SLOT(Tuning_Loaded(int)) );
     if (!load_dialog.exec())
       return false;
   }

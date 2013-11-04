@@ -10,6 +10,7 @@ namespace Ui {
 
 class Load_Dialog : public QDialog {
     Q_OBJECT
+    
 public:
     Load_Dialog(QWidget *parent = 0);
     ~Load_Dialog();
@@ -22,6 +23,10 @@ public:
     static QStringList Dates;
     static QStringList Comments;
 
+signals:
+  void System_Loaded();
+  void Tuning_Loaded(int);
+  
 protected:
 
 private:

@@ -12,6 +12,7 @@
 #include	<iostream>
 #include	"config/ini_conf.h"
 #include	"save_dialog/Save_Dialog.h"
+#include	"load_dialog/load_dialog.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 2	//number of times to retry after a timeout
@@ -49,6 +50,10 @@ signals:
 protected:
   void closeEvent(QCloseEvent *event);
 
+public slots:
+  void System_Loaded();
+  void Tuning_Loaded(int);
+  
 private slots:
   // for menubar.cpp
   bool open();
@@ -679,7 +684,6 @@ private slots:
   void slotTuning_TempButtons(int);
   void on_Tuning_LoadCustomTemp_button_clicked();
   void on_Tuning_SaveCustomTemp_button_clicked();
-//  void on_Tuning_BaseKey_select_currentIndexChanged(int);
   void on_Tuning_PartTuneA_select_valueChanged(int);
   void on_Tuning_PartTuneAs_select_valueChanged(int);
   void on_Tuning_PartTuneB_select_valueChanged(int);

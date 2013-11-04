@@ -46,6 +46,7 @@
  * on_SysPatchNumber_valueChanged
  * setPerfTabs
  * setPatchTabs
+ * System_Loaded
  */
 
 #include	"JVlibForm.h"
@@ -818,4 +819,8 @@ void JVlibForm::setPatchTabs(bool val) {
   state_table->toneTVFTab_enable = val;
   state_table->toneTVATab_enable = val;
   state_table->pitchTab_enable = val;
+}
+
+void JVlibForm::System_Loaded() {
+  setSystemParms();
 }

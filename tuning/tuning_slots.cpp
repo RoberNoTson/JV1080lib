@@ -31,6 +31,7 @@
  * on_Tuning_LoadCustomTemp_button_clicked
  * on_Tuning_SaveCustomTemp_button_clicked
  * slotTuning_TempButtons
+ * Tuning_Loaded
  */
 
 #include	"JVlibForm.h"
@@ -203,7 +204,6 @@ void JVlibForm::on_Tuning_BaseKey_Gs_select_toggled(bool status) {
 
 void JVlibForm::on_Tuning_LoadCustomTemp_button_clicked() {
   open();
-  setScaleTunings(1);
 }
 
 void JVlibForm::on_Tuning_SaveCustomTemp_button_clicked() {
@@ -258,3 +258,19 @@ void JVlibForm::slotTuning_TempButtons(int val) {
   }	// end Switch
   state_table->tuning_modified = false;
 }	// end slotTuning_TempButtons
+
+void JVlibForm::Tuning_Loaded(int val) {
+  Tuning_CustomName_display->clear();
+  Tuning_CustomComment_display->clear();
+  setScaleTunings(1);
+  Tuning_CustomTemp_button->setChecked(true);
+  QSqlQuery query(JVlibForm::db_mysql);
+  query.prepare("select name, comment from Tuning where SerNumber = ?");
+  query.bindValue(0, val);
+  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
+  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  query.first();
+  Tuning_CustomName_display->setText(query.value(0).toString());
+  Tuning_CustomComment_display->setText(query.value(1).toString());
+  query.finish();
+}

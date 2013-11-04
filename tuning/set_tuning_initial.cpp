@@ -71,9 +71,11 @@ void JVlibForm::setScaleTunings(int partnum) {
   else if (cur_chksum==52045) {Tuning_PureTemp_button->setChecked(true); state_table->tuning_type=PureTemp; Tuning_BaseKey_box->setEnabled(true);}
   else if (cur_chksum==11020) {Tuning_PythagTemp_button->setChecked(true); state_table->tuning_type=PythagTemp; Tuning_BaseKey_box->setEnabled(true);}
   else if (cur_chksum==40503) {Tuning_WellTemp_button->setChecked(true); state_table->tuning_type=WellTemp; Tuning_BaseKey_box->setEnabled(true);}
-  else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; Tuning_BaseKey_box->setEnabled(false);}
+  else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; Tuning_BaseKey_box->setEnabled(true);}
   Tuning_LoadCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
   Tuning_SaveCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
+  Tuning_CustomName_display->clear();
+  Tuning_CustomComment_display->clear();
   
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();

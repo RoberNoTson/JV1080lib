@@ -78,16 +78,17 @@ void Load_Dialog::on_Load_buttonBox_accepted()
     return;
   }
   if (ui->Load_CurrentTuning_button->isChecked()) {
+    int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
     puts("loading Tuning");
-    ui->Load_UpdateLocal_select->setChecked(true);
     load_tuning();
+    emit Tuning_Loaded(SerNum);
     this->close();
     return;
   }
   if (ui->Load_System_button->isChecked()) {
     puts("loading System");
-    ui->Load_UpdateLocal_select->setChecked(true);
     load_system();
+    emit System_Loaded();
     this->close();
     return;
   }
@@ -139,6 +140,7 @@ void Load_Dialog::on_Load_CurrentRhythm_button_toggled(bool checked)
 void Load_Dialog::on_Load_CurrentTuning_button_toggled(bool checked)
 {
   if (checked) {
+    ui->Load_UpdateLocal_select->setChecked(true);
     if (!fill_Data(TuningQuery))
       QMessageBox::critical(this, "Load_Dialog", "Unable to load current Tuning data");
   }

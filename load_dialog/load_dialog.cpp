@@ -231,8 +231,8 @@ void Load_Dialog::load_tuning() {
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
-hexdump((unsigned char*)SysEx.constData(), SysEx.size());
-  unsigned char* buf = new unsigned char[12*16];
+//hexdump((unsigned char*)SysEx.constData(), SysEx.size());
+  unsigned char* buf = new unsigned char[12*16 + 4];
   memset(buf,0,sizeof(buf));
   if (ui->Load_UpdateLocal_select->isChecked()) {
     if (JVlibForm::state_table->patch_mode)
@@ -262,8 +262,28 @@ hexdump((unsigned char*)SysEx.constData(), SysEx.size());
 }	// end load_tuning
 
 void Load_Dialog::load_system() {
-//  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
-  
+  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+  QSqlQuery query(JVlibForm::db_mysql);
+  query.prepare("select sysex from Dumps where SerNumber = ?");
+  query.bindValue(0, SerNum);
+  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
+  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  query.first();
+  QByteArray SysEx;
+  SysEx = query.value(0).toByteArray();
+  unsigned char* buf = new unsigned char[0x28+4];
+  memset(buf,0,sizeof(buf));
+  memcpy(&JVlibForm::system_area->sys_common.panel_mode, SysEx.constData(), 0x28);
+  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  this->setCursor(Qt::WaitCursor);
+  usleep(20000);
+  memcpy((void *)&buf[4], SysEx.constData(), 0x28);
+  JVlibForm::sysex_update(buf, 0x28+4);
+  JVlibForm::close_ports();
+  delete[] buf;
+  query.finish();
+//  JVlibForm::setSystemParms();
+  this->setCursor(Qt::ArrowCursor);
 }
 
 void Load_Dialog::load_dump() {
