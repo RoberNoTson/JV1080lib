@@ -64,14 +64,14 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
   Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
   // query the cur_chksum value to determine which temperament we are in
-  if (cur_chksum==35508) {Tuning_ArabicTemp_button->setChecked(true); state_table->tuning_type=ArabicTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else if (cur_chksum==14340) {Tuning_EqualTemp_button->setChecked(true); state_table->tuning_type=EqualTemp; Tuning_BaseKey_select->setEnabled(false); Tuning_BaseKey_box->setEnabled(false);}
-  else if (cur_chksum==53569) {Tuning_JustTemp_button->setChecked(true); state_table->tuning_type=JustTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else if (cur_chksum==15732) {Tuning_MeantoneTemp_button->setChecked(true); state_table->tuning_type=MeantoneTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else if (cur_chksum==52045) {Tuning_PureTemp_button->setChecked(true); state_table->tuning_type=PureTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else if (cur_chksum==11020) {Tuning_PythagTemp_button->setChecked(true); state_table->tuning_type=PythagTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else if (cur_chksum==40503) {Tuning_WellTemp_button->setChecked(true); state_table->tuning_type=WellTemp; Tuning_BaseKey_select->setEnabled(true); Tuning_BaseKey_box->setEnabled(true);}
-  else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; Tuning_BaseKey_select->setEnabled(false); Tuning_BaseKey_box->setEnabled(false);}
+  if (cur_chksum==35508) {Tuning_ArabicTemp_button->setChecked(true); state_table->tuning_type=ArabicTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else if (cur_chksum==14340) {Tuning_EqualTemp_button->setChecked(true); state_table->tuning_type=EqualTemp; Tuning_BaseKey_box->setEnabled(false);}
+  else if (cur_chksum==53569) {Tuning_JustTemp_button->setChecked(true); state_table->tuning_type=JustTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else if (cur_chksum==15732) {Tuning_MeantoneTemp_button->setChecked(true); state_table->tuning_type=MeantoneTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else if (cur_chksum==52045) {Tuning_PureTemp_button->setChecked(true); state_table->tuning_type=PureTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else if (cur_chksum==11020) {Tuning_PythagTemp_button->setChecked(true); state_table->tuning_type=PythagTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else if (cur_chksum==40503) {Tuning_WellTemp_button->setChecked(true); state_table->tuning_type=WellTemp; Tuning_BaseKey_box->setEnabled(true);}
+  else {Tuning_CustomTemp_button->setChecked(true); state_table->tuning_type=CustomTemp; Tuning_BaseKey_box->setEnabled(false);}
   Tuning_LoadCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
   Tuning_SaveCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
   

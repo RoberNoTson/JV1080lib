@@ -679,7 +679,7 @@ private slots:
   void slotTuning_TempButtons(int);
   void on_Tuning_LoadCustomTemp_button_clicked();
   void on_Tuning_SaveCustomTemp_button_clicked();
-  void on_Tuning_BaseKey_select_currentIndexChanged(int);
+//  void on_Tuning_BaseKey_select_currentIndexChanged(int);
   void on_Tuning_PartTuneA_select_valueChanged(int);
   void on_Tuning_PartTuneAs_select_valueChanged(int);
   void on_Tuning_PartTuneB_select_valueChanged(int);
@@ -1161,6 +1161,8 @@ private:
   static QByteArray Tuning_currentTuning;
   void Tuning_BulkUpdate(int, int, int);
   void Tuning_QueryTemp(int);
+  void Tuning_BaseKey_select(int);
+  void Tuning_BaseKey_set(int);
 //  void Tuning_setScaleTuning(int);
 
   // for Rhythm
