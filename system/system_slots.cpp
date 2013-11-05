@@ -7,7 +7,7 @@
  * on_SysMode_select_currentIndexChanged
  * on_SysPerfSelect_currentIndexChanged
  * on_SysPatchSelect_currentIndexChanged
- * int JVlibForm::on_System_Sync_button_clicked
+ * on_System_Sync_button_clicked
  * slotSysSetPerformanceMode
  * slotSysSetPatchMode
  * slotSysSetGmMode
@@ -56,7 +56,7 @@
 
 // Slots
 void JVlibForm::on_System_Upload_button_clicked() {
-  // tbd
+  // NOTE: tbd
 
 }
 void JVlibForm::on_System_SaveData_button_clicked() {

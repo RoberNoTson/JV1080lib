@@ -63,9 +63,10 @@ private slots:
   void selectedPort();
   void HelpDoc();
   void slotConfig();
-  void slotOffline();
+  void slotOffline(bool);
   void slotactionCopy();
   void slotactionWrite();
+  void slotDB_Maint();
   void slotactionBulk_Dump(); 
   void slotactionWhats_This();
   QString funcNoteCalc(int);

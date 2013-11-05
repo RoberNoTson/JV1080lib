@@ -1,4 +1,20 @@
 // menu_slots.cpp
+/* Contains:
+ * HelpDoc()
+ * selectedPort()
+ * slotOffline()
+ * slotactionWhats_This()
+ * slotactionBulk_Dump()
+ * slotactionWrite()
+ * slotactionCopy()
+ * slotDB_Maint()
+ * slotConfig()
+ * open()
+ * save()
+ * saveAs()
+ * about()
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 #include	"config/ini_conf.h"
@@ -63,24 +79,36 @@ void JVlibForm::selectedPort()  {
   }
 }  // end selectedPort
 
-void JVlibForm::slotOffline() {
-  state_table->jv_connect = !(action_Offline->isChecked());
-  statusbar->showMessage(state_table->jv_connect?"Online":"Offline");
-  if (state_table->jv_connect) System_JV_status->on();
-  else System_JV_status->off();
+void JVlibForm::slotOffline(bool checked) {
+  state_table->jv_connect = !checked;
+  statusbar->showMessage(checked?"Offline":"Online");
+  if (!checked) {
+    System_JV_status->on();
+    on_System_Sync_button_clicked();
+  }
+  else {
+    System_JV_status->off();
+    System_Sync_status->off();
+    EnablePerf(true);
+    EnablePatch(true);
+  }
 }
+
 void JVlibForm::slotactionWhats_This() {
   QWhatsThis::enterWhatsThisMode ();
 }
 
 void JVlibForm::slotactionBulk_Dump() {
-  
+  // NOTE: tbd
 }
 void JVlibForm::slotactionWrite() {
-  
+  // NOTE: tbd  
 }
 void JVlibForm::slotactionCopy() {
-  
+  // NOTE: tbd  
+}
+void JVlibForm::slotDB_Maint() {
+  // NOTE: tbd  
 }
 
 void  JVlibForm::slotConfig() {

@@ -18,7 +18,7 @@ void JVlibForm::createMenuActions() {
   connect(JVlibForm::action_Help_Manual, SIGNAL(triggered()), this, SLOT(HelpDoc()));
   connect(JVlibForm::PortBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectedPort()));
   connect(JVlibForm::action_Configuration, SIGNAL(triggered()), this, SLOT(slotConfig()));
-  connect(JVlibForm::action_Offline, SIGNAL(triggered()), this, SLOT(slotOffline()));
+  connect(JVlibForm::action_Offline, SIGNAL(triggered(bool)), this, SLOT(slotOffline(bool)));
   connect(JVlibForm::actionCopy, SIGNAL(triggered()), this, SLOT(slotactionCopy()));
   connect(JVlibForm::actionWrite, SIGNAL(triggered()), this, SLOT(slotactionWrite()));
   connect(JVlibForm::actionBulk_Dump, SIGNAL(triggered()), this, SLOT(slotactionBulk_Dump()));

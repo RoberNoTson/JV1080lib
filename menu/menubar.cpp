@@ -1,4 +1,12 @@
 // menubar.cpp
+/* Contains:
+ * maybeSave()
+ * loadFile(const QString &fileName)
+ * saveFile(const QString &fileName)
+ * setCurrentFile(const QString &fileName)
+ * strippedName(const QString &fullFileName)
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 

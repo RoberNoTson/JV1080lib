@@ -5,9 +5,11 @@ General
   - fix Color gradient error message from QDials throughout 
   - add options to support Data Cards
   - when closing app and asked to Save changes, close the app after the save completes
+  - autodetect the JV and set the correct port
+  - autodetect expansion cards and enable only the corresponding actions
 
 Menu
-  - standalone/offline mode with all tabs functional
+11/04/2013  - standalone/offline mode with all tabs functional
   - create Utility function Copy
   - create Utility function Write
   - create Utility function Bulk Dump
