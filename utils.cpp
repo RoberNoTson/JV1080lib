@@ -83,6 +83,7 @@ int JVlibForm::sysex_request(const unsigned char *buf, int buf_size) {
   unsigned char *SysEx = new unsigned char[buf_size+7];
   char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x11 };
   for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  SysEx[2] = state_table->Dev_ID-1;
   for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
   SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
   SysEx[buf_size+6] = 0xF7;
@@ -97,6 +98,7 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   unsigned char *SysEx = new unsigned char[buf_size+7];
   char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x12 };
   for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  SysEx[2] = state_table->Dev_ID-1;
   for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
   SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
   SysEx[buf_size+6] = 0xF7;

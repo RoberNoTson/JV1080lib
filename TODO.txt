@@ -90,6 +90,7 @@ Tuning_tab
   - recognize existing tunings in keys other than C Major
 
 config
+11/06/2013  - add JV-1080 Device ID
   - improve aesthetics
 
 save_dialog

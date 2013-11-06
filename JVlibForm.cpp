@@ -182,6 +182,7 @@ int JVlibForm::readConfigFile() {
   db_user = settings.value("mysql/username").toString();
   strcpy(MIDI_dir, settings.value("JV1080/midi_dir").toByteArray().data());
   PORT_NAME = settings.value("JV1080/port_name").toString();
+  state_table->Dev_ID = settings.value("JV1080/Dev_ID", 17).toInt();
   return 0;
 }	// end readConfigFile
 

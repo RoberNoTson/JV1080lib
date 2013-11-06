@@ -32,6 +32,7 @@ private:
     static QString bakMidiDir;
     static QString bakPortname;
     static QString bakPortnumber;
+    static int bakDevID;
     QSettings settings;
     void getPort();
     snd_rawmidi_t *midiInHandle;
@@ -54,6 +55,7 @@ private slots:
     void on_Password_edit_editingFinished();
     void on_Database_edit_editingFinished();
     void on_Username_edit_editingFinished();
+    void on_DevID_valueChanged(int);
 };
 
 #endif // INI_CONF_H

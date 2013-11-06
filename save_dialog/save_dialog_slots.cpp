@@ -647,7 +647,7 @@ hexdump((unsigned char *)JVlibForm::Tuning_currentTuning.constData(), Tuning_cur
   
   if (ui->Save_ReceiveUserDump_button->isChecked()) {
     // save all entries of User Performance, Patch or Rhythm
-//    table_name = "Dumps";
+    table_name = "Dumps";
 //    sz = 0;	// NOTE: tbd
 //    ptr = NULL;	// NOTE: tbd
 //    db_insert_data(table_name, ptr, sz);

@@ -61,6 +61,7 @@ struct STATE_TABLE {
   bool midiPorts_open;	// PORTS_OPEN actively connected to the computer's midi ports
   bool db_connect;	// DB_OPEN connected to mysql database
   bool jv_connect;	// ONLINE to the synth
+  int Dev_ID;		// internal device ID of the JV-1080
   bool updates_enabled;	// used to avoid re-setting memory values when controls are initialized
   bool initialized;	// an initial instance of the main form has been created.
 };

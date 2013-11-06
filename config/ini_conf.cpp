@@ -14,6 +14,7 @@ QString INI_CONF::bakTempDir = 0;
 QString INI_CONF::bakMidiDir = 0;
 QString INI_CONF::bakPortname = 0;
 QString INI_CONF::bakPortnumber = 0;
+int INI_CONF::bakDevID = 0;
 
 INI_CONF::INI_CONF(QWidget *parent) :
     QDialog(parent),
@@ -28,11 +29,12 @@ INI_CONF::INI_CONF(QWidget *parent) :
     bakPassword = settings.value("mysql/password").toString();
     bakStartOnline = settings.value("JV1080/start_online").toString();
     bakDumpDir = settings.value("JV1080/dump_dir").toString();
-    bakHelpDir = settings.value("JV1080/help_dir").toString();;
-    bakTempDir = settings.value("JV1080/temp_dir").toString();;
-    bakMidiDir = settings.value("JV1080/midi_dir").toString();;
-    bakPortname = settings.value("JV1080/port_name").toString();;
-    bakPortnumber = settings.value("JV1080/port_number").toString();;
+    bakHelpDir = settings.value("JV1080/help_dir").toString();
+    bakTempDir = settings.value("JV1080/temp_dir").toString();
+    bakMidiDir = settings.value("JV1080/midi_dir").toString();
+    bakPortname = settings.value("JV1080/port_name").toString();
+    bakPortnumber = settings.value("JV1080/port_number").toString();
+    bakDevID = settings.value("JV1080/Dev_ID", 17).toInt();
 
     ui->Host_edit->setText(bakHost);
     ui->Database_edit->setText(bakDatabase);
@@ -42,6 +44,7 @@ INI_CONF::INI_CONF(QWidget *parent) :
     ui->HelpDir_edit->setText(bakHelpDir);
     ui->TempDir_edit->setText(bakTempDir);
     ui->MidiDir_edit->setText(bakMidiDir);
+    ui->DevID->setValue(bakDevID);
     if (bakStartOnline[0]=='y' || bakStartOnline[0]=='y' ||bakStartOnline[0]=='1' ||bakStartOnline[0]=='t' ||bakStartOnline[0]=='T')
         ui->StartOnline_select->setChecked(true);
     else if (bakStartOnline[0]=='n' || bakStartOnline[0]=='N' ||bakStartOnline[0]=='0' ||bakStartOnline[0]=='f' ||bakStartOnline[0]=='F')
@@ -319,3 +322,8 @@ void INI_CONF::getPort() {
   err = snd_card_next(&card_num);
   }	// end WHILE card_num
 }	// end get_port()
+
+void INI_CONF::on_DevID_valueChanged(int id) {
+    QSettings settings(CFGfile,QSettings::IniFormat);
+    settings.setValue("JV1080/Dev_ID",id);
+}
