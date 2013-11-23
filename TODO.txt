@@ -27,6 +27,7 @@ System_tab
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
   - change MIDI player progress bar to slider, allow for interaction with MIDI file
+  - display Key Signature from MIDI file if one exists, link to Tuning Tab
 
 Performance_tab
 10/26/2013  - disable PerfGroup_select when AcceptBankSel_switch not checked

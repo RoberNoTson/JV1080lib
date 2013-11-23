@@ -246,6 +246,8 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
   }	// end UPDATES_ENABLED
   EnablePatch(false);
   setPerfTabs(false);
+  MainTabWidget->setTabEnabled(3,true);	// Patch tab
+  state_table->patchTab_enable = true;    
 }	// end slotSysSetPatch
 
 int JVlibForm::on_System_Sync_button_clicked() {  
@@ -304,8 +306,6 @@ void JVlibForm::slotSysSetPerformanceMode() {
     SysPatch_box->setEnabled(false);
     SysPatchRecvChannel_select->setEnabled(false);
     PerfSync_button->setEnabled(true);
-//    PerfGroup_select->setEnabled(true);
-//    PerfNumber_select->setEnabled(true);
     PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
     PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
     PerfName_edit->setEnabled(true);
@@ -348,8 +348,6 @@ void JVlibForm::slotSysSetPatchMode() {
     state_table->patch_mode = true;
     state_table->GM_mode = false;
     state_table->updates_enabled = false;
-    MainTabWidget->setTabEnabled(3,true);	// Patch tab
-    state_table->patchTab_enable = true;
     if (Patch_PerfPartNum_select->itemText(0)=="1")
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
@@ -359,6 +357,8 @@ void JVlibForm::slotSysSetPatchMode() {
     Patch_Name_edit->setEnabled(true);
     Patch_Sync_button->setEnabled(true);
     setPatchTabs(false);
+    MainTabWidget->setTabEnabled(3,true);	// Patch tab
+    state_table->patchTab_enable = true;    
     state_table->updates_enabled = true;
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
