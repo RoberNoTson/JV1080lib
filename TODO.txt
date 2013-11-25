@@ -14,6 +14,8 @@ Menu
   - create Utility function Write
   - create Utility function Bulk Dump
   - create Utility function DB Maint
+  - create Patch lookup function
+  - create Rhythm lookup function
 
 database
   - fill in missing database info for waves/patch, unknown families, etc.
