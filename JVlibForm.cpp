@@ -19,8 +19,8 @@
 
 QString db_name;
 QString db_user;
-QString JVlibForm::CFGfile;
 QString PORT_NAME;
+QString JVlibForm::CFGfile;
 struct STATE_TABLE *JVlibForm::state_table = 0;
 struct SYSTEM_AREA *JVlibForm::system_area=0;
 struct ACTIVE_AREA *JVlibForm::active_area=0;
@@ -29,6 +29,7 @@ snd_rawmidi_t *JVlibForm::midiInHandle = 0;
 snd_rawmidi_t *JVlibForm::midiOutHandle = 0;
 
 JVlibForm::~JVlibForm() {
+  Patch_List.close();
   if (JVlibForm::mysql.contains("init"))
     JVlibForm::mysql.removeDatabase("init"); 
   SysPlayMidi_button->setChecked(false);
@@ -38,6 +39,7 @@ JVlibForm::~JVlibForm() {
 JVlibForm::JVlibForm() {
   setupUi(this);
   setInitial();
+  static PATCH_LIST Patch_List;
 }	// end JVlibForm()
 
 void JVlibForm::initGraphics() {

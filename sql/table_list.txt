@@ -83,7 +83,7 @@ number  int(11) NO              NULL
 name    varchar(12)     NO              NULL
 group_area      varchar(16)     NO              NULL
 family  varchar(16)     YES             NULL
-instr_family    enum('strings','winds','brass','percussion','keyboards','voice','electronic','soundEffect')      YES             NULL
+instr_family    enum('strings','winds','brass','percussion','keyboards','voice','electronic','chromPerc','guitar','bass','ensemble','ethnic','sfx')      YES             NULL
 solo    tinyint(1)      NO              0
 tone_1_name     text    YES             NULL
 tone_1_number   int(11) YES             NULL

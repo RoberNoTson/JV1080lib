@@ -43350,6 +43350,9 @@
     <addaction name="actionWrite"/>
     <addaction name="actionBulk_Dump"/>
     <addaction name="actionDB_Maint"/>
+    <addaction name="actionPatch_List"/>
+    <addaction name="actionPerf_List"/>
+    <addaction name="actionRhythm_List"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Setup"/>
@@ -43462,6 +43465,21 @@
   <action name="actionDB_Maint">
    <property name="text">
     <string>DB Maint</string>
+   </property>
+  </action>
+  <action name="actionPatch_List">
+   <property name="text">
+    <string>Patch List</string>
+   </property>
+  </action>
+  <action name="actionPerf_List">
+   <property name="text">
+    <string>Perf List</string>
+   </property>
+  </action>
+  <action name="actionRhythm_List">
+   <property name="text">
+    <string>Rhythm List</string>
    </property>
   </action>
  </widget>

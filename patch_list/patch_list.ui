@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PATCH_LIST</class>
+ <widget class="QDialog" name="PATCH_LIST">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PATCH_LIST</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>561</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Filters</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Name (Partial)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>20</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Inst Family</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="PatchList_Family_select">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>40</y>
+      <width>131</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Any</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Keyboards</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Strings</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Winds</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Brass</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Percussion</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ChromPerc</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Voice</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Synth</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Guitars</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bass</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ensemble</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ethnic</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SFX</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="PatchList_Name_edit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PatchList_Select_button">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>40</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PatchList_Exit_button">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>40</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QTextEdit" name="PatchList_Result_list">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>561</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="lineWrapMode">
+    <enum>QTextEdit::NoWrap</enum>
+   </property>
+   <property name="tabStopWidth">
+    <number>4</number>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
