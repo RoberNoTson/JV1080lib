@@ -978,8 +978,10 @@ void JVlibForm::on_PatchEFX_ChorusOutput_select_currentIndexChanged(int val) {
 void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
   if (state_table->updates_enabled) {
     int ppn = Patch_PerfPartNum_select->currentIndex();
-    int pn = Patch_Number_select->value()-1;
-    int Hnum = (pn/16);
+//    int pn = Patch_Number_select->value()-1;
+    int pn = Patch_Number_select->value()>129?Patch_Number_select->value()-129:Patch_Number_select->value()-1;
+//    int Hnum = (pn/16);
+    int Hnum = ((Patch_Number_select->value()-1)/16);
     int MSB,LSB;
     switch(val) {
       case 0:	// User
@@ -1064,7 +1066,7 @@ void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
 	}
 	MSB = 0x54;
 	LSB = Hnum?3:2;
-	Patch_Number_select->setMaximum(255);
+	Patch_Number_select->setMaximum(256);
 	break;
       case 7:	// Exp C
 	if (state_table->perf_mode) {
@@ -1076,7 +1078,7 @@ void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
 	}
 	MSB = 0x54;
 	LSB = Hnum?5:4;
-	Patch_Number_select->setMaximum(255);
+	Patch_Number_select->setMaximum(100);
 	break;
       default:
 	if (state_table->perf_mode) {

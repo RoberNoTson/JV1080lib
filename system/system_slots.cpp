@@ -206,10 +206,10 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
       SysPatchNumber->setMaximum(128);
       break;
     case 6:	// Exp B
-      SysPatchNumber->setMaximum(255);
+      SysPatchNumber->setMaximum(256);
       break;
     case 7:	// Exp C
-      SysPatchNumber->setMaximum(255);
+      SysPatchNumber->setMaximum(100);
       break;
     default:
       SysPatchNumber->setMaximum(128);
@@ -221,7 +221,7 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
     // Bank Select LSB  
     change_3(0xB0+system_area->sys_common.patch_receive_channel, 0x20, LSB);
     // Program Change - Performance number
-    change_2(0xC0+system_area->sys_common.patch_receive_channel, SysPatchNumber->value()-1);
+    change_2(0xC0+system_area->sys_common.patch_receive_channel, SysPatchNumber->value()>128?SysPatchNumber->value()-129 :SysPatchNumber->value()-1);
     getSysPatchName();
   }	// end state_table->jv_connect
   // get the current Patch Mode patch name, update other Tabs as needed
@@ -766,10 +766,11 @@ void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
 }	// end on_SysPerfNumber_valueChanged
 
 void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
-   if (state_table->updates_enabled) {
-    // update sys_common.patch_num_high/low
-    int Hval = ((SysPatchNumber->value()-1)/16);
-    int Lval = ((SysPatchNumber->value()-1)%16);
+  if (state_table->updates_enabled) {
+    on_SysPatchSelect_currentIndexChanged();
+/*    // update sys_common.patch_num_high/low
+    int Hval = ((val-1)/16);
+    int Lval = ((val-1)%16);
     system_area->sys_common.patch_num_high = Hval;
     system_area->sys_common.patch_num_low = Lval;
     if (state_table->jv_connect) {
@@ -778,15 +779,18 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
     // get the new Patch name, update the Patch Tab
     getSysPatchName();
     }	// end state_table->jv_connect
+*/
   // get the current Patch Mode patch name, update other Tabs as needed
-  state_table->updates_enabled = false;
-  Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
-  Patch_Number_select->setValue(SysPatchNumber->value());
-  Patch_Name_edit->setText(SysPatchName->text());
-  state_table->updates_enabled = true;
-  PatchEFX_Group_display->setText(SysPatchSelect->currentText());
-  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
-  PatchEFX_Name_display->setText(Patch_Name_edit->text());
+    state_table->updates_enabled = false;
+    Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
+//  Patch_Number_select->setValue(SysPatchNumber->value());
+    Patch_Number_select->setValue(val);
+    Patch_Name_edit->setText(SysPatchName->text());
+    state_table->updates_enabled = true;
+    PatchEFX_Group_display->setText(SysPatchSelect->currentText());
+//  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
+    PatchEFX_Number_display->setText(QString::number(val));
+    PatchEFX_Name_display->setText(Patch_Name_edit->text());
   }	// end UPDATES_ENABLED
   EnablePatch(false);
   Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
