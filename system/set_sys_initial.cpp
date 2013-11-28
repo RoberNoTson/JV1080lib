@@ -28,9 +28,9 @@ void JVlibForm::setSystemParms() {
   SysHoldControl_select->setCurrentIndex(system_area->sys_common.hold_control_source);
   SysPeakControl_select->setCurrentIndex(system_area->sys_common.peak_control_source);
   SysAftertouchControl_select->setCurrentIndex(system_area->sys_common.aftertouch_control_source);
-  SysMode_select->blockSignals(true);
+//  SysMode_select->blockSignals(true);
   SysMode_select->setCurrentIndex(system_area->sys_common.panel_mode);
-  SysMode_select->blockSignals(false);
+//  SysMode_select->blockSignals(false);
   SysControlChg1Number_select->setValue(system_area->sys_common.sys_control_source_1);
   SysControlChg2Number_select->setValue(system_area->sys_common.sys_control_source_2);
   SysPatchRecvChannel_select->setValue(system_area->sys_common.patch_receive_channel+1);
@@ -129,9 +129,7 @@ void JVlibForm::setSystemParms() {
       SysControlChg2Number_select->setValue(system_area->sys_common.sys_control_source_2);
       break;
   }	// end SysControlSource2
-  
   Patch_BenderRange_box->setEnabled(system_area->sys_common.receive_bender);
-  
   if (system_area->sys_common.panel_mode == 0) {	// Performance
     state_table->perf_mode = true;
     state_table->patch_mode = false;
@@ -146,6 +144,7 @@ void JVlibForm::setSystemParms() {
     getSysPatchName();
     Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
     Patch_Number_select->setValue(SysPatchNumber->value());
+    Patch_Name_edit->setText(SysPatchName->text());
     Patch_Sync_button->setEnabled(true);
     PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
     PatchEFX_Group_display->setText(Patch_Group_select->currentText());
@@ -163,10 +162,10 @@ void JVlibForm::setSystemParms() {
     Tone_InstrFamily_select->blockSignals(false);
     query.finish();
   }
-  System_PlayMidi_status->off();
   state_table->updates_enabled = true;
   state_table->system_sync = true;
   state_table->system_modified = false;
+  System_PlayMidi_status->off();
   System_Sync_status->on();
   System_Upload_button->setEnabled(false);
 }	// end setSystemParms

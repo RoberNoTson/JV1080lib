@@ -139,7 +139,7 @@ if (state_table->updates_enabled) {
 }	// end setSysSingleValue
 
 void JVlibForm::EnableSys(bool val) {
-  // called from slotDownloadClicked after a valid port is selected and System Common is downloaded
+  // called from on_System_Sync_button_clicked() after a valid port is selected and System Common is downloaded
   SysSwitchBox->setEnabled(val);
   SysPreviewBox->setEnabled(val);
   SysSourceBox->setEnabled(val);
@@ -148,7 +148,6 @@ void JVlibForm::EnableSys(bool val) {
   SysPanic_button->setEnabled(val);
   SysMode_select->setEnabled(val);
   System_Sync_button->setEnabled(val);
-//  SysPlayMidi_button->setEnabled(val);
   Tuning_MasterTune_select->setEnabled(val);
   if (state_table->perf_mode) {
     SysPerformance_box->setEnabled(val);

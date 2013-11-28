@@ -60,41 +60,38 @@ void JVlibForm::on_System_Upload_button_clicked() {
 
 }
 void JVlibForm::on_System_SaveData_button_clicked() {
-  // call the Menu option for File/Save
+  // call Menu option for File/Save
   save();
 }
 void JVlibForm::on_System_LoadData_button_clicked() {
-  // call the Menu option for File/Open
+  // call Menu option for File/Open
   open();
 }
 
 void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
   // called by SIGNAL when SysMode switch changes
+  if (!state_table->updates_enabled) return;
   switch(val) {
     case 0:	// Performance mode
-    if (state_table->updates_enabled) {
       system_area->sys_common.panel_mode=val;
       setSysSingleValue(addr_sys_panel_mode,val);
-    }	// end UPDATES_ENABLED
-    slotSysSetPerformanceMode();
-    break;
+      slotSysSetPerformanceMode();
+      break;
     case 1:	// Patch mode
-    if (state_table->updates_enabled) {
       system_area->sys_common.panel_mode=val;
       setSysSingleValue(addr_sys_panel_mode,val);
-    }	// end UPDATES_ENABLED
-    slotSysSetPatchMode();
-    break;
+      slotSysSetPatchMode();
+      break;
     case 2:	// GM mode
-    slotSysSetGmMode();
-    break;
+      slotSysSetGmMode();
+      break;
   }	// end SWITCH
 }	// end on_SysMode_select_currentIndexChanged
 
 void JVlibForm::on_SysPerfSelect_currentIndexChanged() {
   // called by SIGNAL when the SysPerf group is changed
   // or from the Perf Tab when those values are changed.
-   if (state_table->updates_enabled) {
+  if (state_table->updates_enabled) {
     system_area->sys_common.perf_num = SysPerfNumber->value() - 1;
   }	// end UPDATES_ENABLED
   if (state_table->jv_connect) {
@@ -355,6 +352,7 @@ void JVlibForm::slotSysSetPatchMode() {
     Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
     Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
     Patch_Name_edit->setEnabled(true);
+    Patch_Name_edit->setText(SysPatchName->text());
     Patch_Sync_button->setEnabled(true);
     setPatchTabs(false);
     MainTabWidget->setTabEnabled(3,true);	// Patch tab
@@ -363,8 +361,6 @@ void JVlibForm::slotSysSetPatchMode() {
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
     state_table->tuning_modified = false;
-//    Tuning_ScaleTuning_enable->setChecked(false);
-//    Tuning_ScaleTuning_enable->setEnabled(false);
 }	// end slotSysSetPatchMode
 
 void JVlibForm::slotSysSetGmMode() {
@@ -811,5 +807,6 @@ void JVlibForm::setPatchTabs(bool val) {
 }
 
 void JVlibForm::System_Loaded() {
+  // defined as a SLOT to call the Initialize functions; called from external dialogs
   setSystemParms();
 }

@@ -48,10 +48,10 @@ Patch_tab
 10/18/2013  - disable Patch_Group_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
 10/29/2013  - change cursor to Wait when Sync pressed
-  - BUG: changing Patch number on Patch tab causes focus to jump to Tuning tab
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
-  - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
+11/28/2013  - BUG: changing Patch number on Patch tab causes focus to jump to Tuning tab
   - set Patch_Name_edit Read-Only unless in Patch mode and the Patch_Group is "User"
+  - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
+  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
