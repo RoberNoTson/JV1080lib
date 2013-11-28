@@ -1114,32 +1114,36 @@ void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
 }	// end on_Patch_Group_select_currentIndexChanged
 
 void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
-    int pn = val-1;
-    int ppn = Patch_PerfPartNum_select->currentIndex();
-    int Hpn = pn/16;
-    int Lpn = pn%16;
-    if (state_table->perf_mode) {
-      active_area->active_performance.perf_part[ppn].patch_num_high = Hpn;
-      active_area->active_performance.perf_part[ppn].patch_num_low = Lpn;
-    } else {
-      system_area->sys_common.patch_num_high = Hpn;
-      system_area->sys_common.patch_num_low = Lpn;
-    }	// end IF...ELSE
-    if (state_table->jv_connect) {
-    // update JV
-    change_2(0xC0 + (state_table->perf_mode ? active_area->active_performance.perf_part[ppn].MIDI_channel : system_area->sys_common.patch_receive_channel), pn);
-    }
-    EnablePatch(false);
+  if (!state_table->updates_enabled) return;
+  int ppn = Patch_PerfPartNum_select->currentIndex();
+  int pn = val>129?val-129:val-1;
+  int Hpn = (val-1)/16;
+  int Lpn = (val-1)%16;
+  if (state_table->perf_mode) {
+    active_area->active_performance.perf_part[ppn].patch_num_high = Hpn;
+    active_area->active_performance.perf_part[ppn].patch_num_low = Lpn;
+  } 
+  else {
+    system_area->sys_common.patch_num_high = Hpn;
+    system_area->sys_common.patch_num_low = Lpn;
+  }	// end IF...ELSE
+  if (state_table->jv_connect) {
+    change_2(0xC0 + (state_table->perf_mode ? 
+    active_area->active_performance.perf_part[ppn].MIDI_channel :
+    system_area->sys_common.patch_receive_channel), pn);
+  }
   if (state_table->patch_mode) {
+    SysPatchNumber->blockSignals(true);
     SysPatchNumber->setValue(Patch_Number_select->value());
+    SysPatchNumber->blockSignals(false);
     getSysPatchName();
-  } else {
+  } 
+  else {
     Patch_Name_edit->setText(getPartPatchName(ppn));
   }
   PatchEFX_Number_display->setText(QString::number(Patch_Number_select->value()));
   PatchEFX_Name_display->setText(Patch_Name_edit->text());
-  }	// end state_table->updates_enabled
+  EnablePatch(false);
 }	// end on_Patch_Number_select_valueChanged
 
 void JVlibForm::on_Patch_TestTone_switch_toggled(bool val) {

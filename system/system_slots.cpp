@@ -729,7 +729,7 @@ void JVlibForm::on_SysPreviewNote4_volume_valueChanged(int val) {
 // --------------------------------------------------------------------------------------------------------------------
 // Button actions on the System Tab
 void JVlibForm::on_SysTestTone_button_clicked(bool val) {
- if (state_table->jv_connect) {
+  if (!state_table->jv_connect) return;
   if (val) {
     change_3(0x90, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
   } 
@@ -738,7 +738,6 @@ void JVlibForm::on_SysTestTone_button_clicked(bool val) {
     change_3(0xB0, 0x79, 0x0);
   }	// end else
   SysTestTone_button->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Test Tone") );
- }	// end jv_connect
 }
 
 void JVlibForm::on_SysPanic_button_clicked() {
@@ -750,7 +749,7 @@ void JVlibForm::on_SysPanic_button_clicked() {
 }
 
 void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
-   if (state_table->updates_enabled) {
+  if (state_table->updates_enabled) {
     system_area->sys_common.perf_num = val - 1;
     if (state_table->jv_connect) {
       // Program Change - Performance number
@@ -768,27 +767,13 @@ void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
 void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
   if (state_table->updates_enabled) {
     on_SysPatchSelect_currentIndexChanged();
-/*    // update sys_common.patch_num_high/low
-    int Hval = ((val-1)/16);
-    int Lval = ((val-1)%16);
-    system_area->sys_common.patch_num_high = Hval;
-    system_area->sys_common.patch_num_low = Lval;
-    if (state_table->jv_connect) {
-      // Program Change - Patch number
-      change_2(0xC0+system_area->sys_common.patch_receive_channel, val-1);
-    // get the new Patch name, update the Patch Tab
-    getSysPatchName();
-    }	// end state_table->jv_connect
-*/
-  // get the current Patch Mode patch name, update other Tabs as needed
+    // get the current Patch Mode patch name, update other Tabs as needed
     state_table->updates_enabled = false;
     Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
-//  Patch_Number_select->setValue(SysPatchNumber->value());
     Patch_Number_select->setValue(val);
     Patch_Name_edit->setText(SysPatchName->text());
     state_table->updates_enabled = true;
     PatchEFX_Group_display->setText(SysPatchSelect->currentText());
-//  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
     PatchEFX_Number_display->setText(QString::number(val));
     PatchEFX_Name_display->setText(Patch_Name_edit->text());
   }	// end UPDATES_ENABLED
@@ -811,12 +796,12 @@ void JVlibForm::setPerfTabs(bool val) {
 }
 
 void JVlibForm::setPatchTabs(bool val) {
-  MainTabWidget->setTabEnabled(5,val);
-  MainTabWidget->setTabEnabled(6,val);
-  MainTabWidget->setTabEnabled(7,val);
-  MainTabWidget->setTabEnabled(8,val);
-  MainTabWidget->setTabEnabled(9,val);
   MainTabWidget->setTabEnabled(10,val);
+  MainTabWidget->setTabEnabled(9,val);
+  MainTabWidget->setTabEnabled(8,val);
+  MainTabWidget->setTabEnabled(7,val);
+  MainTabWidget->setTabEnabled(6,val);
+  MainTabWidget->setTabEnabled(5,val);
   state_table->patchEFXTab_enable = val;
   state_table->toneTab_enable = val;
   state_table->toneEFXTab_enable = val;
