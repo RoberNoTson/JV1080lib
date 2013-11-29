@@ -10,7 +10,7 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
   int   err;
   int   Stop=0;
   unsigned char  buf[8];
-  char       user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };
+  char    user1_rhythm_common[]={ 0x10,0x40,0x0,0x0 };
   char    rhythm_common_size[] = { 0x0,0x0,0x0,0x0C };
   char    rhythm_note_size[] = { 0x0,0x0,0x0,0x3A };
   struct RHYTHM temp_r;
@@ -20,14 +20,14 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
   memcpy(buf,user1_rhythm_common,4);
   if (pn==2)
     buf[1] = 0x41;
-  memcpy(buf+9,rhythm_common_size,4);
+  memcpy(buf+4,rhythm_common_size,4);
   if (ui->Save_All_button->isChecked()) {
     buf[1] = 0x40;
     buf[6] = 0x01;		 //0x0c*2 +0x3A*2 = 0x8C = 0x01 0x0C
     buf[7] = 0x0C;
   }
-  if (JVlibForm::open_ports() == EXIT_FAILURE) return false;
-  puts("Getting Rhythm Common");
+  if (JVlibForm::open_ports() == EXIT_FAILURE) { puts("unable to open seq port"); return false; }
+//  puts("Getting Rhythm Common");
   QProgressDialog progress("Getting Rhythm data...", "Abort Download", 0, 65, 0);
   progress.setWindowModality(Qt::WindowModal);
   progress.setMinimumDuration(0);

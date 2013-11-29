@@ -6,13 +6,13 @@
 
 QT       += sql
 
-TARGET = patch_list
+TARGET = data_list
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        patch_list.cpp
+        data_list.cpp
 
-HEADERS  += patch_list.h
+HEADERS  += data_list.h
 
-FORMS    += patch_list.ui
+FORMS    += data_list.ui

@@ -5638,7 +5638,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -43350,9 +43350,7 @@
     <addaction name="actionWrite"/>
     <addaction name="actionBulk_Dump"/>
     <addaction name="actionDB_Maint"/>
-    <addaction name="actionPatch_List"/>
-    <addaction name="actionPerf_List"/>
-    <addaction name="actionRhythm_List"/>
+    <addaction name="actionData_Lists"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Setup"/>
@@ -43467,9 +43465,9 @@
     <string>DB Maint</string>
    </property>
   </action>
-  <action name="actionPatch_List">
+  <action name="actionData_Lists">
    <property name="text">
-    <string>Patch List</string>
+    <string>Data Lists</string>
    </property>
   </action>
   <action name="actionPerf_List">

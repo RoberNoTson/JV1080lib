@@ -29,7 +29,7 @@ snd_rawmidi_t *JVlibForm::midiInHandle = 0;
 snd_rawmidi_t *JVlibForm::midiOutHandle = 0;
 
 JVlibForm::~JVlibForm() {
-  Patch_List.close();
+  Data_List.close();
   if (JVlibForm::mysql.contains("init"))
     JVlibForm::mysql.removeDatabase("init"); 
   SysPlayMidi_button->setChecked(false);
@@ -39,7 +39,7 @@ JVlibForm::~JVlibForm() {
 JVlibForm::JVlibForm() {
   setupUi(this);
   setInitial();
-  static PATCH_LIST Patch_List;
+  static DATA_LIST Data_List;
 }	// end JVlibForm()
 
 void JVlibForm::initGraphics() {

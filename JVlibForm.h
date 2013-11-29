@@ -13,7 +13,7 @@
 #include	"config/ini_conf.h"
 #include	"save_dialog/Save_Dialog.h"
 #include	"load_dialog/load_dialog.h"
-#include	"patch_list/patch_list.h"
+#include	"data_list/data_list.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 2	//number of times to retry after a timeout
@@ -35,7 +35,7 @@ class JVlibForm : public QMainWindow, private Ui::JVlibForm
 {
   friend class Save_Dialog;
   friend class Load_Dialog;
-  friend class PATCH_LIST;
+  friend class DATA_LIST;
   
   Q_OBJECT
 
@@ -68,7 +68,7 @@ private slots:
   void slotDB_Maint();
   void slotactionBulk_Dump(); 
   void slotactionWhats_This();
-  void on_actionPatch_List_triggered();
+  void on_actionData_Lists_triggered();
   QString funcNoteCalc(int);
   QString Pan2Deg(int);
   void initGraphics();
@@ -1234,7 +1234,7 @@ private:
     int getSeqPort();
     void createPlayMidi();
     void stop_sound();
-    PATCH_LIST Patch_List;
+    DATA_LIST Data_List;
 };	// end class JVlibForm
 
 #endif	// JVlibForm_H

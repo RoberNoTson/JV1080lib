@@ -10,11 +10,11 @@
  </data>
  <data>
   <variable>RunConfiguration0-ProFile</variable>
-  <value type="QString">patch_list.pro</value>
+  <value type="QString">data_list.pro</value>
  </data>
  <data>
   <variable>RunConfiguration0-RunConfiguration.name</variable>
-  <value type="QString">patch_list</value>
+  <value type="QString">data_list</value>
  </data>
  <data>
   <variable>RunConfiguration0-UseDyldImageSuffix</variable>
@@ -166,7 +166,7 @@
     <value type="QString">XSESSION_IS_UP=yes</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
-    <value type="QString">/Development/linux/qt/work/JVlib/patch_list/patch_list.pro</value>
+    <value type="QString">/Development/linux/qt/work/JVlib/data_list/data_list.pro</value>
     <value type="QString">-spec</value>
     <value type="QString">linux-g++-64</value>
     <value type="QString">-r</value>
@@ -174,7 +174,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool">false</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/patch_list</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/data_list</value>
   </valuemap>
  </data>
  <data>
@@ -277,7 +277,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/patch_list</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/Development/linux/qt/work/JVlib/data_list</value>
   </valuemap>
  </data>
  <data>

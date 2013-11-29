@@ -57,6 +57,7 @@ Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
 10/18/2013  - disable Rhythm_WaveGroup_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Rhythm_WaveNumber_select when AcceptProgramChg_switch not checked
+  - change to ComboBox for Group, SpinBox for Number; sync with Parts Tab part#10
   - enable/disable Play button relative to Sync status
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot

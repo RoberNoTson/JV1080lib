@@ -13,7 +13,7 @@
  * save()
  * saveAs()
  * about()
- * on_actionPatch_List_triggered()
+ * on_actionData_Lists_triggered()
  */
 
 #include	"JVlibForm.h"
@@ -21,7 +21,7 @@
 #include	"config/ini_conf.h"
 #include	"save_dialog/Save_Dialog.h"
 #include	"load_dialog/load_dialog.h"
-#include	"patch_list/patch_list.h"
+#include	"data_list/data_list.h"
 
 QSqlDatabase JVlibForm::db_mysql;
 
@@ -166,9 +166,8 @@ void JVlibForm::about() {
                "<center>Copyright 2013, all rights reserved</center>");
 }
 
-void JVlibForm::on_actionPatch_List_triggered() {
-//  static PATCH_LIST Patch_List(this);
-  Patch_List.show();
-  Patch_List.raise();
-  Patch_List.activateWindow();
+void JVlibForm::on_actionData_Lists_triggered() {
+  Data_List.show();
+  Data_List.raise();
+  Data_List.activateWindow();
 }
