@@ -82,7 +82,21 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
       setSysSingleValue(addr_sys_panel_mode,val);
       slotSysSetPatchMode();
       break;
-    case 2:	// GM mode
+    case 2:	// Rhythm mode
+      // there is no known way to set the JV into Rhythm Edit mode via SysEx, so set to Perf mode, part#10
+      // NOTE: perf_part_10 controls are synced with the same control on Rhythm tab, use either one in Perf mode
+      setSysSingleValue(addr_sys_panel_mode, 0);
+      slotSysSetPerformanceMode();
+      // disable Perf_tab, Patch_tab, Parts_tab, enable Rhythm_tab 
+      MainTabWidget->setTabEnabled(1,false);	// Performance tab
+      state_table->performanceTab_enable = false;
+      SysPerformance_box->setEnabled(false);
+      state_table->perf_mode = false;
+      MainTabWidget->setTabEnabled(4, true);
+      state_table->rhythm_mode = true;
+      // download Rhythm_common for name, Perf_Part_10 for group, group_id, wave_number. Everything else waits on Sync Button
+      break;
+    case 3:	// GM mode
       slotSysSetGmMode();
       break;
   }	// end SWITCH

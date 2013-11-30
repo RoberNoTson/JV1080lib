@@ -712,6 +712,8 @@ private slots:
   
   // for Rhythm tab
   void on_Rhythm_Sync_button_clicked();
+  void on_Rhythm_PatchGroup_select_currentIndexChanged(int);
+  void on_Rhythm_PatchNumber_select_valueChanged(int);
   void on_Rhythm_EnvMode_select_toggled(bool);
   void on_Rhythm_Note_enable_toggled(bool);
   void on_Rhythm_Hold_enable_toggled(bool);
@@ -770,6 +772,7 @@ private slots:
   void on_Rhythm_ToneLevel_select_valueChanged(int);
   void on_Rhythm_TuneAdj_select_valueChanged(int);
   void on_Rhythm_TestTone_switch_clicked(bool);
+  void on_Rhythm_ListNotes_button_clicked();
   
   // for PlayMidi
   void on_System_OpenMidi_button_clicked();

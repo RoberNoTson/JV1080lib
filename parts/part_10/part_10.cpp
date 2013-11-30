@@ -110,11 +110,11 @@ void JVlibForm::on_Part10_VoiceReserve_select_valueChanged(int val) {
 //---------------------------------------------------------------------------------------------------------------------
 void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
   // called after a change in the Patch group or number for this part to update the Patch Name and active_area memory
- if (state_table->updates_enabled) {
+ if (!state_table->updates_enabled) return;
   int MSB,LSB;
   int CtlChl = toggleControlChannel(10);
   // change onscreen control to set maximum value for the parm type
-  Part10_PatchNumber_select->setMaximum(2);
+//  Part10_PatchNumber_select->setMaximum(2);
   // update perf_part.patch_num_high/low
   int pn = Part10_PatchNumber_select->value() - 1;
   active_area->active_performance.perf_part[9].patch_num_high = 0;
@@ -172,30 +172,37 @@ void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
     change_2(0xC0 + Part10_MidiChannel_select->value()-1, pn);
   }  // end state_table->updates_enabled
   Part10_PatchName_display->setText(getPartPatchName(9));
-  if (state_table->perf_mode) Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
-  if (state_table->perf_mode) Rhythm_PatchGroup_display->setText(Part10_PatchGroup_select->currentText());
+  // update Rhythm_tab
+//  if (state_table->perf_mode) 
+    Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
+//  if (state_table->perf_mode) {
+    Rhythm_PatchGroup_select->blockSignals(true);
+    Rhythm_PatchGroup_select->setCurrentIndex(val);
+    Rhythm_PatchGroup_select->blockSignals(false);
+//  }    
   if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
- }	// end state_table->updates_enabled  
 }	// end on_Part10_PatchGroup_select_currentIndexChanged
 
 void JVlibForm::on_Part10_PatchNumber_select_valueChanged(int val) {
   if (state_table->updates_enabled) {
     int pn = val-1;
     int CtlChl=0;
-    if (state_table->perf_mode) {
+//    if (state_table->perf_mode) {
       CtlChl = toggleControlChannel(10);
       active_area->active_performance.perf_part[9].patch_num_high = 0;
       active_area->active_performance.perf_part[9].patch_num_low = pn;
-    }
+//    }
     if (state_table->jv_connect)
       change_2(0xC0 + Part10_MidiChannel_select->value()-1, pn);
     if (state_table->perf_mode) 
       if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
-    if (state_table->perf_mode) {
-      Rhythm_PatchNumber_display->setText(Part10_PatchNumber_select->text());
+//    if (state_table->perf_mode) {
+      Rhythm_PatchNumber_select->blockSignals(true);
+      Rhythm_PatchNumber_select->setValue(val);
+      Rhythm_PatchNumber_select->blockSignals(false);
       Part10_PatchName_display->setText(getPartPatchName(9));
       Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
-    }
+//    }
     if (state_table->GM_mode) {
       Part10_PatchName_display->setText(Part10_PatchNumber_select->value()==1 ? "GM Drum Set" : "BrushDrumSet");
     }

@@ -155,8 +155,8 @@ struct PATCH_COMMON {	// size 0x48
 } __attribute__ ((packed));
 struct PATCH_TONE {	// size 0x81 (0x0101 in 7bit form)
   bool	tone;	// 0
-  char	wave_group;	// 1	0x00 IntA 0x00 IntB 0x02 ExpA 0x02 ExpB 0x02 ExpC
-  char	wave_group_id;	// 2	0x01 IntA 0x02 IntB 0x02 ExpA 0x10 ExpB 0x62 ExpC
+  char	wave_group;	// 1	0x00 IntA 0x00 IntB  0X01 PCM  0x02 ExpA 0x02 ExpB 0x02 ExpC
+  char	wave_group_id;	// 2	0x01 IntA 0x02 IntB  0X0? PCM  0x02 ExpA 0x10 ExpB 0x62 ExpC
   char	wave_num_high;	// 3  val * 16
   char	wave_num_low;	// 4  val + wave_num_high
   char	wave_gain;	// 5
@@ -273,8 +273,8 @@ struct RHYTHM_COMMON {	// size 0x0C
 } __attribute__ ((packed));
 struct RHYTHM_NOTE{	// size 0x3A
   bool	tone;		// 0
-  char	wave_group;	// 1
-  char	wave_group_id;	// 2
+  char	wave_group;	// 1 0x00 IntA 0x00 IntB  0x01 PCM  0x02 ExpA 0x02 ExpB 0x02 ExpC
+  char	wave_group_id;	// 2 0x01 IntA 0x02 IntB  0x0? PCM  0x02 ExpA 0x10 ExpB 0x62 ExpC
   char	wave_num_high;	// 3
   char	wave_num_low;	// 4
   char	wave_gain;	// 5

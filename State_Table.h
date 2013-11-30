@@ -16,6 +16,7 @@ enum TuningTypes {
 struct STATE_TABLE {
   bool perf_mode;
   bool patch_mode;
+  bool rhythm_mode;
   bool GM_mode;
   bool systemTab_enable;
   bool system_sync;	// System Tab settings have been downloaded and are synchronized with the synth

@@ -91,34 +91,42 @@ void JVlibForm::setRhythmParms(int val) {
   Rhythm_WaveName_display->setText(RhythmName_query());
   Rhythm_KeyPress_display->setText(funcNoteCalc(Rhythm_KeyPress_select->value()));
   Rhythm_PatchName_display->setText(QString::fromAscii(&active_area->active_rhythm.rhythm_common.name[0],12));
-  Rhythm_PatchNumber_display->setText(QString::number(active_area->active_performance.perf_part[9].patch_num_low + 1));
+//  Rhythm_PatchNumber_display->setText(QString::number(active_area->active_performance.perf_part[9].patch_num_low + 1));
+  Rhythm_PatchNumber_select->setValue(active_area->active_performance.perf_part[9].patch_num_low + 1);
   switch(active_area->active_performance.perf_part[9].patch_group_id) {
     case 0x01:
-      Rhythm_PatchGroup_display->setText("User");
+//      Rhythm_PatchGroup_display->setText("User");
+      Rhythm_PatchGroup_select->setCurrentIndex(0);
       break;
     case 0x02:
-      Rhythm_PatchGroup_display->setText("Expansion A");
+//      Rhythm_PatchGroup_display->setText("Expansion A");
       break;
     case 0x03:
-      Rhythm_PatchGroup_display->setText("Preset A");
+//      Rhythm_PatchGroup_display->setText("Preset A");
+      Rhythm_PatchGroup_select->setCurrentIndex(1);
       break;
     case 0x04:
-      Rhythm_PatchGroup_display->setText("Preset B");
+//      Rhythm_PatchGroup_display->setText("Preset B");
+      Rhythm_PatchGroup_select->setCurrentIndex(2);
       break;
     case 0x05:
-      Rhythm_PatchGroup_display->setText("Preset C");
+//      Rhythm_PatchGroup_display->setText("Preset C");
+      Rhythm_PatchGroup_select->setCurrentIndex(3);
       break;
     case 0x06:
-      Rhythm_PatchGroup_display->setText("GM");
+//      Rhythm_PatchGroup_display->setText("GM");
+      Rhythm_PatchGroup_select->setCurrentIndex(4);
       break;
     case 0x10:
-      Rhythm_PatchGroup_display->setText("Expansion B");
+//      Rhythm_PatchGroup_display->setText("Expansion B");
+      Rhythm_PatchGroup_select->setCurrentIndex(5);
       break;
     case 0x62:
-      Rhythm_PatchGroup_display->setText("Expansion C");
+//      Rhythm_PatchGroup_display->setText("Expansion C");
       break;
     default:
-      Rhythm_PatchGroup_display->setText("User");
+//      Rhythm_PatchGroup_display->setText("User");
+      Rhythm_PatchGroup_select->setCurrentIndex(0);
       break;
   }	// end Switch
   Rhythm_Pan_display->setText(Pan2Deg(Rhythm_Pan_select->value()));

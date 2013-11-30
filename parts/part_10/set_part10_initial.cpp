@@ -60,8 +60,14 @@ void JVlibForm::setPart10_Parms() {
     Part10_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[9].patch_common.name[0],12));
     Part10_LowLimit_display->setText(funcNoteCalc(Part10_LowLimit_select->value()));
     Part10_HighLimit_display->setText(funcNoteCalc(Part10_HighLimit_select->value()));
-    Rhythm_PatchGroup_display->setText(Part10_PatchGroup_select->currentText());
-    Rhythm_PatchNumber_display->setText(Part10_PatchNumber_select->text());
+//    Rhythm_PatchGroup_display->setText(Part10_PatchGroup_select->currentText());
+    Rhythm_PatchGroup_select->blockSignals(true);
+    Rhythm_PatchGroup_select->setCurrentIndex(Part10_PatchGroup_select->currentIndex());
+    Rhythm_PatchGroup_select->blockSignals(false);
+//    Rhythm_PatchNumber_display->setText(Part10_PatchNumber_select->text());
+    Rhythm_PatchNumber_select->blockSignals(true);
+    Rhythm_PatchNumber_select->setValue(Part10_PatchNumber_select->value());
+    Rhythm_PatchNumber_select->blockSignals(false);
     Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
     Part10_PatchGroup_select->setEnabled(Part10_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
     Part10_MidiChannel_select->setEnabled(Part10_ReceiveMidi_enable->isChecked());

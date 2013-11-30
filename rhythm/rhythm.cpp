@@ -1,4 +1,10 @@
 // rhythm.cpp
+/* Contains:
+ * getActiveRhythm
+ * RhythmName_query
+ * Rhythm_EnableAll
+ */
+
 #include	"JVlibForm.h"
 #include	<QtGui>
 

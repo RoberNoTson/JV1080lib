@@ -1,4 +1,70 @@
 // rhythm_slots.cpp
+/* Contains:
+ * RhythmStdUpdate
+ * on_Rhythm_Sync_button_clicked
+ * on_Rhythm_KeyPress_select_valueChanged
+ * on_Rhythm_Note_enable_toggled
+ * on_Rhythm_WaveGroup_select_currentIndexChanged
+ * on_Rhythm_WaveNumber_select_valueChanged
+ * on_Rhythm_WaveGain_select_currentIndexChanged
+ * on_Rhythm_BenderRange_select_valueChanged
+ * on_Rhythm_MuteGroup_select_valueChanged
+ * on_Rhythm_EnvMode_select_toggled
+ * on_Rhythm_Volume_enable_toggled
+ * on_Rhythm_Hold_enable_toggled
+ * on_Rhythm_PanControl_select_currentIndexChanged
+ * on_Rhythm_SoundingPitch_select_valueChanged
+ * on_Rhythm_TuneAdj_select_valueChanged
+ * on_Rhythm_RandPitchDepth_select_currentIndexChanged
+ * on_Rhythm_PitchDepth_select_valueChanged
+ * on_Rhythm_PitchVelocSens_select_valueChanged
+ * on_Rhythm_PitchVeloTime_select_currentIndexChanged
+ * on_Rhythm_PitchTime1_select_valueChanged
+ * on_Rhythm_PitchTime2_select_valueChanged
+ * on_Rhythm_PitchTime3_select_valueChanged
+ * on_Rhythm_PitchTime4_select_valueChanged
+ * on_Rhythm_PitchLvl1_select_valueChanged
+ * on_Rhythm_PitchLvl2_select_valueChanged
+ * on_Rhythm_PitchLvl3_select_valueChanged
+ * on_Rhythm_PitchLvl4_select_valueChanged
+ * on_Rhythm_TVFFilterType_select_currentIndexChanged
+ * on_Rhythm_TVFCutoffFreq_select_valueChanged
+ * on_Rhythm_TVFResonance_select_valueChanged
+ * on_Rhythm_TVFResVelocSens_select_valueChanged
+ * on_Rhythm_TVFDepth_select_valueChanged
+ * on_Rhythm_TVFVelocSens_select_valueChanged
+ * on_Rhythm_TVFVelTimeSens_select_currentIndexChanged
+ * on_Rhythm_TVFTime1_select_valueChanged
+ * on_Rhythm_TVFTime2_select_valueChanged
+ * on_Rhythm_TVFTime3_select_valueChanged
+ * on_Rhythm_TVFTime4_select_valueChanged
+ * on_Rhythm_TVFLvl1_select_valueChanged
+ * on_Rhythm_TVFLvl2_select_valueChanged
+ * on_Rhythm_TVFLvl3_select_valueChanged
+ * on_Rhythm_TVFLvl4_select_valueChanged
+ * on_Rhythm_ToneLevel_select_valueChanged
+ * on_Rhythm_TVAVelocSens_select_valueChanged
+ * on_Rhythm_TVAVelTimeSens_select_currentIndexChanged
+ * on_Rhythm_TVATime1_select_valueChanged
+ * on_Rhythm_TVATime2_select_valueChanged
+ * on_Rhythm_TVATime3_select_valueChanged
+ * on_Rhythm_TVATime4_select_valueChanged
+ * on_Rhythm_TVALvl1_select_valueChanged
+ * on_Rhythm_TVALvl2_select_valueChanged
+ * on_Rhythm_TVALvl3_select_valueChanged
+ * on_Rhythm_Pan_select_valueChanged
+ * on_Rhythm_PanRandDepth_select_valueChanged
+ * on_Rhythm_AltPan_select_valueChanged
+ * on_Rhythm_Output_select_currentIndexChanged
+ * on_Rhythm_OutputLevel_select_valueChanged
+ * on_Rhythm_ChorusSend_select_valueChanged
+ * on_Rhythm_ReverbSend_select_valueChanged
+ * on_Rhythm_TestTone_switch_clicked
+ * on_Rhythm_ListNotes_button_clicked
+ * on_Rhythm_PatchGroup_select_currentIndexChanged
+ * on_Rhythm_PatchNumber_select_valueChanged
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 
@@ -293,3 +359,62 @@ void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
  }	// end state_table->jv_connect
   Rhythm_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Note") );
 }	// end on_Rhythm_TestTone_switch_clicked
+
+void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
+  // rhythmNote_list
+  QString Group;
+  int Num;
+  QString WaveName;
+  QSqlQuery NameQuery(mysql);
+  
+  NameQuery.prepare("Select name from wave_list where group_area = ? and number = ?");
+//  for (int x=0x23;x<0x63;x++) {
+  for (int x=0;x<64;x++) {
+    Group.clear();
+    switch(active_area->active_rhythm.rhythm_note[x].wave_group_id) {
+      case 1:	// Int A
+	Group = "Internal A";
+	break;
+      case 2:	// Int B or Exp A
+	Group = active_area->active_rhythm.rhythm_note[x].wave_group==0 ? "Internal B" : "Expansion A";
+	break;
+      case 10:	// Exp B
+	Group = "Expansion B";
+	break;
+      case 62:	// Exp C
+	Group = "Expansion C";
+	break;      
+    }	// end switch Group
+    Num = active_area->active_rhythm.rhythm_note[x].wave_num_high*16;
+    Num += active_area->active_rhythm.rhythm_note[x].wave_num_low;
+    Num++;
+    NameQuery.bindValue(0, Group);
+    NameQuery.bindValue(1, Num);
+    if (NameQuery.exec() == false) { puts("Query exec failed"); return; }
+    if (NameQuery.size()==0) { puts("0 rows found in WaveName_query"); continue; }
+    NameQuery.first();
+    WaveName = NameQuery.value(0).toString();
+    WaveName = WaveName.leftJustified(12, ' ');
+    // output the results
+//    Group.prepend("   "+funcNoteCalc(x+35)+"   ");
+    Group.prepend(funcNoteCalc(x+35)+"   ");
+//    Group.prepend(QString::number(x+35));
+    Group.append(" "+QString::number(Num));
+    Group.append("    "+WaveName);
+printf("%s\n",Group.toAscii().data());   
+  }	// end FOR
+  NameQuery.finish();  
+}	// end on_Rhythm_ListNotes_button_clicked
+
+void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
+//  Part10_PatchGroup_select->blockSignals(true);
+  Part10_PatchGroup_select->setCurrentIndex(val);
+//  Part10_PatchGroup_select->blockSignals(false);
+}
+
+void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
+//  Part10_PatchNumber_select->blockSignals(true);
+  Part10_PatchNumber_select->setValue(val);
+//  Part10_PatchNumber_select->blockSignals(true);
+}
+

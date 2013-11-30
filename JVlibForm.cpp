@@ -81,6 +81,7 @@ void JVlibForm::initGraphics() {
 void JVlibForm::initStateTable() {
   state_table->perf_mode = false;
   state_table->patch_mode = false;
+  state_table->rhythm_mode = false;
   state_table->GM_mode = false;
   state_table->systemTab_enable = false;
   state_table->system_sync = false;
