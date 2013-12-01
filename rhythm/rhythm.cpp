@@ -1,5 +1,6 @@
 // rhythm.cpp
 /* Contains:
+ * RhythmStdUpdate
  * getActiveRhythm
  * RhythmName_query
  * Rhythm_EnableAll
@@ -7,6 +8,29 @@
 
 #include	"JVlibForm.h"
 #include	<QtGui>
+
+void JVlibForm::RhythmStdUpdate(int offset, int val) {
+  if (!state_table->perf_mode) return;
+  if (state_table->updates_enabled) {
+    int tn = Rhythm_KeyPress_select->value();
+    bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;
+    ptr[offset] = val;
+    if (state_table->jv_connect) {
+      unsigned char buf[5];
+      buf[0] = 0x02;
+      buf[1] = 0x09;
+      buf[2] = tn;
+      buf[3] = offset;
+      buf[4] = val;
+      if (open_ports() == EXIT_FAILURE) return;
+      if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
+	close_ports(); 
+	return;
+      }
+      close_ports();
+    }	// end state_table->jv_connect
+  }	// end udpates_enabled
+}	// end RhythmStdUpdate
 
 bool JVlibForm::getActiveRhythm() {
   // called when Rhythm Sync button is clicked.
@@ -159,3 +183,4 @@ void JVlibForm::Rhythm_EnableAll(bool val) {
   Rhythm_KeyPress_select->setEnabled(val);
   Rhythm_ToneLevel_select->setEnabled(val);
 }	// end Rhythm_EnableAll
+

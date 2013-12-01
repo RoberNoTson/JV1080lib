@@ -64,9 +64,17 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
-    getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
-    setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
-  } else {
+    if (Patch_PerfPartNum_select->currentIndex()==9) {
+      MainTabWidget->setCurrentIndex(4);
+      Rhythm_Sync_button->setFocus();
+      on_Rhythm_Sync_button_clicked();
+    }
+    else {
+      getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
+      setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
+    }
+  } 
+  else if (state_table->patch_mode){
     getActivePatchMode();
     setPatchParms(0);	// will also set Tone, Pitch, etc.
   }
@@ -275,7 +283,6 @@ void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
 	Patch_Name_edit->setText(Part10_PatchName_display->text());
 	Patch_Group_select->setCurrentIndex(Part10_PatchGroup_select->currentIndex()?Part10_PatchGroup_select->currentIndex()+1:Part10_PatchGroup_select->currentIndex());
 	Patch_Number_select->setValue(Part10_PatchNumber_select->value());
-	Patch_Sync_button->setEnabled(false);
 	EnablePatch(false);
 	state_table->updates_enabled = true;
 	return;

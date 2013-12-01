@@ -5643,7 +5643,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -25212,8 +25212,8 @@
      <widget class="QWidget" name="layoutWidget_144">
       <property name="geometry">
        <rect>
-        <x>430</x>
-        <y>70</y>
+        <x>440</x>
+        <y>40</y>
         <width>182</width>
         <height>25</height>
        </rect>
@@ -25259,8 +25259,8 @@
      <widget class="QWidget" name="layoutWidget_143">
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>110</y>
+        <x>510</x>
+        <y>180</y>
         <width>122</width>
         <height>26</height>
        </rect>
@@ -26535,44 +26535,6 @@
        <property name="notchesVisible">
         <bool>true</bool>
        </property>
-      </widget>
-      <widget class="QWidget" name="layoutWidget_293">
-       <property name="geometry">
-        <rect>
-         <x>180</x>
-         <y>150</y>
-         <width>99</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <layout class="QFormLayout" name="formLayout_47">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_304">
-          <property name="text">
-           <string notr="true">Bender</string>
-          </property>
-          <property name="buddy">
-           <cstring>Rhythm_BenderRange_select</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="Rhythm_BenderRange_select">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="toolTip">
-           <string notr="true">Patch-level setting for Bender Up messages, Set the pitch change limit up to 4 octaves by semitones. System Bender Receive must be enabled.</string>
-          </property>
-          <property name="keyboardTracking">
-           <bool>false</bool>
-          </property>
-          <property name="maximum">
-           <number>12</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_6">
@@ -28151,8 +28113,8 @@
      <widget class="QWidget" name="layoutWidget9">
       <property name="geometry">
        <rect>
-        <x>450</x>
-        <y>40</y>
+        <x>460</x>
+        <y>70</y>
         <width>162</width>
         <height>26</height>
        </rect>
@@ -28480,6 +28442,44 @@
          </property>
          <property name="maximum">
           <number>255</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_293">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>220</y>
+        <width>99</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_47">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_304">
+         <property name="text">
+          <string notr="true">Bender</string>
+         </property>
+         <property name="buddy">
+          <cstring>Rhythm_BenderRange_select</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="Rhythm_BenderRange_select">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string notr="true">Patch-level setting for Bender Up messages, Set the pitch change limit up to 4 octaves by semitones. System Bender Receive must be enabled.</string>
+         </property>
+         <property name="keyboardTracking">
+          <bool>false</bool>
+         </property>
+         <property name="maximum">
+          <number>12</number>
          </property>
         </widget>
        </item>

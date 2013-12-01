@@ -1175,7 +1175,7 @@ private:
 
   // for Rhythm
   static bool getActiveRhythm();
-  inline void RhythmStdUpdate(int, int);
+  void RhythmStdUpdate(int, int);
   void createRhythmActions();
   void setRhythmParms(int);
   QString RhythmName_query();

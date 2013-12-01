@@ -1,6 +1,5 @@
 // rhythm_slots.cpp
 /* Contains:
- * RhythmStdUpdate
  * on_Rhythm_Sync_button_clicked
  * on_Rhythm_KeyPress_select_valueChanged
  * on_Rhythm_Note_enable_toggled
@@ -12,8 +11,17 @@
  * on_Rhythm_EnvMode_select_toggled
  * on_Rhythm_Volume_enable_toggled
  * on_Rhythm_Hold_enable_toggled
- * on_Rhythm_PanControl_select_currentIndexChanged
+ * on_Rhythm_TestTone_switch_clicked
+ * on_Rhythm_ListNotes_button_clicked
+ * on_Rhythm_PatchGroup_select_currentIndexChanged
+ * on_Rhythm_PatchNumber_select_valueChanged
  * on_Rhythm_SoundingPitch_select_valueChanged
+ * on_Rhythm_Output_select_currentIndexChanged
+ * on_Rhythm_OutputLevel_select_valueChanged
+ * on_Rhythm_ChorusSend_select_valueChanged
+ * on_Rhythm_ReverbSend_select_valueChanged
+ * 
+ * on_Rhythm_PanControl_select_currentIndexChanged
  * on_Rhythm_TuneAdj_select_valueChanged
  * on_Rhythm_RandPitchDepth_select_currentIndexChanged
  * on_Rhythm_PitchDepth_select_valueChanged
@@ -55,41 +63,10 @@
  * on_Rhythm_Pan_select_valueChanged
  * on_Rhythm_PanRandDepth_select_valueChanged
  * on_Rhythm_AltPan_select_valueChanged
- * on_Rhythm_Output_select_currentIndexChanged
- * on_Rhythm_OutputLevel_select_valueChanged
- * on_Rhythm_ChorusSend_select_valueChanged
- * on_Rhythm_ReverbSend_select_valueChanged
- * on_Rhythm_TestTone_switch_clicked
- * on_Rhythm_ListNotes_button_clicked
- * on_Rhythm_PatchGroup_select_currentIndexChanged
- * on_Rhythm_PatchNumber_select_valueChanged
  */
 
 #include        "JVlibForm.h"
 #include        <QtGui>
-
-void JVlibForm::RhythmStdUpdate(int offset, int val) {
-  if (!state_table->perf_mode) return;
-  if (state_table->updates_enabled) {
-    int tn = Rhythm_KeyPress_select->value();
-    bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;
-    ptr[offset] = val;
-    if (state_table->jv_connect) {
-      unsigned char buf[5];
-      buf[0] = 0x02;
-      buf[1] = 0x09;
-      buf[2] = tn;
-      buf[3] = offset;
-      buf[4] = val;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-	close_ports(); 
-	return;
-      }
-      close_ports();
-    }	// end state_table->jv_connect
-  }	// end udpates_enabled
-}	// end RhythmStdUpdate
 
 // QPushButton
 void JVlibForm::on_Rhythm_Sync_button_clicked() {
@@ -396,9 +373,7 @@ void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
     WaveName = NameQuery.value(0).toString();
     WaveName = WaveName.leftJustified(12, ' ');
     // output the results
-//    Group.prepend("   "+funcNoteCalc(x+35)+"   ");
     Group.prepend(funcNoteCalc(x+35)+"   ");
-//    Group.prepend(QString::number(x+35));
     Group.append(" "+QString::number(Num));
     Group.append("    "+WaveName);
 printf("%s\n",Group.toAscii().data());   
@@ -407,14 +382,10 @@ printf("%s\n",Group.toAscii().data());
 }	// end on_Rhythm_ListNotes_button_clicked
 
 void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
-//  Part10_PatchGroup_select->blockSignals(true);
   Part10_PatchGroup_select->setCurrentIndex(val);
-//  Part10_PatchGroup_select->blockSignals(false);
 }
 
 void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
-//  Part10_PatchNumber_select->blockSignals(true);
   Part10_PatchNumber_select->setValue(val);
-//  Part10_PatchNumber_select->blockSignals(true);
 }
 
