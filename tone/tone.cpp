@@ -143,5 +143,5 @@ void JVlibForm::Enable_Tone(bool val) {
   if (val) Tone_Sync_status->on();
   else Tone_Sync_status->off();
   state_table->tone_sync = val;
-  state_table->toneTab_enable = val;
+//  state_table->toneTab_enable = val;
 }	// end Enable_Tone

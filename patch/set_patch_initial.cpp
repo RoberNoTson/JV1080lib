@@ -514,7 +514,6 @@ void::JVlibForm::setPatchParms(int val) {
   Pitch_PatchName_display->setText(Tone_PatchName_display->text());
   Pitch_PatchGroup_display->setText(Tone_PatchGroup_display->text());
   Pitch_PatchNumber_display->setText(Tone_PatchNumber_display->text());
-  // set EFX parms
   setPatchEFXparms();
   setToneParms(val);
   state_table->patch_modified = false;

@@ -94,13 +94,22 @@ void JVlibForm::setSysGmMode(bool GM) {
     PerfNumber_select->setEnabled(false);
     PerfName_edit->setEnabled(false);
     SysPerformance_box->setEnabled(false);
-    MainTabWidget->setTabEnabled(1,false);	// Performance tab
-    MainTabWidget->setTabEnabled(3,false);	// Patch tab
-    MainTabWidget->setTabEnabled(11,false);	// Tuning tab
-    MainTabWidget->setTabEnabled(2,true);		// Parts tab
-    state_table->performanceTab_enable = false;
-    state_table->patchTab_enable = false;
-    state_table->partsTab_enable = true;
+    if (state_table->performanceTab_enable) {
+      MainTabWidget->setTabEnabled(1,false);	// Performance tab
+      state_table->performanceTab_enable = false;
+    }
+    if (state_table->patchTab_enable) {
+      MainTabWidget->setTabEnabled(3,false);	// Patch tab
+      state_table->patchTab_enable = false;
+    }
+    if (state_table->tuningTab_enable) {
+      MainTabWidget->setTabEnabled(11,false);	// Tuning tab
+      state_table->tuningTab_enable = false;
+    }
+    if (!state_table->partsTab_enable) {
+      MainTabWidget->setTabEnabled(2,true);		// Parts tab
+      state_table->partsTab_enable = true;
+    }
     EnableParts(true);
     setPartsParms();
     PartsPerfName_display->setText("GM");

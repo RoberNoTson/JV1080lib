@@ -74,30 +74,55 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     setRhythmParms(60);
     Rhythm_Sync_status->on();
     Rhythm_EnableAll(true);
+    if (state_table->patchEFXTab_enable) {
+      MainTabWidget->setTabEnabled(5, false);
+      state_table->patchEFXTab_enable = false;
+    }
+    if (state_table->toneTab_enable) {
+      MainTabWidget->setTabEnabled(6,false);
+      state_table->toneTab_enable = false;
+    }	      
+    if (!state_table->toneEFXTab_enable) {
+      MainTabWidget->setTabEnabled(7,true);
+      state_table->toneEFXTab_enable = true;
+    }
+    if (!state_table->toneTVFTab_enable) {
+      MainTabWidget->setTabEnabled(8,true);
+      state_table->toneTVFTab_enable = true;
+    }
+    if (!state_table->toneTVATab_enable) {
+      MainTabWidget->setTabEnabled(9,true);
+      state_table->toneTVATab_enable = true;
+    }
+    if (!state_table->pitchTab_enable) {
+      MainTabWidget->setTabEnabled(10,true);
+      state_table->pitchTab_enable = true;
+    }
     state_table->rhythm_sync = true;
     state_table->rhythm_modified = false;
-//    if (state_table->rhythm_mode) {
-      MainTabWidget->setTabEnabled(6, false);
-      MainTabWidget->setTabEnabled(7,true);
-      MainTabWidget->setTabEnabled(8,true);
-      MainTabWidget->setTabEnabled(9,true);
-      MainTabWidget->setTabEnabled(10,true);
-      state_table->toneEFXTab_enable = true;
-      state_table->toneTVFTab_enable = true;
-      state_table->toneTVATab_enable = true;
-      state_table->pitchTab_enable = true;
-      state_table->updates_enabled=true;
-//    }	// end if rhythm_mode
+    state_table->updates_enabled=true;
   }	// end if getActiveRhythm
   else {
-    MainTabWidget->setTabEnabled(7,false);
-    MainTabWidget->setTabEnabled(8,false);
-    MainTabWidget->setTabEnabled(9,false);
-    MainTabWidget->setTabEnabled(10,false);
-    state_table->toneEFXTab_enable = false;
-    state_table->toneTVFTab_enable = false;
-    state_table->toneTVATab_enable = false;
-    state_table->pitchTab_enable = false;
+    if (state_table->patchEFXTab_enable) {
+      MainTabWidget->setTabEnabled(6, false);
+      state_table->patchEFXTab_enable = false;
+    }
+    if (state_table->toneEFXTab_enable) {
+      MainTabWidget->setTabEnabled(7,false);
+      state_table->toneEFXTab_enable = false;
+    }
+    if (state_table->toneTVFTab_enable) {
+      MainTabWidget->setTabEnabled(8,false);
+      state_table->toneTVFTab_enable = false;
+    }
+    if (state_table->toneTVATab_enable) {
+      MainTabWidget->setTabEnabled(9,false);
+      state_table->toneTVATab_enable = false;
+    }
+    if (state_table->pitchTab_enable) {
+      MainTabWidget->setTabEnabled(10,false);
+      state_table->pitchTab_enable = false;
+    }
     state_table->updates_enabled=false;
   }	// end getActiveRhythm failed
 }	// end on_Rhythm_Sync_button_clicked

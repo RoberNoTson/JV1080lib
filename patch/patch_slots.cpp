@@ -63,27 +63,44 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   JVlibForm::statusbar->showMessage("Getting Patch data",0);
   state_table->updates_enabled=false;
+  EnablePatch(true);
   if (state_table->perf_mode) {
     if (Patch_PerfPartNum_select->currentIndex()==9) {
-      MainTabWidget->setTabEnabled(4,true);
-      state_table->rhythmTab_enable = true;
+      if (!state_table->rhythmTab_enable) {
+	MainTabWidget->setTabEnabled(4,true);
+	state_table->rhythmTab_enable = true;
+      }
       MainTabWidget->setCurrentIndex(4);
       on_Rhythm_Sync_button_clicked();
+    if (state_table->patchEFXTab_enable) {
+      MainTabWidget->setTabEnabled(5,false);
+      state_table->patchEFXTab_enable = false;
     }
-    else {
-      MainTabWidget->setTabEnabled(4,false);
-      state_table->rhythmTab_enable = false;
+    if (state_table->toneTab_enable) {
+      MainTabWidget->setTabEnabled(6,false);
+      state_table->toneTab_enable = false;
+    }
+    }	// end if Rhythm Set
+    else {	// regular patch
+      if (state_table->rhythmTab_enable) {
+	MainTabWidget->setTabEnabled(4,false);
+	state_table->rhythmTab_enable = false;
+      }
+      if (!state_table->patchEFXTab_enable) {
+	MainTabWidget->setTabEnabled(5,true);
+	state_table->patchEFXTab_enable = true;
+      }
+      if (!state_table->toneTab_enable) {
+	MainTabWidget->setTabEnabled(6,true);
+	state_table->toneTab_enable = true;
+      }	      
       getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
       setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
-    }
+    }	// end regular patch
   } 
   else if (state_table->patch_mode){
     getActivePatchMode();
     setPatchParms(0);	// will also set Tone, Pitch, etc.
-  }
-  EnablePatch(true);
-  if (Patch_PerfPartNum_select->currentIndex()==9) {
-    MainTabWidget->setTabEnabled(5,false);
   }
   state_table->updates_enabled=true;
   statusbar->showMessage("Patch data loaded",0);
@@ -92,7 +109,7 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
 
 void JVlibForm::on_Patch_Name_edit_editingFinished() {
   // called after Patch name has been edited
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     if (Patch_Name_edit->isModified()) {
       // change the Patch name
       QString val = Patch_Name_edit->text();
@@ -185,180 +202,177 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
       state_table->patch_modified = true;
       Patch_Name_edit->setModified(false);
     }	// end IF Patch_Name_edit->isModified
-  }	// end UPDATES_ENABLED
 }	// end on_Patch_Name_edit_editingFinished
 
 //---------------------------------------------------------------------------------------------------------------------
 // switches
 void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
-  if (state_table->perf_mode) {
     Patch_Sync_button->setEnabled(true);
     state_table->updates_enabled = false;
+    if (state_table->patch_mode) {
+        setPatchParms(0);
+	state_table->updates_enabled = true;
+	return;
+    }
+    // process Perf mode changes
     switch(val) {
       case 0:
-	if (!state_table->part1_sync) {
-	  Patch_Name_edit->setText(Part1_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part1_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part1_PatchNumber_select->value());
-	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
+	if (state_table->part1_sync) {
+	  EnablePatch(true);
 	}
+	else 
+	  EnablePatch(false);
+	Patch_Name_edit->setText(Part1_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part1_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part1_PatchNumber_select->value());
 	break;
       case 1:
-	if (!state_table->part2_sync) {
-	  Patch_Name_edit->setText(Part2_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part2_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part2_PatchNumber_select->value());
+	if (state_table->part2_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part2_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part2_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part2_PatchNumber_select->value());
 	break;
       case 2:
-	if (!state_table->part3_sync) {
-	  Patch_Name_edit->setText(Part3_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part3_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part3_PatchNumber_select->value());
+	if (state_table->part3_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part3_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part3_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part3_PatchNumber_select->value());
 	break;
       case 3:
-	if (!state_table->part4_sync) {
-	  Patch_Name_edit->setText(Part4_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part4_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part4_PatchNumber_select->value());
+	if (state_table->part4_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part4_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part4_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part4_PatchNumber_select->value());
 	break;
       case 4:
-	if (!state_table->part5_sync) {
-	  Patch_Name_edit->setText(Part5_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part5_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part5_PatchNumber_select->value());
+	if (state_table->part5_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part5_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part5_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part5_PatchNumber_select->value());
 	break;
       case 5:
-	if (!state_table->part6_sync) {
-	  Patch_Name_edit->setText(Part6_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part6_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part6_PatchNumber_select->value());
+	if (state_table->part6_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part6_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part6_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part6_PatchNumber_select->value());
 	break;
       case 6:
-	if (!state_table->part7_sync) {
-	  Patch_Name_edit->setText(Part7_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part7_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part7_PatchNumber_select->value());
+	if (state_table->part7_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part7_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part7_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part7_PatchNumber_select->value());
 	break;
       case 7:
-	if (!state_table->part8_sync) {
-	  Patch_Name_edit->setText(Part8_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part8_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part8_PatchNumber_select->value());
+	if (state_table->part8_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part8_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part8_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part8_PatchNumber_select->value());
 	break;
       case 8:
-	if (!state_table->part9_sync) {
-	  Patch_Name_edit->setText(Part9_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part9_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part9_PatchNumber_select->value());
+	if (state_table->part9_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part9_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part9_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part9_PatchNumber_select->value());
 	break;
       case 9:	// special handling for Rhythm set
+	EnablePatch(false);
+	if (state_table->rhythm_sync) {
+	 if (!state_table->rhythmTab_enable) {
+	  MainTabWidget->setTabEnabled(4,true);
+	  state_table->rhythmTab_enable = true;
+	 }
+	}
+	else if (!state_table->rhythm_sync) {
+	  MainTabWidget->setTabEnabled(4,false);
+	  state_table->rhythmTab_enable = false;
+	}
 	Patch_Name_edit->setText(Part10_PatchName_display->text());
 	Patch_Group_select->setCurrentIndex(Part10_PatchGroup_select->currentIndex()?Part10_PatchGroup_select->currentIndex()+1:Part10_PatchGroup_select->currentIndex());
 	Patch_Number_select->setValue(Part10_PatchNumber_select->value());
-	EnablePatch(false);
 	state_table->updates_enabled = true;
 	return;
 	break;
       case 10:
-	if (!state_table->part11_sync) {
-	  Patch_Name_edit->setText(Part11_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part11_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part11_PatchNumber_select->value());
+	if (state_table->part11_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part11_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part11_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part11_PatchNumber_select->value());
 	break;
       case 11:
-	if (!state_table->part12_sync) {
-	  Patch_Name_edit->setText(Part12_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part12_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part12_PatchNumber_select->value());
+	if (state_table->part12_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part12_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part12_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part12_PatchNumber_select->value());
 	break;
       case 12:
-	if (!state_table->part13_sync) {
-	  Patch_Name_edit->setText(Part13_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part13_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part13_PatchNumber_select->value());
+	if (state_table->part13_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part13_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part13_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part13_PatchNumber_select->value());
 	break;
       case 13:
-	if (!state_table->part14_sync) {
-	  Patch_Name_edit->setText(Part14_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part14_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part14_PatchNumber_select->value());
+	if (state_table->part14_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part14_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part14_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part14_PatchNumber_select->value());
 	break;
       case 14:
-	if (!state_table->part15_sync) {
-	  Patch_Name_edit->setText(Part15_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part15_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part15_PatchNumber_select->value());
+	if (state_table->part15_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part15_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part15_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part15_PatchNumber_select->value());
 	break;
       case 15:
-	if (!state_table->part16_sync) {
-	  Patch_Name_edit->setText(Part16_PatchName_display->text());
-	  Patch_Group_select->setCurrentIndex(Part16_PatchGroup_select->currentIndex());
-	  Patch_Number_select->setValue(Part16_PatchNumber_select->value());
+	if (state_table->part16_sync)
+	  EnablePatch(true);
+	else 
 	  EnablePatch(false);
-	  state_table->updates_enabled = true;
-	  return;
-	}
+	Patch_Name_edit->setText(Part16_PatchName_display->text());
+	Patch_Group_select->setCurrentIndex(Part16_PatchGroup_select->currentIndex());
+	Patch_Number_select->setValue(Part16_PatchNumber_select->value());
 	break;
     }	// end switch
-  }	// end if perf_mode
-  EnablePatch(true);
-//  if (state_table->updates_enabled)
-    setPatchParms(state_table->perf_mode ? val+1 : 0);
-    state_table->updates_enabled = false;
+  setPatchParms(val+1);
+  state_table->updates_enabled = true;
 }
 
 void JVlibForm::on_PatchEFX_Control1Source_select_currentIndexChanged(int val) {

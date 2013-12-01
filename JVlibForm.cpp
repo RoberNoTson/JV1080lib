@@ -142,7 +142,15 @@ void JVlibForm::setInitial() {
   createToneENVactions();
   MainTabWidget->setCurrentIndex(0);
   MainTabWidget->setTabEnabled(1,false);
+  MainTabWidget->setTabEnabled(2,false);
   MainTabWidget->setTabEnabled(3,false);
+  MainTabWidget->setTabEnabled(4,false);
+  MainTabWidget->setTabEnabled(5,false);
+  MainTabWidget->setTabEnabled(6,false);
+  MainTabWidget->setTabEnabled(7,false);
+  MainTabWidget->setTabEnabled(8,false);
+  MainTabWidget->setTabEnabled(9,false);
+  MainTabWidget->setTabEnabled(10,false);
   MainTabWidget->setTabEnabled(11,false);
   setPerfTabs(false);
   setPatchTabs(false);

@@ -88,12 +88,16 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
       setSysSingleValue(addr_sys_panel_mode, 0);
       slotSysSetPerformanceMode();
       // disable Perf_tab, Patch_tab, Parts_tab, enable Rhythm_tab 
-      MainTabWidget->setTabEnabled(1,false);	// Performance tab
-      state_table->performanceTab_enable = false;
+      if (state_table->performanceTab_enable) {
+	MainTabWidget->setTabEnabled(1,false);	// Performance tab
+	state_table->performanceTab_enable = false;
+      }
       SysPerformance_box->setEnabled(false);
       state_table->perf_mode = false;
-      MainTabWidget->setTabEnabled(4, true);
-      state_table->rhythmTab_enable = true;
+      if (!state_table->rhythmTab_enable) {
+	MainTabWidget->setTabEnabled(4, true);
+	state_table->rhythmTab_enable = true;
+      }
       state_table->rhythm_mode = true;
       // download Rhythm_common for name, Perf_Part_10 for group, group_id, wave_number. Everything else waits on Sync Button
       break;
@@ -258,8 +262,10 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
   }	// end UPDATES_ENABLED
   EnablePatch(false);
   setPerfTabs(false);
-  MainTabWidget->setTabEnabled(3,true);	// Patch tab
-  state_table->patchTab_enable = true;    
+  if (!state_table->patchTab_enable) {
+    MainTabWidget->setTabEnabled(3,true);	// Patch tab
+    state_table->patchTab_enable = true;
+  }
 }	// end slotSysSetPatch
 
 int JVlibForm::on_System_Sync_button_clicked() {  
@@ -288,8 +294,10 @@ int JVlibForm::on_System_Sync_button_clicked() {
   EnableSys(true);
   action_Offline->setChecked(false);
   System_JV_status->on();
-  MainTabWidget->setTabEnabled(11,true);	// enable Tuning tab
-  state_table->tuningTab_enable = true;
+  if (!state_table->tuningTab_enable) {
+    MainTabWidget->setTabEnabled(11,true);	// enable Tuning tab
+    state_table->tuningTab_enable = true;
+  }
   if (state_table->perf_mode) {
     slotSysSetPerformanceMode();
   }
@@ -303,41 +311,47 @@ int JVlibForm::on_System_Sync_button_clicked() {
 
 void JVlibForm::slotSysSetPerformanceMode() {
   // called when slotSysSetMode switch changes
+  if (!state_table->performanceTab_enable) {
     MainTabWidget->setTabEnabled(1,true);	// Performance tab
     state_table->performanceTab_enable = true;
-    setPerfTabs(false);
+  }
+  setPerfTabs(false);
+  if (state_table->patchTab_enable) {
     MainTabWidget->setTabEnabled(3,false);	// Patch tab
     state_table->patchTab_enable = false;
+  }
+  if (state_table->rhythmTab_enable) {
     MainTabWidget->setTabEnabled(4, false);	// Rhythm tab
     state_table->rhythmTab_enable = false;
-    SysControlRecvChannel_select->setEnabled(true);
-    SysPerformance_box->setEnabled(true);
-    SysPerfSelect->setEnabled(AcceptBankSel_switch->isChecked());
-    SysPerfNumber->setEnabled(AcceptProgramChg_switch->isChecked());
-    if (state_table->jv_connect && state_table->updates_enabled) {
+  }
+  SysControlRecvChannel_select->setEnabled(true);
+  SysPerformance_box->setEnabled(true);
+  SysPerfSelect->setEnabled(AcceptBankSel_switch->isChecked());
+  SysPerfNumber->setEnabled(AcceptProgramChg_switch->isChecked());
+  if (state_table->jv_connect && state_table->updates_enabled) {
       getSysPerfName();
-    }
-    SysPatch_box->setEnabled(false);
-    SysPatchRecvChannel_select->setEnabled(false);
-    PerfSync_button->setEnabled(true);
-    PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
-    PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
-    PerfName_edit->setEnabled(true);
-    Patch_Sync_button->setEnabled(false);
-    Patch_PerfPartNum_select->blockSignals(true);
-    if (Patch_PerfPartNum_select->itemText(0)=="0")
-      Patch_PerfPartNum_select->removeItem(0);
-    Patch_PerfPartNum_select->blockSignals(false);
-    EnablePerf(false);
-    EnablePatch(false);
-    setSysGmMode(false);
-    setPatchTabs(false);
-    state_table->perf_mode = true;
-    state_table->patch_mode = false;
-    state_table->GM_mode = false;
-    Tuning_Sync_status->off();
-    state_table->tuning_sync = false;
-    state_table->tuning_modified = false;
+  }
+  SysPatch_box->setEnabled(false);
+  SysPatchRecvChannel_select->setEnabled(false);
+  PerfSync_button->setEnabled(true);
+  PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
+  PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
+  PerfName_edit->setEnabled(true);
+  Patch_Sync_button->setEnabled(false);
+  Patch_PerfPartNum_select->blockSignals(true);
+  if (Patch_PerfPartNum_select->itemText(0)=="0")
+    Patch_PerfPartNum_select->removeItem(0);
+  Patch_PerfPartNum_select->blockSignals(false);
+  EnablePerf(false);
+  EnablePatch(false);
+  setSysGmMode(false);
+  setPatchTabs(false);
+  state_table->perf_mode = true;
+  state_table->patch_mode = false;
+  state_table->GM_mode = false;
+  Tuning_Sync_status->off();
+  state_table->tuning_sync = false;
+  state_table->tuning_modified = false;
 }	// end slotSysSetPerformanceMode
 
 void JVlibForm::slotSysSetPatchMode() {
@@ -354,17 +368,21 @@ void JVlibForm::slotSysSetPatchMode() {
     SysPatchNumber->setEnabled(AcceptProgramChg_switch->isChecked());
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
-    MainTabWidget->setTabEnabled(1,false);	// Performance tab
-    state_table->performanceTab_enable = false;
+    if (state_table->performanceTab_enable) {
+      MainTabWidget->setTabEnabled(1,false);	// Performance tab
+      state_table->performanceTab_enable = false;
+    }
     setSysGmMode(false);
     EnablePerf(false);
     state_table->perf_mode = false;
     state_table->patch_mode = true;
     state_table->GM_mode = false;
     state_table->updates_enabled = false;
+    Patch_PerfPartNum_select->blockSignals(true);
     if (Patch_PerfPartNum_select->itemText(0)=="1")
       Patch_PerfPartNum_select->insertItem(0,"0");
     Patch_PerfPartNum_select->setCurrentIndex(0);
+    Patch_PerfPartNum_select->blockSignals(false);
     EnablePatch(false);
     Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
     Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
@@ -372,8 +390,10 @@ void JVlibForm::slotSysSetPatchMode() {
     Patch_Name_edit->setText(SysPatchName->text());
     Patch_Sync_button->setEnabled(true);
     setPatchTabs(false);
-    MainTabWidget->setTabEnabled(3,true);	// Patch tab
-    state_table->patchTab_enable = true;    
+    if (!state_table->patchTab_enable) {
+      MainTabWidget->setTabEnabled(3,true);	// Patch tab
+      state_table->patchTab_enable = true;
+    }
     state_table->updates_enabled = true;
     Tuning_Sync_status->off();
     state_table->tuning_sync = false;
@@ -800,27 +820,41 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
 }	// end on_SysPatchNumber_valueChanged
 
 void JVlibForm::setPerfTabs(bool val) {
-  MainTabWidget->setTabEnabled(2,val);
-  MainTabWidget->setTabEnabled(3,val);
-//  MainTabWidget->setTabEnabled(4,val);
-  state_table->partsTab_enable = val;
-  state_table->patchTab_enable = val;
-//  state_table->rhythmTab_enable = val;
+  if (val != state_table->partsTab_enable) {
+    MainTabWidget->setTabEnabled(2,val);
+    state_table->partsTab_enable = val;
+  }
+  if (val != state_table->patchTab_enable) {
+    MainTabWidget->setTabEnabled(3,val);
+    state_table->patchTab_enable = val;
+  }
 }
 
 void JVlibForm::setPatchTabs(bool val) {
-  MainTabWidget->setTabEnabled(10,val);
-  MainTabWidget->setTabEnabled(9,val);
-  MainTabWidget->setTabEnabled(8,val);
-  MainTabWidget->setTabEnabled(7,val);
-  MainTabWidget->setTabEnabled(6,val);
-  MainTabWidget->setTabEnabled(5,val);
-  state_table->patchEFXTab_enable = val;
-  state_table->toneTab_enable = val;
-  state_table->toneEFXTab_enable = val;
-  state_table->toneTVFTab_enable = val;
-  state_table->toneTVATab_enable = val;
-  state_table->pitchTab_enable = val;
+  if (val != state_table->patchEFXTab_enable) {
+    MainTabWidget->setTabEnabled(5,val);
+    state_table->patchEFXTab_enable = val;
+  }
+  if (val != state_table->toneTab_enable) {
+    MainTabWidget->setTabEnabled(6,val);
+    state_table->toneTab_enable = val;
+  }
+  if (val != state_table->toneEFXTab_enable) {
+    MainTabWidget->setTabEnabled(7,val);
+    state_table->toneEFXTab_enable = val;
+  }
+  if (val != state_table->toneTVFTab_enable) {
+    MainTabWidget->setTabEnabled(8,val);
+    state_table->toneTVFTab_enable = val;
+  }
+  if (val != state_table->toneTVATab_enable) {
+    MainTabWidget->setTabEnabled(9,val);
+    state_table->toneTVATab_enable = val;
+  }
+  if (val != state_table->pitchTab_enable) {
+    MainTabWidget->setTabEnabled(10,val);
+    state_table->pitchTab_enable = val;
+  }
 }
 
 void JVlibForm::System_Loaded() {
