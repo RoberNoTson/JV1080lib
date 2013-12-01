@@ -82,37 +82,40 @@ void JVlibForm::on_Tone_TestTone_switch_toggled(bool val) {
 
 void JVlibForm::on_Tone_WaveChooser_select_currentIndexChanged(int val) {
   if (val<0) return;	// all entries were removed
-  if (state_table->updates_enabled) {
-    QString buf = Tone_WaveChooser_select->currentText().section(" ",-3,-2);
-    int x = Tone_Group_select->findText(buf);
-    
-    if (Tone_Group_select->currentIndex() != x) {
-      Tone_Group_select->blockSignals(true);
-      Tone_Group_select->setCurrentIndex(x);
-      Tone_Group_select->blockSignals(false);
-    }
-    x = Tone_WaveChooser_select->currentText().section(" ",-1).toInt();
-    if (Tone_Number_select->value() != x) {
-      Tone_Number_select->blockSignals(true);
-      Tone_Number_select->setValue(x);
-      Tone_Number_select->blockSignals(false);
-    }
-    // update Tone_Name with the new value
-    Tone_WaveName_display->setText(WaveName_query());
-    // now update the synth
-    if (state_table->jv_connect) {
-    int tn = Tone_ToneNumber_select->value() - 1;
-    int val = Tone_Number_select->value() - 1;
-    int Hval = val/16;
-    int Lval = val%16;
-      unsigned char buf[8];
-      buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-      buf[1] = 0x00 + state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;	// select the Perf Part, if in that mode
-      buf[2] = 0x10 + (tn*2);
-      buf[3] = 0x01;
-      buf[4] = (Tone_Group_select->currentIndex()<2?0:2);	// wave_group
-      // wave_group_id
-      switch(Tone_Group_select->currentIndex()) {
+  if (!state_table->updates_enabled) return;
+  QString group = Tone_WaveChooser_select->currentText().section(" ",-3,-2);
+  int x = Tone_Group_select->findText(group);
+  if (Tone_Group_select->currentIndex() != x) {
+    Tone_Group_select->blockSignals(true);
+    Tone_Group_select->setCurrentIndex(x);
+    Tone_Group_select->blockSignals(false);
+  }
+  x = Tone_WaveChooser_select->currentText().section(" ",-1).toInt();
+  if (Tone_Number_select->value() != x) {
+    Tone_Number_select->blockSignals(true);
+    Tone_Number_select->setValue(x);
+    Tone_Number_select->blockSignals(false);
+  }
+  // update Tone_Name with the new value
+  Tone_WaveName_display->setText(WaveName_query());
+  ToneEFX_WaveName_display->setText(Tone_WaveName_display->text());
+  ToneTVF_WaveName_display->setText(Tone_WaveName_display->text());
+  ToneTVA_WaveName_display->setText(Tone_WaveName_display->text());
+  Pitch_WaveName_display->setText(Tone_WaveName_display->text());
+  // now update the synth
+  if (!state_table->jv_connect) return;
+  int tn = Tone_ToneNumber_select->value() - 1;
+  x = Tone_Number_select->value() - 1;
+  int Hval = x/16;
+  int Lval = x%16;
+  unsigned char buf[8];
+  buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+  buf[1] = 0x00 + state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;	// select the Perf Part, if in that mode
+  buf[2] = 0x10 + (tn*2);
+  buf[3] = 0x01;
+  buf[4] = (Tone_Group_select->currentIndex()<2?0:2);	// wave_group
+  // wave_group_id
+  switch(Tone_Group_select->currentIndex()) {
 	case 0:
 	default:
 	  buf[5] = 0x01;
@@ -127,18 +130,16 @@ void JVlibForm::on_Tone_WaveChooser_select_currentIndexChanged(int val) {
 	case 4:
 	  buf[5] = 0x62;
 	  break;
-      }	// end Switch
-      buf[6] = Hval;
-      buf[7] = Lval;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],8) == EXIT_FAILURE) {
-	close_ports(); 
-	return;
-      }
-      close_ports();
-      state_table->tone_modified = true;
-    }	// end state_table->jv_connect
-  }	// end state_table->updates_enabled
+  }	// end Switch
+  buf[6] = Hval;
+  buf[7] = Lval;
+  if (open_ports() == EXIT_FAILURE) return;
+  if (sysex_update(&buf[0],8) == EXIT_FAILURE) {
+    close_ports(); 
+    return;
+  }
+  close_ports();
+  state_table->tone_modified = true;
 }	// end on_Tone_WaveChooser_select_currentIndexChanged
 
 void JVlibForm::on_Tone_InstrFamily_select_currentIndexChanged(int val) {

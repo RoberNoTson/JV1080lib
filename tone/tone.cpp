@@ -60,12 +60,15 @@ void JVlibForm::setWaveChooser() {
      QMessageBox::critical(this, "JVlib", QString("Text NOT FOUND in setWaveChooser\n%1") .arg(buf));
      return;
    }
-//printf("WaveChooser setting its Index to %d\n", x);
    // have to block the SIGNAL when we set WaveChooser to prevent an infinite loop
    Tone_WaveChooser_select->blockSignals(true);
    Tone_WaveChooser_select->setCurrentIndex(x);
    Tone_WaveChooser_select->blockSignals(false);
    Tone_WaveName_display->setText(WaveName_query());
+   ToneEFX_WaveName_display->setText(Tone_WaveName_display->text());
+   ToneTVF_WaveName_display->setText(Tone_WaveName_display->text());
+   ToneTVA_WaveName_display->setText(Tone_WaveName_display->text());
+   Pitch_WaveName_display->setText(Tone_WaveName_display->text());
 }	// end setWaveChooser
 
 QString JVlibForm::WaveName_query() {

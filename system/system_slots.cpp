@@ -93,6 +93,7 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
       SysPerformance_box->setEnabled(false);
       state_table->perf_mode = false;
       MainTabWidget->setTabEnabled(4, true);
+      state_table->rhythmTab_enable = true;
       state_table->rhythm_mode = true;
       // download Rhythm_common for name, Perf_Part_10 for group, group_id, wave_number. Everything else waits on Sync Button
       break;
@@ -307,6 +308,8 @@ void JVlibForm::slotSysSetPerformanceMode() {
     setPerfTabs(false);
     MainTabWidget->setTabEnabled(3,false);	// Patch tab
     state_table->patchTab_enable = false;
+    MainTabWidget->setTabEnabled(4, false);	// Rhythm tab
+    state_table->rhythmTab_enable = false;
     SysControlRecvChannel_select->setEnabled(true);
     SysPerformance_box->setEnabled(true);
     SysPerfSelect->setEnabled(AcceptBankSel_switch->isChecked());
@@ -799,10 +802,10 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
 void JVlibForm::setPerfTabs(bool val) {
   MainTabWidget->setTabEnabled(2,val);
   MainTabWidget->setTabEnabled(3,val);
-  MainTabWidget->setTabEnabled(4,val);
+//  MainTabWidget->setTabEnabled(4,val);
   state_table->partsTab_enable = val;
   state_table->patchTab_enable = val;
-  state_table->rhythmTab_enable = val;
+//  state_table->rhythmTab_enable = val;
 }
 
 void JVlibForm::setPatchTabs(bool val) {

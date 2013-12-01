@@ -76,8 +76,32 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     Rhythm_EnableAll(true);
     state_table->rhythm_sync = true;
     state_table->rhythm_modified = false;
-  }
-}
+//    if (state_table->rhythm_mode) {
+      MainTabWidget->setTabEnabled(6, false);
+      MainTabWidget->setTabEnabled(7,true);
+      MainTabWidget->setTabEnabled(8,true);
+      MainTabWidget->setTabEnabled(9,true);
+      MainTabWidget->setTabEnabled(10,true);
+      state_table->toneEFXTab_enable = true;
+      state_table->toneTVFTab_enable = true;
+      state_table->toneTVATab_enable = true;
+      state_table->pitchTab_enable = true;
+      state_table->updates_enabled=true;
+//    }	// end if rhythm_mode
+  }	// end if getActiveRhythm
+  else {
+    MainTabWidget->setTabEnabled(7,false);
+    MainTabWidget->setTabEnabled(8,false);
+    MainTabWidget->setTabEnabled(9,false);
+    MainTabWidget->setTabEnabled(10,false);
+    state_table->toneEFXTab_enable = false;
+    state_table->toneTVFTab_enable = false;
+    state_table->toneTVATab_enable = false;
+    state_table->pitchTab_enable = false;
+    state_table->updates_enabled=false;
+  }	// end getActiveRhythm failed
+}	// end on_Rhythm_Sync_button_clicked
+
 void JVlibForm::on_Rhythm_KeyPress_select_valueChanged(int val) {
   Rhythm_KeyPress_display->setText(funcNoteCalc(val));
   setRhythmParms(val);

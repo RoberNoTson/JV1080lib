@@ -65,11 +65,14 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   state_table->updates_enabled=false;
   if (state_table->perf_mode) {
     if (Patch_PerfPartNum_select->currentIndex()==9) {
+      MainTabWidget->setTabEnabled(4,true);
+      state_table->rhythmTab_enable = true;
       MainTabWidget->setCurrentIndex(4);
-      Rhythm_Sync_button->setFocus();
       on_Rhythm_Sync_button_clicked();
     }
     else {
+      MainTabWidget->setTabEnabled(4,false);
+      state_table->rhythmTab_enable = false;
       getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
       setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
     }
@@ -79,6 +82,9 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
     setPatchParms(0);	// will also set Tone, Pitch, etc.
   }
   EnablePatch(true);
+  if (Patch_PerfPartNum_select->currentIndex()==9) {
+    MainTabWidget->setTabEnabled(5,false);
+  }
   state_table->updates_enabled=true;
   statusbar->showMessage("Patch data loaded",0);
   QApplication::restoreOverrideCursor();
