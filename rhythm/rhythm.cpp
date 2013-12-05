@@ -22,12 +22,12 @@ void JVlibForm::RhythmStdUpdate(int offset, int val) {
       buf[2] = tn;
       buf[3] = offset;
       buf[4] = val;
-      if (open_ports() == EXIT_FAILURE) return;
+//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-	close_ports(); 
+//	close_ports(); 
 	return;
       }
-      close_ports();
+//      close_ports();
     }	// end state_table->jv_connect
   }	// end udpates_enabled
 }	// end RhythmStdUpdate

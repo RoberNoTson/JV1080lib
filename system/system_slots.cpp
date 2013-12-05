@@ -110,19 +110,21 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
 void JVlibForm::on_SysPerfSelect_currentIndexChanged() {
   // called by SIGNAL when the SysPerf group is changed
   // or from the Perf Tab when those values are changed.
+  int x = SysPerfNumber->value() - 1;
+  if (SysPerfSelect->currentIndex()==1)
+    x += 0x40;
+  if (SysPerfSelect->currentIndex()==2)
+    x += 0x60;
   if (state_table->updates_enabled) {
-    system_area->sys_common.perf_num = SysPerfNumber->value() - 1;
+    system_area->sys_common.perf_num = x;
   }	// end UPDATES_ENABLED
   if (state_table->jv_connect) {
     // update JV
-    // Bank Select MSB
-    change_3(0xB0+system_area->sys_common.control_channel, 0, SysPerfSelect->currentIndex()==0?0x50:0x51);
-    // Bank Select LSB  
-    change_3(0xB0+system_area->sys_common.control_channel, 0x20, SysPerfSelect->currentIndex()==2?0x01:0x00);
-    // Program Change - Performance number is required
-    change_2(0xC0+system_area->sys_common.control_channel, system_area->sys_common.perf_num);
+    setSysSingleValue(1, x);    
+    setSysSingleValue(0, 1);
+    setSysSingleValue(0, 0); 
     // get the new Performance name, update the Perf and Parts Tabs
-  getSysPerfName();
+    getSysPerfName();
   }	// end state_table->jv_connect
   if (MainTabWidget->currentIndex() == 0) {
     PerfGroup_select->setCurrentIndex(SysPerfSelect->currentIndex());
@@ -134,115 +136,79 @@ void JVlibForm::on_SysPerfSelect_currentIndexChanged() {
   setPatchTabs(false);
 }	// end slotSysSetPerf
 
-void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
-  // called by SIGNAL when the Patch group or number is changed
-  // System Tab display in Patch Mode
+void JVlibForm::on_SysPatchSelect_currentIndexChanged(int val) {
+ // called by SIGNAL when the Patch group or number is changed
  if (state_table->updates_enabled) {
-  int MSB,LSB;
   // update sys_common.patch_num_high/low
   int Hval = ((SysPatchNumber->value()-1)/16);
   int Lval = ((SysPatchNumber->value()-1)%16);
   system_area->sys_common.patch_num_high = Hval;
   system_area->sys_common.patch_num_low = Lval;
   // update sys_common.patch_group and group_id
-  switch(SysPatchSelect->currentIndex()) {
-    case 0:	// User
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x01;
-      MSB = 0x50;
-      LSB = 0x0;
-      break;
-    case 1:	// Exp A
-      system_area->sys_common.patch_group = 0x02;
-      system_area->sys_common.patch_group_id = 0x02;
-      MSB = 0x54;
-      LSB = Hval>7?1:0;
-      break;
-    case 2:	// PresetA
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x03;
-      MSB = 0x51;
-      LSB = 0x0;
-      break;
-    case 3:	// PresetB
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x04;
-      MSB = 0x51;
-      LSB = 0x1;
-      break;
-    case 4:	// PresetC
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x05;
-      MSB = 0x51;
-      LSB = 0x2;
-      break;
-    case 5:	// PresetD
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x06;
-      MSB = 0x51;
-      LSB = 0x3;
-      break;
-    case 6:	// Exp B
-      system_area->sys_common.patch_group = 0x02;
-      system_area->sys_common.patch_group_id = 0x10;
-      MSB = 0x54;
-      LSB = Hval>7?3:2;
-      break;
-    case 7:	// Exp C
-      system_area->sys_common.patch_group = 0x02;
-      system_area->sys_common.patch_group_id = 0x62;
-      MSB = 0x54;
-      LSB = Hval>7?5:4;
-      break;
-    default:
-      system_area->sys_common.patch_group = 0x00;
-      system_area->sys_common.patch_group_id = 0x00;
-      MSB = 0x00;
-      LSB = 0x00;
-      break;
-  }
-  //  Set Patch Max
-  switch(SysPatchSelect->currentIndex()) {
+  switch(val) {
     case 0:	// User
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x01;
       break;
     case 1:	// Exp A
       SysPatchNumber->setMaximum(255);
+      system_area->sys_common.patch_group = 0x02;
+      system_area->sys_common.patch_group_id = 0x02;
       break;
     case 2:	// PresetA
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x03;
       break;
     case 3:	// PresetB
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x04;
       break;
     case 4:	// PresetC
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x05;
       break;
     case 5:	// PresetD
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x06;
       break;
     case 6:	// Exp B
       SysPatchNumber->setMaximum(256);
+      system_area->sys_common.patch_group = 0x02;
+      system_area->sys_common.patch_group_id = 0x10;
       break;
     case 7:	// Exp C
       SysPatchNumber->setMaximum(100);
+      system_area->sys_common.patch_group = 0x02;
+      system_area->sys_common.patch_group_id = 0x62;
       break;
     default:
       SysPatchNumber->setMaximum(128);
+      system_area->sys_common.patch_group = 0x00;
+      system_area->sys_common.patch_group_id = 0x00;
       break;
   }
   if (state_table->jv_connect) {
     // update JV
-    change_3(0xB0+system_area->sys_common.patch_receive_channel, 0x0, MSB);
-    // Bank Select LSB  
-    change_3(0xB0+system_area->sys_common.patch_receive_channel, 0x20, LSB);
-    // Program Change - Performance number
-    change_2(0xC0+system_area->sys_common.patch_receive_channel, SysPatchNumber->value()>128?SysPatchNumber->value()-129 :SysPatchNumber->value()-1);
+    unsigned char	buf[8];
+    memset(buf,0,sizeof(buf));
+    buf[3] = 2;
+    memcpy((void *)&buf[4], (const void *)&system_area->sys_common.patch_group,4);
+    if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
+      puts("OOPS 2!");
+      return;
+    }
+    setSysSingleValue(0, 0);
+    setSysSingleValue(0, 1); 
     getSysPatchName();
   }	// end state_table->jv_connect
   // get the current Patch Mode patch name, update other Tabs as needed
   Patch_Group_select->blockSignals(true);
-  Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
+  Patch_Group_select->setCurrentIndex(val);
   Patch_Group_select->blockSignals(false);
   Patch_Number_select->blockSignals(true);
   Patch_Number_select->setValue(SysPatchNumber->value());
@@ -250,22 +216,24 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged() {
   Patch_Name_edit->blockSignals(true);
   Patch_Name_edit->setText(SysPatchName->text());
   Patch_Name_edit->blockSignals(false);
-  Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
-  Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
+  Patch_Group_select->setEnabled(true);
+  Patch_Number_select->setEnabled(true);
   Patch_Name_edit->setEnabled(true);
-  PatchEFX_Group_display->setEnabled(true);
+/*  PatchEFX_Group_display->setEnabled(true);
   PatchEFX_Number_display->setEnabled(true);
   PatchEFX_Name_display->setEnabled(true);
   PatchEFX_Group_display->setText(SysPatchSelect->currentText());
   PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
   PatchEFX_Name_display->setText(Patch_Name_edit->text());
+*/
   }	// end UPDATES_ENABLED
   EnablePatch(false);
-  setPerfTabs(false);
+/*  setPerfTabs(false);
   if (!state_table->patchTab_enable) {
     MainTabWidget->setTabEnabled(3,true);	// Patch tab
     state_table->patchTab_enable = true;
   }
+*/
 }	// end slotSysSetPatch
 
 int JVlibForm::on_System_Sync_button_clicked() {  
@@ -326,16 +294,16 @@ void JVlibForm::slotSysSetPerformanceMode() {
   }
   SysControlRecvChannel_select->setEnabled(true);
   SysPerformance_box->setEnabled(true);
-  SysPerfSelect->setEnabled(AcceptBankSel_switch->isChecked());
-  SysPerfNumber->setEnabled(AcceptProgramChg_switch->isChecked());
+  SysPerfSelect->setEnabled(true);
+  SysPerfNumber->setEnabled(true);
   if (state_table->jv_connect && state_table->updates_enabled) {
       getSysPerfName();
   }
   SysPatch_box->setEnabled(false);
   SysPatchRecvChannel_select->setEnabled(false);
   PerfSync_button->setEnabled(true);
-  PerfGroup_select->setEnabled(AcceptBankSel_switch->isChecked());
-  PerfNumber_select->setEnabled(AcceptProgramChg_switch->isChecked());
+  PerfGroup_select->setEnabled(true);
+  PerfNumber_select->setEnabled(true);
   PerfName_edit->setEnabled(true);
   Patch_Sync_button->setEnabled(false);
   Patch_PerfPartNum_select->blockSignals(true);
@@ -364,8 +332,8 @@ void JVlibForm::slotSysSetPatchMode() {
     PerfName_edit->setEnabled(false);
     SysPerformance_box->setEnabled(false);
     SysPatch_box->setEnabled(true);
-    SysPatchSelect->setEnabled(AcceptBankSel_switch->isChecked());
-    SysPatchNumber->setEnabled(AcceptProgramChg_switch->isChecked());
+    SysPatchSelect->setEnabled(true);
+    SysPatchNumber->setEnabled(true);
     SysPatchRecvChannel_select->setEnabled(true);
     SysControlRecvChannel_select->setEnabled(false);
     if (state_table->performanceTab_enable) {
@@ -384,8 +352,8 @@ void JVlibForm::slotSysSetPatchMode() {
     Patch_PerfPartNum_select->setCurrentIndex(0);
     Patch_PerfPartNum_select->blockSignals(false);
     EnablePatch(false);
-    Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
-    Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
+    Patch_Group_select->setEnabled(true);
+    Patch_Number_select->setEnabled(true);
     Patch_Name_edit->setEnabled(true);
     Patch_Name_edit->setText(SysPatchName->text());
     Patch_Sync_button->setEnabled(true);
@@ -452,7 +420,7 @@ void JVlibForm::on_PatchRemain_switch_stateChanged(int val) {
   }
 }
 void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_program_change = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_program_change,system_area->sys_common.receive_program_change);
@@ -476,7 +444,8 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
       Part14_ReceivePrgChg_enable->setEnabled(val);
       Part15_ReceivePrgChg_enable->setEnabled(val);
       Part16_ReceivePrgChg_enable->setEnabled(val);
-      Part1_PatchNumber_select->setEnabled(val && Part1_ReceivePrgChg_enable->isChecked());
+      
+/*      Part1_PatchNumber_select->setEnabled(val && Part1_ReceivePrgChg_enable->isChecked());
       Part2_PatchNumber_select->setEnabled(val && Part2_ReceivePrgChg_enable->isChecked());
       Part3_PatchNumber_select->setEnabled(val && Part3_ReceivePrgChg_enable->isChecked());
       Part4_PatchNumber_select->setEnabled(val && Part4_ReceivePrgChg_enable->isChecked());
@@ -492,9 +461,11 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
       Part14_PatchNumber_select->setEnabled(val && Part14_ReceivePrgChg_enable->isChecked());
       Part15_PatchNumber_select->setEnabled(val && Part15_ReceivePrgChg_enable->isChecked());
       Part16_PatchNumber_select->setEnabled(val && Part16_ReceivePrgChg_enable->isChecked());
-    }
+*/      
+    }	// end if Perf Sync
     if (state_table->rhythm_sync) Rhythm_WaveNumber_select->setEnabled(val);
-  }
+  }	// end if Perf_Mode
+
   if (state_table->patch_mode) {
     SysPatchNumber->setEnabled(val);
     if (state_table->patch_sync) Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
@@ -503,66 +474,29 @@ void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) {
     Tone_Number_select->setEnabled(val);
   }
   Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
-  }
 }
 
 void JVlibForm::on_AcceptBankSel_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_bank_select = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_bank_select,system_area->sys_common.receive_bank_select);
-  }
-  if (state_table->perf_mode) {
-    SysPerfSelect->setEnabled(val);
-    PerfGroup_select->setEnabled(val);
-    if (state_table->performance_sync) {
-      Part1_PatchGroup_select->setEnabled(val && Part1_ReceivePrgChg_enable->isChecked());
-      Part2_PatchGroup_select->setEnabled(val && Part2_ReceivePrgChg_enable->isChecked());
-      Part3_PatchGroup_select->setEnabled(val && Part3_ReceivePrgChg_enable->isChecked());
-      Part4_PatchGroup_select->setEnabled(val && Part4_ReceivePrgChg_enable->isChecked());
-      Part5_PatchGroup_select->setEnabled(val && Part5_ReceivePrgChg_enable->isChecked());
-      Part6_PatchGroup_select->setEnabled(val && Part6_ReceivePrgChg_enable->isChecked());
-      Part7_PatchGroup_select->setEnabled(val && Part7_ReceivePrgChg_enable->isChecked());
-      Part8_PatchGroup_select->setEnabled(val && Part8_ReceivePrgChg_enable->isChecked());
-      Part9_PatchGroup_select->setEnabled(val && Part9_ReceivePrgChg_enable->isChecked());
-      Part10_PatchGroup_select->setEnabled(val && Part10_ReceivePrgChg_enable->isChecked());
-      Part11_PatchGroup_select->setEnabled(val && Part11_ReceivePrgChg_enable->isChecked());
-      Part12_PatchGroup_select->setEnabled(val && Part12_ReceivePrgChg_enable->isChecked());
-      Part13_PatchGroup_select->setEnabled(val && Part13_ReceivePrgChg_enable->isChecked());
-      Part14_PatchGroup_select->setEnabled(val && Part14_ReceivePrgChg_enable->isChecked());
-      Part15_PatchGroup_select->setEnabled(val && Part15_ReceivePrgChg_enable->isChecked());
-      Part16_PatchGroup_select->setEnabled(val && Part16_ReceivePrgChg_enable->isChecked());
-    }
-    if (state_table->rhythm_sync) Rhythm_WaveGroup_select->setEnabled(val);
-  }
-  if (state_table->patch_mode) {
-    SysPatchSelect->setEnabled(val);
-    if (state_table->patch_sync) {
-      Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
-    }
-  }
-  if (state_table->tone_sync) {
-    Tone_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
-  }
-  Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
 }
 
 void JVlibForm::on_AcceptControlChange_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_control_change = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_control_change,system_area->sys_common.receive_control_change);
-  } 
 }
 void JVlibForm::on_AcceptModulation_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_modulation = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_modulation,system_area->sys_common.receive_modulation);
-  } 
 }
 void JVlibForm::on_AcceptVolumeChg_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_volume = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_volume,system_area->sys_common.receive_volume);
@@ -571,10 +505,9 @@ void JVlibForm::on_AcceptVolumeChg_switch_stateChanged(int val) {
   Part3_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
   Part4_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
   Part5_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
-  } 
 }
 void JVlibForm::on_AcceptHold1Chg_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_hold_1 = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_hold_1,system_area->sys_common.receive_hold_1);
@@ -583,58 +516,50 @@ void JVlibForm::on_AcceptHold1Chg_switch_stateChanged(int val) {
   Part3_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
   Part4_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
   Part5_ReceiveHold_enable->setEnabled(AcceptHold1Chg_switch->isChecked());
-  }
 }
 void JVlibForm::on_AcceptBender_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_bender = (val==Qt::Checked?true:false);
   Patch_BenderRange_box->setEnabled(val==Qt::Checked?true:false);
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_bender,system_area->sys_common.receive_bender);
-  }
 }
 void JVlibForm::on_AcceptAftertouch_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.receive_aftertouch = (val==Qt::Checked?true:false);
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_receive_aftertouch,system_area->sys_common.receive_aftertouch);
-  }
 }
 
 void JVlibForm::on_SysClock_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.clock_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_clock_source, system_area->sys_common.clock_source);
-  }
 }
 void JVlibForm::on_SysTapControl_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.tap_control_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_tap_control_source, system_area->sys_common.tap_control_source);
-  }
 }
 void JVlibForm::on_SysHoldControl_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.hold_control_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_hold_control_source, system_area->sys_common.hold_control_source);
-  }
 }
 void JVlibForm::on_SysPeakControl_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.peak_control_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_peak_control_source, system_area->sys_common.peak_control_source);
-  }
 }
 void JVlibForm::on_SysVolumeControl_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.volume_control_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_volume_control_source, system_area->sys_common.volume_control_source);
-  }
 }
 void JVlibForm::on_SysAftertouchControl_select_currentIndexChanged(int idx) {
   if (state_table->updates_enabled) {
@@ -783,12 +708,18 @@ void JVlibForm::on_SysPanic_button_clicked() {
 
 void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
   if (state_table->updates_enabled) {
+    int x = val-1;
+    if (SysPerfSelect->currentIndex()==1)
+      x += 0x40;
+    if (SysPerfSelect->currentIndex()==2)
+      x += 0x60;
     system_area->sys_common.perf_num = val - 1;
     if (state_table->jv_connect) {
-      // Program Change - Performance number
-      change_2(0xC0+system_area->sys_common.control_channel, val-1);
+      setSysSingleValue(1, x);
       // get the new Performance name, update the Perf and Parts Tabs
       getSysPerfName();
+      setSysSingleValue(0, 1);
+      setSysSingleValue(0, 0); 
     }	// end state_table->jv_connect
   }	// end UPDATES_ENABLED
   if (MainTabWidget->currentIndex() == 0)
@@ -799,7 +730,8 @@ void JVlibForm::on_SysPerfNumber_valueChanged(int val) {
 
 void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
   if (state_table->updates_enabled) {
-    on_SysPatchSelect_currentIndexChanged();
+    on_SysPatchSelect_currentIndexChanged(SysPatchSelect->currentIndex());
+    return;
     // get the current Patch Mode patch name, update other Tabs as needed
     state_table->updates_enabled = false;
     Patch_Group_select->setCurrentIndex(SysPatchSelect->currentIndex());
@@ -811,8 +743,8 @@ void JVlibForm::on_SysPatchNumber_valueChanged(int val) {
     PatchEFX_Name_display->setText(Patch_Name_edit->text());
   }	// end UPDATES_ENABLED
   EnablePatch(false);
-  Patch_Group_select->setEnabled(AcceptBankSel_switch->isChecked());
-  Patch_Number_select->setEnabled(AcceptProgramChg_switch->isChecked());
+  Patch_Group_select->setEnabled(true);
+  Patch_Number_select->setEnabled(true);
   Patch_Name_edit->setEnabled(true);
   PatchEFX_Group_display->setEnabled(true);
   PatchEFX_Number_display->setEnabled(true);

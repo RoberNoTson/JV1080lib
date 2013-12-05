@@ -59,9 +59,9 @@ void JVlibForm::setPartsParms() {
     Patch_Number_select->setValue(Part1_PatchNumber_select->value());
     Patch_Name_edit->setText(Part1_PatchName_display->text());
     Patch_PerfPartNum_select->setEnabled(true);
-    Patch_Group_select->setEnabled(false);
-    Patch_Number_select->setEnabled(false);
-    Patch_Name_edit->setEnabled(false);
+//    Patch_Group_select->setEnabled(false);
+//    Patch_Number_select->setEnabled(false);
+//    Patch_Name_edit->setEnabled(false);
   }	// end if perf_mode
   // following items only apply in GM mode, not Perf
   if (state_table->GM_mode) {

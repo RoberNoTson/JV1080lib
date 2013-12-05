@@ -133,12 +133,12 @@ void JVlibForm::on_Tone_WaveChooser_select_currentIndexChanged(int val) {
   }	// end Switch
   buf[6] = Hval;
   buf[7] = Lval;
-  if (open_ports() == EXIT_FAILURE) return;
+//  if (open_ports() == EXIT_FAILURE) return;
   if (sysex_update(&buf[0],8) == EXIT_FAILURE) {
-    close_ports(); 
+//    close_ports(); 
     return;
   }
-  close_ports();
+//  close_ports();
   state_table->tone_modified = true;
 }	// end on_Tone_WaveChooser_select_currentIndexChanged
 
@@ -234,16 +234,16 @@ void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
       buf[4] = (val<2?0:2);	// wave_group
       // wave_group_id
       buf[5] = state_table->perf_mode ? active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id : active_area->active_patch_patch.patch_tone[tn].wave_group_id;
-      if (open_ports() == EXIT_FAILURE) {
-	puts("Error! Unable to open MIDI ports in on_Tone_Group_select_currentIndexChanged");
-	return;
-      }
+//      if (open_ports() == EXIT_FAILURE) {
+//	puts("Error! Unable to open MIDI ports in on_Tone_Group_select_currentIndexChanged");
+//	return;
+//      }
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
 	puts("Error! Unable to send sysex data in on_Tone_Group_select_currentIndexChanged");
-	close_ports(); 
+//	close_ports(); 
 	return;
       }
-      close_ports();
+//      close_ports();
     }	// end state_table->jv_connect
     // set Number maximum
     QSqlQuery query(mysql);
@@ -290,12 +290,12 @@ void JVlibForm::on_Tone_Number_select_valueChanged(int val) {
       buf[3] = 0x03;
       buf[4] = Hval;
       buf[5] = Lval;
-      if (open_ports() == EXIT_FAILURE) return;
+//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-	close_ports(); 
+//	close_ports(); 
 	return;
       }
-      close_ports();
+//      close_ports();
       state_table->tone_modified = true;
     }	// end state_table->jv_connect
    setWaveChooser();
@@ -329,12 +329,12 @@ void JVlibForm::setToneSingleValue(int toneNum, int addr, int val) {
     buf[2] = 0x10 + (toneNum*2) + (addr>0x7F ? 1 : 0);
     buf[3] = addr>0x7F ? addr-0x80 : addr;
     buf[4] = val;
-    if (open_ports() == EXIT_FAILURE) return;
+//    if (open_ports() == EXIT_FAILURE) return;
     if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-      close_ports(); 
+//      close_ports(); 
       return;
     }
-    close_ports();
+//    close_ports();
     state_table->tone_modified = true;
   }
 }	// end setToneSingleValue

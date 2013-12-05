@@ -23,11 +23,11 @@
 
 int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
-    int	err;
   // set to blocking mode
   snd_rawmidi_nonblock(midiInHandle, 0);
   snd_rawmidi_drop(midiOutHandle);
   // transmit the data
+  int err;
   if ((err = snd_rawmidi_write(midiOutHandle, buf, buf_size)) < 0) { 
     QMessageBox::critical(0, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     return(EXIT_FAILURE);
@@ -62,6 +62,7 @@ int JVlibForm::change_2(int A, int B) {
     return 0;
 }
 int JVlibForm::sysex_send(unsigned char *buf, int buf_size) {
+  // incoming buffer must contain 4 empty bytes at the beginning, then have 0x11 or 0x12 in place [4]
   if (!state_table->jv_connect) return EXIT_FAILURE;
   int	err;
   char    JV_header[4] = { 0xF0,0x41,0x10,0x6A };
@@ -104,7 +105,9 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   SysEx[buf_size+6] = 0xF7;
   // transmit the data
 //JVlibForm::hexdump(SysEx, buf_size+7);
+  if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   int rc = JVlibForm::change_send(SysEx, buf_size+7);
+  close_ports();
   delete[] SysEx;
   return rc;
 }	// end SYSEX_SEND

@@ -94,12 +94,12 @@ void JVlibForm::on_PerfDefaultTempo_select_valueChanged(int val) {
       buf[3] = 0x2D;
       buf[4] = HVal;
       buf[5] = LVal;
-      if (open_ports() == EXIT_FAILURE) return;
+//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-	close_ports();
+//	close_ports();
 	return;
       }
-      close_ports();
+//      close_ports();
     }	// end state_table->jv_connect
   }	// end state_table->updates_enabled
 }	// end on_PerfDefaultTempo_select_valueChanged
@@ -121,9 +121,9 @@ void JVlibForm::on_PerfName_edit_editingFinished() {
       memset(&buf[1],0,3);
       buf[0] = 0x01;
       memcpy(&buf[4], &active_area->active_performance.perf_common.name[0], 12);
-      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) { close_ports(); return; }
-      close_ports();
+//      if (open_ports() == EXIT_FAILURE) return;
+      if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) return; //{ close_ports(); return; }
+//      close_ports();
     } // end IF
     PerfName_edit->setModified(false);
   }	// end PerfName_edit->isModified

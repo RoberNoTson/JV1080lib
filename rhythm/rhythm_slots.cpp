@@ -165,12 +165,12 @@ void JVlibForm::on_Rhythm_WaveGroup_select_currentIndexChanged(int val) {
       buf[3] = 0x01;
       buf[4] = active_area->active_rhythm.rhythm_note[tn].wave_group;
       buf[5] = active_area->active_rhythm.rhythm_note[tn].wave_group_id;
-      if (open_ports() == EXIT_FAILURE) return;
+//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-        close_ports(); 
+//        close_ports(); 
         return;
       }
-      close_ports();
+//      close_ports();
     }	// end jv_connect
     Rhythm_WaveName_display->setText(RhythmName_query());
     state_table->rhythm_modified = true;
@@ -193,12 +193,12 @@ void JVlibForm::on_Rhythm_WaveNumber_select_valueChanged(int val) {
       buf[3] = 0x03;
       buf[4] = Hval;
       buf[5] = Lval;
-      if (open_ports() == EXIT_FAILURE) return;
+//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-        close_ports(); 
+//        close_ports(); 
         return;
       }
-      close_ports();
+//      close_ports();
       state_table->rhythm_modified = true;
     }   // end state_table->jv_connect
   Rhythm_WaveName_display->setText(RhythmName_query());

@@ -54,9 +54,9 @@ void JVlibForm::setPartSingleValue(int partnum, int addr, int val) {
       buf[2] = 0x10+partnum;
       buf[3] = addr;
       buf[4] = val;
-      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],5) == EXIT_FAILURE) { close_ports(); return; }
-      close_ports();
+//      if (open_ports() == EXIT_FAILURE) return;
+      if (sysex_update(&buf[0],5) == EXIT_FAILURE) return;
+//      close_ports();
     }	// end state_table->jv_connect
   }  // end if updates enabled
 }	// end setPartSingleValue

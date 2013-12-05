@@ -16,7 +16,7 @@ char    name_size[] = { 0x0,0x0,0x0,0x0C };
 // Functions
 void JVlibForm::getSysPatchName() {
   // get the current active Patch name from the active area
-  if (state_table->jv_connect) {
+  if (!state_table->jv_connect) return;
   int	err;
   int	Stop=0;
   unsigned char buf[8];
@@ -37,8 +37,7 @@ void JVlibForm::getSysPatchName() {
   SysPatchName->setEnabled(true);
   SysPatchName->setText(QString::fromAscii(r_buf,12));
   Patch_Name_edit->setText(SysPatchName->text());
-  PatchEFX_Name_display->setText(SysPatchName->text());
-  }
+//  PatchEFX_Name_display->setText(SysPatchName->text());
 }
   
 void JVlibForm::getSysPerfName() {
@@ -134,12 +133,12 @@ if (state_table->updates_enabled) {
     memset(buf,0,sizeof(buf));
     buf[3] = addr;
     buf[4] = val;
-    if (open_ports() == EXIT_FAILURE) return;
+//    if (open_ports() == EXIT_FAILURE) return;
     if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-      close_ports(); 
+//      close_ports(); 
       return;
     }
-    close_ports();
+//    close_ports();
   }	// end jv_connect
   else  {	// System settings modified but synth not updated
     System_Sync_status->off();
@@ -163,15 +162,15 @@ void JVlibForm::EnableSys(bool val) {
     SysPerfName->setEnabled(val);
     SysPerfNumber->setEnabled(val);
     PerfSync_button->setEnabled(val);
-    PerfGroup_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
-    PerfNumber_select->setEnabled(val && AcceptBankSel_switch->isChecked());
+    PerfGroup_select->setEnabled(val);
+    PerfNumber_select->setEnabled(val);
     PerfName_edit->setEnabled(val);
     SysPatch_box->setEnabled(!val);
     SysPatchName->setEnabled(!val);
     SysPatchNumber->setEnabled(!val);
     Patch_Sync_button->setEnabled(!val);
-    Patch_Group_select->setEnabled(!val && AcceptProgramChg_switch->isChecked());
-    Patch_Number_select->setEnabled(!val && AcceptBankSel_switch->isChecked());
+    Patch_Group_select->setEnabled(!val);
+    Patch_Number_select->setEnabled(!val);
     Patch_Name_edit->setEnabled(!val);
   }
   else if (state_table->patch_mode) {
@@ -186,8 +185,8 @@ void JVlibForm::EnableSys(bool val) {
     SysPatchName->setEnabled(val);
     SysPatchNumber->setEnabled(val);
     Patch_Sync_button->setEnabled(val);
-    Patch_Group_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
-    Patch_Number_select->setEnabled(val && AcceptBankSel_switch->isChecked());
-    Patch_Name_edit->setEnabled(val);
+//    Patch_Group_select->setEnabled(val);
+//    Patch_Number_select->setEnabled(val);
+//    Patch_Name_edit->setEnabled(val);
   }
 }	// end EnableSys

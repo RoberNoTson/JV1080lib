@@ -24,13 +24,13 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
     buf[2] = 0x10 + Tuning_PartTune_select->value() - 1;
   buf[3] = addr;
   buf[4] = val;
-  if (open_ports() == EXIT_FAILURE) return;
+//  if (open_ports() == EXIT_FAILURE) return;
   if (sysex_update(&buf[0], sizeof(buf)) == EXIT_FAILURE) {
     puts("tuning udpate failed");
-    close_ports();
+//    close_ports();
     return;
   }
-  close_ports();
+//  close_ports();
   state_table->tuning_modified = true;
 }	// end setScaleSingleValue
 

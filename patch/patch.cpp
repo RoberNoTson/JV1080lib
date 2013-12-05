@@ -16,6 +16,9 @@ void JVlibForm::EnablePatch(bool val) {
 
   Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? true : false);
   Patch_PerfPartNum_select->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
+  Patch_Group_select->setEnabled(val);
+  Patch_Number_select->setEnabled(val);
+  Patch_Name_edit->setEnabled(val);
   Pitch_OctaveShift_select->setEnabled(val);
   Patch_HoldPeak_select->setEnabled(val);
   Patch_C1_HoldPeak_select->setEnabled(val);
@@ -27,8 +30,6 @@ void JVlibForm::EnablePatch(bool val) {
   Patch_BenderDown_select->setEnabled(val);
   Patch_BenderUp_select->setEnabled(val);
   Pitch_StretchTuning_select->setEnabled(val);
-  Patch_Struct12_box->setEnabled(val);
-  Patch_STruct34_box->setEnabled(val);
   Patch_TempoBox->setEnabled(state_table->perf_mode ? false : val);
   Patch_DefaultTempo_select->setToolTip(state_table->patch_mode ? "Set the default tempo for the Patch" : "Performance tempo controls all patches");
   Patch_Tone1_enable->setEnabled(val);
@@ -44,6 +45,8 @@ void JVlibForm::EnablePatch(bool val) {
   Patch_Portamento_box->setEnabled(val);
   Patch_TestTone_switch->setEnabled(val);
   Patch_TestTone_switch->setChecked(false);
+  Patch_Struct12_box->setEnabled(val);
+  Patch_Struct34_box->setEnabled(val);
   PatchEFX_EFX_groupBox->setEnabled(val);
   PatchEFX_Reverb_box->setEnabled(val);
   PatchEFX_Chorus_box->setEnabled(val);
@@ -272,12 +275,12 @@ void JVlibForm::setPatchSingleValue(int addr, int val) {
     buf[2] = 0x00;
     buf[3] = addr;
     buf[4] = val;
-    if (open_ports() == EXIT_FAILURE) return;
+//    if (open_ports() == EXIT_FAILURE) return;
     if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-      close_ports(); 
+//      close_ports(); 
       return;
     }
-    close_ports();
+//    close_ports();
     state_table->patch_modified = true;
   }
 }	// end setPatchSingleValue
