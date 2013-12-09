@@ -36,21 +36,19 @@ Performance_tab
 10/26/2013  - disable PerfNumber_select when AcceptProgramChg_switch not checked
 
 PerfParts_tab
-10/18/2013  - disable Part[1-16]_PatchGroup_select when AcceptBankSel_switch not checked
-10/18/2013  - disable Part[1-16]_PatchNumber_select when AcceptProgramChg_switch not checked
   - voice reserve per part should be prevented from increasing if it causes the system total to exceed 64
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
+  - update Patch tab group/number/name when selected Part matches
 
 Patch_tab
-10/18/2013  - disable Patch_Group_select when AcceptBankSel_switch not checked
-10/18/2013  - disable Patch_Number_select when AcceptProgramChg_switch not checked
 10/29/2013  - change cursor to Wait when Sync pressed
 11/28/2013  - BUG: changing Patch number on Patch tab causes focus to jump to Tuning tab
   - set Patch_Name_edit Read-Only unless in Patch mode and the Patch_Group is "User"
   - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
   - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - update related PerfPart when group/number/name changes
 
 Rhythm_tab
 07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd

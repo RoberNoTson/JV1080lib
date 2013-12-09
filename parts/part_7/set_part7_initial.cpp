@@ -64,11 +64,11 @@ void JVlibForm::setPart7_Parms() {
 	Part7_PatchGroup_select->setCurrentIndex(0);
 	break;
   }	// end SWITCH
-  Part7_PatchNumber_select->setValue((active_area->active_performance.perf_part[6].patch_num_high*16) + active_area->active_performance.perf_part[6].patch_num_low+1);
-  Part7_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[6].patch_common.name[0],12));
-  Part7_LowLimit_display->setText(funcNoteCalc(Part7_LowLimit_select->value()));
-  Part7_HighLimit_display->setText(funcNoteCalc(Part7_HighLimit_select->value()));
-    Part7_PatchGroup_select->setEnabled(Part7_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
+    Part7_PatchNumber_select->setValue((active_area->active_performance.perf_part[6].patch_num_high*16) + active_area->active_performance.perf_part[6].patch_num_low+1);
+    Part7_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[6].patch_common.name[0],12));
+    Part7_LowLimit_display->setText(funcNoteCalc(Part7_LowLimit_select->value()));
+    Part7_HighLimit_display->setText(funcNoteCalc(Part7_HighLimit_select->value()));
+//    Part7_PatchGroup_select->setEnabled(Part7_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
     Part7_MidiChannel_select->setEnabled(Part7_ReceiveMidi_enable->isChecked());
     Part7_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked() || AcceptBankSel_switch->isChecked());
     Part7_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
@@ -107,6 +107,6 @@ void JVlibForm::setPart7_Parms() {
   // following are used for both Perf and GM modes
   Part7_TestTone_switch->setChecked(false);
   Part7_SetPatchMax();
-  Part7_PatchNumber_select->setEnabled(Part7_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
+//  Part7_PatchNumber_select->setEnabled(Part7_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
   Part7_TestTone_switch->setEnabled(Part7_ReceiveMidi_enable->isChecked());
 }	// end setPart7_Parms

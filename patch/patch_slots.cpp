@@ -206,12 +206,13 @@ void JVlibForm::on_Patch_Name_edit_editingFinished() {
 // switches
 void JVlibForm::on_Patch_PerfPartNum_select_currentIndexChanged(int val) {
     Patch_Sync_button->setEnabled(true);
+    if (!state_table->updates_enabled) return;
     state_table->updates_enabled = false;
-    if (state_table->patch_mode) {
-        setPatchParms(0);
-	state_table->updates_enabled = true;
-	return;
-    }
+//    if (state_table->patch_mode) {
+//        setPatchParms(0);
+//	state_table->updates_enabled = true;
+//	return;
+//    }
     // process Perf mode changes
     switch(val) {
       case 0:

@@ -9,8 +9,8 @@
 void JVlibForm::setPartsParms() {
   // called after Performance tab Sync button is clicked and synth settings are downloaded to the active area
   // sets controls/displays so they match the synth, based on what is in the active area
-  
-  state_table->updates_enabled = false;
+//  state_table->updates_enabled = false;
+
   // these can be set in Performance mode or GM mode
   setPart1_Parms();
   setPart2_Parms();
@@ -28,6 +28,7 @@ void JVlibForm::setPartsParms() {
   setPart14_Parms();
   setPart15_Parms();
   setPart16_Parms();
+
   connect(Part1_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
   connect(Part2_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
   connect(Part3_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
@@ -43,6 +44,7 @@ void JVlibForm::setPartsParms() {
   connect(Part14_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
   connect(Part15_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
   connect(Part16_VoiceMode_switch, SIGNAL(toggled(bool)), this, SLOT(VoiceMode_select(bool)));
+
   // following items only apply in Perf mode, not GM
   if (state_table->perf_mode) {
     setVoiceCounters();
@@ -59,14 +61,11 @@ void JVlibForm::setPartsParms() {
     Patch_Number_select->setValue(Part1_PatchNumber_select->value());
     Patch_Name_edit->setText(Part1_PatchName_display->text());
     Patch_PerfPartNum_select->setEnabled(true);
-//    Patch_Group_select->setEnabled(false);
-//    Patch_Number_select->setEnabled(false);
-//    Patch_Name_edit->setEnabled(false);
   }	// end if perf_mode
   // following items only apply in GM mode, not Perf
-  if (state_table->GM_mode) {
-    
-  }
-  state_table->updates_enabled = true;
+//  if (state_table->GM_mode) {
+//  }
+
+//  state_table->updates_enabled = true;
 }	// end setPartsParms
 

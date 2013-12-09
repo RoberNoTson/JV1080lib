@@ -75,9 +75,6 @@ void JVlibForm::on_Part1_ReverbSend_select_valueChanged(int val) {
   if (state_table->perf_mode) setPartSingleValue(0,0xD,val);
   if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part1_MidiChannel_select->value()-1,0x5B,val);
 }
-void JVlibForm::on_Part1_ReceivePrgChg_enable_toggled(bool val) {
-  if (!state_table->perf_mode) setPartSingleValue(0,0xE,val);
-}
 void JVlibForm::on_Part1_ReceiveVolume_enable_toggled(bool val) {
   if (state_table->perf_mode) setPartSingleValue(0,0xF,val);
 }
@@ -98,12 +95,14 @@ void JVlibForm::on_Part1_VoiceReserve_select_valueChanged(int val) {
   setVoiceCounters();
   setPerfSingleValue(0x30+0,val);
 }
+void JVlibForm::on_Part1_ReceivePrgChg_enable_toggled(bool val) {
+  setPartSingleValue(0,0xE,val);
+}
 
 //---------------------------------------------------------------------------------------------------------------------
 void JVlibForm::on_Part1_PatchGroup_select_currentIndexChanged(int val) {
   // called after a change in the Patch group or number for this part to update the Patch Name and active_area memory
   if (!state_table->updates_enabled) return;
-//  Part1_SetPatchMax();
   switch(val) {
     case 0:	// User patch
       Part1_PatchNumber_select->setMaximum(128);
@@ -160,7 +159,7 @@ void JVlibForm::on_Part1_PatchGroup_select_currentIndexChanged(int val) {
   unsigned char	buf[8];
   memset(buf,0,sizeof(buf));
   buf[0] = 0x01;
-  buf[2] = 0x10;
+  buf[2] = 0x10 + 0x00;
   buf[3] = 0x02;
   memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[0].patch_group,4);
   if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
@@ -169,40 +168,39 @@ void JVlibForm::on_Part1_PatchGroup_select_currentIndexChanged(int val) {
   Part1_PatchName_display->setText(getPartPatchName(0));
 }	// end on_Part1_PatchGroup_select_currentIndexChanged
 
+void JVlibForm::on_Part1_PatchNumber_select_valueChanged(int i) {
+  on_Part1_PatchGroup_select_currentIndexChanged(Part1_PatchGroup_select->currentIndex());
+}	// end on_Part1_PatchNumber_select_valueChanged
+
 void JVlibForm::Part1_SetPatchMax() {
   // set the Maximum possible value for Patch Number based on the current Patch Group
   switch(Part1_PatchGroup_select->currentIndex()) {
-    case 0:	// User
+    case 0:     // User
       Part1_PatchNumber_select->setMaximum(128);
       break;
-    case 1:	// Exp A
+    case 1:     // Exp A
       Part1_PatchNumber_select->setMaximum(255);
       break;
-    case 2:	// PresetA
+    case 2:     // PresetA
       Part1_PatchNumber_select->setMaximum(128);
       break;
-    case 3:	// PresetB
+    case 3:     // PresetB
       Part1_PatchNumber_select->setMaximum(128);
       break;
-    case 4:	// PresetC
+    case 4:     // PresetC
       Part1_PatchNumber_select->setMaximum(128);
       break;
-    case 5:	// PresetD
+    case 5:     // PresetD
       Part1_PatchNumber_select->setMaximum(128);
       break;
-    case 6:	// Exp B
+    case 6:     // Exp B
       Part1_PatchNumber_select->setMaximum(256);
       break;
-    case 7:	// Exp C
+    case 7:     // Exp C
       Part1_PatchNumber_select->setMaximum(100);
       break;
     default:
       Part1_PatchNumber_select->setMaximum(128);
       break;
   }
-}	// end Part1_SetPatchMax
-
-void JVlibForm::on_Part1_PatchNumber_select_valueChanged() {
-  on_Part1_PatchGroup_select_currentIndexChanged(Part1_PatchGroup_select->currentIndex());
-}	// end on_Part1_PatchNumber_select_valueChanged
-
+}       // end Part1_SetPatchMax

@@ -62,7 +62,7 @@ void JVlibForm::getActivePerfCommon() {
   for (int x=0;x<16;x++) {		// get patch common
     progress.setValue(x+16);
     if (progress.wasCanceled()) goto breakout;
-    printf("patch %d\n",x+1);
+    printf("patch name %d\n",x+1);
     usleep(200000);
     buf[1] = x;		// Patch number
     RetryC:

@@ -69,7 +69,7 @@ void JVlibForm::setPart8_Parms() {
     Part8_PatchName_display->setText(QString::fromAscii(&active_area->active_perf_patch[7].patch_common.name[0],12));
     Part8_LowLimit_display->setText(funcNoteCalc(Part8_LowLimit_select->value()));
     Part8_HighLimit_display->setText(funcNoteCalc(Part8_HighLimit_select->value()));
-    Part8_PatchGroup_select->setEnabled(Part8_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
+//    Part8_PatchGroup_select->setEnabled(Part8_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
     Part8_MidiChannel_select->setEnabled(Part8_ReceiveMidi_enable->isChecked());
     Part8_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked() || AcceptBankSel_switch->isChecked());
     Part8_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
@@ -108,6 +108,6 @@ void JVlibForm::setPart8_Parms() {
   // following are used for both Perf and GM modes
   Part8_TestTone_switch->setChecked(false);
   Part8_SetPatchMax();
-  Part8_PatchNumber_select->setEnabled(Part8_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
+//  Part8_PatchNumber_select->setEnabled(Part8_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
   Part8_TestTone_switch->setEnabled(Part8_ReceiveMidi_enable->isChecked());
 }	// end setPart8_Parms

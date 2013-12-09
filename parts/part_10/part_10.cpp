@@ -18,7 +18,6 @@
  * on_Part10_HighLimit_select_valueChanged
  * on_Part10_VoiceReserve_select_valueChanged
  * on_Part10_PatchGroup_select_currentIndexChanged
- * Part10_SetPatchMax
  * on_Part10_PatchNumber_select_valueChanged
  */
 
@@ -75,16 +74,7 @@ void JVlibForm::on_Part10_ReverbSend_select_valueChanged(int val) {
   if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part10_MidiChannel_select->value()-1,0x5B,val);
 }
 void JVlibForm::on_Part10_ReceivePrgChg_enable_toggled(bool val) {
-  if (state_table->perf_mode) {
     setPartSingleValue(9,0xE,val);
-    Part10_PatchGroup_select->setEnabled(val && AcceptBankSel_switch->isChecked());
-    Part10_PatchNumber_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
-    if (Patch_PerfPartNum_select->currentIndex()==9 && state_table->patch_sync) {
-      Patch_Group_select->setEnabled(val && AcceptBankSel_switch->isChecked());
-      Patch_Number_select->setEnabled(val && AcceptProgramChg_switch->isChecked());
-      Patch_Name_edit->setEnabled(val);
-    }
-  }
 }
 void JVlibForm::on_Part10_ReceiveVolume_enable_toggled(bool val) {
   if (state_table->perf_mode) setPartSingleValue(9,0xF,val);
@@ -111,101 +101,87 @@ void JVlibForm::on_Part10_VoiceReserve_select_valueChanged(int val) {
 void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
   // called after a change in the Patch group or number for this part to update the Patch Name and active_area memory
  if (!state_table->updates_enabled) return;
-  int MSB,LSB;
-  int CtlChl = toggleControlChannel(10);
-  // change onscreen control to set maximum value for the parm type
-//  Part10_PatchNumber_select->setMaximum(2);
-  // update perf_part.patch_num_high/low
-  int pn = Part10_PatchNumber_select->value() - 1;
-  active_area->active_performance.perf_part[9].patch_num_high = 0;
-  active_area->active_performance.perf_part[9].patch_num_low = pn;
-  // update patch_group and group_id
   switch(val) {
     case 0:	// User patch
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x0;
       active_area->active_performance.perf_part[9].patch_group_id = 0x01;
-      MSB = 0x50;
-      LSB = 0x00;
       break;
-    case 1:	// PresetA
+    case 1:	// Exp A
+      Part10_PatchNumber_select->setMaximum(255);
+      active_area->active_performance.perf_part[9].patch_group = 0x02;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x02;
+      break;
+    case 2:	// PresetA
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x03;
-      MSB = 0x51;
-      LSB = 0x00;
       break;
-    case 2:	// PresetB
+    case 3:	// PresetB
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x04;
-      MSB = 0x51;
-      LSB = 0x01;
       break;
-    case 3:	// PresetC
+    case 4:	// PresetC
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x05;
-      MSB = 0x51;
-      LSB = 0x02;
       break;
-    case 4:	// PresetD
+    case 5:	// PresetD
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x06;
-      MSB = 0x51;
-      LSB = 0x03;
       break;
-    case 5:	// Exp B
+    case 6:	// Exp B
+      Part10_PatchNumber_select->setMaximum(256);
       active_area->active_performance.perf_part[9].patch_group = 0x02;
       active_area->active_performance.perf_part[9].patch_group_id = 0x10;
-      MSB = 0x54;
-      LSB = 0x02;
+      break;
+    case 7:	// Exp C
+      Part10_PatchNumber_select->setMaximum(100);
+      active_area->active_performance.perf_part[9].patch_group = 0x02;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x62;
       break;
     default:
+      Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x00;
-      MSB = 0x00;
-      LSB = 0x00;
       break;
   }	// end switch set Patch group
-  // update JV
-  if (state_table->updates_enabled) {
-    change_3(0xB0 + Part10_MidiChannel_select->value()-1, 0, MSB);
-    change_3(0xB0 + Part10_MidiChannel_select->value()-1, 0x20, LSB);
-    // Program Change - patch number is required for this
-    change_2(0xC0 + Part10_MidiChannel_select->value()-1, pn);
-  }  // end state_table->updates_enabled
-  Part10_PatchName_display->setText(getPartPatchName(9));
+  // update perf_part.patch_num_high/low
+  int pn = Part10_PatchNumber_select->value() - 1;
+  active_area->active_performance.perf_part[9].patch_num_high = pn/16;
+  active_area->active_performance.perf_part[9].patch_num_low = pn%16;
+  if (!state_table->jv_connect) return;
+  // update JV  
+  unsigned char	buf[8];
+  memset(buf,0,sizeof(buf));
+  buf[0] = 0x01;
+  buf[2] = 0x10 + 0x09;
+  buf[3] = 0x02;
+  memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[9].patch_group,4);
+  if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
+    puts("OOPS 2!"); return;
+  }
+ Part10_PatchName_display->setText(getPartPatchName(9));
   // update Rhythm_tab
-//  if (state_table->perf_mode) 
-    Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
-//  if (state_table->perf_mode) {
-    Rhythm_PatchGroup_select->blockSignals(true);
-    Rhythm_PatchGroup_select->setCurrentIndex(val);
-    Rhythm_PatchGroup_select->blockSignals(false);
-//  }    
-  if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
+  Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
+  Rhythm_PatchGroup_select->blockSignals(true);
+  Rhythm_PatchGroup_select->setCurrentIndex(val);
+  Rhythm_PatchGroup_select->blockSignals(false);
 }	// end on_Part10_PatchGroup_select_currentIndexChanged
 
 void JVlibForm::on_Part10_PatchNumber_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
-    int pn = val-1;
-    int CtlChl=0;
-//    if (state_table->perf_mode) {
-      CtlChl = toggleControlChannel(10);
-      active_area->active_performance.perf_part[9].patch_num_high = 0;
-      active_area->active_performance.perf_part[9].patch_num_low = pn;
-//    }
-    if (state_table->jv_connect)
-      change_2(0xC0 + Part10_MidiChannel_select->value()-1, pn);
-    if (state_table->perf_mode) 
-      if (CtlChl) SysControlRecvChannel_select->setValue(CtlChl);
-//    if (state_table->perf_mode) {
-      Rhythm_PatchNumber_select->blockSignals(true);
-      Rhythm_PatchNumber_select->setValue(val);
-      Rhythm_PatchNumber_select->blockSignals(false);
-      Part10_PatchName_display->setText(getPartPatchName(9));
-      Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
-//    }
-    if (state_table->GM_mode) {
+  if (state_table->perf_mode) {
+    on_Part10_PatchGroup_select_currentIndexChanged(Part10_PatchGroup_select->currentIndex());
+    Rhythm_PatchNumber_select->blockSignals(true);
+    Rhythm_PatchNumber_select->setValue(val);
+    Rhythm_PatchNumber_select->blockSignals(false);
+    Part10_PatchName_display->setText(getPartPatchName(9));
+    Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
+  }
+  if (state_table->GM_mode) {
       Part10_PatchName_display->setText(Part10_PatchNumber_select->value()==1 ? "GM Drum Set" : "BrushDrumSet");
-    }
-  }	// end updates_enabled
+  }
 }	// end on_Part10_PatchNumber_select_valueChanged
 

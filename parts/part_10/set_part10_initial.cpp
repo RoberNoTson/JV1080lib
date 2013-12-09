@@ -69,7 +69,7 @@ void JVlibForm::setPart10_Parms() {
     Rhythm_PatchNumber_select->setValue(Part10_PatchNumber_select->value());
     Rhythm_PatchNumber_select->blockSignals(false);
     Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
-    Part10_PatchGroup_select->setEnabled(Part10_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
+//    Part10_PatchGroup_select->setEnabled(Part10_ReceivePrgChg_enable->isChecked() && AcceptBankSel_switch->isChecked());
     Part10_MidiChannel_select->setEnabled(Part10_ReceiveMidi_enable->isChecked());
     Part10_ReceivePrgChg_enable->setEnabled(AcceptProgramChg_switch->isChecked() || AcceptBankSel_switch->isChecked());
     Part10_ReceiveVolume_enable->setEnabled(AcceptVolumeChg_switch->isChecked());
@@ -104,6 +104,6 @@ void JVlibForm::setPart10_Parms() {
   }
   // following are used for both Perf and GM modes
   Part10_TestTone_switch->setChecked(false);
-  Part10_PatchNumber_select->setEnabled(Part10_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
+//  Part10_PatchNumber_select->setEnabled(Part10_ReceivePrgChg_enable->isChecked() && AcceptProgramChg_switch->isChecked()); 
   Part10_TestTone_switch->setEnabled(Part10_ReceiveMidi_enable->isChecked());
 }	// end setPart10_Parms

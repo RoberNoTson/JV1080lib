@@ -140,7 +140,7 @@ private slots:
   
   // for Parts tab
   void VoiceMode_select(bool);
-  void on_Part1_PatchNumber_select_valueChanged();
+  void on_Part1_PatchNumber_select_valueChanged(int);
   void on_Part1_PatchGroup_select_currentIndexChanged(int);
   void on_PartsRangeLimitEnable_select_toggled(bool);
   void on_Part1_Transpose_select_valueChanged(int);
