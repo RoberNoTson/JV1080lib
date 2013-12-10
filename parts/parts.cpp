@@ -68,7 +68,7 @@ QString JVlibForm::getPartPatchName(int val) {
   unsigned char buf[8];
   char    name_size[] = { 0x0,0x0,0x0,0x0C };  
   memset(buf,0,sizeof(buf));
-  buf[0] = 0x02;	// base address of active_area->perf_part
+  buf[0] = 0x02;
   buf[1] = val;		// offset to part info
   buf[7] = 0x0C;		// size of patch name
   if (open_ports() == EXIT_FAILURE) return("");
@@ -82,7 +82,8 @@ QString JVlibForm::getPartPatchName(int val) {
   if (err != EXIT_SUCCESS) { close_ports(); puts("3 getPartPatchName failed!"); return(""); }
   close_ports();
   return QString::fromAscii(&active_area->active_perf_patch[val].patch_common.name[0],12);
-  }	// end Perf or Patch mode
+  }	// end Perf mode
+  
   if (state_table->GM_mode) {
     // select name from patch_list where group_area = "Preset D" and number = partX_PatchNumber_select->value()
     int x = 0;

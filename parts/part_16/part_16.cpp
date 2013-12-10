@@ -169,6 +169,13 @@ void JVlibForm::on_Part16_PatchGroup_select_currentIndexChanged(int val) {
 
 void JVlibForm::on_Part16_PatchNumber_select_valueChanged(int i) {
   on_Part16_PatchGroup_select_currentIndexChanged(Part16_PatchGroup_select->currentIndex());
+  if (Patch_PerfPartNum_select->currentIndex()==15) {
+    state_table->updates_enabled=false;
+    Patch_Number_select->setValue(Part16_PatchNumber_select->value());
+    Patch_Group_select->setCurrentIndex(Part16_PatchGroup_select->currentIndex());
+    Patch_Name_edit->setText(Part16_PatchName_display->text());
+    state_table->updates_enabled=true;
+  }
 }	// end on_Part16_PatchNumber_select_valueChanged
 
 void JVlibForm::Part16_SetPatchMax() {

@@ -1060,44 +1060,114 @@ void JVlibForm::on_Patch_Group_select_currentIndexChanged(int val) {
 	  return;
 	}
 	SysPatchSelect->setCurrentIndex(Patch_Group_select->currentIndex());
-    } 
-    else if (state_table->perf_mode) {
-	buf[0] = 1;
-	buf[2] = 0x10 + ppn;
-	buf[3] = 2;
-	memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[ppn].patch_group,4);
-	if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
-	  puts("OOPS 2!");
-	  return;
-	}
-	setSysSingleValue(0, 0);
-	setSysSingleValue(0, 1);	
-	Patch_Name_edit->setText(getPartPatchName(ppn));
+	return;
     }
-}	// end on_Patch_Group_select_currentIndexChanged
-
-void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
-  if (!state_table->updates_enabled) return;
-  EnablePatch(false);
-  int ppn = Patch_PerfPartNum_select->currentIndex();
-  int Hpn = (val-1)/16;
-  int Lpn = (val-1)%16;
-  if (state_table->perf_mode) {
-    active_area->active_performance.perf_part[ppn].patch_num_high = Hpn;
-    active_area->active_performance.perf_part[ppn].patch_num_low = Lpn;
-    unsigned char	buf[8];
-    memset(buf,0,sizeof(buf));
+    // process PerfPart
     buf[0] = 1;
     buf[2] = 0x10 + ppn;
     buf[3] = 2;
     memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[ppn].patch_group,4);
     if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
-	  puts("OOPS 2!");
-	  return;
+      puts("OOPS 2!");
+      return;
     }
-    setSysSingleValue(0, 0);
-    setSysSingleValue(0, 1);	
     Patch_Name_edit->setText(getPartPatchName(ppn));
+    state_table->updates_enabled=false;
+    switch(ppn) {
+      case 0:
+	Part1_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part1_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part1_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 1:
+	Part2_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part2_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part2_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 2:
+	Part3_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part3_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part3_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 3:
+	Part4_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part4_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part4_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 4:
+	Part5_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part5_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part5_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 5:
+	Part6_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part6_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part6_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 6:
+	Part7_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part7_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part7_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 7:
+	Part8_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part8_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part8_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 8:
+	Part9_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part9_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part9_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 9:
+	Part10_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part10_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part10_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 10:
+	Part11_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part11_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part11_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 11:
+	Part12_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part12_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part12_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 12:
+	Part13_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part13_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part13_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 13:
+	Part14_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part14_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part14_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 14:
+	Part15_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part15_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part15_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+      case 15:
+	Part16_PatchGroup_select->setCurrentIndex(Patch_Group_select->currentIndex());
+	Part16_PatchNumber_select->setValue(Patch_Number_select->value());
+	Part16_PatchName_display->setText(Patch_Name_edit->text());
+	break;
+    } // end switch
+    state_table->updates_enabled=true;
+}	// end on_Patch_Group_select_currentIndexChanged
+
+void JVlibForm::on_Patch_Number_select_valueChanged(int val) {
+  if (!state_table->updates_enabled) return;
+  EnablePatch(false);
+  int Hpn = (val-1)/16;
+  int Lpn = (val-1)%16;
+  if (state_table->perf_mode) {
+    int ppn = Patch_PerfPartNum_select->currentIndex();
+    active_area->active_performance.perf_part[ppn].patch_num_high = Hpn;
+    active_area->active_performance.perf_part[ppn].patch_num_low = Lpn;
+    on_Patch_Group_select_currentIndexChanged(Patch_Group_select->currentIndex());
   }
   else if (state_table->patch_mode) {
     system_area->sys_common.patch_num_high = Hpn;

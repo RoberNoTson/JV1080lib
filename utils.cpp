@@ -106,7 +106,7 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   // transmit the data
 //JVlibForm::hexdump(SysEx, buf_size+7);
   if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
-  int rc = JVlibForm::change_send(SysEx, buf_size+7);
+  int rc = change_send(SysEx, buf_size+7);
   close_ports();
   delete[] SysEx;
   return rc;
