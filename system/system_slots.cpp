@@ -138,7 +138,7 @@ void JVlibForm::on_SysPerfSelect_currentIndexChanged() {
 
 void JVlibForm::on_SysPatchSelect_currentIndexChanged(int val) {
  // called by SIGNAL when the Patch group or number is changed
- if (state_table->updates_enabled) {
+ if (!state_table->updates_enabled) return;
   // update sys_common.patch_num_high/low
   int Hval = ((SysPatchNumber->value()-1)/16);
   int Lval = ((SysPatchNumber->value()-1)%16);
@@ -219,21 +219,7 @@ void JVlibForm::on_SysPatchSelect_currentIndexChanged(int val) {
   Patch_Group_select->setEnabled(true);
   Patch_Number_select->setEnabled(true);
   Patch_Name_edit->setEnabled(true);
-/*  PatchEFX_Group_display->setEnabled(true);
-  PatchEFX_Number_display->setEnabled(true);
-  PatchEFX_Name_display->setEnabled(true);
-  PatchEFX_Group_display->setText(SysPatchSelect->currentText());
-  PatchEFX_Number_display->setText(QString::number(SysPatchNumber->value()));
-  PatchEFX_Name_display->setText(Patch_Name_edit->text());
-*/
-  }	// end UPDATES_ENABLED
   EnablePatch(false);
-/*  setPerfTabs(false);
-  if (!state_table->patchTab_enable) {
-    MainTabWidget->setTabEnabled(3,true);	// Patch tab
-    state_table->patchTab_enable = true;
-  }
-*/
 }	// end slotSysSetPatch
 
 int JVlibForm::on_System_Sync_button_clicked() {  
@@ -370,7 +356,7 @@ void JVlibForm::slotSysSetPatchMode() {
 
 void JVlibForm::slotSysSetGmMode() {
   // called when slotSysSetMode switch changes
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   int reply = QMessageBox::critical(this,"JVlib", 
     QString::fromAscii("Changing to GM Mode will lock this application in that mode!\nYou will need to manually reset the JV-1080 front panel to change modes again.\nAre you sure you want to proceed?"),
     QMessageBox::Ok | QMessageBox::Cancel);
@@ -386,38 +372,33 @@ void JVlibForm::slotSysSetGmMode() {
   state_table->patch_mode = false;
   state_table->GM_mode = true;
   setSysGmMode(true);
-  }	// end state_table->updates_enabled
 }	// end slotSysSetGmMode
 
 // --------------------------------------------------------------------------------------------------------------------
 // update memory and the synth when controls are changed
 void JVlibForm::on_EFX_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.EFX_switch = (val==Qt::Checked?true:false);
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_EFX_switch,system_area->sys_common.EFX_switch);
-  } 
 }
 void JVlibForm::on_Chorus_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.chorus_switch = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_chorus_switch,system_area->sys_common.chorus_switch);
-  }
 }
 void JVlibForm::on_Reverb_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.reverb_switch = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_reverb_switch,system_area->sys_common.reverb_switch);
-  } 
 }
 void JVlibForm::on_PatchRemain_switch_stateChanged(int val) { 
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.patch_remain = val==Qt::Checked?true:false;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_patch_remain,system_area->sys_common.patch_remain);
-  }
 }
 void JVlibForm::on_AcceptProgramChg_switch_stateChanged(int val) { 
   if (!state_table->updates_enabled) return;
@@ -562,29 +543,26 @@ void JVlibForm::on_SysVolumeControl_select_currentIndexChanged(int idx) {
     setSysSingleValue(addr_sys_volume_control_source, system_area->sys_common.volume_control_source);
 }
 void JVlibForm::on_SysAftertouchControl_select_currentIndexChanged(int idx) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.aftertouch_control_source = idx;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_aftertouch_control_source, system_area->sys_common.aftertouch_control_source);
-  }
 }
 void JVlibForm::on_SysPatchRecvChannel_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.patch_receive_channel = val-1;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_patch_receive_channel, system_area->sys_common.patch_receive_channel);
-  }
 }
 void JVlibForm::on_SysControlRecvChannel_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   system_area->sys_common.control_channel = val>0?val-1:16;
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_control_channel, system_area->sys_common.control_channel);
-  }
 }
 
 void JVlibForm::on_SysPreviewMode_switch_toggled(bool checked) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   // update system_area
   system_area->sys_common.preview_mode = checked;
   // update synth
@@ -592,11 +570,10 @@ void JVlibForm::on_SysPreviewMode_switch_toggled(bool checked) {
     setSysSingleValue(addr_sys_preview_mode, checked);
   // update button text
   SysPreviewMode_switch->setText( checked ? QString::fromUtf8("Chord") : QString::fromUtf8("Single") );
-  }
 }
 
 void JVlibForm::on_SysPreviewNote1_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   // update system_area
   system_area->sys_common.preview_key_set_1=val;
   // update display
@@ -604,10 +581,9 @@ void JVlibForm::on_SysPreviewNote1_select_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_key_1,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote2_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   // update system_area
   system_area->sys_common.preview_key_set_2=val;
   // update display
@@ -615,10 +591,9 @@ void JVlibForm::on_SysPreviewNote2_select_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_key_2,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote3_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   // update system_area
   system_area->sys_common.preview_key_set_3=val;
   // update display
@@ -626,10 +601,9 @@ void JVlibForm::on_SysPreviewNote3_select_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_key_3,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote4_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   // update system_area
   system_area->sys_common.preview_key_set_4=val;
   // update display
@@ -637,10 +611,9 @@ void JVlibForm::on_SysPreviewNote4_select_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_key_4,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote1_volume_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   QString str;
   SysPreviewNote1_volume->setToolTip(str.setNum(val));
   // update system_area
@@ -648,10 +621,9 @@ void JVlibForm::on_SysPreviewNote1_volume_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_velocity_1,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote2_volume_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   QString str;
   SysPreviewNote2_volume->setToolTip(str.setNum(val));
   // update system_area
@@ -659,10 +631,9 @@ void JVlibForm::on_SysPreviewNote2_volume_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_velocity_2,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote3_volume_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   QString str;
   SysPreviewNote3_volume->setToolTip(str.setNum(val));
   // update system_area
@@ -670,10 +641,9 @@ void JVlibForm::on_SysPreviewNote3_volume_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_velocity_3,val);
-  }
 }
 void JVlibForm::on_SysPreviewNote4_volume_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   QString str;
   SysPreviewNote4_volume->setToolTip(str.setNum(val));
   // update system_area
@@ -681,7 +651,6 @@ void JVlibForm::on_SysPreviewNote4_volume_valueChanged(int val) {
   // update synth
   if (state_table->jv_connect)
     setSysSingleValue(addr_sys_preview_velocity_4,val);
-  }
 }
 
 // --------------------------------------------------------------------------------------------------------------------
