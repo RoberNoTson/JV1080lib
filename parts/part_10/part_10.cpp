@@ -185,13 +185,6 @@ void JVlibForm::on_Part10_PatchNumber_select_valueChanged(int val) {
     Rhythm_PatchNumber_select->setValue(val);
     Rhythm_PatchNumber_select->blockSignals(false);
     Part10_PatchName_display->setText(getPartPatchName(9));
-    if (Patch_PerfPartNum_select->currentIndex()==9) {
-      state_table->updates_enabled=false;
-      Patch_Number_select->setValue(Part10_PatchNumber_select->value());
-      Patch_Group_select->setCurrentIndex(Part10_PatchGroup_select->currentIndex());
-      Patch_Name_edit->setText(Part10_PatchName_display->text());
-      state_table->updates_enabled=true;
-    }
     Rhythm_PatchName_display->setText(Part10_PatchName_display->text());
   }
   if (state_table->GM_mode) {
