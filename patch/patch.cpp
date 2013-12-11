@@ -16,9 +16,9 @@ void JVlibForm::EnablePatch(bool val) {
 
   Patch_PerfPartNum_select->setEnabled(state_table->perf_mode ? true : false);
   Patch_PerfPartNum_select->setToolTip(state_table->perf_mode ? "Select the Part Number to view" : "");
-  Patch_Group_select->setEnabled(val);
-  Patch_Number_select->setEnabled(val);
-  Patch_Name_edit->setEnabled(val);
+//  Patch_Group_select->setEnabled(val);
+//  Patch_Number_select->setEnabled(val);
+//  Patch_Name_edit->setEnabled(val);
   Pitch_OctaveShift_select->setEnabled(val);
   Patch_HoldPeak_select->setEnabled(val);
   Patch_C1_HoldPeak_select->setEnabled(val);
