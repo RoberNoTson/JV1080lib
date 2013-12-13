@@ -209,7 +209,8 @@ invalid_format:
             return 0;
     }   // end FOR j
     // sort the event vector in tick order
-    std::sort(all_events.begin(), all_events.end(), tick_comp);
+//    std::sort(all_events.begin(), all_events.end(), tick_comp);
+    std::stable_sort(all_events.begin(), all_events.end(), tick_comp);
     if (song_length_seconds == 0) {
         song_length_seconds = (60000/(BPM*PPQ)) * all_events.back().tick / 1000 ;
         qDebug() << "Song length: " << song_length_seconds;
@@ -221,7 +222,10 @@ invalid_format:
     return 1;   // good return, all data read ok
 }   // end read_smf
 
-bool JVlibForm::tick_comp(const struct event& e1, const struct event& e2) { return e1.tick<e2.tick; }
+bool JVlibForm::tick_comp(const struct event& e1, const struct event& e2) { 
+  return (e1.tick<e2.tick);
+}
+
 int JVlibForm::read_track(int track_end, char *file_name) {
 // read one complete track from the file, parse it into events
     int tick = 0;
