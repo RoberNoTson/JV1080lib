@@ -3,7 +3,7 @@
 #include        <QtGui>
 
 void JVlibForm::PitchStdUpdate(int offset, int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     bool *ptr;
     int tn = Tone_ToneNumber_select->value() - 1;
     if (state_table->perf_mode)
@@ -13,7 +13,6 @@ void JVlibForm::PitchStdUpdate(int offset, int val) {
     ptr[offset] = val;
     if (state_table->jv_connect) 
       setToneSingleValue(tn,offset, val);
-  }     // end state_table->updates_enabled
 }       // end PitchStdUpdate
 
 void JVlibForm::on_Pitch_TestTone_switch_toggled(bool val) {
@@ -141,14 +140,13 @@ void JVlibForm::on_Pitch_Depth_select_valueChanged(int val) {
 }
 
 void JVlibForm::on_Pitch_OctaveShift_select_currentIndexChanged(int val) {
-  if (state_table->updates_enabled) {
-    if (state_table->perf_mode)
+  if (!state_table->updates_enabled) return;
+  if (state_table->perf_mode)
       active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.octave_shift = val;
-    else
+  else
       active_area->active_patch_patch.patch_common.octave_shift = val;
-    if (state_table->jv_connect) 
+  if (state_table->jv_connect) 
       setPatchSingleValue(0x41, val);    
-  }
 }
 
 void JVlibForm::on_Pitch_KeyFollow_select_currentIndexChanged(int val) {
@@ -246,7 +244,7 @@ void JVlibForm::on_Pitch_Time1_select_valueChanged(int val) {
     Pitch_Env_t1Text = Pitch_Env_scene->addSimpleText("T1");
     Pitch_Env_t1Text->setPos((Pitch_Env_t1.x2()+Pitch_Env_t1.x1())/2-5,Pitch_Env_t1.y2()-15);
   }
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Time2_select_valueChanged(Pitch_Time2_select->value());
     state_table->updates_enabled = true;
@@ -278,7 +276,7 @@ void JVlibForm::on_Pitch_Time2_select_valueChanged(int val) {
       Pitch_Env_t2Text = Pitch_Env_scene->addSimpleText("T2");
     }
   if (Pitch_Env_t2Text) Pitch_Env_t2Text->setPos((Pitch_Env_t2.x2()+Pitch_Env_t2.x1())/2-5, Pitch_Env_t2.y1()<Pitch_Env_t2.y2()?Pitch_Env_t2.y1()-15:Pitch_Env_t2.y2()-15);
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Time3_select_valueChanged(Pitch_Time3_select->value());
     state_table->updates_enabled = true;
@@ -312,7 +310,7 @@ void JVlibForm::on_Pitch_Time3_select_valueChanged(int val) {
       Pitch_Env_t3Text = Pitch_Env_scene->addSimpleText("T3");
       if (Pitch_Env_t3Text) Pitch_Env_t3Text->setPos((Pitch_Env_t3.x2()+Pitch_Env_t3.x1())/2-5,Pitch_Env_t3.y1()<Pitch_Env_t3.y2()?Pitch_Env_t3.y1()-15:Pitch_Env_t3.y2()-15);
     }
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Time4_select_valueChanged(Pitch_Time4_select->value());
     state_table->updates_enabled = true;
@@ -380,7 +378,7 @@ void JVlibForm::on_Pitch_Lvl1_select_valueChanged(int val) {
     if (Pitch_Env_t1Text) Pitch_Env_t1Text->setPos((Pitch_Env_t1.x2()+Pitch_Env_t1.x1())/2-5,
       Pitch_Env_t1.y2()-15);
   }
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Lvl2_select_valueChanged(Pitch_Lvl2_select->value());
     state_table->updates_enabled = true;
@@ -403,7 +401,7 @@ void JVlibForm::on_Pitch_Lvl2_select_valueChanged(int val) {
     if (Pitch_Env_t2Text) Pitch_Env_t2Text->setPos((Pitch_Env_t2.x2()+Pitch_Env_t2.x1())/2-5,
       Pitch_Env_t2.y1()<Pitch_Env_t2.y2()?Pitch_Env_t2.y1()-15:Pitch_Env_t2.y2()-15);
   }
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Lvl3_select_valueChanged(Pitch_Lvl3_select->value());
     state_table->updates_enabled = true;
@@ -427,7 +425,7 @@ void JVlibForm::on_Pitch_Lvl3_select_valueChanged(int val) {
     if (Pitch_Env_t3Text) Pitch_Env_t3Text->setPos((Pitch_Env_t3.x2()+Pitch_Env_t3.x1())/2-5, 
       Pitch_Env_t3.y1()<Pitch_Env_t3.y2() ? Pitch_Env_t3.y1()-15 : Pitch_Env_t3.y2()-15);
   }
-  if (state_table->updates_enabled == true) {
+  if (state_table->updates_enabled) {
     state_table->updates_enabled = false;
     on_Pitch_Lvl4_select_valueChanged(Pitch_Lvl4_select->value());
     state_table->updates_enabled = true;

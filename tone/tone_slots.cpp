@@ -171,13 +171,13 @@ void JVlibForm::on_Tone_InstrFamily_select_currentIndexChanged(int val) {
 }	// end on_Tone_InstrFamily_select_currentIndexChanged
 
 void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
-  if (state_table->updates_enabled) {
-    int tn = Tone_ToneNumber_select->value() - 1;
-    int pn = 0;
-    // update local memory
-    if (state_table->perf_mode) {
-      int pn = Patch_PerfPartNum_select->currentIndex();
-      switch(val) {
+  if (!state_table->updates_enabled) return;
+  int tn = Tone_ToneNumber_select->value() - 1;
+  int pn = 0;
+  // update local memory
+  if (state_table->perf_mode) {
+    int pn = Patch_PerfPartNum_select->currentIndex();
+    switch(val) {
 	case 0:
 	  active_area->active_perf_patch[pn].patch_tone[tn].wave_group = 0x00;
 	  active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id = 0x01;
@@ -234,16 +234,10 @@ void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
       buf[4] = (val<2?0:2);	// wave_group
       // wave_group_id
       buf[5] = state_table->perf_mode ? active_area->active_perf_patch[pn].patch_tone[tn].wave_group_id : active_area->active_patch_patch.patch_tone[tn].wave_group_id;
-//      if (open_ports() == EXIT_FAILURE) {
-//	puts("Error! Unable to open MIDI ports in on_Tone_Group_select_currentIndexChanged");
-//	return;
-//      }
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
 	puts("Error! Unable to send sysex data in on_Tone_Group_select_currentIndexChanged");
-//	close_ports(); 
 	return;
       }
-//      close_ports();
     }	// end state_table->jv_connect
     // set Number maximum
     QSqlQuery query(mysql);
@@ -264,24 +258,23 @@ void JVlibForm::on_Tone_Group_select_currentIndexChanged(int val) {
     Tone_Number_select->setMaximum((int)query.size());
     query.finish();
     setWaveChooser();
-  }	// end state_table->updates_enabled
 }	// end on_Tone_Group_select_currentIndexChanged
 
 void JVlibForm::on_Tone_Number_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
-    int tn = Tone_ToneNumber_select->value() - 1;
-    int pn = state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;
-    int Hval = (val-1)/16;
-    int Lval = (val-1)%16;
-    // update local memory
-    if (state_table->perf_mode) {
+  if (!state_table->updates_enabled) return;
+  int tn = Tone_ToneNumber_select->value() - 1;
+  int pn = state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0;
+  int Hval = (val-1)/16;
+  int Lval = (val-1)%16;
+  // update local memory
+  if (state_table->perf_mode) {
       active_area->active_perf_patch[pn].patch_tone[tn].wave_num_high = Hval;
       active_area->active_perf_patch[pn].patch_tone[tn].wave_num_low = Lval;
-    } else {
+  } else {
       active_area->active_patch_patch.patch_tone[tn].wave_num_high = Hval;
       active_area->active_patch_patch.patch_tone[tn].wave_num_low = Lval;
-    }
-    if (state_table->jv_connect) {
+  }
+  if (state_table->jv_connect) {
     // update the synth
       unsigned char buf[6];
       buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
@@ -290,53 +283,40 @@ void JVlibForm::on_Tone_Number_select_valueChanged(int val) {
       buf[3] = 0x03;
       buf[4] = Hval;
       buf[5] = Lval;
-//      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-//	close_ports(); 
-	return;
-      }
-//      close_ports();
+      if (sysex_update(&buf[0],6) == EXIT_FAILURE) return;
       state_table->tone_modified = true;
-    }	// end state_table->jv_connect
+   }	// end state_table->jv_connect
    setWaveChooser();
    ToneEFX_ToneNumber_display->setText(Tone_ToneNumber_select->cleanText());
    ToneTVF_ToneNumber_display->setText(Tone_ToneNumber_select->cleanText());
    ToneTVA_ToneNumber_display->setText(Tone_ToneNumber_select->cleanText());
    Pitch_ToneNumber_display->setText(Tone_ToneNumber_select->cleanText());
-  }	// end UPDATES_enabled
 }	// end on_Tone_Number_select_valueChanged
 
 void JVlibForm::ToneStdUpdate(int offset, int val) {
-  if (state_table->updates_enabled) {
-    char *ptr;
-    int tn = Tone_ToneNumber_select->value() - 1;
-    if (state_table->perf_mode)
+  if (!state_table->updates_enabled) return;
+  char *ptr;
+  int tn = Tone_ToneNumber_select->value() - 1;
+  if (state_table->perf_mode)
       ptr = &active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_tone[tn].wave_group;
-    else
+  else
       ptr = &active_area->active_patch_patch.patch_tone[tn].wave_group;
-    ptr[offset-1] = val;
-    if (state_table->jv_connect) 
+  ptr[offset-1] = val;
+  if (state_table->jv_connect) 
       setToneSingleValue(tn,offset, val);
-  }	// end state_table->updates_enabled
 }	// end ToneStdUpdate
 
 void JVlibForm::setToneSingleValue(int toneNum, int addr, int val) {
   // automatically determines if we are in Performance or Patch mode, and sets the correct patch tone value as needed
-  if (state_table->updates_enabled && state_table->jv_connect) {
-    unsigned char buf[6];
-    buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
-    buf[1] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
-    buf[2] = 0x10 + (toneNum*2) + (addr>0x7F ? 1 : 0);
-    buf[3] = addr>0x7F ? addr-0x80 : addr;
-    buf[4] = val;
-//    if (open_ports() == EXIT_FAILURE) return;
-    if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-//      close_ports(); 
-      return;
-    }
-//    close_ports();
-    state_table->tone_modified = true;
-  }
+  if (!(state_table->updates_enabled && state_table->jv_connect)) return;
+  unsigned char buf[6];
+  buf[0] = state_table->perf_mode?0x02:0x03;	// are we in Perf or Patch mode?
+  buf[1] = 0x00 + (state_table->perf_mode ? Patch_PerfPartNum_select->currentIndex() : 0);	// select the Perf Part, if in that mode
+  buf[2] = 0x10 + (toneNum*2) + (addr>0x7F ? 1 : 0);
+  buf[3] = addr>0x7F ? addr-0x80 : addr;
+  buf[4] = val;
+  if (sysex_update(&buf[0],5) == EXIT_FAILURE) return;
+  state_table->tone_modified = true;
 }	// end setToneSingleValue
 //---------------------------------------------------------------------------------------------------------------------
 // switches

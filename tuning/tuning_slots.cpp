@@ -45,12 +45,11 @@ void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
   }
   Tuning_PartTuning_box->setEnabled(status && state_table->tuning_sync);
   Tuning_Temperament_box->setEnabled(status && state_table->tuning_sync);
-//  state_table->tuningTab_enable = true;
+  if (!state_table->updates_enabled) return;
   // update the system_area
   system_area->sys_common.scale_tune_switch = status;
   // update the synth
-  if (state_table->updates_enabled)
-    setSysSingleValue(7,status);
+  setSysSingleValue(7,status);
 }	// end on_Tuning_ScaleTuning_enable_toggled
 
 // Scale note tuning

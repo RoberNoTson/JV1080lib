@@ -136,7 +136,7 @@ void JVlibForm::on_Rhythm_Note_enable_toggled(bool val) {
 }
 
 void JVlibForm::on_Rhythm_WaveGroup_select_currentIndexChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     int tn = Rhythm_KeyPress_select->value() - 35;
     active_area->active_rhythm.rhythm_note[tn].wave_group = (val<2?0:2);
     switch(val) {
@@ -165,20 +165,16 @@ void JVlibForm::on_Rhythm_WaveGroup_select_currentIndexChanged(int val) {
       buf[3] = 0x01;
       buf[4] = active_area->active_rhythm.rhythm_note[tn].wave_group;
       buf[5] = active_area->active_rhythm.rhythm_note[tn].wave_group_id;
-//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-//        close_ports(); 
         return;
       }
-//      close_ports();
     }	// end jv_connect
     Rhythm_WaveName_display->setText(RhythmName_query());
     state_table->rhythm_modified = true;
-  }	// end if state_table->updates_enabled
 }	// end on_Rhythm_WaveGroup_select_currentIndexChanged
 
 void JVlibForm::on_Rhythm_WaveNumber_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     int tn = Rhythm_KeyPress_select->value() - 35;
     int Hval = (val-1)/16;
     int Lval = (val-1)%16;
@@ -193,16 +189,12 @@ void JVlibForm::on_Rhythm_WaveNumber_select_valueChanged(int val) {
       buf[3] = 0x03;
       buf[4] = Hval;
       buf[5] = Lval;
-//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-//        close_ports(); 
         return;
       }
-//      close_ports();
       state_table->rhythm_modified = true;
     }   // end state_table->jv_connect
   Rhythm_WaveName_display->setText(RhythmName_query());
-  }	// end udpates_enabled
 }	// end on_Rhythm_WaveNumber_select_valueChanged
 
 void JVlibForm::on_Rhythm_WaveGain_select_currentIndexChanged(int val) {

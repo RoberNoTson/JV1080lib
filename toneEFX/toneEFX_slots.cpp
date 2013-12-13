@@ -346,17 +346,16 @@ void JVlibForm::LFO2_FillEffect() {
 }   // end LFO2_FillEffect
 
 void JVlibForm::ToneEFXStdUpdate(int offset, int val) {
-  if (state_table->updates_enabled) {
-    char *ptr;
-    int tn = Tone_ToneNumber_select->value() - 1;
-    if (state_table->perf_mode)
+  if (!state_table->updates_enabled) return;
+  char *ptr;
+  int tn = Tone_ToneNumber_select->value() - 1;
+  if (state_table->perf_mode)
       ptr = &active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_tone[tn].wave_group;
-    else
+  else
       ptr = &active_area->active_patch_patch.patch_tone[tn].wave_group;
-    ptr[offset-1] = val;
-    if (state_table->jv_connect) 
+  ptr[offset-1] = val;
+  if (state_table->jv_connect) 
       setToneSingleValue(tn,offset, val);
-  }	// end state_table->updates_enabled
 }	// end ToneEFXStdUpdate
 
 void JVlibForm::on_ToneEFX_TestTone_switch_toggled(bool val) {

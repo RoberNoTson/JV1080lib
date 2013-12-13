@@ -58,7 +58,7 @@ void JVlibForm::on_PerfChorusOutput_select_currentIndexChanged(int val) {
   setPerfSingleValue(0x27, val);
 }
 void JVlibForm::on_PerfReverbType_select_currentIndexChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     setPerfSingleValue(0x28, val);
     if (val > 5) {
       PerfReverbFeedback_select->setEnabled(true);
@@ -67,7 +67,6 @@ void JVlibForm::on_PerfReverbType_select_currentIndexChanged(int val) {
       PerfReverbFeedback_select->setEnabled(false);
       PerfReverbFeedback_display->setEnabled(false);
     }
-  }	// end updates_enabled
 }	// end on_PerfReverbType_select_currentIndexChanged
 void JVlibForm::on_PerfReverbLevel_select_valueChanged(int val) {
   setPerfSingleValue(0x29, val);
@@ -82,7 +81,7 @@ void JVlibForm::on_PerfReverbFeedback_select_valueChanged(int val) {
   setPerfSingleValue(0x2C, val);
 }
 void JVlibForm::on_PerfDefaultTempo_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
     int HVal = val/16;
     int LVal = val%16;
     active_area->active_performance.perf_common.default_tempo_high = HVal;
@@ -94,18 +93,14 @@ void JVlibForm::on_PerfDefaultTempo_select_valueChanged(int val) {
       buf[3] = 0x2D;
       buf[4] = HVal;
       buf[5] = LVal;
-//      if (open_ports() == EXIT_FAILURE) return;
       if (sysex_update(&buf[0],6) == EXIT_FAILURE) {
-//	close_ports();
 	return;
       }
-//      close_ports();
     }	// end state_table->jv_connect
-  }	// end state_table->updates_enabled
 }	// end on_PerfDefaultTempo_select_valueChanged
 
 void JVlibForm::on_PerfName_edit_editingFinished() {
-  if (state_table->updates_enabled) {
+  if (!state_table->updates_enabled) return;
   if (PerfName_edit->isModified()) {
     QString val = PerfName_edit->text();
     // change the Performance name
@@ -117,15 +112,10 @@ void JVlibForm::on_PerfName_edit_editingFinished() {
     memcpy(&active_area->active_performance.perf_common.name[0],val.toAscii(),12);
     //  setPerfMultiValue(0x00, val.toAscii(), 12);
     unsigned char buf[16];
-    if (state_table->updates_enabled) {
-      memset(&buf[1],0,3);
-      buf[0] = 0x01;
-      memcpy(&buf[4], &active_area->active_performance.perf_common.name[0], 12);
-//      if (open_ports() == EXIT_FAILURE) return;
-      if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) return; //{ close_ports(); return; }
-//      close_ports();
-    } // end IF
+    memset(&buf[1],0,3);
+    buf[0] = 0x01;
+    memcpy(&buf[4], &active_area->active_performance.perf_common.name[0], 12);
+    if (sysex_update(&buf[0],sizeof(buf)) == EXIT_FAILURE) return; //{ close_ports(); return; }
     PerfName_edit->setModified(false);
   }	// end PerfName_edit->isModified
- }	// end updates_enabled 
 }	// end on_PerfName_edit_editingFinished
