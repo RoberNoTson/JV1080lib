@@ -777,7 +777,8 @@ private slots:
   // for PlayMidi
   void on_System_OpenMidi_button_clicked();
   void on_System_PauseMidi_button_toggled(bool);
-  void on_SysPlayMidi_button_toggled(bool);
+  void on_System_PlayMidi_button_toggled(bool);
+  void on_System_MIDI_Transpose_valueChanged(int);
   void tickDisplay();
   
 private:
@@ -1208,6 +1209,7 @@ private:
     static double song_length_seconds;
     static bool minor_key;
     static int sf;  // sharps/flats
+    static unsigned int event_num;
     snd_seq_queue_status_t *status;
     char playfile[PATH_MAX];
     char MIDI_dir[PATH_MAX];
@@ -1227,7 +1229,7 @@ private:
     int read_smf(char *);
     int read_riff(char *);
     int read_track(int, char *);
-    void play_midi(void);
+    void play_midi(unsigned int);
     void send_data(char *, int);
     void init_seq();
     void close_seq();
@@ -1237,6 +1239,8 @@ private:
     int getSeqPort();
     void createPlayMidi();
     void stop_sound();
+    void startPlayer(int);
+    void stopPlayer();
     DATA_LIST Data_List;
 };	// end class JVlibForm
 

@@ -12,13 +12,16 @@ void JVlibForm::check_snd(const char *operation, int err)
 }
 
 void JVlibForm::createPlayMidi() {
-  seqTimer = new QTimer(this);
+  System_MIDI_progressBar->setEnabled(false);
+  System_MIDI_Transpose->setEnabled(false);
+//  seqTimer = new QTimer(this);
   init_seq();
-  getSeqPort();
   queue = snd_seq_alloc_named_queue(seq, "midi_player");
   check_snd("create queue", queue);
+  getSeqPort();
   snd_seq_queue_status_malloc(&status);
   pid = 0;
-  SysPlayMidi_button->setEnabled(false);
+  System_PlayMidi_button->setEnabled(false);
+//  close_seq();
 }
 

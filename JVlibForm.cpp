@@ -32,7 +32,7 @@ JVlibForm::~JVlibForm() {
   Data_List.close();
   if (JVlibForm::mysql.contains("init"))
     JVlibForm::mysql.removeDatabase("init"); 
-  SysPlayMidi_button->setChecked(false);
+  System_PlayMidi_button->setChecked(false);
   close_seq();
 }
 

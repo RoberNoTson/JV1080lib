@@ -16,7 +16,6 @@
 //      read_var()   -- helper function
 
 #include        "JVlibForm.h"
-//#include "midi_player.h"
 #include <alsa/asoundlib.h>
 #include <algorithm>
 #include <QDebug>
@@ -117,6 +116,7 @@ data_not_found:
 int JVlibForm::read_smf(char *file_name) {
     // read midi data into memory, parsing it into events
     // the starting position is immediately after the "MThd" id
+    // process header data
    int  header_len = read_int(4);   // header length
     if (header_len < 6) {
 invalid_format:
@@ -134,11 +134,10 @@ invalid_format:
         num_tracks = 0;
         return 0;
     }
+    // interpret and set tempo
     int time_division = read_int(2);    // time division
-    qDebug() << "time_division/ppq: " << time_division;
     if (time_division < 0)
         goto invalid_format;
-    // interpret and set tempo
     snd_seq_queue_tempo_t *queue_tempo;
     snd_seq_queue_tempo_alloca(&queue_tempo);
     smpte_timing = !!(time_division & 0x8000);
@@ -180,13 +179,10 @@ invalid_format:
         return 0;
     }
     PPQ = snd_seq_queue_tempo_get_ppq(queue_tempo);
-    qDebug() << "Initial Tempo: " << snd_seq_queue_tempo_get_tempo(queue_tempo);
-    if (PPQ != time_division) qDebug() << "New ppq: " << PPQ;
     BPM = static_cast<double>(1000000/static_cast<double>(snd_seq_queue_tempo_get_tempo(queue_tempo))*60);
     song_length_seconds = prev_tick = 0;
     // read len data from track unless EOF or new track found
     for (int j = 0; j < num_tracks; ++j) {
-        qDebug() << "Process track" << j+1 << "of" << num_tracks;
         int len;
         // verify data is valid
         for (;;) {
@@ -201,23 +197,20 @@ invalid_format:
                 return 0;
             }
             if (id == MAKE_ID('M', 'T', 'r', 'k'))
-                break;            // found start of a new track, loop back and process it
+                break;            // found start of a new track, break out of this inner loop and process it
             skip(len);
         }   // end FOR (infinite)
         // do the actual reading of midi data from the file
         if (!read_track(file_offset + len, file_name))
             return 0;
-    }   // end FOR j
+    }   // end FOR j, all tracks read
     // sort the event vector in tick order
-//    std::sort(all_events.begin(), all_events.end(), tick_comp);
     std::stable_sort(all_events.begin(), all_events.end(), tick_comp);
     if (song_length_seconds == 0) {
         song_length_seconds = (60000/(BPM*PPQ)) * all_events.back().tick / 1000 ;
-        qDebug() << "Song length: " << song_length_seconds;
     }
     else {
         song_length_seconds += (60000/(BPM*PPQ)) * (all_events.back().tick-prev_tick) / 1000 ;
-        qDebug() << "Song length: " << song_length_seconds;
     }
     return 1;   // good return, all data read ok
 }   // end read_smf
@@ -315,13 +308,14 @@ int JVlibForm::read_track(int track_end, char *file_name) {
                 Event.type = SND_SEQ_EVENT_SYSEX;
                 Event.port = port;
                 Event.tick = tick;
-                Event.data.length = len;
                 if (cmd == 0xf0) {
                     Event.sysex.push_back(0xf0);
                     c = 1;
+		    ++len;
                 } else {
                     c = 0;
                 }
+                Event.data.length = len;
                 for (; c < len; ++c)
                     Event.sysex.push_back(read_byte());
                 all_events.push_back(Event);
@@ -333,8 +327,7 @@ int JVlibForm::read_track(int track_end, char *file_name) {
                 switch (c) {
                 case 0x21: // port number
                     if (len < 1) goto _error;
-                    port = read_byte();
-                    skip(len - 1);
+                    skip(len);
                     break;
                 case 0x2f: // end of track
                     skip(track_end - file_offset);
@@ -356,16 +349,119 @@ int JVlibForm::read_track(int track_end, char *file_name) {
                         song_length_seconds += (60000/(BPM*PPQ)) * (tick-prev_tick) / 1000 ;
                         prev_tick = tick;
                         BPM = static_cast<double>(1000000/static_cast<double>(Event.data.tempo)*60);
-                        qDebug() << "New tempo: " << Event.data.tempo;
-                        qDebug() << " BPM: " << BPM << " at tick " << Event.tick;
-                        qDebug() << "New song_len: " << song_length_seconds;
                     }
                     break;
                 case 0x59:  // Key Signature
                     if (len<2) goto _error;
                     sf = read_byte();
                     minor_key = read_byte();
-//                    qDebug() << "Key: " << sf << (minor_key?" minor":" Major");
+		    System_MIDI_KeySig->clear();
+            if (minor_key) {
+                switch(sf) {
+                case 0:
+                    System_MIDI_KeySig->setText("a minor");
+                    break;
+                case 1:
+                    System_MIDI_KeySig->setText("e minor");
+                    break;
+                case 2:
+                    System_MIDI_KeySig->setText("b minor");
+                    break;
+                case 3:
+                    System_MIDI_KeySig->setText("f# minor");
+                    break;
+                case 4:
+                    System_MIDI_KeySig->setText("c# minor");
+                    break;
+                case 5:
+                    System_MIDI_KeySig->setText("g# minor");
+                    break;
+                case 6:
+                    System_MIDI_KeySig->setText("d# minor");
+                    break;
+                case 7:
+                    System_MIDI_KeySig->setText("a# minor");
+                    break;
+                case 0xff:
+                    System_MIDI_KeySig->setText("d minor");
+                    break;
+                case 0xfe:
+                    System_MIDI_KeySig->setText("g minor");
+                    break;
+                case 0xfd:
+                    System_MIDI_KeySig->setText("c minor");
+                    break;
+                case 0xFC:
+                    System_MIDI_KeySig->setText("f minor");
+                    break;
+                case 0xFB:
+                    System_MIDI_KeySig->setText("bf minor");
+                    break;
+                case 0xFA:
+                    System_MIDI_KeySig->setText("ef minor");
+                    break;
+                case 0xF9:
+                    System_MIDI_KeySig->setText("af minor");
+                    break;
+		default:
+		  System_MIDI_KeySig->clear();
+		  System_MIDI_KeySig->setText("n/a");
+		  break;
+                }  // end switch
+            }   // end ninor key
+            else {
+                switch(sf) {
+                case 0:
+                    System_MIDI_KeySig->setText("C Major");
+                    break;
+                case 1:
+                    System_MIDI_KeySig->setText("G Major");
+                    break;
+                case 2:
+                    System_MIDI_KeySig->setText("D Major");
+                    break;
+                case 3:
+                    System_MIDI_KeySig->setText("A Major");
+                    break;
+                case 4:
+                    System_MIDI_KeySig->setText("E Major");
+                    break;
+                case 5:
+                    System_MIDI_KeySig->setText("B Major");
+                    break;
+                case 6:
+                    System_MIDI_KeySig->setText("F# Major");
+                    break;
+                case 7:
+                    System_MIDI_KeySig->setText("C# Major");
+                    break;
+                case 0xFF:
+                    System_MIDI_KeySig->setText("F Major");
+                    break;
+                case 0xFE:
+                    System_MIDI_KeySig->setText("Bf Major");
+                    break;
+                case 0xFD:
+                    System_MIDI_KeySig->setText("Ef Major");
+                    break;
+                case 0xFC:
+                    System_MIDI_KeySig->setText("Af Major");
+                    break;
+                case 0xFB:
+                    System_MIDI_KeySig->setText("Df Major");
+                    break;
+                case 0xFA:
+                    System_MIDI_KeySig->setText("Gf Major");
+                    break;
+                case 0xF9:
+                    System_MIDI_KeySig->setText("Cf Major");
+                    break;
+		default:
+		  System_MIDI_KeySig->clear();
+		  System_MIDI_KeySig->setText("n/a");
+		  break;
+                } // end switch
+            }   // end Major key
                     break;
                 default: // ignore all other meta events
                     skip(len);
@@ -394,6 +490,7 @@ int JVlibForm::parseFile(char *file_name) {
     }
     file_offset = 0;
     int ok = 0;
+    System_MIDI_KeySig->setText("n/a");
     // validate and load the midi data into memory for playing
     switch (read_id()) {
     case MAKE_ID('M', 'T', 'h', 'd'):
