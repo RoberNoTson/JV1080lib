@@ -779,6 +779,9 @@ private slots:
   void on_System_PauseMidi_button_toggled(bool);
   void on_System_PlayMidi_button_toggled(bool);
   void on_System_MIDI_Transpose_valueChanged(int);
+  void on_System_MIDI_progressBar_sliderPressed();
+  void on_System_MIDI_progressBar_sliderReleased();
+  void on_System_MIDI_progressBar_sliderMoved(int val);
   void tickDisplay();
   
 private:

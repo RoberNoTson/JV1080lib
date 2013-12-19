@@ -91,11 +91,6 @@ void JVlibForm::on_System_PlayMidi_button_toggled(bool checked) {
         System_OpenMidi_button->setEnabled(false);
         System_PlayMidi_button->setText("Stop");
 	System_MIDI_progressBar->setEnabled(true);
-//        if (!seq) init_seq();
-//	if (!queue) {
-//	  queue = snd_seq_alloc_named_queue(seq, "midi_player");
-//	  check_snd("create queue", queue);
-//	}
         connect_port();
         // queue won't actually start until it is drained
         int err = snd_seq_start_queue(seq, queue, NULL);
@@ -132,7 +127,6 @@ void JVlibForm::on_System_PlayMidi_button_toggled(bool checked) {
         System_OpenMidi_button->setEnabled(true);
 	System_MIDI_Transpose->setEnabled(true);
 	System_MIDI_progressBar->setEnabled(false);
-//	close_seq();
 	event_num=0;
     }
 }   // end on_System_PlayMidi_button_toggled
@@ -151,9 +145,11 @@ void JVlibForm::on_System_PauseMidi_button_toggled(bool checked)
         snd_seq_stop_queue(seq,queue,NULL);
         snd_seq_drain_output(seq);
 	stop_sound();
+	disconnect_port();
         System_PauseMidi_button->setText("Resume");
   }
   else {
+	connect_port();
         snd_seq_continue_queue(seq, queue, NULL);
         snd_seq_drain_output(seq);
         snd_seq_get_queue_status(seq, queue, status);
@@ -163,7 +159,7 @@ void JVlibForm::on_System_PauseMidi_button_toggled(bool checked)
 	startPlayer(current_tick);
         seqTimer->start(100);
   }
-}   // end on_Pause_button_toggled
+}   // end on_System_PauseMidi_button_toggled
 
 void JVlibForm::on_System_MIDI_Transpose_valueChanged(signed int val) {
   // change the Key Signature if one is displayed
@@ -285,6 +281,51 @@ void JVlibForm::on_System_MIDI_Transpose_valueChanged(signed int val) {
   }   // end Major key
   on_System_PauseMidi_button_toggled(false);
 } // end on_System_MIDI_Transpose_valueChanged
+
+void JVlibForm::on_System_MIDI_progressBar_sliderPressed() {
+  if (!seq || !queue || System_PauseMidi_button->isChecked()) return;
+}	// end on_System_MIDI_progressBar_sliderPressed
+void JVlibForm::on_System_MIDI_progressBar_sliderReleased() {
+    if (!System_PauseMidi_button->isChecked()) return;
+    snd_seq_event_t ev;
+    snd_seq_ev_clear(&ev);
+    snd_seq_ev_set_direct(&ev);
+    snd_seq_get_queue_status(seq, queue, status);
+    // reset queue position
+    snd_seq_ev_is_tick(&ev);
+    snd_seq_ev_set_queue_pos_tick(&ev, queue, 0);
+    snd_seq_event_output(seq, &ev);
+    snd_seq_drain_output(seq);
+    // scan the event queue for the closest tick >= 'x'
+    int y = 0;
+    for (std::vector<event>::iterator Event=all_events.begin(); Event!=all_events.end(); ++Event)  {
+        if (static_cast<int>(Event->tick) >= System_MIDI_progressBar->sliderPosition()) {
+            ev.time.tick = Event->tick;
+	    event_num = y;
+            break;
+        }
+        y++;
+    }
+    ev.dest.client = SND_SEQ_CLIENT_SYSTEM;
+    ev.dest.port = SND_SEQ_PORT_SYSTEM_TIMER;
+    snd_seq_ev_set_queue_pos_tick(&ev, queue, ev.time.tick);
+    snd_seq_event_output(seq, &ev);
+    snd_seq_drain_output(seq);
+    snd_seq_real_time_t *new_time = new snd_seq_real_time_t;
+    double x = static_cast<double>(ev.time.tick)/all_events.back().tick;
+    new_time->tv_sec = (x*song_length_seconds);
+    new_time->tv_nsec = 0;
+    snd_seq_ev_set_queue_pos_real(&ev, queue, new_time);
+    MIDI_time_display->setText(QString::number(static_cast<int>(new_time->tv_sec)/60).rightJustified(2,'0')+
+      ":"+QString::number(static_cast<int>(new_time->tv_sec)%60).rightJustified(2,'0'));
+    if (System_PauseMidi_button->isChecked()) return;
+}	// end on_System_MIDI_progressBar_sliderReleased
+void JVlibForm::on_System_MIDI_progressBar_sliderMoved(int val) {
+    double new_seconds = static_cast<double>(val)/all_events.back().tick;
+    new_seconds *= song_length_seconds;  
+    MIDI_time_display->setText(QString::number(static_cast<int>(new_seconds)/60).rightJustified(2,'0')+
+    ":"+QString::number(static_cast<int>(new_seconds)%60).rightJustified(2,'0'));
+}	// end on_System_MIDI_progressBar_sliderMoved
 
 //  FUNCTIONS
 void JVlibForm::send_data(char * buf,int data_size) {
