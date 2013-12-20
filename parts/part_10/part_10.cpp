@@ -107,40 +107,30 @@ void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
       active_area->active_performance.perf_part[9].patch_group = 0x0;
       active_area->active_performance.perf_part[9].patch_group_id = 0x01;
       break;
-    case 1:	// Exp A
-      Part10_PatchNumber_select->setMaximum(255);
-      active_area->active_performance.perf_part[9].patch_group = 0x02;
-      active_area->active_performance.perf_part[9].patch_group_id = 0x02;
-      break;
-    case 2:	// PresetA
+    case 1:	// PresetA
       Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x03;
       break;
-    case 3:	// PresetB
+    case 2:	// PresetB
       Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x04;
       break;
-    case 4:	// PresetC
+    case 3:	// PresetC
       Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x05;
       break;
-    case 5:	// PresetD
+    case 4:	// PresetD
       Part10_PatchNumber_select->setMaximum(128);
       active_area->active_performance.perf_part[9].patch_group = 0x00;
       active_area->active_performance.perf_part[9].patch_group_id = 0x06;
       break;
-    case 6:	// Exp B
+    case 5:	// Exp B
       Part10_PatchNumber_select->setMaximum(256);
       active_area->active_performance.perf_part[9].patch_group = 0x02;
       active_area->active_performance.perf_part[9].patch_group_id = 0x10;
-      break;
-    case 7:	// Exp C
-      Part10_PatchNumber_select->setMaximum(100);
-      active_area->active_performance.perf_part[9].patch_group = 0x02;
-      active_area->active_performance.perf_part[9].patch_group_id = 0x62;
       break;
     default:
       Part10_PatchNumber_select->setMaximum(128);
@@ -164,6 +154,7 @@ void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
     puts("OOPS 2!"); return;
   }
  Part10_PatchName_display->setText(getPartPatchName(9));
+  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
   if (Patch_PerfPartNum_select->currentIndex()==9) {
     state_table->updates_enabled=false;
     Patch_Number_select->setValue(Part10_PatchNumber_select->value());
@@ -179,6 +170,7 @@ void JVlibForm::on_Part10_PatchGroup_select_currentIndexChanged(int val) {
 }	// end on_Part10_PatchGroup_select_currentIndexChanged
 
 void JVlibForm::on_Part10_PatchNumber_select_valueChanged(int val) {
+  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
   if (state_table->perf_mode) {
     on_Part10_PatchGroup_select_currentIndexChanged(Part10_PatchGroup_select->currentIndex());
     Rhythm_PatchNumber_select->blockSignals(true);

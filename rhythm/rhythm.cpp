@@ -121,6 +121,7 @@ QString JVlibForm::RhythmName_query() {
 }	// end RhythmName_query
 
 void JVlibForm::Rhythm_EnableAll(bool val) {
+  if (!val) Rhythm_Sync_status->off();
   Rhythm_Note_enable->setEnabled(val);
   Rhythm_Hold_enable->setEnabled(val);
   Rhythm_Volume_enable->setEnabled(val);
@@ -178,5 +179,7 @@ void JVlibForm::Rhythm_EnableAll(bool val) {
   Rhythm_SoundingPitch_select->setEnabled(val);
   Rhythm_KeyPress_select->setEnabled(val);
   Rhythm_ToneLevel_select->setEnabled(val);
+  Rhythm_ListNotes_button->setEnabled(val);
+  Rhythm_TestTone_switch->setEnabled(val);
 }	// end Rhythm_EnableAll
 

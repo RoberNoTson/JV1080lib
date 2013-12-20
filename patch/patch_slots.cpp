@@ -65,7 +65,7 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
   state_table->updates_enabled=false;
   EnablePatch(true);
   if (state_table->perf_mode) {
-    if (Patch_PerfPartNum_select->currentIndex()==9) {
+    if (Patch_PerfPartNum_select->currentIndex()==9) {	// set up Rhythm part
       if (!state_table->rhythmTab_enable) {
 	MainTabWidget->setTabEnabled(4,true);
 	state_table->rhythmTab_enable = true;

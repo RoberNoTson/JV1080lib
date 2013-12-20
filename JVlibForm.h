@@ -140,7 +140,7 @@ private slots:
   
   // for Parts tab
   void VoiceMode_select(bool);
-  void on_Part1_PatchNumber_select_valueChanged(int);
+  void on_Part1_PatchNumber_select_valueChanged();
   void on_Part1_PatchGroup_select_currentIndexChanged(int);
   void on_PartsRangeLimitEnable_select_toggled(bool);
   void on_Part1_Transpose_select_valueChanged(int);
@@ -165,7 +165,7 @@ private slots:
   void on_Part2_VoiceReserve_select_valueChanged(int);
   void on_Part2_LowLimit_select_valueChanged(int);
   void on_Part2_HighLimit_select_valueChanged(int);
-  void on_Part2_PatchNumber_select_valueChanged(int);
+  void on_Part2_PatchNumber_select_valueChanged();
   void on_Part2_PatchGroup_select_currentIndexChanged(int);
   void on_Part2_Level_select_valueChanged(int);
   void on_Part2_Pan_select_valueChanged(int);
@@ -184,7 +184,7 @@ private slots:
   void on_Part3_VoiceReserve_select_valueChanged(int);
   void on_Part3_LowLimit_select_valueChanged(int);
   void on_Part3_HighLimit_select_valueChanged(int);
-  void on_Part3_PatchNumber_select_valueChanged(int);
+  void on_Part3_PatchNumber_select_valueChanged();
   void on_Part3_PatchGroup_select_currentIndexChanged(int);
   void on_Part3_Level_select_valueChanged(int);
   void on_Part3_Pan_select_valueChanged(int);
@@ -203,7 +203,7 @@ private slots:
   void on_Part4_VoiceReserve_select_valueChanged(int);
   void on_Part4_LowLimit_select_valueChanged(int);
   void on_Part4_HighLimit_select_valueChanged(int);
-  void on_Part4_PatchNumber_select_valueChanged(int);
+  void on_Part4_PatchNumber_select_valueChanged();
   void on_Part4_PatchGroup_select_currentIndexChanged(int);
   void on_Part4_Level_select_valueChanged(int);
   void on_Part4_Pan_select_valueChanged(int);
@@ -222,7 +222,7 @@ private slots:
   void on_Part5_VoiceReserve_select_valueChanged(int);
   void on_Part5_LowLimit_select_valueChanged(int);
   void on_Part5_HighLimit_select_valueChanged(int);
-  void on_Part5_PatchNumber_select_valueChanged(int);
+  void on_Part5_PatchNumber_select_valueChanged();
   void on_Part5_PatchGroup_select_currentIndexChanged(int);
   void on_Part5_Level_select_valueChanged(int);
   void on_Part5_Pan_select_valueChanged(int);
@@ -241,7 +241,7 @@ private slots:
   void on_Part6_VoiceReserve_select_valueChanged(int);
   void on_Part6_LowLimit_select_valueChanged(int);
   void on_Part6_HighLimit_select_valueChanged(int);
-  void on_Part6_PatchNumber_select_valueChanged(int);
+  void on_Part6_PatchNumber_select_valueChanged();
   void on_Part6_PatchGroup_select_currentIndexChanged(int);
   void on_Part6_Level_select_valueChanged(int);
   void on_Part6_Pan_select_valueChanged(int);
@@ -260,7 +260,7 @@ private slots:
   void on_Part7_VoiceReserve_select_valueChanged(int);
   void on_Part7_LowLimit_select_valueChanged(int);
   void on_Part7_HighLimit_select_valueChanged(int);
-  void on_Part7_PatchNumber_select_valueChanged(int);
+  void on_Part7_PatchNumber_select_valueChanged();
   void on_Part7_PatchGroup_select_currentIndexChanged(int);
   void on_Part7_Level_select_valueChanged(int);
   void on_Part7_Pan_select_valueChanged(int);
@@ -279,7 +279,7 @@ private slots:
   void on_Part8_VoiceReserve_select_valueChanged(int);
   void on_Part8_LowLimit_select_valueChanged(int);
   void on_Part8_HighLimit_select_valueChanged(int);
-  void on_Part8_PatchNumber_select_valueChanged(int);
+  void on_Part8_PatchNumber_select_valueChanged();
   void on_Part8_PatchGroup_select_currentIndexChanged(int);
   void on_Part8_Level_select_valueChanged(int);
   void on_Part8_Pan_select_valueChanged(int);
@@ -298,7 +298,7 @@ private slots:
   void on_Part9_VoiceReserve_select_valueChanged(int);
   void on_Part9_LowLimit_select_valueChanged(int);
   void on_Part9_HighLimit_select_valueChanged(int);
-  void on_Part9_PatchNumber_select_valueChanged(int);
+  void on_Part9_PatchNumber_select_valueChanged();
   void on_Part9_PatchGroup_select_currentIndexChanged(int);
   void on_Part9_Level_select_valueChanged(int);
   void on_Part9_Pan_select_valueChanged(int);
@@ -336,7 +336,7 @@ private slots:
   void on_Part11_VoiceReserve_select_valueChanged(int);
   void on_Part11_LowLimit_select_valueChanged(int);
   void on_Part11_HighLimit_select_valueChanged(int);
-  void on_Part11_PatchNumber_select_valueChanged(int);
+  void on_Part11_PatchNumber_select_valueChanged();
   void on_Part11_PatchGroup_select_currentIndexChanged(int);
   void on_Part11_Level_select_valueChanged(int);
   void on_Part11_Pan_select_valueChanged(int);
@@ -355,7 +355,7 @@ private slots:
   void on_Part12_VoiceReserve_select_valueChanged(int);
   void on_Part12_LowLimit_select_valueChanged(int);
   void on_Part12_HighLimit_select_valueChanged(int);
-  void on_Part12_PatchNumber_select_valueChanged(int);
+  void on_Part12_PatchNumber_select_valueChanged();
   void on_Part12_PatchGroup_select_currentIndexChanged(int);
   void on_Part12_Level_select_valueChanged(int);
   void on_Part12_Pan_select_valueChanged(int);
@@ -374,7 +374,7 @@ private slots:
   void on_Part13_VoiceReserve_select_valueChanged(int);
   void on_Part13_LowLimit_select_valueChanged(int);
   void on_Part13_HighLimit_select_valueChanged(int);
-  void on_Part13_PatchNumber_select_valueChanged(int);
+  void on_Part13_PatchNumber_select_valueChanged();
   void on_Part13_PatchGroup_select_currentIndexChanged(int);
   void on_Part13_Level_select_valueChanged(int);
   void on_Part13_Pan_select_valueChanged(int);
@@ -393,7 +393,7 @@ private slots:
   void on_Part14_VoiceReserve_select_valueChanged(int);
   void on_Part14_LowLimit_select_valueChanged(int);
   void on_Part14_HighLimit_select_valueChanged(int);
-  void on_Part14_PatchNumber_select_valueChanged(int);
+  void on_Part14_PatchNumber_select_valueChanged();
   void on_Part14_PatchGroup_select_currentIndexChanged(int);
   void on_Part14_Level_select_valueChanged(int);
   void on_Part14_Pan_select_valueChanged(int);
@@ -412,7 +412,7 @@ private slots:
   void on_Part15_VoiceReserve_select_valueChanged(int);
   void on_Part15_LowLimit_select_valueChanged(int);
   void on_Part15_HighLimit_select_valueChanged(int);
-  void on_Part15_PatchNumber_select_valueChanged(int);
+  void on_Part15_PatchNumber_select_valueChanged();
   void on_Part15_PatchGroup_select_currentIndexChanged(int);
   void on_Part15_Level_select_valueChanged(int);
   void on_Part15_Pan_select_valueChanged(int);
@@ -431,7 +431,7 @@ private slots:
   void on_Part16_VoiceReserve_select_valueChanged(int);
   void on_Part16_LowLimit_select_valueChanged(int);
   void on_Part16_HighLimit_select_valueChanged(int);
-  void on_Part16_PatchNumber_select_valueChanged(int);
+  void on_Part16_PatchNumber_select_valueChanged();
   void on_Part16_PatchGroup_select_currentIndexChanged(int);
   void on_Part16_Level_select_valueChanged(int);
   void on_Part16_Pan_select_valueChanged(int);

@@ -123,6 +123,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       MainTabWidget->setTabEnabled(10,false);
       state_table->pitchTab_enable = false;
     }
+    if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
     state_table->updates_enabled=false;
   }	// end getActiveRhythm failed
 }	// end on_Rhythm_Sync_button_clicked
@@ -386,20 +387,19 @@ void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
   QSqlQuery NameQuery(mysql);
   
   NameQuery.prepare("Select name from wave_list where group_area = ? and number = ?");
-//  for (int x=0x23;x<0x63;x++) {
   for (int x=0;x<64;x++) {
     Group.clear();
     switch(active_area->active_rhythm.rhythm_note[x].wave_group_id) {
-      case 1:	// Int A
+      case 0x1:	// Int A
 	Group = "Internal A";
 	break;
-      case 2:	// Int B or Exp A
+      case 0x2:	// Int B or Exp A
 	Group = active_area->active_rhythm.rhythm_note[x].wave_group==0 ? "Internal B" : "Expansion A";
 	break;
-      case 10:	// Exp B
+      case 0x10:	// Exp B
 	Group = "Expansion B";
 	break;
-      case 62:	// Exp C
+      case 0x62:	// Exp C
 	Group = "Expansion C";
 	break;      
     }	// end switch Group
@@ -409,7 +409,7 @@ void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
     NameQuery.bindValue(0, Group);
     NameQuery.bindValue(1, Num);
     if (NameQuery.exec() == false) { puts("Query exec failed"); return; }
-    if (NameQuery.size()==0) { puts("0 rows found in WaveName_query"); continue; }
+    if (NameQuery.size()==0) { printf("0 rows found in WaveName_query for %s %d\n",Group.toAscii().data(), Num); continue; }
     NameQuery.first();
     WaveName = NameQuery.value(0).toString();
     WaveName = WaveName.leftJustified(12, ' ');
@@ -423,10 +423,74 @@ printf("%s\n",Group.toAscii().data());
 }	// end on_Rhythm_ListNotes_button_clicked
 
 void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
-  Part10_PatchGroup_select->setCurrentIndex(val);
+  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
+  if (state_table->perf_mode) {
+    Part10_PatchGroup_select->setCurrentIndex(val);
+    return;
+  }
+  if (!state_table->rhythm_mode) return;
+  switch(val) {
+    case 0:	// User patch
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x0;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x01;
+      break;
+    case 1:	// PresetA
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x00;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x03;
+      break;
+    case 2:	// PresetB
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x00;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x04;
+      break;
+    case 3:	// PresetC
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x00;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x05;
+      break;
+    case 4:	// PresetD
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x00;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x06;
+      break;
+    case 5:	// Exp B
+      Part10_PatchNumber_select->setMaximum(256);
+      active_area->active_performance.perf_part[9].patch_group = 0x02;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x10;
+      break;
+    default:
+      Part10_PatchNumber_select->setMaximum(128);
+      active_area->active_performance.perf_part[9].patch_group = 0x00;
+      active_area->active_performance.perf_part[9].patch_group_id = 0x00;
+      break;
+  }	// end switch set Patch group
+  active_area->active_performance.perf_part[9].patch_num_high = 0;
+  active_area->active_performance.perf_part[9].patch_num_low = Rhythm_PatchNumber_select->value() - 1;
+  if (!state_table->jv_connect) return;
+  // update JV  
+  unsigned char	buf[8];
+  memset(buf,0,sizeof(buf));
+  buf[0] = 0x01;
+  buf[2] = 0x10 + 0x09;
+  buf[3] = 0x02;
+  memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[9].patch_group,4);
+  if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
+    puts("OOPS 2!"); return;
+  }
+  Rhythm_PatchName_display->setText(getPartPatchName(9));
 }
 
 void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
-  Part10_PatchNumber_select->setValue(val);
+  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
+  if (state_table->perf_mode) {
+    Part10_PatchNumber_select->setValue(val);
+    return;
+  }
+  if (!state_table->rhythm_mode) return;
+  active_area->active_performance.perf_part[9].patch_num_high = 0;
+  active_area->active_performance.perf_part[9].patch_num_low = val - 1;
+  on_Rhythm_PatchGroup_select_currentIndexChanged(Rhythm_PatchGroup_select->currentIndex());
 }
 

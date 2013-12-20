@@ -125,7 +125,7 @@ void JVlibForm::setRhythmParms(int val) {
     Rhythm_TestTone_switch->setCheckable(true);
   else
     Rhythm_TestTone_switch->setCheckable(false);
-  Rhythm_PatchGroup_select->setEnabled(system_area->sys_common.receive_bank_select);
-  Rhythm_PatchNumber_select->setEnabled(system_area->sys_common.receive_program_change && active_area->active_performance.perf_part[9].receive_program_change);
+//  Rhythm_PatchGroup_select->setEnabled(system_area->sys_common.receive_bank_select);
+//  Rhythm_PatchNumber_select->setEnabled(system_area->sys_common.receive_program_change && active_area->active_performance.perf_part[9].receive_program_change);
   state_table->updates_enabled = true;
 }	// end setRhythmParms

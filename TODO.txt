@@ -24,13 +24,13 @@ database
 System_tab
 10/29/2013  - when changing from Patch to Performance mode, disable tabs for PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch
 11/30/2013  - create a "Rhythm" setting on the Mode select ComboBox
+12/19/2013  - change MIDI player progress bar to slider, allow for interaction with MIDI file
+12/19/2013  - display Key Signature from MIDI file if one exists, link to Tuning Tab
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
   - create "Upload" (to Synth) function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
-  - change MIDI player progress bar to slider, allow for interaction with MIDI file
-  - display Key Signature from MIDI file if one exists, link to Tuning Tab
 
 Performance_tab
 10/26/2013  - disable PerfGroup_select when AcceptBankSel_switch not checked

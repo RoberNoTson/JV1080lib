@@ -174,7 +174,7 @@ void JVlibForm::on_Part14_PatchGroup_select_currentIndexChanged(int val) {
   }
 }	// end on_Part14_PatchGroup_select_currentIndexChanged
 
-void JVlibForm::on_Part14_PatchNumber_select_valueChanged(int i) {
+void JVlibForm::on_Part14_PatchNumber_select_valueChanged() {
   on_Part14_PatchGroup_select_currentIndexChanged(Part14_PatchGroup_select->currentIndex());
 }	// end on_Part14_PatchNumber_select_valueChanged
 
