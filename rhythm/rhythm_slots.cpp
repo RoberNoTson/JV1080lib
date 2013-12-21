@@ -366,7 +366,7 @@ void JVlibForm::on_Rhythm_ReverbSend_select_valueChanged(int val) {
 }
 
 void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
- if (state_table->jv_connect) {
+  if (!state_table->jv_connect) return;
   if ((Rhythm_TestTone_switch->isCheckable()&&val) || (Rhythm_TestTone_switch->isCheckable()==false)) {
     change_3(0x99, Rhythm_KeyPress_select->value(), 127);
     if (Rhythm_TestTone_switch->isCheckable())
@@ -376,7 +376,6 @@ void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
     change_3(0xB9, 0x7B, 0x0);
     Rhythm_TestTone_switch->setText("Play Note");
   }
- }	// end state_table->jv_connect
   Rhythm_TestTone_switch->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Play Note") );
 }	// end on_Rhythm_TestTone_switch_clicked
 
