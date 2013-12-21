@@ -82,7 +82,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       MainTabWidget->setTabEnabled(6,false);
       state_table->toneTab_enable = false;
     }	      
-    if (!state_table->toneEFXTab_enable) {
+/*    if (!state_table->toneEFXTab_enable) {
       MainTabWidget->setTabEnabled(7,true);
       state_table->toneEFXTab_enable = true;
     }
@@ -98,6 +98,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       MainTabWidget->setTabEnabled(10,true);
       state_table->pitchTab_enable = true;
     }
+*/
     state_table->rhythm_sync = true;
     state_table->rhythm_modified = false;
     state_table->updates_enabled=true;
@@ -236,7 +237,7 @@ void JVlibForm::on_Rhythm_PitchDepth_select_valueChanged(int val) {
   RhythmStdUpdate(0x0F,val+12);
 }
 void JVlibForm::on_Rhythm_PitchVelocSens_select_valueChanged(int val) {
-  RhythmStdUpdate(0x10,val/2 + 25);
+  RhythmStdUpdate(0x10,val/2 + 50);
 }
 void JVlibForm::on_Rhythm_PitchVeloTime_select_currentIndexChanged(int val) {
   RhythmStdUpdate(0x11,val);
@@ -275,13 +276,13 @@ void JVlibForm::on_Rhythm_TVFResonance_select_valueChanged(int val) {
   RhythmStdUpdate(0x1C,val);
 }
 void JVlibForm::on_Rhythm_TVFResVelocSens_select_valueChanged(int val) {
-  RhythmStdUpdate(0x1D,val);
+  RhythmStdUpdate(0x1D,val/2 + 50);
 }
 void JVlibForm::on_Rhythm_TVFDepth_select_valueChanged(int val) {
   RhythmStdUpdate(0x1E,val+63);
 }
 void JVlibForm::on_Rhythm_TVFVelocSens_select_valueChanged(int val) {
-  RhythmStdUpdate(0x1F,val/2 + 25);
+  RhythmStdUpdate(0x1F,val/2 + 50);
 }
 void JVlibForm::on_Rhythm_TVFVelTimeSens_select_currentIndexChanged(int val) {
   RhythmStdUpdate(0x20,val);
@@ -314,7 +315,7 @@ void JVlibForm::on_Rhythm_ToneLevel_select_valueChanged(int val) {
   RhythmStdUpdate(0x29,val);
 }
 void JVlibForm::on_Rhythm_TVAVelocSens_select_valueChanged(int val) {
-  RhythmStdUpdate(0x2A,val/2 + 25);
+  RhythmStdUpdate(0x2A,val/2 + 50);
 }
 void JVlibForm::on_Rhythm_TVAVelTimeSens_select_currentIndexChanged(int val) {
   RhythmStdUpdate(0x2B,val);

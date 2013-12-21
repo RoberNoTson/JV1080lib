@@ -63,7 +63,8 @@ void JVlibForm::setRhythmParms(int val) {
   Rhythm_PitchLvl2_select->setValue(active_area->active_rhythm.rhythm_note[val].P_ENV_level[1]-63);
   Rhythm_PitchLvl3_select->setValue(active_area->active_rhythm.rhythm_note[val].P_ENV_level[2]-63);
   Rhythm_PitchLvl4_select->setValue(active_area->active_rhythm.rhythm_note[val].P_ENV_level[3]-63);
-  Rhythm_PitchVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].P_ENV_veloc_sens*2)-50);
+  Rhythm_PitchVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].P_ENV_veloc_sens-50)*2);
+//  Rhythm_PitchVelocSens_display->display((active_area->active_rhythm.rhythm_note[val].P_ENV_veloc_sens*2)-50);
   Rhythm_TVATime1_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_time[0]);
   Rhythm_TVATime2_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_time[1]);
   Rhythm_TVATime3_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_time[2]);
@@ -71,7 +72,7 @@ void JVlibForm::setRhythmParms(int val) {
   Rhythm_TVALvl1_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_level[0]);
   Rhythm_TVALvl2_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_level[1]);
   Rhythm_TVALvl3_select->setValue(active_area->active_rhythm.rhythm_note[val].A_ENV_level[2]);
-  Rhythm_TVAVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].A_ENV_veloc_sens*2)-50);
+  Rhythm_TVAVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].A_ENV_veloc_sens-50)*2);
   Rhythm_TVFTime1_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_time[0]);
   Rhythm_TVFTime2_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_time[1]);
   Rhythm_TVFTime3_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_time[2]);
@@ -80,10 +81,10 @@ void JVlibForm::setRhythmParms(int val) {
   Rhythm_TVFLvl3_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_level[1]);
   Rhythm_TVFLvl4_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_level[2]);
   Rhythm_TVFLvl1_select->setValue(active_area->active_rhythm.rhythm_note[val].F_ENV_level[3]);
-  Rhythm_TVFResVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].resonance_veloc_sens*2)-50);
+  Rhythm_TVFResVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].resonance_veloc_sens-50)*2);
   Rhythm_TVFCutoffFreq_select->setValue(active_area->active_rhythm.rhythm_note[val].cutoff_freq);
   Rhythm_TVFResonance_select->setValue(active_area->active_rhythm.rhythm_note[val].resonance);
-  Rhythm_TVFVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].F_ENV_veloc_sens*2)-50);
+  Rhythm_TVFVelocSens_select->setValue((active_area->active_rhythm.rhythm_note[val].F_ENV_veloc_sens-50)*2);
   // QSlider
   Rhythm_SoundingPitch_select->setValue(active_area->active_rhythm.rhythm_note[val].source_key);
   // special Display settings

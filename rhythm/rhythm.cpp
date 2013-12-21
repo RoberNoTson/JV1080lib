@@ -10,22 +10,21 @@
 #include	<QtGui>
 
 void JVlibForm::RhythmStdUpdate(int offset, int val) {
-  if (!state_table->perf_mode) return;
+//  if (!state_table->perf_mode) return;
   if (!state_table->updates_enabled) return;
   int tn = Rhythm_KeyPress_select->value();
   bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;
   ptr[offset] = val;
-  if (state_table->jv_connect) {
-      unsigned char buf[5];
-      buf[0] = 0x02;
-      buf[1] = 0x09;
-      buf[2] = tn;
-      buf[3] = offset;
-      buf[4] = val;
-      if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-	return;
-      }
-  }	// end state_table->jv_connect
+  if (!state_table->jv_connect) return;
+  unsigned char buf[5];
+  buf[0] = 0x02;
+  buf[1] = 0x09;
+  buf[2] = tn;
+  buf[3] = offset;
+  buf[4] = val;
+  if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
+    return;
+  }
 }	// end RhythmStdUpdate
 
 bool JVlibForm::getActiveRhythm() {

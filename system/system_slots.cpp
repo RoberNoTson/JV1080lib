@@ -87,7 +87,9 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
       // NOTE: perf_part_10 controls are synced with the same control on Rhythm tab, use either one in Perf mode
       setSysSingleValue(addr_sys_panel_mode, 0);
       slotSysSetPerformanceMode();
-      // disable Perf_tab, Patch_tab, Parts_tab, enable Rhythm_tab 
+      // disable Perf_tab, Patch_tab, Parts_tab, enable Rhythm_tab
+      setPatchTabs(false);
+      setPerfTabs(false);
       if (state_table->performanceTab_enable) {
 	MainTabWidget->setTabEnabled(1,false);	// Performance tab
 	state_table->performanceTab_enable = false;
@@ -325,6 +327,11 @@ void JVlibForm::slotSysSetPatchMode() {
     if (state_table->performanceTab_enable) {
       MainTabWidget->setTabEnabled(1,false);	// Performance tab
       state_table->performanceTab_enable = false;
+    }
+    if (state_table->rhythm_mode) state_table->rhythm_mode = false;
+    if (state_table->rhythmTab_enable) {
+      MainTabWidget->setTabEnabled(4, false);
+      state_table->rhythmTab_enable = false;
     }
     setSysGmMode(false);
     EnablePerf(false);

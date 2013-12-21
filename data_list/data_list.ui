@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Data List</string>
+   <string>Database Lists</string>
   </property>
   <property name="statusTip">
    <string notr="true">Item Count </string>
