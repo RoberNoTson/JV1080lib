@@ -30,14 +30,6 @@ void JVlibForm::on_Pitch_TestTone_switch_toggled(bool val) {
 }	// end on_Pitch_TestTone_switch_toggled
 
 void JVlibForm::on_Pitch_StretchTuning_select_valueChanged(int val) {
-  if (state_table->updates_enabled) {
-    if (state_table->perf_mode)
-      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.stretch_tune_depth = val;
-    else
-      active_area->active_patch_patch.patch_common.stretch_tune_depth = val;
-    if (state_table->jv_connect) 
-      setPatchSingleValue(0x42, val);    
-  }	// end state_table->updates_enabled
   QPixmap StretchTune_pixmap;
   switch(val) {
     case 0:
@@ -54,6 +46,13 @@ void JVlibForm::on_Pitch_StretchTuning_select_valueChanged(int val) {
       break;
   }	// end Switch
   Pitch_StretchTuning_picture->setPixmap(StretchTune_pixmap);
+  if (!state_table->updates_enabled) return;
+    if (state_table->perf_mode)
+      active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_common.stretch_tune_depth = val;
+    else
+      active_area->active_patch_patch.patch_common.stretch_tune_depth = val;
+    if (state_table->jv_connect) 
+      setPatchSingleValue(0x42, val);    
 }	// end on_Pitch_StretchTuning_select_valueChanged
 
 void JVlibForm::on_Pitch_LowLimit_select_valueChanged(int val) {

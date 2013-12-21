@@ -1,4 +1,4 @@
-General
+General updates
 10/29/2013  - change cursor to "Wait" wherever ProgressBox is not displayed
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
@@ -40,7 +40,7 @@ PerfParts_tab
 12/11/2013  - update Patch tab group/number/name when selected Part matches
   - voice reserve per part should be prevented from increasing if it causes the system total to exceed 64
   - monitor Part Pan control to not exceed the max in combination with the Patch Pan settings. It is cumulative
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
   - un-Sync Rhythm tab when Part 10 group/number is changed
 
 Patch_tab
@@ -49,15 +49,11 @@ Patch_tab
 12/11/2013  - update related PerfPart when group/number/name changes
   - set Patch_Name_edit Read-Only unless in Patch mode and the Patch_Group is "User"
   - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 Rhythm_tab
-07/26/2013  - update Group/Number/Name based on Part 10 values even when not Sync'd
-10/18/2013  - disable Rhythm_WaveGroup_select when AcceptBankSel_switch not checked
-10/18/2013  - disable Rhythm_WaveNumber_select when AcceptProgramChg_switch not checked
 11/30/2013  - change to ComboBox for Group, SpinBox for Number; sync with Parts Tab part#10
-  - add "MIDI Receive" checkbox corresponding to Perf Part 10 MIDI Receive
-  - disable Group, Number if Bank/PgChg switch on Sys tab not checked
+  - link "MIDI Receive" checkbox corresponding to Perf Part 10 MIDI Receive
   - enable/disable Play button relative to Sync status
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
@@ -70,22 +66,22 @@ PatchEFX_tab
 Tone_tab
 10/18/2013  - disable Tone_Group_select when AcceptBankSel_switch not checked
 10/18/2013  - disable Tone_Number_select when AcceptProgramChg_switch not checked
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 ToneEFX_tab
   - Add waveform types to LFO graphic
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 ToneTVF_tab
   - add Resonance values to dynamic graph, relative to Filter Type
   - improve Bias keyboard picture
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 ToneTVA_tab
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 Pitch_tab
-  - change "Play Patch" button to not-clickable when patch is a one-shot, e.g. Pizzicato
+  - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
 
 Tuning_tab
 10/30/2013  - save each part separately in Perf mode
