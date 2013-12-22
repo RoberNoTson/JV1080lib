@@ -20,7 +20,7 @@
  * on_Rhythm_OutputLevel_select_valueChanged
  * on_Rhythm_ChorusSend_select_valueChanged
  * on_Rhythm_ReverbSend_select_valueChanged
- * 
+ * on_Rhythm_ReceiveMidi_enable_toggled
  * on_Rhythm_PanControl_select_currentIndexChanged
  * on_Rhythm_TuneAdj_select_valueChanged
  * on_Rhythm_RandPitchDepth_select_currentIndexChanged
@@ -497,3 +497,6 @@ void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
   on_Rhythm_PatchGroup_select_currentIndexChanged(Rhythm_PatchGroup_select->currentIndex());
 }
 
+void JVlibForm::on_Rhythm_ReceiveMidi_enable_toggled(bool val) {
+  Part10_ReceiveMidi_enable->setChecked(val);
+}

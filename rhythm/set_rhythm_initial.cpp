@@ -35,7 +35,7 @@ void JVlibForm::setRhythmParms(int val) {
   Rhythm_Note_enable->setChecked(active_area->active_rhythm.rhythm_note[val].tone);
   Rhythm_Hold_enable->setChecked(active_area->active_rhythm.rhythm_note[val].hold_1_control);
   Rhythm_Volume_enable->setChecked(active_area->active_rhythm.rhythm_note[val].volume_control);
-  
+  Rhythm_ReceiveMidi_enable->setChecked(active_area->active_performance.perf_part[9].MIDI_receive);
   // QComboBox
   Rhythm_WaveGain_select->setCurrentIndex(active_area->active_rhythm.rhythm_note[val].wave_gain);
   Rhythm_Output_select->setCurrentIndex(active_area->active_rhythm.rhythm_note[val].output);
@@ -127,7 +127,5 @@ void JVlibForm::setRhythmParms(int val) {
     Rhythm_TestTone_switch->setCheckable(true);
   else
     Rhythm_TestTone_switch->setCheckable(false);
-//  Rhythm_PatchGroup_select->setEnabled(system_area->sys_common.receive_bank_select);
-//  Rhythm_PatchNumber_select->setEnabled(system_area->sys_common.receive_program_change && active_area->active_performance.perf_part[9].receive_program_change);
   state_table->updates_enabled = true;
 }	// end setRhythmParms

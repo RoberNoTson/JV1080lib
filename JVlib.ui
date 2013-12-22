@@ -5727,7 +5727,7 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
+         <y>-784</y>
          <width>800</width>
          <height>2071</height>
         </rect>
@@ -25115,20 +25115,20 @@
        <rect>
         <x>430</x>
         <y>10</y>
-        <width>71</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Enable</string>
+       <string>Enable Note</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="Rhythm_Hold_enable">
       <property name="geometry">
        <rect>
-        <x>520</x>
+        <x>550</x>
         <y>10</y>
-        <width>80</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -25139,7 +25139,7 @@
      <widget class="QCheckBox" name="Rhythm_Volume_enable">
       <property name="geometry">
        <rect>
-        <x>610</x>
+        <x>620</x>
         <y>10</y>
         <width>71</width>
         <height>21</height>
@@ -28295,7 +28295,7 @@
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>40</y>
+        <y>70</y>
         <width>162</width>
         <height>26</height>
        </rect>
@@ -28533,8 +28533,8 @@
      <widget class="QPushButton" name="Rhythm_ListNotes_button">
       <property name="geometry">
        <rect>
-        <x>530</x>
-        <y>70</y>
+        <x>540</x>
+        <y>40</y>
         <width>90</width>
         <height>23</height>
        </rect>
@@ -28665,6 +28665,19 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QCheckBox" name="Rhythm_ReceiveMidi_enable">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>40</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Receive MIDI</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="PatchEFX_tab">
