@@ -4,7 +4,8 @@
 
 void JVlibForm::setRhythmParms(int val) {
   state_table->updates_enabled = false;
-  if (val>0) val -= 35;
+  if (val>34) val -= 35;
+  else return;
   switch (active_area->active_rhythm.rhythm_note[val].wave_group_id) {
     case 0x01:
       Rhythm_WaveGroup_select->setCurrentIndex(0);

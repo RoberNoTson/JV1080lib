@@ -13,7 +13,7 @@ void JVlibForm::RhythmStdUpdate(int offset, int val) {
 //  if (!state_table->perf_mode) return;
   if (!state_table->updates_enabled) return;
   int tn = Rhythm_KeyPress_select->value();
-  bool *ptr = &active_area->active_rhythm.rhythm_note[tn].tone;
+  bool *ptr = &active_area->active_rhythm.rhythm_note[tn-35].tone;
   ptr[offset] = val;
   if (!state_table->jv_connect) return;
   unsigned char buf[5];
@@ -35,8 +35,9 @@ bool JVlibForm::getActiveRhythm() {
   char       active_rhythm_common[]={ 0x2,0x9,0x0,0x0 };
   char    rhythm_common_size[] = { 0x0,0x0,0x0,0x0C };
   char    rhythm_note_size[] = { 0x0,0x0,0x0,0x3A };
+  char	perf_part_size[] = { 0x0,0x0,0x0,0x13 };
 
-  // get active_area rhythm set, common and 64 notes
+  // get active_area rhythm set, common and 64 notes; plus the Part_10 PerfPart settings
   memset(buf,0,sizeof(buf));
   memcpy(buf,active_rhythm_common,4);
   memcpy(buf+4,rhythm_common_size,4);
@@ -47,12 +48,12 @@ bool JVlibForm::getActiveRhythm() {
   progress.setMinimumDuration(0);
   progress.setValue(0);
   RetryG:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return false; }
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
   err = sysex_get((unsigned char *)&active_area->active_rhythm.rhythm_common.name[0], (char *)rhythm_common_size);
-  if (err == EXIT_FAILURE) { close_ports(); return false; }
+  if (err == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
   if (err==3 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
-  if (err != EXIT_SUCCESS) { close_ports(); return false; }
+  if (err != EXIT_SUCCESS) { close_ports(); progress.reset(); return false; }
   Stop=0;
   // get 64 notes for active_area rhythm
   memcpy(buf+4,rhythm_note_size,4);
@@ -62,14 +63,25 @@ bool JVlibForm::getActiveRhythm() {
     if (progress.wasCanceled()) break;
     buf[2] = 0x23+y;	// tone address
     RetryH:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return false; }
+    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
     err = sysex_get((unsigned char *)&active_area->active_rhythm.rhythm_note[y].tone, (char *)rhythm_note_size);
-    if (err == EXIT_FAILURE) { close_ports(); return false; }
+    if (err == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }
     if (err==3 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }
-    if (err != EXIT_SUCCESS) { close_ports(); return false; }
+    if (err != EXIT_SUCCESS) { close_ports(); progress.reset(); return false; }
     Stop=0;
   }	// end FOR 64 notes
+  memset(buf,0,sizeof(buf));
+  buf[0] = 1;
+  buf[2] = 0x19;
+  buf[7] = 0x13;
+  RetryA:
+  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
+  err = sysex_get((unsigned char *)&active_area->active_performance.perf_part[9].MIDI_receive, (char *)perf_part_size);
+  if (err == EXIT_FAILURE) { close_ports(); progress.reset(); return false; }
+  if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryA; }
+  if (err==3 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryA; }
+  if (err != EXIT_SUCCESS) { close_ports(); progress.reset(); return false; }
   close_ports();
   progress.setValue(65);
   progress.reset();

@@ -124,7 +124,10 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       MainTabWidget->setTabEnabled(10,false);
       state_table->pitchTab_enable = false;
     }
-    if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
+    if (state_table->rhythm_sync) {
+      state_table->rhythm_sync=false; 
+      Rhythm_EnableAll(false);
+    }
     state_table->updates_enabled=false;
   }	// end getActiveRhythm failed
 }	// end on_Rhythm_Sync_button_clicked

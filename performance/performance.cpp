@@ -38,7 +38,7 @@ void JVlibForm::getActivePerfCommon() {
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
   if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
   if (err != EXIT_SUCCESS) { close_ports(); return; }
-  // get Performance Part_common headers for 15 parts, skipping over the rhythm set
+  // get Performance Part_common headers for 16 parts
   memcpy(buf+4,perf_part_size,4);
   for (int x=0;x<16;x++) {
     progress.setValue(x);
