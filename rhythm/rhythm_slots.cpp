@@ -71,7 +71,7 @@
 // QPushButton
 void JVlibForm::on_Rhythm_Sync_button_clicked() {
   if (getActiveRhythm()) {
-    setRhythmParms(60);
+    setRhythmParms(69);
     Rhythm_Sync_status->on();
     Rhythm_EnableAll(true);
     if (state_table->patchEFXTab_enable) {

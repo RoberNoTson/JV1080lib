@@ -75,11 +75,13 @@ void JVlibForm::on_SysMode_select_currentIndexChanged(int val) {
     case 0:	// Performance mode
       system_area->sys_common.panel_mode=val;
       setSysSingleValue(addr_sys_panel_mode,val);
+      state_table->rhythm_mode = false;
       slotSysSetPerformanceMode();
       break;
     case 1:	// Patch mode
       system_area->sys_common.panel_mode=val;
       setSysSingleValue(addr_sys_panel_mode,val);
+      state_table->rhythm_mode = false;
       slotSysSetPatchMode();
       break;
     case 2:	// Rhythm mode
@@ -302,9 +304,10 @@ void JVlibForm::slotSysSetPerformanceMode() {
   EnablePatch(false);
   setSysGmMode(false);
   setPatchTabs(false);
-  state_table->perf_mode = true;
-  state_table->patch_mode = false;
-  state_table->GM_mode = false;
+  if (state_table->GM_mode) state_table->GM_mode = false;
+  if (state_table->rhythm_mode) state_table->rhythm_mode = false;
+  if (state_table->patch_mode) state_table->patch_mode = false;
+  if (!state_table->perf_mode) state_table->perf_mode = true;
   Tuning_Sync_status->off();
   state_table->tuning_sync = false;
   state_table->tuning_modified = false;
@@ -328,16 +331,16 @@ void JVlibForm::slotSysSetPatchMode() {
       MainTabWidget->setTabEnabled(1,false);	// Performance tab
       state_table->performanceTab_enable = false;
     }
-    if (state_table->rhythm_mode) state_table->rhythm_mode = false;
     if (state_table->rhythmTab_enable) {
       MainTabWidget->setTabEnabled(4, false);
       state_table->rhythmTab_enable = false;
     }
     setSysGmMode(false);
     EnablePerf(false);
-    state_table->perf_mode = false;
-    state_table->patch_mode = true;
-    state_table->GM_mode = false;
+    if (state_table->rhythm_mode) state_table->rhythm_mode = false;
+    if (state_table->perf_mode) state_table->perf_mode = false;
+    if (state_table->GM_mode) state_table->GM_mode = false;
+    if (!state_table->patch_mode) state_table->patch_mode = true;
     state_table->updates_enabled = false;
     Patch_PerfPartNum_select->blockSignals(true);
     if (Patch_PerfPartNum_select->itemText(0)=="1")
@@ -375,9 +378,10 @@ void JVlibForm::slotSysSetGmMode() {
    system_area->sys_common.panel_mode=2;
    setSysSingleValue(addr_sys_panel_mode,2);
   }	// end UPDATES_ENABLED
-  state_table->perf_mode = false;
-  state_table->patch_mode = false;
-  state_table->GM_mode = true;
+  if (state_table->rhythm_mode) state_table->rhythm_mode = false;
+  if (state_table->perf_mode) state_table->perf_mode = false;
+  if (state_table->patch_mode) state_table->patch_mode = false;
+  if (!state_table->GM_mode) state_table->GM_mode = true;
   setSysGmMode(true);
 }	// end slotSysSetGmMode
 
@@ -665,11 +669,20 @@ void JVlibForm::on_SysPreviewNote4_volume_valueChanged(int val) {
 void JVlibForm::on_SysTestTone_button_clicked(bool val) {
   if (!state_table->jv_connect) return;
   if (val) {
-    change_3(0x90, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
+    if (state_table->rhythm_mode) 
+      change_3(0x99, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
+    else
+      change_3(0x90, SysPreviewNote1_select->value(), SysPreviewNote1_volume->value());
   } 
   else {
-    change_3(0xB0, 0x7B, 0x0);
-    change_3(0xB0, 0x79, 0x0);
+    if (state_table->rhythm_mode) {
+      change_3(0xB9, 0x7B, 0x0);
+      change_3(0xB9, 0x79, 0x0);      
+    }
+    else {
+      change_3(0xB0, 0x7B, 0x0);
+      change_3(0xB0, 0x79, 0x0);
+    }
   }	// end else
   SysTestTone_button->setText(val ? QString::fromUtf8("Stop") : QString::fromUtf8("Test Tone") );
 }

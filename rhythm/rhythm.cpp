@@ -191,6 +191,6 @@ void JVlibForm::Rhythm_EnableAll(bool val) {
   Rhythm_KeyPress_select->setEnabled(val);
   Rhythm_ToneLevel_select->setEnabled(val);
   Rhythm_ListNotes_button->setEnabled(val);
-  Rhythm_TestTone_switch->setEnabled(val);
+  Rhythm_TestTone_switch->setEnabled(val && active_area->active_performance.perf_part[9].MIDI_receive);
 }	// end Rhythm_EnableAll
 

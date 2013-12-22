@@ -32,6 +32,7 @@ void JVlibForm::on_Part10_TestTone_switch_toggled(bool val) {
 //---------------------------------------------------------------------------------------------------------------------
 // switches
 void JVlibForm::on_Part10_ReceiveMidi_enable_toggled(bool val) {
+  Rhythm_TestTone_switch->setEnabled(val && state_table->rhythm_sync);
   if (state_table->perf_mode) setPartSingleValue(9,0,val);
 }
 void JVlibForm::on_Part10_MidiChannel_select_valueChanged(int val) {
