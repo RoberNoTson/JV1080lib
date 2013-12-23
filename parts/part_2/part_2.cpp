@@ -91,8 +91,8 @@ void JVlibForm::on_Part2_HighLimit_select_valueChanged(int val) {
   setPartSingleValue(1, 0x12, val);
 }
 void JVlibForm::on_Part2_VoiceReserve_select_valueChanged(int val) { 
-  setVoiceCounters();
-  setPerfSingleValue(0x30+1,val);
+  if (setVoiceCounters(2))
+    setPerfSingleValue(0x30+1,val);
 }
 void JVlibForm::on_Part2_ReceivePrgChg_enable_toggled(bool val) {
   setPartSingleValue(1,0xE,val);

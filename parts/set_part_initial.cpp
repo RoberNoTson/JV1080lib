@@ -47,7 +47,7 @@ void JVlibForm::setPartsParms() {
 
   // following items only apply in Perf mode, not GM
   if (state_table->perf_mode) {
-    setVoiceCounters();
+//    setVoiceCounters();
     PartsPerfName_display->setText(PerfName_edit->text());
     PartsPerfGroup_display->setText(PerfGroup_select->currentText());
     PartsPerfNumber_display->setText(QString::number(PerfNumber_select->value()));

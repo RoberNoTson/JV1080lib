@@ -773,6 +773,7 @@ private slots:
   void on_Rhythm_TuneAdj_select_valueChanged(int);
   void on_Rhythm_TestTone_switch_clicked(bool);
   void on_Rhythm_ListNotes_button_clicked();
+  void on_Rhythm_ReceiveMidi_enable_toggled(bool);
   
   // for PlayMidi
   void on_System_OpenMidi_button_clicked();
@@ -1078,7 +1079,7 @@ private:
   void setPart15_Parms();
   void setPart16_Parms();
   void setPartSingleValue(int,int,int);
-  void setVoiceCounters();
+  bool setVoiceCounters(int);
   void createPartActions();
   QString getPartPatchName(int);
   int toggleControlChannel(int);
