@@ -36,6 +36,7 @@ class JVlibForm : public QMainWindow, private Ui::JVlibForm
   friend class Save_Dialog;
   friend class Load_Dialog;
   friend class DATA_LIST;
+  friend class INI_CONF;
   
   Q_OBJECT
 

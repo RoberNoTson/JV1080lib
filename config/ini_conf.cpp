@@ -1,8 +1,10 @@
 #include "config/ini_conf.h"
 #include "ui_ini_conf.h"
 #include <alsa/asoundlib.h>
+#include "JVlibForm.h"
 
-QString INI_CONF::CFGfile = 0;
+//QString INI_CONF::CFGfile = 0;
+//QString JVlibForm::CFGfile = 0;
 QString INI_CONF::bakHost = 0;
 QString INI_CONF::bakDatabase = 0;
 QString INI_CONF::bakUsername = 0;
@@ -21,8 +23,9 @@ INI_CONF::INI_CONF(QWidget *parent) :
     ui(new Ui::INI_CONF)
 {
     ui->setupUi(this);
-    CFGfile  = "./test.cfg";
-    QSettings settings(CFGfile,QSettings::IniFormat);
+//    CFGfile  = "./test.cfg";
+//    JVlibForm::CFGfile  = "/home/os2/JVlib.cfg";
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     bakHost = settings.value("mysql/host").toString();
     bakDatabase = settings.value("mysql/database").toString();
     bakUsername = settings.value("mysql/username").toString();
@@ -91,9 +94,9 @@ INI_CONF::INI_CONF(QWidget *parent) :
 
 INI_CONF::~INI_CONF()
 {
-    QFileInfo fn(CFGfile);
+    QFileInfo fn(JVlibForm::CFGfile);
     if (fn.exists()) {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     if (!settings.contains("mysql/host"))
         settings.setValue("mysql/host","localhost");
     if (!settings.contains("mysql/database"))
@@ -118,55 +121,55 @@ INI_CONF::~INI_CONF()
 
 void INI_CONF::on_Host_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("mysql/host",ui->Host_edit->text());
 }
 
 void INI_CONF::on_Username_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("mysql/username",ui->Username_edit->text());
 }
 
 void INI_CONF::on_Database_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("mysql/database",ui->Database_edit->text());
 }
 
 void INI_CONF::on_Password_edit_editingFinished()
 {
-  QSettings settings(CFGfile,QSettings::IniFormat);
+  QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
   settings.setValue("mysql/password",ui->Password_edit->text());
 }
 
 void INI_CONF::on_TempDir_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("JV1080/temp_dir",ui->TempDir_edit->text());
 }
 
 void INI_CONF::on_HelpDir_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("JV1080/help_dir",ui->HelpDir_edit->text());
 }
 
 void INI_CONF::on_DumpDir_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("JV1080/dump_dir",ui->DumpDir_edit->text());
 }
 
 void INI_CONF::on_MidiDir_edit_editingFinished()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("JV1080/midi_dir",ui->MidiDir_edit->text());
 }
 
 void INI_CONF::on_StartOnline_select_toggled(bool checked)
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     if (checked)
         settings.setValue("JV1080/start_online","true");
     else
@@ -175,7 +178,7 @@ void INI_CONF::on_StartOnline_select_toggled(bool checked)
 
 void INI_CONF::on_buttonBox_accepted()
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.sync();
     this->close();
 }
@@ -203,7 +206,7 @@ void INI_CONF::on_buttonBox_clicked(QAbstractButton* button)
         else {
             ui->StartOnline_select->setChecked(false);
         }
-        QSettings settings(CFGfile,QSettings::IniFormat);
+        QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
         settings.setValue("mysql/host",bakHost);
         settings.setValue("mysql/database",bakDatabase);
         settings.setValue("mysql/username",bakUsername);
@@ -228,18 +231,18 @@ void INI_CONF::on_ShowPassword_select_toggled(bool checked)
 }
 
 void INI_CONF::setData(QString cfile) {
-  CFGfile = cfile;
+  JVlibForm::CFGfile = cfile;
 }
 void INI_CONF::on_PortName_select_currentIndexChanged(QString pname)
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     if (ui->UsePortname_button->isChecked())
         settings.setValue("JV1080/port_name", pname);
 }
 
 void INI_CONF::on_PortNumber_select_currentIndexChanged(QString pname)
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     if (ui->UsePortnumber_button->isChecked())
        settings.setValue("JV1080/port_number", pname);
 }
@@ -247,7 +250,7 @@ void INI_CONF::on_PortNumber_select_currentIndexChanged(QString pname)
 
 void INI_CONF::on_PortSelect_buttonGroup_buttonClicked(QAbstractButton * button)
 {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     if (button->objectName() == "UsePortname_button") {
         settings.setValue("JV1080/port_name", ui->PortName_select->currentText());
         settings.remove("JV1080/port_number");
@@ -324,6 +327,6 @@ void INI_CONF::getPort() {
 }	// end get_port()
 
 void INI_CONF::on_DevID_valueChanged(int id) {
-    QSettings settings(CFGfile,QSettings::IniFormat);
+    QSettings settings(JVlibForm::CFGfile,QSettings::IniFormat);
     settings.setValue("JV1080/Dev_ID",id);
 }
