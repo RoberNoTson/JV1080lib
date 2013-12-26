@@ -46,7 +46,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   unsigned char newBuf[5]; // = { 0x10, 0x00, 0x00, 0x00, 0x7F };
   char oneSize[4];
   memset(buf,0,8);
-  memset(oneSize,0,3);
+  memset(oneSize,0,4);
   memset(newBuf,0,5);
   buf[0] = 0x10;
   buf[7] = 1;
@@ -65,7 +65,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     ui->Load_UserPatch_button->setEnabled(false);
     ui->Load_UserRhythm_button->setEnabled(false);
     ui->Load_LoadDump_button->setEnabled(false);
-    QMessageBox::critical(this, "Load_Dialog", "Exclusive protect is ON, User (permanent) memory cannot be written");
+    QMessageBox::critical(this, "Load_Dialog", "Exclusive protect is ON\nUser (permanent) memory cannot be written");
   }
   else {
     newBuf[4] = oldCh;
@@ -73,7 +73,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     JVlibForm::sysex_request(buf, 8);
     JVlibForm::sysex_get(&newCh, oneSize);
     if (newCh != oldCh)  // OOPS, did not replace the original char
-      QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing, User 1 Performance name is corrupted");
+      QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing\nUser 1 Performance name is corrupted");
   }
   JVlibForm::close_ports();
   if (ui->Load_CurrentPerformance_button->isEnabled() && JVlibForm::state_table->perf_mode)
