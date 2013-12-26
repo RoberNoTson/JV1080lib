@@ -53,14 +53,14 @@ int JVlibForm::read_id(void) {
 //  SLOTS
 void JVlibForm::on_System_OpenMidi_button_clicked()
 {
+    disconnect_port();
+//    close_seq();
     System_PlayMidi_button->setChecked(false);
     System_PlayMidi_button->setEnabled(false);
     System_PauseMidi_button->setEnabled(false);
     SysFilePlaying->clear();
     System_MIDI_Transpose->setValue(0);
     System_MIDI_KeySig->clear();
-    disconnect_port();
-    close_seq();
     MIDI_length_display->setText("00:00");
     QString fn = QFileDialog::getOpenFileName(this,"Open MIDI File",MIDI_dir,"Midi files (*.mid, *.MID);;Any (*.*)");
     if (fn.isEmpty())
@@ -73,7 +73,7 @@ void JVlibForm::on_System_OpenMidi_button_clicked()
     connect_port();
     all_events.clear();
     if (!parseFile(playfile)) {
-        QMessageBox::critical(this, "MIDI Player", QString("Invalid file"));
+        QMessageBox::critical(this, "MIDI Player", QString("Error parsing input file"));
         return;
     }   // parseFile
     System_MIDI_progressBar->setRange(0,all_events.back().tick);

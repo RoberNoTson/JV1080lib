@@ -24,6 +24,8 @@
 int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
   // set to blocking mode
+  if (!state_table->midiPorts_open)
+    if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   snd_rawmidi_nonblock(midiInHandle, 0);
   snd_rawmidi_drop(midiOutHandle);
   // transmit the data
@@ -105,7 +107,8 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   SysEx[buf_size+6] = 0xF7;
   // transmit the data
 //JVlibForm::hexdump(SysEx, buf_size+7);
-  if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
+  if (!state_table->midiPorts_open)
+    if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   int rc = change_send(SysEx, buf_size+7);
   close_ports();
   delete[] SysEx;
@@ -124,6 +127,8 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   unsigned short revents;
   snd_rawmidi_status_t *ptr;
   
+  if (!state_table->midiPorts_open)
+    if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   // calculate data size
   data_size = req_size[0] * 0x80*0x80*0x80;
   data_size += req_size[1] * 0x80*0x80;
@@ -226,27 +231,23 @@ void	JVlibForm::close_ports() {
 
 int JVlibForm::open_ports() {
   int err;
-  if (state_table->midiPorts_open == false) {
-    if (strlen(MIDI_dev)) {
-      if ((err = snd_rawmidi_open(&midiInHandle, &midiOutHandle, MIDI_dev, 0)) < 0) {
-//	QMessageBox::critical(this, "JVlib", tr("Cannot open MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+  if (state_table->midiPorts_open) return EXIT_SUCCESS;
+  if (strlen(MIDI_dev)) {
+    if ((err = snd_rawmidi_open(&midiInHandle, &midiOutHandle, MIDI_dev, 0)) < 0) {
 	QMessageBox::critical(0, "JVlib", tr("Cannot open MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
 	return EXIT_FAILURE;
-      }
-      // dummy read to activate the ports
-      if ((err = snd_rawmidi_read(midiInHandle, NULL, 0)) < 0) { 
-//	QMessageBox::critical(this, "JVlib", tr("Cannot read from MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
+    }
+    // dummy read to activate the ports
+    if ((err = snd_rawmidi_read(midiInHandle, NULL, 0)) < 0) { 
 	QMessageBox::critical(0, "JVlib", tr("Cannot read from MIDI port %1\n%2") .arg(MIDI_dev) .arg(snd_strerror(err)));
 	close_ports();
 	return EXIT_FAILURE;
       }
     } else {
-//      QMessageBox::critical(this, "JVlib", tr("No MIDI port selected"));
       QMessageBox::critical(0, "JVlib", tr("No MIDI port selected"));
       return EXIT_FAILURE;
     }
     state_table->midiPorts_open = true;
-  }
   return EXIT_SUCCESS;
 }	// end OPEN_PORTS
 

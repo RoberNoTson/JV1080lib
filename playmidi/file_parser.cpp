@@ -117,6 +117,7 @@ int JVlibForm::read_smf(char *file_name) {
     // read midi data into memory, parsing it into events
     // the starting position is immediately after the "MThd" id
     // process header data
+    int err;
    int  header_len = read_int(4);   // header length
     if (header_len < 6) {
 invalid_format:
@@ -173,8 +174,9 @@ invalid_format:
             return 0;
         }
     }
-    int err = snd_seq_set_queue_tempo(seq, queue, queue_tempo);
+    err = snd_seq_set_queue_tempo(seq, queue, queue_tempo);
     if (err < 0) {
+      printf("err %d\n",err);
         QMessageBox::critical(this, "MIDI Player", QString("Cannot set queue tempo (%1/%2") .arg(snd_seq_queue_tempo_get_tempo(queue_tempo)) .arg(snd_seq_queue_tempo_get_ppq(queue_tempo)));
         return 0;
     }

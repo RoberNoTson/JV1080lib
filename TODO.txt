@@ -9,6 +9,7 @@ General updates
   - autodetect the JV and set the correct port
   - autodetect expansion cards and enable only the corresponding actions
   - create installation process, including mysql table creation
+  - update README to specify KDE packages, e.g.
 
 Menu
 11/04/2013  - standalone/offline mode with all tabs functional
@@ -32,6 +33,7 @@ System_tab
   - create "Upload" (to Synth) function/button
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
+  - MIDI player locks up system after Open and before Play pressed the first time. Works fine after Play pressed.
 
 Performance_tab
 
@@ -101,6 +103,7 @@ save_dialog
 load_dialog
 11/04/2013  - create Load Tuning function
 11/04/2013  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System
+  - research why it locks up using Load function
   - create Load System function
   - create Load Dump function
   - connect something to the Help button
