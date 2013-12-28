@@ -127,7 +127,7 @@
        </font>
       </property>
       <property name="title">
-       <string notr="true">Receive Switches</string>
+       <string notr="true">Master Receive Switches</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
