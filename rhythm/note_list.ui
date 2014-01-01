@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NOTE_LIST</class>
+ <widget class="QDialog" name="NOTE_LIST">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>565</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Rhythm Set Notes</string>
+  </property>
+  <property name="statusTip">
+   <string notr="true">Item Count </string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>561</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Filters</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>30</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Family</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="NoteList_Family_select">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>50</y>
+      <width>101</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Any</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Percussion</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ChromPerc</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ensemble</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Ethnic</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>SFX</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="NoteList_Name_edit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>113</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="placeholderText">
+     <string>full / partial name</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="NoteList_Select_button">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>50</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="NoteList_Exit_button">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>50</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="NoteList_Type_button">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>50</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Current</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>User 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>User 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Preset A 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>PresetA 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>PresetB 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>PresetB 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>PresetC 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>PresetC 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GM 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>GM 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ExpansionB 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ExpansionB 2</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>30</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rhythm Set</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QTextEdit" name="NoteList_Result_list">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>561</width>
+     <height>441</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="undoRedoEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="lineWrapMode">
+    <enum>QTextEdit::NoWrap</enum>
+   </property>
+   <property name="tabStopWidth">
+    <number>4</number>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
