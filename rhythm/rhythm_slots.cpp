@@ -67,6 +67,7 @@
 
 #include        "JVlibForm.h"
 #include        <QtGui>
+#include	"note_list.h"
 
 // QPushButton
 void JVlibForm::on_Rhythm_Sync_button_clicked() {
@@ -384,6 +385,11 @@ void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
 
 void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
   // rhythmNote_list
+//  NOTE_LIST Note_List;
+  Note_List.show();
+  Note_List.raise();
+  Note_List.activateWindow();
+/*  
   QString Group;
   int Num;
   QString WaveName;
@@ -422,7 +428,8 @@ void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
     Group.append("    "+WaveName);
 printf("%s\n",Group.toAscii().data());   
   }	// end FOR
-  NameQuery.finish();  
+  NameQuery.finish();
+*/
 }	// end on_Rhythm_ListNotes_button_clicked
 
 void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {

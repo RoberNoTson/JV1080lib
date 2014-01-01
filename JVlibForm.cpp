@@ -40,6 +40,7 @@ JVlibForm::JVlibForm() {
   setupUi(this);
   setInitial();
   static DATA_LIST Data_List;
+  static NOTE_LIST Note_List;
 }	// end JVlibForm()
 
 void JVlibForm::initGraphics() {

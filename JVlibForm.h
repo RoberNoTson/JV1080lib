@@ -14,6 +14,7 @@
 #include	"save_dialog/Save_Dialog.h"
 #include	"load_dialog/load_dialog.h"
 #include	"data_list/data_list.h"
+#include	"rhythm/note_list.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 2	//number of times to retry after a timeout
@@ -37,6 +38,7 @@ class JVlibForm : public QMainWindow, private Ui::JVlibForm
   friend class Load_Dialog;
   friend class DATA_LIST;
   friend class INI_CONF;
+  friend class NOTE_LIST;
   
   Q_OBJECT
 
@@ -1190,6 +1192,7 @@ private:
   // for Config_Dialog
   
   // for play_midi
+  
   // vars
   struct event {
     struct event *next;             // linked list
@@ -1247,6 +1250,7 @@ private:
     void startPlayer(int);
     void stopPlayer();
     DATA_LIST Data_List;
+    NOTE_LIST Note_List;
 };	// end class JVlibForm
 
 #endif	// JVlibForm_H

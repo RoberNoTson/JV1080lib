@@ -1,7 +1,6 @@
 # JVlib.pro
 CONFIG += warn_on qt
 TARGET = JVlib
-FORMS       = JVlib.ui save_dialog/Save_Dialog.ui config/ini_conf.ui load_dialog/Load_Dialog.ui data_list/data_list.ui
 QT += sql
 DEFINES += QT_NO_DEBUG
 DEFINES += QT_NO_DEBUG_OUTPUT
@@ -10,6 +9,12 @@ MOC_DIR = objects
 QMAKE_CLEAN += asdf
 LIBS += -lasound -lkdeui
 RESOURCES += JVlibForm.qrc
+FORMS += JVlib.ui \
+	save_dialog/Save_Dialog.ui \
+	config/ini_conf.ui \
+	load_dialog/Load_Dialog.ui \
+	data_list/data_list.ui \
+	rhythm/note_list.ui
 HEADERS	+= JVlibForm.h \
 	JV-struct-defs.h \
 	State_Table.h \
@@ -21,8 +26,9 @@ HEADERS	+= JVlibForm.h \
 	config/ini_conf.h \
 	save_dialog/Save_Dialog.h \
 	load_dialog/Load_Dialog.h \
-	data_list/data_list.h
-SOURCES     += main.cpp \
+	data_list/data_list.h \
+	rhythm/note_list.h
+SOURCES += main.cpp \
 	JVlibForm.cpp \
 	utils.cpp \
 	menu/create_menu_actions.cpp \
@@ -153,6 +159,7 @@ SOURCES     += main.cpp \
 	rhythm/set_rhythm_initial.cpp \
 	rhythm/rhythm.cpp \
 	rhythm/rhythm_slots.cpp \
+	rhythm/note_list.cpp \
 	config/ini_conf.cpp \
 	playmidi/create_playmidi_actions.cpp \
 	playmidi/player.cpp \
