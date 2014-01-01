@@ -98,14 +98,13 @@ void NOTE_LIST::on_NoteList_Select_button_clicked()
 }	// end on_NoteList_Select_button_clicked
 
 QString NOTE_LIST::funcNoteCalc(int val) {
-  char note_name[] = "C C#D D#E F F#G G#A A#B ";
-  char note_octave[] = "-1 0 1 2 3 4 5 6 7 8 9";
+  char note_name[] = "C_C#D_D#E_F_F#G_G#A_A#B_";
+  char note_octave[] = "-1_0_1_2_3_4_5_6_7_8_9";
   char note_buffer[5];
 
   memcpy(note_buffer,&note_name[(val%12)*2],2);
-  memcpy(note_buffer+3,&note_octave[(val/12)*2],2);
-  note_buffer[2] = 0x20;
-  return QString::fromAscii(note_buffer,5);
+  memcpy(note_buffer+2,&note_octave[(val/12)*2],2);
+  return QString::fromAscii(note_buffer,4);
 }       // end funcNoteCalc
 
 void NOTE_LIST::Fill_List() {
@@ -113,8 +112,8 @@ void NOTE_LIST::Fill_List() {
   if (!JVlibForm::state_table->db_connect) return;
   int Num;
   QString NoteResults = "<table>";
-  QString NoteName;
-  QString NoteGroup;
+  QString NoteName, NoteGroup;
+  QString RhythmSet = QString::fromAscii(&JVlibForm::active_area->active_rhythm.rhythm_common.name[0],12);
   ui->NoteList_Result_list->clear();
   QSqlQuery query(JVlibForm::db_mysql);
   for (int y=0x23;y<0x63;y++) {
@@ -149,9 +148,10 @@ void NOTE_LIST::Fill_List() {
     NoteName = query.value(0).toString();
     NoteName = NoteName.leftJustified(12, ' ');
     // output the results
-    NoteResults.append("<tr><td width=30%>"+funcNoteCalc(y)+"</td>");
-    NoteResults.append("<td width=30%>"+NoteGroup+" "+QString::number(Num)+"</td>");
-    NoteResults.append("<td width=30%>"+NoteName);
+    NoteResults.append("<tr><td width=25%>"+funcNoteCalc(y)+"</td>");
+    NoteResults.append("<td width=25%>"+NoteGroup+" "+QString::number(Num)+"</td>");
+    NoteResults.append("<td width=25%>"+NoteName);
+    NoteResults.append("<td width=25%>"+RhythmSet);
     NoteResults.append("</td></tr>");
   }       // end FOR
   query.finish();   
