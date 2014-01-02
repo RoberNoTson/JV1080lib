@@ -56,9 +56,10 @@ Rhythm_tab
 11/30/2013  - change to ComboBox for Group, SpinBox for Number; sync with Parts Tab part#10
 11/30/2013  - enable/disable Play button relative to Sync status
 12/22/2013  - link "MIDI Receive" checkbox corresponding to Perf Part 10 MIDI Receive
+12/31/2013  - add button to "List Notes" listing all instruments by pitch for the selected Rhythm Set
+  - add enhanced capabilities to Note List: synth query, db search functions
   - can Rhythm use the same tabs as other Patch Tones, eg TVF, TVA, Pitch, Tone? (yes, except for mute_group, envelope_key and source_key)
-  - add button to "List Notes" listing all instruments by pitch for the selected Rhythm Set
-  - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot
+  - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot. Dep: database updates to support this
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
 
 PatchEFX_tab

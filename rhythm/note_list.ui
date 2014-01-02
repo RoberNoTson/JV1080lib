@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>565</height>
+    <width>478</width>
+    <height>697</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Rhythm Set Notes</string>
@@ -21,100 +27,18 @@
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>561</width>
-     <height>101</height>
+     <width>431</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="title">
-    <string>Filters</string>
+    <string>Rhythm Set Notes</string>
    </property>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Name</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>30</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Family</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="NoteList_Family_select">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>50</y>
-      <width>101</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Any</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Percussion</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ChromPerc</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Ensemble</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Ethnic</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>SFX</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLineEdit" name="NoteList_Name_edit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>113</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string notr="true"/>
-    </property>
-    <property name="placeholderText">
-     <string>full / partial name</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="NoteList_Select_button">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>50</y>
+      <x>170</x>
+      <y>30</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -126,107 +50,36 @@
    <widget class="QPushButton" name="NoteList_Exit_button">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>50</y>
+      <x>320</x>
+      <y>30</y>
       <width>80</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Close</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="NoteList_Type_button">
+   <widget class="QLabel" name="NoteList_RhythmSet">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>50</y>
-      <width>121</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>Current</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>All</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>User 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>User 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Preset A 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PresetA 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PresetB 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PresetB 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PresetC 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>PresetC 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>GM 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>GM 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ExpansionB 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ExpansionB 2</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
+      <x>40</x>
       <y>30</y>
-      <width>81</width>
-      <height>16</height>
+      <width>111</width>
+      <height>21</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
     </property>
     <property name="text">
-     <string>Rhythm Set</string>
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -234,9 +87,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>110</y>
-     <width>561</width>
-     <height>441</height>
+     <y>90</y>
+     <width>431</width>
+     <height>581</height>
     </rect>
    </property>
    <property name="acceptDrops">

@@ -18,12 +18,11 @@ public:
 private:
     Ui::NOTE_LIST *ui;
     QSqlDatabase mysql;
-    void Fill_List();
+    QString funcNoteCalc(int);
 
 private slots:
     void on_NoteList_Select_button_clicked();
     void on_NoteList_Exit_button_clicked();
-    QString funcNoteCalc(int);
 };
 
 #endif // NOTE_LIST_H
