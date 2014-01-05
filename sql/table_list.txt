@@ -105,4 +105,4 @@ number  int(11) NO              NULL
 name    varchar(12)     NO              NULL
 group_area      varchar(16)     NO              NULL
 Instruments     enum('strings','winds','brass','Orch perc','keyboards','electronic','voice','soundEffect','mixed','unclassified','drums','Solo string','guitars')        YES             NULL
-Loop    tinyint(1)      NO              1
+Sustain    tinyint(1)      NO              1

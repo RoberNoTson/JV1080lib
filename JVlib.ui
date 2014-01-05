@@ -5927,9 +5927,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -5939,8 +5939,8 @@
            <widget class="QLabel" name="label_704">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -5952,7 +5952,7 @@
            <widget class="QDial" name="Part1_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -6104,10 +6104,10 @@
            <widget class="QLabel" name="label_707">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>35</y>
               <width>41</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -6151,8 +6151,8 @@
            <widget class="QLabel" name="label_708">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>460</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -6220,8 +6220,8 @@
            <widget class="QLabel" name="label_709">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>550</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -6233,7 +6233,7 @@
            <widget class="QDial" name="Part1_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -6267,7 +6267,7 @@
            <widget class="QLCDNumber" name="Part1_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -6864,6 +6864,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part1_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -7036,9 +7049,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -7048,8 +7061,8 @@
            <widget class="QLabel" name="label_569">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -7061,7 +7074,7 @@
            <widget class="QDial" name="Part2_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -7213,10 +7226,10 @@
            <widget class="QLabel" name="label_572">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -7260,8 +7273,8 @@
            <widget class="QLabel" name="label_573">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -7326,8 +7339,8 @@
            <widget class="QLabel" name="label_574">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>550</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -7339,7 +7352,7 @@
            <widget class="QDial" name="Part2_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -7373,7 +7386,7 @@
            <widget class="QLCDNumber" name="Part2_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -7960,6 +7973,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part2_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -8132,9 +8158,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -8144,8 +8170,8 @@
            <widget class="QLabel" name="label_644">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -8157,7 +8183,7 @@
            <widget class="QDial" name="Part3_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -8306,10 +8332,10 @@
            <widget class="QLabel" name="label_647">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -8353,8 +8379,8 @@
            <widget class="QLabel" name="label_648">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -8419,8 +8445,8 @@
            <widget class="QLabel" name="label_649">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>550</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -8432,7 +8458,7 @@
            <widget class="QDial" name="Part3_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -8466,7 +8492,7 @@
            <widget class="QLCDNumber" name="Part3_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -9053,6 +9079,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part3_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -9225,9 +9264,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -9237,8 +9276,8 @@
            <widget class="QLabel" name="label_614">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -9250,7 +9289,7 @@
            <widget class="QDial" name="Part4_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -9399,10 +9438,10 @@
            <widget class="QLabel" name="label_617">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -9446,8 +9485,8 @@
            <widget class="QLabel" name="label_618">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -9512,8 +9551,8 @@
            <widget class="QLabel" name="label_619">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -9525,7 +9564,7 @@
            <widget class="QDial" name="Part4_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -9559,7 +9598,7 @@
            <widget class="QLCDNumber" name="Part4_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -10146,6 +10185,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part4_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -10318,9 +10370,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -10330,8 +10382,8 @@
            <widget class="QLabel" name="label_629">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -10343,7 +10395,7 @@
            <widget class="QDial" name="Part5_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -10492,10 +10544,10 @@
            <widget class="QLabel" name="label_632">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -10539,8 +10591,8 @@
            <widget class="QLabel" name="label_633">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -10605,8 +10657,8 @@
            <widget class="QLabel" name="label_634">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -10618,7 +10670,7 @@
            <widget class="QDial" name="Part5_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -10652,7 +10704,7 @@
            <widget class="QLCDNumber" name="Part5_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -11239,6 +11291,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part5_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -11411,9 +11476,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -11423,8 +11488,8 @@
            <widget class="QLabel" name="label_584">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -11436,7 +11501,7 @@
            <widget class="QDial" name="Part6_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -11585,10 +11650,10 @@
            <widget class="QLabel" name="label_587">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -11632,8 +11697,8 @@
            <widget class="QLabel" name="label_588">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -11698,8 +11763,8 @@
            <widget class="QLabel" name="label_589">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -11711,7 +11776,7 @@
            <widget class="QDial" name="Part6_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -11745,7 +11810,7 @@
            <widget class="QLCDNumber" name="Part6_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -12332,6 +12397,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part6_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -12504,9 +12582,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -12516,8 +12594,8 @@
            <widget class="QLabel" name="label_689">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -12529,7 +12607,7 @@
            <widget class="QDial" name="Part7_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -12678,10 +12756,10 @@
            <widget class="QLabel" name="label_692">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -12725,8 +12803,8 @@
            <widget class="QLabel" name="label_693">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -12791,8 +12869,8 @@
            <widget class="QLabel" name="label_694">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -12804,7 +12882,7 @@
            <widget class="QDial" name="Part7_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -12838,7 +12916,7 @@
            <widget class="QLCDNumber" name="Part7_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -13425,6 +13503,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part7_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -13597,9 +13688,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -13609,8 +13700,8 @@
            <widget class="QLabel" name="label_674">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -13622,7 +13713,7 @@
            <widget class="QDial" name="Part8_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -13771,10 +13862,10 @@
            <widget class="QLabel" name="label_677">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>35</y>
               <width>41</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -13818,8 +13909,8 @@
            <widget class="QLabel" name="label_678">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -13884,8 +13975,8 @@
            <widget class="QLabel" name="label_679">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -13897,7 +13988,7 @@
            <widget class="QDial" name="Part8_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -13931,7 +14022,7 @@
            <widget class="QLCDNumber" name="Part8_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -14518,6 +14609,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part8_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -14690,9 +14794,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -14702,8 +14806,8 @@
            <widget class="QLabel" name="label_599">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -14715,7 +14819,7 @@
            <widget class="QDial" name="Part9_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -14864,10 +14968,10 @@
            <widget class="QLabel" name="label_602">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -14911,8 +15015,8 @@
            <widget class="QLabel" name="label_603">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -14977,8 +15081,8 @@
            <widget class="QLabel" name="label_604">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -14990,7 +15094,7 @@
            <widget class="QDial" name="Part9_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -15024,7 +15128,7 @@
            <widget class="QLCDNumber" name="Part9_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -15611,6 +15715,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part9_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -15783,9 +15900,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -15795,8 +15912,8 @@
            <widget class="QLabel" name="label_659">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -15808,7 +15925,7 @@
            <widget class="QDial" name="Part10_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -15957,10 +16074,10 @@
            <widget class="QLabel" name="label_662">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -16004,8 +16121,8 @@
            <widget class="QLabel" name="label_663">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -16070,8 +16187,8 @@
            <widget class="QLabel" name="label_664">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -16083,7 +16200,7 @@
            <widget class="QDial" name="Part10_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -16117,7 +16234,7 @@
            <widget class="QLCDNumber" name="Part10_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -16659,6 +16776,19 @@
              <number>3</number>
             </property>
            </widget>
+           <widget class="QLCDNumber" name="Part10_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -16831,9 +16961,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -16843,8 +16973,8 @@
            <widget class="QLabel" name="label_794">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -16856,7 +16986,7 @@
            <widget class="QDial" name="Part11_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -17005,10 +17135,10 @@
            <widget class="QLabel" name="label_797">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -17052,8 +17182,8 @@
            <widget class="QLabel" name="label_798">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -17118,8 +17248,8 @@
            <widget class="QLabel" name="label_799">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -17131,7 +17261,7 @@
            <widget class="QDial" name="Part11_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -17165,7 +17295,7 @@
            <widget class="QLCDNumber" name="Part11_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -17752,6 +17882,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part11_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -17924,9 +18067,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -17936,8 +18079,8 @@
            <widget class="QLabel" name="label_764">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -17949,7 +18092,7 @@
            <widget class="QDial" name="Part12_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -18098,10 +18241,10 @@
            <widget class="QLabel" name="label_767">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -18145,8 +18288,8 @@
            <widget class="QLabel" name="label_768">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -18211,8 +18354,8 @@
            <widget class="QLabel" name="label_769">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -18224,7 +18367,7 @@
            <widget class="QDial" name="Part12_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -18258,7 +18401,7 @@
            <widget class="QLCDNumber" name="Part12_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -18845,6 +18988,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part12_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -19017,9 +19173,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -19029,8 +19185,8 @@
            <widget class="QLabel" name="label_749">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -19042,7 +19198,7 @@
            <widget class="QDial" name="Part13_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -19191,10 +19347,10 @@
            <widget class="QLabel" name="label_752">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -19238,8 +19394,8 @@
            <widget class="QLabel" name="label_753">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -19304,8 +19460,8 @@
            <widget class="QLabel" name="label_754">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>560</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -19317,7 +19473,7 @@
            <widget class="QDial" name="Part13_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>540</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -19351,7 +19507,7 @@
            <widget class="QLCDNumber" name="Part13_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>580</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -19938,6 +20094,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part13_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -20110,9 +20279,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -20122,8 +20291,8 @@
            <widget class="QLabel" name="label_779">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -20135,7 +20304,7 @@
            <widget class="QDial" name="Part14_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -20284,10 +20453,10 @@
            <widget class="QLabel" name="label_782">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -20331,8 +20500,8 @@
            <widget class="QLabel" name="label_783">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -20397,8 +20566,8 @@
            <widget class="QLabel" name="label_784">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>570</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -20410,7 +20579,7 @@
            <widget class="QDial" name="Part14_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>550</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -20444,7 +20613,7 @@
            <widget class="QLCDNumber" name="Part14_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>590</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -21031,6 +21200,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part14_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -21203,9 +21385,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>35</y>
               <width>31</width>
-              <height>16</height>
+              <height>21</height>
              </rect>
             </property>
             <property name="text">
@@ -21215,8 +21397,8 @@
            <widget class="QLabel" name="label_734">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -21228,7 +21410,7 @@
            <widget class="QDial" name="Part15_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -21377,10 +21559,10 @@
            <widget class="QLabel" name="label_737">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -21424,8 +21606,8 @@
            <widget class="QLabel" name="label_738">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -21490,8 +21672,8 @@
            <widget class="QLabel" name="label_739">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>570</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -21503,7 +21685,7 @@
            <widget class="QDial" name="Part15_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>550</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -21537,7 +21719,7 @@
            <widget class="QLCDNumber" name="Part15_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>590</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -22124,6 +22306,19 @@
              </item>
             </layout>
            </widget>
+           <widget class="QLCDNumber" name="Part15_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -22296,9 +22491,9 @@
             <property name="geometry">
              <rect>
               <x>290</x>
-              <y>40</y>
+              <y>36</y>
               <width>31</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -22308,8 +22503,8 @@
            <widget class="QLabel" name="label_719">
             <property name="geometry">
              <rect>
-              <x>320</x>
-              <y>80</y>
+              <x>350</x>
+              <y>100</y>
               <width>31</width>
               <height>16</height>
              </rect>
@@ -22321,7 +22516,7 @@
            <widget class="QDial" name="Part16_Pan_select">
             <property name="geometry">
              <rect>
-              <x>350</x>
+              <x>320</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -22470,10 +22665,10 @@
            <widget class="QLabel" name="label_722">
             <property name="geometry">
              <rect>
-              <x>410</x>
-              <y>40</y>
+              <x>420</x>
+              <y>36</y>
               <width>41</width>
-              <height>16</height>
+              <height>20</height>
              </rect>
             </property>
             <property name="text">
@@ -22517,8 +22712,8 @@
            <widget class="QLabel" name="label_723">
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>80</y>
+              <x>470</x>
+              <y>100</y>
               <width>61</width>
               <height>16</height>
              </rect>
@@ -22583,8 +22778,8 @@
            <widget class="QLabel" name="label_724">
             <property name="geometry">
              <rect>
-              <x>540</x>
-              <y>80</y>
+              <x>570</x>
+              <y>100</y>
               <width>51</width>
               <height>16</height>
              </rect>
@@ -22596,7 +22791,7 @@
            <widget class="QDial" name="Part16_TuneAdj_select">
             <property name="geometry">
              <rect>
-              <x>580</x>
+              <x>550</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -22630,7 +22825,7 @@
            <widget class="QLCDNumber" name="Part16_TuneAdj_display">
             <property name="geometry">
              <rect>
-              <x>620</x>
+              <x>590</x>
               <y>70</y>
               <width>41</width>
               <height>31</height>
@@ -23216,6 +23411,19 @@
               </widget>
              </item>
             </layout>
+           </widget>
+           <widget class="QLCDNumber" name="Part16_Pan_display">
+            <property name="geometry">
+             <rect>
+              <x>360</x>
+              <y>70</y>
+              <width>41</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="numDigits">
+             <number>3</number>
+            </property>
            </widget>
           </widget>
          </item>
@@ -46587,12 +46795,12 @@
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
-     <y>172</y>
+     <x>534</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
-     <x>520</x>
-     <y>172</y>
+     <x>565</x>
+     <y>202</y>
     </hint>
    </hints>
   </connection>
