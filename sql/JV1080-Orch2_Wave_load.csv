@@ -1,0 +1,153 @@
+1,Strings L pA
+2,Strings L pB
+3,Strings L pC
+4,Strings R pA
+5,Strings R pB
+6,Strings R pC
+7,Strs L pA Lp
+8,Strs L pB Lp
+9,Strs L pC Lp
+10,Strs R pA Lp
+11,Strs R pB Lp
+12,Strs R pC Lp
+13,Strings L fA
+14,Strings L fB
+15,Strings L fC
+16,Strings R fA
+17,Strings R fB
+18,Strings R fC
+19,Strs L fA Lp
+20,Strs L fB Lp
+21,Strs L fC Lp
+22,Strs R fA Lp
+23,Strs R fB Lp
+24,Strs R fC Lp
+25,StrAttack 2A
+26,StrAttack 2B
+27,StrAttack 2C
+28,VlSolo Vib A
+29,VlSolo Vib B
+30,VlSolo Vib C
+31,VlSlSpicc2 A
+32,VlSlSpicc2 B
+33,VlSlSpicc2 C
+34,VcSolo Vib A
+35,VcSolo Vib B
+36,VcSolo Vib C
+37,F.Chor Aah A
+38,F.Chor Aah B
+39,F.Chor Aah C
+40,F.Chor Mmh A
+41,F.Chor Mmh B
+42,F.Chor Mmh C
+43,OrchUnisonLA
+44,OrchUnisonLB
+45,OrchUnisonLC
+46,OrchUnisonRA
+47,OrchUnisonRB
+48,OrchUnisonRC
+49,F.Horns2 pA
+50,F.Horns2 pB
+51,F.Horns2 pC
+52,F.Horns2 pA+
+53,F.Horns2 pB+
+54,F.Horns2 pC+
+55,F.Horns2 fA
+56,F.Horns2 fB
+57,F.Horns2 fC
+58,F.Horns2 fA+
+59,F.Horns2 fB+
+60,F.Horns2 fC+
+61,F.HornSolo2A
+62,F.HornSolo2B
+63,.HornSolo2C
+64,FluteVib2 A
+65,FluteVib2 B
+66,FluteVib2 C
+67,Piccolo 2 A
+68,Piccolo 2 B
+69,Piccolo 2 C
+70,Celtic Flt A
+71,Celtic Flt B
+72,Celtic Flt C
+73,TinWhistle A
+74,TinWhistle B
+75,TinWhistle C
+76,TinWhisOrn A
+77,TinWhisOrn B
+78,TinWhisOrn C
+79,Clarinet 2 A
+80,Clarinet 2 B
+81,Clarinet 2 C
+82,Oboe 3 A
+83,Oboe 3 B
+84,Oboe 3 C
+85,Eng.Horn 2 A
+86,Eng.Horn 2 B
+87,Eng.Horn 2 C
+88,Bassoon 2 A
+89,Bassoon 2 B
+90,Bassoon 2 C
+91,Trumpet 3 A
+92,Trumpet 3 B
+93,Trumpet 3 C
+94,Trombone 2 A
+95,Trombone 2 B
+96,Trombone 2 C
+97,Uill.Pipe1 A
+98,Uill.Pipe1 B
+99,Uill.Pipe1 C
+100,Uill.Pipe2 A
+101,Uill.Pipe2 B
+102,Uill.Pipe2 C
+103,U.Pipe Orn A
+104,U.Pipe Orn B
+105,U.Pipe Orn C
+106,Bousouki A
+107,Bousouki B
+108,Bousouki C
+109,ClarsahHarpA
+110,ClarsahHarpB
+111,ClarsahHarpC
+112,Harp 2 A
+113,Harp 2 B
+114,Harp 2 C
+115,Harp Maj Up
+116,Harp Maj Dn
+117,MusicBox 2 A
+118,MusicBox 2 B
+119,MusicBox 2 C
+120,Glocken 2 A
+121,Glocken 2 B
+122,Glocken 2 C
+123,Tubular 2 A
+124,Tubular 2 B
+125,Tubular 2 C
+126,Wind Chime 3
+127,JingleBell 2
+128,Finger Cym 2
+129,ChurchBell 2
+130,MalletCymbal
+131,CymbalScrape
+132,TunedBlock A
+133,TunedBlock B
+134,TunedBlock C
+135,Bodhran MENU
+136,Bodhran 1
+137,Bodhran 2
+138,Bodhran 3
+139,Bodhran 4
+140,Bodhran 5
+141,Bodhran 6
+142,Bodhran 7
+143,OrchPrc Hit
+144,Grongkas
+145,Timpani Roll
+146,Timpani 2 p
+147,Timpani 2 f
+148,OrchSNR Roll
+149,Orch SNR
+150,Orch BD
+151,Whistle Nz
+152,Flute Breath
+153,Vocal Breath
