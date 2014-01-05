@@ -44,9 +44,9 @@ void JVlibForm::on_Part2_Level_select_valueChanged(int val) {
   if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part2_MidiChannel_select->value()-1,0x07,val);
 }
 void JVlibForm::on_Part2_Pan_select_valueChanged(int val) {
-  Part2_Pan_select->setStatusTip(QString("Pan value: ")+QString::number(val));
-  if (state_table->perf_mode) setPartSingleValue(1,7,val);
-  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part2_MidiChannel_select->value()-1,0x0A,val);
+//  Part2_Pan_select->setStatusTip(QString("Pan value: ")+QString::number(val));
+  if (state_table->perf_mode) setPartSingleValue(1,7,val+64);
+  if (state_table->GM_mode && state_table->updates_enabled) change_3(0xB0+Part2_MidiChannel_select->value()-1,0x0A,val+64);
 }
 void JVlibForm::on_Part2_Transpose_select_valueChanged(int val) { 
   // val is between -48,+48 half-steps

@@ -5973,14 +5973,17 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="pageStep">
              <number>10</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -7095,14 +7098,17 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="pageStep">
              <number>10</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -8204,11 +8210,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -9310,11 +9319,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -10416,11 +10428,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -11522,11 +11537,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -12628,11 +12646,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -13734,11 +13755,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -14840,11 +14864,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -15946,11 +15973,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -17007,11 +17037,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -18113,11 +18146,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -19219,11 +19255,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -20325,11 +20364,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -21431,11 +21473,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -22537,11 +22582,14 @@
             <property name="toolTip">
              <string notr="true">Adjust part pan</string>
             </property>
+            <property name="minimum">
+             <number>-64</number>
+            </property>
             <property name="maximum">
-             <number>127</number>
+             <number>63</number>
             </property>
             <property name="value">
-             <number>64</number>
+             <number>0</number>
             </property>
             <property name="tracking">
              <bool>false</bool>
@@ -23811,7 +23859,7 @@
        <number>-64</number>
       </property>
       <property name="maximum">
-       <number>64</number>
+       <number>63</number>
       </property>
       <property name="value">
        <number>0</number>

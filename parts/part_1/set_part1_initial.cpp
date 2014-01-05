@@ -11,8 +11,8 @@ void JVlibForm::setPart1_Parms() {
   QString str;
   Part1_Level_select->setValue(active_area->active_performance.perf_part[0].level);
   Part1_Level_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[0].level));
-  Part1_Pan_select->setValue(active_area->active_performance.perf_part[0].pan);
-  Part1_Pan_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[0].pan));
+  Part1_Pan_select->setValue(active_area->active_performance.perf_part[0].pan-64);
+//  Part1_Pan_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[0].pan));
   Part1_ChorusSend_select->setValue(active_area->active_performance.perf_part[0].chorus_send_level);
   Part1_ChorusSend_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[0].chorus_send_level));
   Part1_ReverbSend_select->setValue(active_area->active_performance.perf_part[0].reverb_send_level);
@@ -87,7 +87,7 @@ void JVlibForm::setPart1_Parms() {
       Part1_TuneAdj_select->setValue(0);
       Part1_ReverbSend_select->setValue(0);
       Part1_ChorusSend_select->setValue(0);
-      Part1_Pan_select->setValue(64);
+      Part1_Pan_select->setValue(0);
       Part1_Level_select->setValue(127);
       Part1_OutputLevel_select->setValue(127);
       Part1_PatchGroup_select->setEnabled(false);

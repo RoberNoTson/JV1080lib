@@ -12,8 +12,8 @@ void JVlibForm::setPart12_Parms() {
   QString str;
   Part12_Level_select->setValue(active_area->active_performance.perf_part[11].level);
   Part12_Level_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[11].level));
-  Part12_Pan_select->setValue(active_area->active_performance.perf_part[11].pan);
-  Part12_Pan_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[11].pan));
+  Part12_Pan_select->setValue(active_area->active_performance.perf_part[11].pan-64);
+//  Part12_Pan_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[11].pan));
   Part12_ChorusSend_select->setValue(active_area->active_performance.perf_part[11].chorus_send_level);
   Part12_ChorusSend_select->setStatusTip(str.setNum(active_area->active_performance.perf_part[11].chorus_send_level));
   Part12_ReverbSend_select->setValue(active_area->active_performance.perf_part[11].reverb_send_level);
