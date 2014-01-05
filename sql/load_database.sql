@@ -12,5 +12,5 @@ awk -F\, '{printf "insert into wave_list \(\) values\(%d,\"%s\",\"Expansion C\",
 
 awk -F\, '{printf "insert into patch_list \(\) values\(%d,\"%s\",\"%s\",\"tbd\"\);\n",$1, $2, $3}' ./JV1080_Patch_list.csv |mysql -u music JV1080
 
-awk -F\, '{printf "insert into wave_list \(\) values\(%d,\"%s\",\"%s\",\"tbd\"\);\n",$3, $1, $2}' ./JV1080_internal_waves.csv |mysql -u music JV1080
+awk -F\, '{printf "insert into wave_list \(\) values\(%d,\"%s\",\"%s\",\"tbd\"\);\n",$3, $1, $2}' ./JV1080_internal_waves_load.csv |mysql -u music JV1080
 
