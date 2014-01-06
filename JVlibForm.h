@@ -948,7 +948,7 @@ private:
   // generic functions
   void setInitial();
   static int  sysex_get(unsigned char *, char *);
-  static int  sysex_send(unsigned char *, int);		// requires that passed buffer already have most of the header, etc.
+//  static int  sysex_send(unsigned char *, int);		// requires that passed buffer already have most of the header, etc.
   static int  sysex_update(const unsigned char *, int);	// adds the update header, chksum and 0xF7 to raw data
   static int  sysex_request(const unsigned char *, int);
   static int  change_send(const unsigned char *, int);

@@ -40,7 +40,7 @@ void Load_Dialog::load_user_perf() {
   usleep(25000);
     JVlibForm::sysex_update(buf, 0x13+4);
   }
-  JVlibForm::close_ports();
+//  JVlibForm::close_ports();
   // load any requested User Patches related to this Performance
   // Process Part 1
   if (ui->Load_PerfPart_1_select->isChecked()) {

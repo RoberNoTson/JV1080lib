@@ -1,14 +1,14 @@
 // utils.cpp
 // utility functions for JVlibForm
 // Contains:
-//	change_send()
-//	change_12()
-//	change_3()
-//	change_2()
-//	sysex_send()
-//	sysex_request()
-//	sysex_update()
-//	sysex_get()
+//	change_send()	main sysex send routine
+//	change_12()	call change_send with package of 12 bytes
+//	change_3()	call change_send with package of 3 bytes
+//	change_2()	call change_send with package of 2 bytes
+//	sysex_send()	OBE
+//	sysex_request()	calls change_send with sysex request; pass the addr and size to this
+//	sysex_update()	calls change_send with sysex update; pass the addr and data to this
+//	sysex_get()	standalone, use after sysex_request to read "size" incoming data to the passed buffer
 //	close_ports()
 //	open_ports()
 //	chksum()
@@ -35,6 +35,7 @@ int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
+  close_ports();
   return(err);
 }	// end CHANGE_SEND
 int JVlibForm::change_12(int A, int B, int C, int D, int E, int F, int G, int H, int I, int J, int K, int L) {
@@ -51,7 +52,6 @@ int JVlibForm::change_3(int A, int B, int C) {
     buf[2] = C;
     if (open_ports() == EXIT_FAILURE) return 1;
     if (change_send(buf,3) == EXIT_FAILURE) { close_ports(); return 1; }
-    close_ports();
     return 0;
 }
 int JVlibForm::change_2(int A, int B) {
@@ -60,9 +60,9 @@ int JVlibForm::change_2(int A, int B) {
     buf[1] = B;
     if (open_ports() == EXIT_FAILURE) return 1;
     if (change_send(buf,2) == EXIT_FAILURE) { close_ports(); return 1; }
-    close_ports(); 
     return 0;
 }
+/*
 int JVlibForm::sysex_send(unsigned char *buf, int buf_size) {
   // incoming buffer must contain 4 empty bytes at the beginning, then have 0x11 or 0x12 in place [4]
   if (!state_table->jv_connect) return EXIT_FAILURE;
@@ -73,14 +73,17 @@ int JVlibForm::sysex_send(unsigned char *buf, int buf_size) {
   snd_rawmidi_drop(midiOutHandle);
   for (int x=0;x<4;x++) buf[x]=JV_header[x];
   // transmit the data
+  if (!state_table->midiPorts_open)
+    if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   if ((err = snd_rawmidi_write(midiOutHandle, buf, buf_size)) < 0) { 
     QMessageBox::critical(0, "JVlib", tr("Cannot write to MIDI output\n%1") .arg(snd_strerror(err)));
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
+  close_ports();
   return(err);  
 }	// end SYSEX_SEND
-
+*/
 int JVlibForm::sysex_request(const unsigned char *buf, int buf_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
   unsigned char *SysEx = new unsigned char[buf_size+7];
@@ -107,10 +110,7 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   SysEx[buf_size+6] = 0xF7;
   // transmit the data
 //JVlibForm::hexdump(SysEx, buf_size+7);
-  if (!state_table->midiPorts_open)
-    if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
   int rc = change_send(SysEx, buf_size+7);
-  close_ports();
   delete[] SysEx;
   return rc;
 }	// end SYSEX_SEND
