@@ -107,7 +107,7 @@ load_dialog
 11/04/2013  - create Load Tuning function
 11/04/2013  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System
 12/26/2013  - research why it locks up using Load function
-  - BUG: loading saved User Perf issues: name not set correctly, loads current settings instead of desired data
+01/07/2014  - BUG: loading saved User Perf issues: name not set correctly, loads current settings instead of desired data
   - create Load System function
   - create Load Dump function
   - connect something to the Help button
