@@ -59,6 +59,9 @@
    <property name="readOnly">
     <bool>true</bool>
    </property>
+   <property name="placeholderText">
+    <string notr="true">Select the Destination first</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -111,7 +114,7 @@
     <bool>true</bool>
    </property>
    <property name="placeholderText">
-    <string notr="true"/>
+    <string notr="true">to fill in the Name selection list</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox">
@@ -321,9 +324,6 @@
     <property name="text">
      <string>System</string>
     </property>
-    <property name="checked">
-     <bool>false</bool>
-    </property>
    </widget>
    <widget class="QRadioButton" name="Load_LoadDump_button">
     <property name="geometry">
@@ -341,6 +341,9 @@
      <string>Load DumpFile</string>
     </property>
     <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
      <bool>true</bool>
     </property>
    </widget>

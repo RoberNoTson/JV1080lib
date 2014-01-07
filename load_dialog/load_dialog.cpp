@@ -38,6 +38,14 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     QMessageBox::critical(0, "Load_Dialog", "Unable to initialize data");
     return;
   }
+//  Dates.clear();
+//  Comments.clear();
+  ui->Load_Comment_display->clear();
+  ui->Load_Timestamp_display->clear();
+  ui->Load_Name_select->blockSignals(true);
+  ui->Load_Name_select->clear();
+  ui->Load_Name_select->blockSignals(false);
+  
   ui->Load_CurrentPerformance_button->setEnabled(JVlibForm::state_table->perf_mode);
   ui->Load_CurrentRhythm_button->setEnabled(JVlibForm::state_table->perf_mode);
   ui->Load_CurrentPatch_button->setEnabled(JVlibForm::state_table->patch_mode);
@@ -76,6 +84,9 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
       QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing\nUser 1 Performance name is corrupted");
   }
   JVlibForm::close_ports();
+/*	
+// NOTE: this design has a problem. If the user selects a load file first, then changes the destination, 
+// the load source selected changes is lost when the combo box is re-filled back to index=0!
   if (ui->Load_CurrentPerformance_button->isEnabled() && JVlibForm::state_table->perf_mode)
     ui->Load_CurrentPerformance_button->setChecked(true);
   else if (ui->Load_CurrentPatch_button->isEnabled() && JVlibForm::state_table->patch_mode)
@@ -86,6 +97,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
     ui->Load_LoadDump_button->setChecked(true);
   if (ui->Load_CurrentTuning_button->isEnabled() && JVlibForm::state_table->tuning_type == CustomTemp)
     ui->Load_CurrentTuning_button->setChecked(true);
+*/
 }
 
 Load_Dialog::~Load_Dialog()
@@ -103,18 +115,20 @@ bool Load_Dialog::fill_Data(const char* buf) {
   }
   Dates.clear();
   Comments.clear();
+  ui->Load_Comment_display->clear();
+  ui->Load_Timestamp_display->clear();
   ui->Load_Name_select->blockSignals(true);
   ui->Load_Name_select->clear();
   if (query.size()==0) {
     puts("0 rows found in init_LoadDialog");
     ui->Load_Name_select->blockSignals(false);
-    ui->Load_Comment_display->clear();
-    ui->Load_Timestamp_display->clear();
+//    ui->Load_Comment_display->clear();
+//    ui->Load_Timestamp_display->clear();
     query.finish();
     return false;
   }
   while (query.next()) {
-    ui->Load_Name_select->insertItem(0,query.value(0).toString(),query.value(3));
+    ui->Load_Name_select->insertItem(0,query.value(0).toString(),query.value(3));	// SerNumber
     Dates.prepend(query.value(1).toDateTime().toString(Qt::DefaultLocaleLongDate));
     Comments.prepend(query.value(2).toString());
   }

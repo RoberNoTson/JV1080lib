@@ -31,16 +31,15 @@ void Load_Dialog::load_user_perf() {
   memcpy((void *)&buf[4], SysEx.constData(),0x40);  // perf common data
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   this->setCursor(Qt::WaitCursor);
-  usleep(20000);
+//  usleep(20000);
   JVlibForm::sysex_update(buf, 0x40+4);
   // load the Perf Part data
   for (int x=0;x<16;x++) {
     buf[2] = 0x10 + x;
     memcpy((void *)&buf[4], SysEx.mid(0x40+(0x13*x)), 0x13);
-  usleep(25000);
+    usleep(25000);
     JVlibForm::sysex_update(buf, 0x13+4);
   }
-//  JVlibForm::close_ports();
   // load any requested User Patches related to this Performance
   // Process Part 1
   if (ui->Load_PerfPart_1_select->isChecked()) {
