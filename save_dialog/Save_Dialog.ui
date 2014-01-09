@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Save Data</string>
+   <string>Save To Database</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -436,7 +436,7 @@
      <string>All</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>131</x>

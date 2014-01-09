@@ -8,6 +8,7 @@ void Load_Dialog::load_user_patch(int SerNum, int pn) {
   // sizes: common=0x48, tone[4]=0x81
   if (pn<1 || pn>128 ) {
     printf("Invalid Patch number passed: %d\n", pn);
+    QMessageBox::critical(this, "Load_Dialog", tr("Invalid Patch number requested: %1\nMust be between 1 and 128") .arg(pn) );
     return;	// invalid
   }
   QSqlQuery query(JVlibForm::db_mysql);
@@ -18,7 +19,7 @@ void Load_Dialog::load_user_patch(int SerNum, int pn) {
     query.finish();
     return;
   }
-  if (query.size() == 0) {	// this is an error
+  if (query.size() == 0) {	// this is a major error
     puts("query error - empty");
     query.finish();
     return;

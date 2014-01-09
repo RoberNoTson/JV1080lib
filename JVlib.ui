@@ -1818,7 +1818,7 @@
      </widget>
      <widget class="QPushButton" name="System_Upload_button">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -5728,7 +5728,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
+         <width>94</width>
          <height>2071</height>
         </rect>
        </property>
@@ -44089,11 +44089,11 @@
     <property name="title">
      <string>Utility</string>
     </property>
+    <addaction name="actionData_Lists"/>
     <addaction name="actionCopy"/>
     <addaction name="actionWrite"/>
     <addaction name="actionBulk_Dump"/>
     <addaction name="actionDB_Maint"/>
-    <addaction name="actionData_Lists"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Setup"/>
