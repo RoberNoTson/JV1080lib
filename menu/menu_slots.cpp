@@ -104,7 +104,36 @@ void JVlibForm::slotactionBulk_Dump() {
   // NOTE: tbd
 }
 void JVlibForm::slotactionWrite() {
-  // NOTE: tbd  
+  if (!state_table->jv_connect) return;
+  QMessageBox msgBox;
+  msgBox.setText("Write current settings to the JV-1080");
+  if (state_table->perf_mode)
+    msgBox.setInformativeText(QString("Overwrite settings for\nUser Performance %1?") .arg(SysPerfNumber->value() ));
+  if (state_table->patch_mode)
+    msgBox.setInformativeText(QString("Overwrite settings for\nUser Patch %1?") .arg(SysPatchNumber->value() ));
+  if (state_table->rhythm_mode)
+    msgBox.setInformativeText(QString("Overwrite settings for\nUser Rhythm %1?") .arg(Rhythm_PatchNumber_select->value() ));
+  msgBox.setDetailedText("CAUTION!\nClicking the Apply button will permanently write the current settings to the designated User area. It will overwrite the existing settings for that number.");
+  msgBox.setIcon(QMessageBox::Question);
+  msgBox.setStandardButtons(QMessageBox::Apply | QMessageBox::Cancel);
+  msgBox.setDefaultButton(QMessageBox::Apply);
+  int ret = msgBox.exec();
+  switch(ret) {
+    case QMessageBox::Apply:
+      if (QMessageBox::warning(this, "JVlib", "Confirm overwritting the existing settings",QMessageBox::Ok | QMessageBox::Cancel,QMessageBox::Ok) == QMessageBox::Cancel) break;
+      // do the upload
+      puts("Uploading current settings");
+
+      break;
+    case QMessageBox::Cancel:
+      // do nothing
+      puts("Upload cancelled");
+      break;
+    default:
+      // should never happen
+      puts("How did we get here?");
+      break;
+  }
 }
 void JVlibForm::slotactionCopy() {
   // NOTE: tbd  

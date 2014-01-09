@@ -31,7 +31,7 @@ System_tab
 12/19/2013  - display Key Signature from MIDI file if one exists, link to Tuning Tab
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
-  - create "Upload" (to Synth) function/button to write current settings to permanent User Perf/Patch
+  - create "Write" (to Synth) function to write current settings to permanent User Perf/Patch
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
   - MIDI player locks up system after Open and before Play pressed the first time. Works fine after Play pressed.

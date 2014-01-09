@@ -1832,7 +1832,7 @@
        <string notr="true">Upload current settings to the synth active area</string>
       </property>
       <property name="text">
-       <string notr="true">Upload</string>
+       <string notr="true">Write</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_35">
@@ -5728,7 +5728,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>

@@ -55,34 +55,8 @@
 
 // Slots
 void JVlibForm::on_System_Upload_button_clicked() {
-  if (!state_table->jv_connect) return;
-  QMessageBox msgBox;
-  msgBox.setText("Upload current settings to the JV-1080");
-  if (state_table->perf_mode)
-    msgBox.setInformativeText(QString("Overwrite settings for\nUser Performance %1?") .arg(SysPerfNumber->value() ));
-  if (state_table->patch_mode)
-    msgBox.setInformativeText(QString("Overwrite settings for\nUser Patch %1?") .arg(SysPatchNumber->value() ));
-  if (state_table->rhythm_mode)
-    msgBox.setInformativeText(QString("Overwrite settings for\nUser Rhythm %1?") .arg(Rhythm_PatchNumber_select->value() ));
-  msgBox.setDetailedText("CAUTION!\nClicking the Apply button will permanently write the current settings to the designated User area. It will overwrite the existing settings for that number.");
-  msgBox.setIcon(QMessageBox::Question);
-  msgBox.setStandardButtons(QMessageBox::Apply | QMessageBox::Cancel);
-  msgBox.setDefaultButton(QMessageBox::Apply);
-  int ret = msgBox.exec();
-  switch(ret) {
-    case QMessageBox::Apply:
-      // do the upload
-      puts("Uploading current settings");
-      break;
-    case QMessageBox::Cancel:
-      // do nothing
-      puts("Upload cancelled");
-      break;
-    default:
-      // should never happen
-      puts("How did we get here?");
-      break;
-  }
+  // call menu option for Utility/Write
+  slotactionWrite();
 }
 void JVlibForm::on_System_SaveData_button_clicked() {
   // call Menu option for File/Save
