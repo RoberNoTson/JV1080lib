@@ -95,6 +95,7 @@ void JVlibForm::on_Patch_Sync_button_clicked() {
 	state_table->toneTab_enable = true;
       }	      
       getSinglePerfPatch(Patch_PerfPartNum_select->currentIndex());
+      System_Upload_button->setEnabled(true);
       setPatchParms(Patch_PerfPartNum_select->currentIndex()+1);	// will also set Tone, Pitch, etc.
     }	// end regular patch
   } 

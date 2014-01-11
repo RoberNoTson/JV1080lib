@@ -62,6 +62,7 @@ void JVlibForm::EnablePatch(bool val) {
     Tone_Sync_status->off();
   }
   state_table->patch_sync = val;
+  System_Upload_button->setEnabled(val);
 }	// end EnablePatch
 
 void JVlibForm::getSinglePerfPatch(int pn) {
@@ -69,8 +70,6 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   // Parm passed is the Patch_PerfPartNum_select->currentIndex() or other desired Perf Patch,
   // which is one less than the actual Part number
   // Download the patch common and up to 4 tones per Patch
-
-//  int pn = Patch_PerfPartNum_select->currentIndex();
   switch(pn) {
     case 0:
       if (state_table->part1_sync) return;
@@ -210,6 +209,7 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   }	// end switch
  state_table->patch_modified = false;
  state_table->patch_sync = true;
+// System_Upload_button->setEnabled(true);
  QApplication::restoreOverrideCursor();
 }	// end getSinglePerfPatch
 
@@ -261,6 +261,7 @@ void JVlibForm::getActivePatchMode() {
   progress.reset();
   state_table->patch_modified = false;
   state_table->patch_sync = true;
+  System_Upload_button->setEnabled(true);
   statusbar->showMessage("Active Patch Loaded");
 //  setToneParms(0);
   Enable_Tone(true);

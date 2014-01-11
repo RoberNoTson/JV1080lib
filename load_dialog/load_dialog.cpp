@@ -49,6 +49,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   ui->Load_CurrentPerformance_button->setEnabled(JVlibForm::state_table->perf_mode);
   ui->Load_CurrentRhythm_button->setEnabled(JVlibForm::state_table->perf_mode);
   ui->Load_CurrentPatch_button->setEnabled(JVlibForm::state_table->patch_mode);
+  // check if we can write to User memory, else disable those buttons
   unsigned char oldCh, newCh;
   unsigned char buf[8];
   unsigned char newBuf[5]; // = { 0x10, 0x00, 0x00, 0x00, 0x7F };
@@ -61,8 +62,6 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   oneSize[3] = 1;
   newBuf[0] = 0x10;
   newBuf[4] = 0x7F;
-  // check if we can write to User memory, else disable those buttons
-//  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   JVlibForm::sysex_request(buf, 8);
   JVlibForm::sysex_get(&oldCh, oneSize);
   JVlibForm::sysex_update(newBuf, 5);

@@ -100,11 +100,45 @@ void JVlibForm::slotactionWhats_This() {
   QWhatsThis::enterWhatsThisMode ();
 }
 
-void JVlibForm::slotactionBulk_Dump() {
-  // NOTE: tbd
-}
 void JVlibForm::slotactionWrite() {
-  if (!state_table->jv_connect) return;
+  if (!state_table->jv_connect) return;	// JV is OFFLINE, just quit now
+  // verify the data to be written is valid, else abort
+  if (state_table->perf_mode && !state_table->performance_sync) return;
+  if (state_table->patch_mode && !state_table->patch_sync) return;
+  if (state_table->rhythm_mode && !state_table->rhythm_sync) return;
+  // check if we can write to User memory, else abandon this function
+  unsigned char oldCh, newCh;
+  unsigned char buf[256];
+  unsigned char newBuf[5]; // = { 0x10, 0x00, 0x00, 0x00, 0x7F };
+  char oneSize[4];
+  memset(buf,0,sizeof(buf));
+  memset(oneSize,0,4);
+  memset(newBuf,0,5);
+  buf[0] = 0x10;
+  buf[7] = 1;
+  oneSize[3] = 1;
+  newBuf[0] = 0x10;
+  newBuf[4] = 0x7F;
+  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_get(&oldCh, oneSize);
+  JVlibForm::sysex_update(newBuf, 5);
+  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_get(&newCh, oneSize);
+  if (newCh == oldCh) {	// did not update
+    QMessageBox::critical(this, "Load_Dialog", "Exclusive protect is ON\nUser (permanent) memory cannot be written");
+    return;
+  }
+  else {
+    newBuf[4] = oldCh;
+    JVlibForm::sysex_update(newBuf, 5);
+    JVlibForm::sysex_request(buf, 8);
+    JVlibForm::sysex_get(&newCh, oneSize);
+    if (newCh != oldCh) { // OOPS, did not replace the original char
+      QMessageBox::warning(this, "Load_Dialog", "Unable to undo write testing\nUser 1 Performance name is corrupted");
+      return;
+    }
+  }
+  // all good, proceed with writing the User data
   QMessageBox msgBox;
   msgBox.setText("Write current settings to the JV-1080");
   if (state_table->perf_mode)
@@ -117,29 +151,71 @@ void JVlibForm::slotactionWrite() {
   msgBox.setIcon(QMessageBox::Question);
   msgBox.setStandardButtons(QMessageBox::Apply | QMessageBox::Cancel);
   msgBox.setDefaultButton(QMessageBox::Apply);
-  int ret = msgBox.exec();
-  switch(ret) {
+  int rc = msgBox.exec();
+  switch(rc) {
     case QMessageBox::Apply:
       if (QMessageBox::warning(this, "JVlib", "Confirm overwritting the existing settings",QMessageBox::Ok | QMessageBox::Cancel,QMessageBox::Ok) == QMessageBox::Cancel) break;
-      // do the upload
-      puts("Uploading current settings");
-
+      // write the active_area to the related User area
+      puts("Writing current settings");
+      this->setCursor(Qt::WaitCursor);
+      int pn;
+      // write User Patch (1 - 128)
+      if (state_table->patch_mode) {
+	pn = SysPatchNumber->value()-1;
+	// write patch common
+	memset(buf,0,sizeof(buf));
+	buf[0] = 0x11;	// addr for User Patches
+	buf[1] = pn;	// User Patch number to load
+	memcpy((void *)&buf[4], &active_area->active_patch_patch.patch_common.name[0],0x48);  // patch common data
+	usleep(20000);
+	JVlibForm::sysex_update(buf, 0x48+4);
+	// write relevant Tones (4)
+	for (int x=0;x<4;x++) {
+	  buf[2] = 0x10 + (x*2);
+	  memcpy((void *)&buf[4], &active_area->active_patch_patch.patch_tone[x].tone, 0x81);
+	  usleep(25000);
+	  JVlibForm::sysex_update(buf, 0x81+4);
+	}
+      }
+      // write User Rhythm set (1 or 2)
+      if (state_table->rhythm_mode) {
+	pn = Rhythm_PatchNumber_select->value() - 1;
+	// write rhythm_common
+	
+	// write 64 notes
+	
+      }
+      // write User Performance (1 - 32)
+      if (state_table->perf_mode) {
+	pn = SysPerfNumber->value() - 1;
+	// write perf_common
+	
+	// write synchronized Parts (16)
+	// Part 1
+	if (state_table->part1_sync) {
+	}
+      }
+      this->setCursor(Qt::ArrowCursor);
       break;
     case QMessageBox::Cancel:
       // do nothing
-      puts("Upload cancelled");
+      puts("Write cancelled");
       break;
     default:
       // should never happen
       puts("How did we get here?");
       break;
-  }
-}
+  }	// end switch(rc)
+}	// end slotactionWrite
+
 void JVlibForm::slotactionCopy() {
   // NOTE: tbd  
 }
 void JVlibForm::slotDB_Maint() {
   // NOTE: tbd  
+}
+void JVlibForm::slotactionBulk_Dump() {
+  // NOTE: tbd
 }
 
 void  JVlibForm::slotConfig() {

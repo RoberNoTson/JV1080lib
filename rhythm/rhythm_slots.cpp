@@ -83,24 +83,8 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       MainTabWidget->setTabEnabled(6,false);
       state_table->toneTab_enable = false;
     }	      
-/*    if (!state_table->toneEFXTab_enable) {
-      MainTabWidget->setTabEnabled(7,true);
-      state_table->toneEFXTab_enable = true;
-    }
-    if (!state_table->toneTVFTab_enable) {
-      MainTabWidget->setTabEnabled(8,true);
-      state_table->toneTVFTab_enable = true;
-    }
-    if (!state_table->toneTVATab_enable) {
-      MainTabWidget->setTabEnabled(9,true);
-      state_table->toneTVATab_enable = true;
-    }
-    if (!state_table->pitchTab_enable) {
-      MainTabWidget->setTabEnabled(10,true);
-      state_table->pitchTab_enable = true;
-    }
-*/
     state_table->rhythm_sync = true;
+    System_Upload_button->setEnabled(true);
     state_table->rhythm_modified = false;
     state_table->updates_enabled=true;
   }	// end if getActiveRhythm
@@ -126,7 +110,8 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       state_table->pitchTab_enable = false;
     }
     if (state_table->rhythm_sync) {
-      state_table->rhythm_sync=false; 
+      state_table->rhythm_sync=false;
+      System_Upload_button->setEnabled(false);
       Rhythm_EnableAll(false);
     }
     state_table->updates_enabled=false;
@@ -433,7 +418,11 @@ printf("%s\n",Group.toAscii().data());
 }	// end on_Rhythm_ListNotes_button_clicked
 
 void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
-  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
+  if (state_table->rhythm_sync) {
+    state_table->rhythm_sync=false;
+    Rhythm_EnableAll(false);
+    System_Upload_button->setEnabled(false);
+  }
   if (state_table->perf_mode) {
     Part10_PatchGroup_select->setCurrentIndex(val);
     return;
@@ -493,7 +482,11 @@ void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
 }
 
 void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
-  if (state_table->rhythm_sync) {state_table->rhythm_sync=false; Rhythm_EnableAll(false);}
+  if (state_table->rhythm_sync) {
+    state_table->rhythm_sync=false;
+    Rhythm_EnableAll(false);
+    System_Upload_button->setEnabled(false);
+  }
   if (state_table->perf_mode) {
     Part10_PatchNumber_select->setValue(val);
     return;

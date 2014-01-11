@@ -1818,7 +1818,7 @@
      </widget>
      <widget class="QPushButton" name="System_Upload_button">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -5728,7 +5728,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
+         <width>94</width>
          <height>2071</height>
         </rect>
        </property>

@@ -141,4 +141,5 @@ void JVlibForm::EnablePerf(bool val) {
   if (val) Perf_Sync_status->on();
   else Perf_Sync_status->off();
   state_table->performance_sync = val;
+  System_Upload_button->setEnabled(val);
 }

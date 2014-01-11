@@ -472,4 +472,5 @@ void::JVlibForm::setPatchParms(int val) {
   state_table->patch_modified = false;
   state_table->patch_sync = true;
   state_table->updates_enabled = true;
+  System_Upload_button->setEnabled(true);
 }	// end setPatchParms

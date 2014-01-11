@@ -19,8 +19,8 @@ void Load_Dialog::load_user_perf() {
     return;
   }
   query.next();
-  QByteArray SysEx;
-  SysEx = query.value(0).toByteArray();
+  QByteArray SysEx = query.value(0).toByteArray();
+  // got the data, now upload it to the JV
   unsigned char* buf = new unsigned char[256];
   memset(buf,0,sizeof(buf));
   if (ui->Load_UpdateLocal_select->isChecked()) {
@@ -31,7 +31,6 @@ void Load_Dialog::load_user_perf() {
   memcpy((void *)&buf[4], SysEx.constData(),0x40);  // perf common data
   if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   this->setCursor(Qt::WaitCursor);
-//  usleep(20000);
   JVlibForm::sysex_update(buf, 0x40+4);
   // load the Perf Part data
   for (int x=0;x<16;x++) {
@@ -61,7 +60,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 1
-  
   // Process Part 2
   if (ui->Load_PerfPart_2_select->isChecked()) {
     query.prepare("select Part_2 from Perf_UserPatch_ref where Performance = ?");
@@ -82,7 +80,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 2
-  
   // Process Part 3
   if (ui->Load_PerfPart_3_select->isChecked()) {
     query.prepare("select Part_3 from Perf_UserPatch_ref where Performance = ?");
@@ -103,7 +100,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 3
-  
   // Process Part 4
   if (ui->Load_PerfPart_4_select->isChecked()) {
     query.prepare("select Part_4 from Perf_UserPatch_ref where Performance = ?");
@@ -124,7 +120,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 4
-  
   // Process Part 5
   if (ui->Load_PerfPart_5_select->isChecked()) {
     query.prepare("select Part_5 from Perf_UserPatch_ref where Performance = ?");
@@ -145,7 +140,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 5
-  
   // Process Part 6
   if (ui->Load_PerfPart_6_select->isChecked()) {
     query.prepare("select Part_6 from Perf_UserPatch_ref where Performance = ?");
@@ -166,7 +160,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 6
-  
   // Process Part 7
   if (ui->Load_PerfPart_7_select->isChecked()) {
     query.prepare("select Part_7 from Perf_UserPatch_ref where Performance = ?");
@@ -187,7 +180,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 7
-  
   // Process Part 8
   if (ui->Load_PerfPart_8_select->isChecked()) {
     query.prepare("select Part_8 from Perf_UserPatch_ref where Performance = ?");
@@ -208,7 +200,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 8
-  
   // Process Part 9
   if (ui->Load_PerfPart_9_select->isChecked()) {
     query.prepare("select Part_9 from Perf_UserPatch_ref where Performance = ?");
@@ -229,7 +220,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 9
-  
   // Process Part 11
   if (ui->Load_PerfPart_11_select->isChecked()) {
     query.prepare("select Part_11 from Perf_UserPatch_ref where Performance = ?");
@@ -250,7 +240,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 11
-  
   // Process Part 12
   if (ui->Load_PerfPart_12_select->isChecked()) {
     query.prepare("select Part_12 from Perf_UserPatch_ref where Performance = ?");
@@ -271,7 +260,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 12
-  
   // Process Part 13
   if (ui->Load_PerfPart_13_select->isChecked()) {
     query.prepare("select Part_13 from Perf_UserPatch_ref where Performance = ?");
@@ -292,7 +280,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 13
-  
   // Process Part 14
   if (ui->Load_PerfPart_14_select->isChecked()) {
     query.prepare("select Part_14 from Perf_UserPatch_ref where Performance = ?");
@@ -313,7 +300,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 14
-  
   // Process Part 15
   if (ui->Load_PerfPart_15_select->isChecked()) {
     query.prepare("select Part_15 from Perf_UserPatch_ref where Performance = ?");
@@ -334,7 +320,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 15
-  
   // Process Part 16
   if (ui->Load_PerfPart_16_select->isChecked()) {
     query.prepare("select Part_16 from Perf_UserPatch_ref where Performance = ?");
@@ -355,7 +340,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Patch SerNumber %d to User Patch # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number>0 && patch_number<129) load_user_patch(PartSN, patch_number);
   }	// end Part 16
-  
   // Process Part 10
   if (ui->Load_PerfPart_10_select->isChecked()) {
     query.prepare("select Part_10 from Perf_UserPatch_ref where Performance = ?");
@@ -376,7 +360,6 @@ void Load_Dialog::load_user_perf() {
     printf("Loading User Rhythm SerNumber %d to User Rhythm # %d\n", PartSN, patch_number);    
     if (PartSN>0 && patch_number<3 && patch_number>0) load_user_rhythm(PartSN, patch_number);
   }	// end Part 10
-  
   this->setCursor(Qt::ArrowCursor);
   delete[] buf;
   query.finish();

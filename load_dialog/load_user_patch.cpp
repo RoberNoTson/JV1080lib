@@ -30,15 +30,13 @@ void Load_Dialog::load_user_patch(int SerNum, int pn) {
   unsigned char* buf = new unsigned char[256];
   memset(buf,0,sizeof(buf));
   if (ui->Load_UpdateLocal_select->isChecked()) {
-//    if (JVlibForm::state_table->perf_mode) // needs to go into temporary patch[16]
-//      memcpy(&JVlibForm::active_area->active_perf_patch[pn-1].patch_common.name[0], SysEx.constData(), SysEx.size());
     if (JVlibForm::state_table->patch_mode) 
       memcpy(&JVlibForm::active_area->active_patch_patch.patch_common.name[0], SysEx.constData(), SysEx.size());
   }
   buf[0] = 0x11;	// addr for User Patches
   buf[1] = pn-1;	// User Patch number to load
   memcpy((void *)&buf[4], SysEx.constData(),0x48);  // patch common data
-  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+//  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   this->setCursor(Qt::WaitCursor);
   usleep(20000);
   JVlibForm::sysex_update(buf, 0x48+4);
@@ -49,7 +47,7 @@ void Load_Dialog::load_user_patch(int SerNum, int pn) {
     usleep(25000);
     JVlibForm::sysex_update(buf, 0x81+4);
   }
-  JVlibForm::close_ports();
+//  JVlibForm::close_ports();
   delete[] buf;
   query.finish();
   this->setCursor(Qt::ArrowCursor);
