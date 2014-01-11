@@ -152,7 +152,7 @@ void JVlibForm::EnableSys(bool val) {
   SysPreviewBox->setEnabled(val);
   SysSourceBox->setEnabled(val);
   SysTestTone_button->setEnabled(val);
-  System_Upload_button->setEnabled(val);
+//  System_Upload_button->setEnabled(val);
   SysPanic_button->setEnabled(val);
   SysMode_select->setEnabled(val);
   System_Sync_button->setEnabled(val);

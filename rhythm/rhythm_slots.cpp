@@ -85,6 +85,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     }	      
     state_table->rhythm_sync = true;
     System_Upload_button->setEnabled(true);
+    actionWrite->setEnabled(true);
     state_table->rhythm_modified = false;
     state_table->updates_enabled=true;
   }	// end if getActiveRhythm
@@ -112,6 +113,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     if (state_table->rhythm_sync) {
       state_table->rhythm_sync=false;
       System_Upload_button->setEnabled(false);
+      actionWrite->setEnabled(false);
       Rhythm_EnableAll(false);
     }
     state_table->updates_enabled=false;
@@ -422,6 +424,7 @@ void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
     state_table->rhythm_sync=false;
     Rhythm_EnableAll(false);
     System_Upload_button->setEnabled(false);
+    actionWrite->setEnabled(false);
   }
   if (state_table->perf_mode) {
     Part10_PatchGroup_select->setCurrentIndex(val);
@@ -486,6 +489,7 @@ void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
     state_table->rhythm_sync=false;
     Rhythm_EnableAll(false);
     System_Upload_button->setEnabled(false);
+    actionWrite->setEnabled(false);
   }
   if (state_table->perf_mode) {
     Part10_PatchNumber_select->setValue(val);

@@ -24,4 +24,5 @@ void JVlibForm::createMenuActions() {
   connect(JVlibForm::actionBulk_Dump, SIGNAL(triggered()), this, SLOT(slotactionBulk_Dump()));
   connect(JVlibForm::actionWhats_This, SIGNAL(activated()), this, SLOT(slotactionWhats_This()));
   connect(JVlibForm::actionAbout_QT, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+  actionWrite->setEnabled(false);
 }	// end createActions

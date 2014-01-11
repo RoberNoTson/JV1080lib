@@ -63,6 +63,7 @@ void JVlibForm::EnablePatch(bool val) {
   }
   state_table->patch_sync = val;
   System_Upload_button->setEnabled(val);
+  actionWrite->setEnabled(val);
 }	// end EnablePatch
 
 void JVlibForm::getSinglePerfPatch(int pn) {
@@ -209,7 +210,6 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   }	// end switch
  state_table->patch_modified = false;
  state_table->patch_sync = true;
-// System_Upload_button->setEnabled(true);
  QApplication::restoreOverrideCursor();
 }	// end getSinglePerfPatch
 
@@ -262,6 +262,7 @@ void JVlibForm::getActivePatchMode() {
   state_table->patch_modified = false;
   state_table->patch_sync = true;
   System_Upload_button->setEnabled(true);
+  actionWrite->setEnabled(true);
   statusbar->showMessage("Active Patch Loaded");
 //  setToneParms(0);
   Enable_Tone(true);
