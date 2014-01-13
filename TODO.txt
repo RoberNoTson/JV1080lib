@@ -99,7 +99,7 @@ config
   - improve aesthetics
 
 save_dialog
-  - save each Perf Part as part of a group save
+  - save every Perf Part Patch that has a sync flag as part of a group save
   - create Receive User Dump function
   - connect something to the Help button
 
