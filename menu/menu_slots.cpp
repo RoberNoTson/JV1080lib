@@ -176,25 +176,43 @@ void JVlibForm::slotactionWrite() {
 	  usleep(25000);
 	  JVlibForm::sysex_update(buf, 0x81+4);
 	}
-      }
+      }	// end Patch mode
       // write User Rhythm set (1 or 2)
       if (state_table->rhythm_mode) {
 	pn = Rhythm_PatchNumber_select->value() - 1;
 	// write rhythm_common
-	
+	memset(buf,0,sizeof(buf));
+	buf[0] = 0x10;        // addr for User Rhythms
+	buf[1] = 0x40 + pn; // User Rhythm number to load
+	memcpy((void *)&buf[4], &active_area->active_rhythm.rhythm_common.name[0], 0x0C);
+	usleep(20000);
+	JVlibForm::sysex_update(buf, 0x0C+4);
 	// write 64 notes
-	
-      }
+	for (int x=0;x<64;x++) {
+	  buf[2] = 0x23 + x;
+	  memcpy((void *)&buf[4], &active_area->active_rhythm.rhythm_note[x].tone, 0x3A);
+	  usleep(20000);
+	  JVlibForm::sysex_update(buf, 0x3A+4);
+	}
+      }	// end Rhythm mode
       // write User Performance (1 - 32)
       if (state_table->perf_mode) {
 	pn = SysPerfNumber->value() - 1;
 	// write perf_common
-	
+	memset(buf,0,sizeof(buf));
+	buf[0] = 0x10;        // addr for User Performances
+	buf[1] = pn;
+	memcpy((void *)&buf[4], &active_area->active_performance.perf_common.name[0], 0x40);
+	usleep(20000);
+	JVlibForm::sysex_update(buf, 0x40+4);
 	// write synchronized Parts (16)
-	// Part 1
-	if (state_table->part1_sync) {
+	for (int x=0;x<16;x++) {
+	  buf[2] = 0x10 + x;
+	  memcpy((void *)&buf[4], &active_area->active_performance.perf_part[x].MIDI_receive, 0x13);
+	  usleep(20000);
+	  JVlibForm::sysex_update(buf, 0x13+4);
 	}
-      }
+      }	// end Perf mode
       this->setCursor(Qt::ArrowCursor);
       break;
     case QMessageBox::Cancel:
