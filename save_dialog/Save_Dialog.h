@@ -35,6 +35,7 @@ private slots:
   void on_Save_RhythmNumber_select_valueChanged();
   void on_Save_PatchNumber_select_valueChanged();
   void on_Save_PerfNumber_select_valueChanged();
+  void on_Save_AllUserDump_button_toggled();
 
 private:
   Ui::Save_Dialog *ui;
@@ -43,7 +44,12 @@ private:
   int SaveUserRhythm(int,int=0);
   int SaveUserPatch(int,int=0);
   int SaveUserPerf();
-  bool SaveDump();
+  bool ReceiveDump();
+  bool SaveAllDump();
+  bool SaveAllUserRhythmDump();
+  bool SaveAllUserPatchDump();
+  bool SaveAllUserPerfDump();
+  bool bulk_get(unsigned char *, int);
   void clearPartLabels();
   void hexdump(unsigned char *, int);
   QByteArray Tuning_currentTuning;

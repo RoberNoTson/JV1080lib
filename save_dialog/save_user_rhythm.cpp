@@ -26,19 +26,18 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
     buf[6] = 0x01;		 //0x0c*2 +0x3A*2 = 0x8C = 0x01 0x0C
     buf[7] = 0x0C;
   }
-  if (JVlibForm::open_ports() == EXIT_FAILURE) { puts("unable to open seq port"); return false; }
-//  puts("Getting Rhythm Common");
+//  if (JVlibForm::open_ports() == EXIT_FAILURE) { puts("unable to open seq port"); return false; }
   QProgressDialog progress("Getting Rhythm data...", "Abort Download", 0, 65, 0);
   progress.setWindowModality(Qt::WindowModal);
   progress.setMinimumDuration(0);
   progress.setValue(0);
   RetryG:
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
   err = JVlibForm::sysex_get((unsigned char *)&temp_r.rhythm_common.name[0], (char *)rhythm_common_size);
-  if (err == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+  if (err == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
   if (err==3 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
-  if (err != EXIT_SUCCESS) { JVlibForm::close_ports(); return false; }
+  if (err != EXIT_SUCCESS) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
   Stop=0;
   // get 64 notes for this rhythm
   memcpy(buf+4,rhythm_note_size,4);
@@ -48,15 +47,15 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
     if (progress.wasCanceled()) break;
     buf[2] = 0x23+y;	// note address
     RetryH:
-    if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+    if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
     err = JVlibForm::sysex_get((unsigned char *)&temp_r.rhythm_note[y].tone, (char *)rhythm_note_size);
-    if (err == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+    if (err == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }
     if (err==3 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }
-    if (err != EXIT_SUCCESS) { JVlibForm::close_ports(); return false; }
+    if (err != EXIT_SUCCESS) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
     Stop=0;
   }	// end FOR 64 notes
-  JVlibForm::close_ports();
+  if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports();
   progress.setValue(65);
   progress.reset();
   int sz = 0x0C + (0x3A*64);	// common and 64 notes

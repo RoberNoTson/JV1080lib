@@ -425,6 +425,9 @@
      <property name="toolTip">
       <string notr="true">The internal Device ID used for communicating with the JV-1080. Default is 17, do not change it unless you know what you are doing!</string>
      </property>
+     <property name="whatsThis">
+      <string>Number must match the internal Device ID on the JV-1080. Exit and restart the application after changing this number.</string>
+     </property>
      <property name="minimum">
       <number>17</number>
      </property>

@@ -1,10 +1,12 @@
 // save_dialog.cpp
 // utility functions for Save_Dialog
-// Contains:
-//	Save_Dialog()
-//	~Save_Dialog()
-//	clearPartLabels();
-//	db_insert_data()
+/* Contains:
+ * Save_Dialog()
+ * ~Save_Dialog()
+ * clearPartLabels()
+ * db_insert_data()
+ * bulk_get
+*/
 
 #include	"save_dialog/Save_Dialog.h"
 #include	"ui_Save_Dialog.h"
@@ -74,7 +76,7 @@ int Save_Dialog::db_insert_data(QString table_name, char *ptr, int sz, int part_
   if (!part_num) {	// default = 0 in headerfile
     if (table_name=="Tuning")
       buf += "DEFAULT, ";
-    // no partnum and not Tuning data, must be System, Current Patch or Current Perf RhythmSet
+    // no partnum and not Tuning data, must be System, Current Patch or Current Perf RhythmSet, or a UserDump
     buf += "'"+ui->Save_Comment_edit->text()+"'"+","+QString::number(qChecksum(ptr,sz))+")";
     query.prepare(buf);
     query.bindValue(0,sysex);
@@ -153,3 +155,90 @@ int Save_Dialog::db_insert_data(QString table_name, char *ptr, int sz, int part_
   query.finish();
   return x;
 }	// end db_insert_data
+
+bool Save_Dialog::bulk_get(unsigned char *buf, int sz) {
+  if (!JVlibForm::state_table->jv_connect) return EXIT_FAILURE;
+  if (!JVlibForm::state_table->midiPorts_open) JVlibForm::open_ports();
+  int   read;
+  register int err;
+  int npfds, time;
+  int timeout = 4000;
+  struct pollfd *pfds;
+  unsigned char recv_buf[256];
+  unsigned char hold_buf[109000];
+  unsigned short revents;
+  snd_rawmidi_status_t *ptr;
+  // set up polling structs, prepare for reading data
+  time=0;
+  npfds = snd_rawmidi_poll_descriptors_count(JVlibForm::midiInHandle);
+  pfds = new pollfd;
+  snd_rawmidi_poll_descriptors(JVlibForm::midiInHandle, pfds, npfds);
+  snd_rawmidi_nonblock(JVlibForm::midiInHandle,1);		// set to nonblocking mode
+  read=0;
+  // big loop to read data
+  puts("receiving Bulk Dump");
+  for (;;) {
+    memset(recv_buf,0,sizeof(recv_buf));
+    err = poll(pfds, npfds, 200);
+    // process poll status/errors
+    if (err < 0) { printf("poll failed: %s", strerror(errno)); break; }
+    // timeout (or correct amount of data) are the only good ways to exit this loop
+    if (err == 0) {
+      time += 200;
+      if (timeout && time >= timeout) {puts("#### TIMEOUT ####"); break; }
+      usleep(20000); continue;
+    }
+    if ((err = snd_rawmidi_poll_descriptors_revents(JVlibForm::midiInHandle, pfds, npfds, &revents)) < 0) {
+      printf("Cannot get poll events: %s\n", snd_strerror(err));
+      break;
+    }
+    if (revents & (POLLERR | POLLHUP)) {
+      puts("Input polling interrupted or hardware error");
+      break;
+    }
+    if (!(revents & POLLIN)) { usleep(20000); continue; }	// loop if no data and still polling
+    // read the incoming data
+    err = snd_rawmidi_read(JVlibForm::midiInHandle, recv_buf, sizeof(recv_buf));
+    if (err == -EAGAIN) { usleep(20000); continue; }
+    if (err < 0) {
+      printf("cannot read from port \"%s\": %s", JVlibForm::MIDI_dev, snd_strerror(err));
+      delete pfds;
+      return EXIT_FAILURE;	// signal possible retry to calling routine
+    }
+    if (err == 0) { usleep(20000); continue; }
+    time = 0;	// data received, reset the timeout value
+    memcpy(hold_buf+read, recv_buf, err);
+    read += err;
+printf("Read %d bytes\n",read);
+    if (read >= sz) break;
+  }	// end FOR bigloop
+  // pause before parsing data and returning
+  usleep(20000);
+  // validate the data received
+  if (read != sz) {
+    puts("#### Incomplete data received! ####");
+    // get a snd_rawmidi_status_t struct
+    if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
+      printf("Can't get snd_rawmidi_status_t: %s\n", snd_strerror(err));
+    else {
+      // Tell ALSA to fill in our snd_rawmidi_status_t struct with this device's status
+      if ((err = snd_rawmidi_status(JVlibForm::midiInHandle, ptr)) < 0)
+	  printf("Can't get status: %s\n", snd_strerror(err));
+      else {
+	err = snd_rawmidi_status_get_xruns(ptr);
+	if (err != 0) printf("There are %i overrun errors\n", err);
+      }
+      // Done, free the snd_rawmidi_status_t struct
+      snd_rawmidi_status_free(ptr);
+    }
+    delete pfds;
+    return EXIT_FAILURE;	// signal possible retry to calling routine
+  }
+  // valid data, copy to the request buffer
+  memcpy(buf, (char *)hold_buf, sz);
+  delete pfds;
+  JVlibForm::close_ports();
+  puts("Bulk Dump received");
+  return EXIT_SUCCESS;
+}	// end bulk_get
+

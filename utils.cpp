@@ -35,7 +35,7 @@ int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
     return(EXIT_FAILURE);
   }
   snd_rawmidi_drain(midiOutHandle);
-  close_ports();
+  if (state_table->midiPorts_open) close_ports();
   return(err);
 }	// end CHANGE_SEND
 int JVlibForm::change_12(int A, int B, int C, int D, int E, int F, int G, int H, int I, int J, int K, int L) {
@@ -95,13 +95,13 @@ int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
 
 int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
-  int	data_size,x,buf_size,read;
+  int	data_size,buf_size,read;
   register int err;
   int npfds, time;
   int timeout = 2000;
   struct pollfd *pfds;
   unsigned char	recv_buf[256];
-  unsigned char hold_buf[512];
+  unsigned char hold_buf[109000];
   unsigned short revents;
   snd_rawmidi_status_t *ptr;
   
@@ -156,7 +156,7 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   // pause before parsing data and returning
   usleep(40000);
   // validate the data received
-  if ((x=chksum((unsigned char *)&hold_buf[5], buf_size-7)) != hold_buf[buf_size-2]) { 
+  if ((chksum((unsigned char *)&hold_buf[5], buf_size-7)) != hold_buf[buf_size-2]) { 
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
       printf("Can't get snd_rawmidi_status_t: %s\n", snd_strerror(err));

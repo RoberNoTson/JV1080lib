@@ -5728,7 +5728,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>94</width>
+         <width>800</width>
          <height>2071</height>
         </rect>
        </property>
@@ -44092,7 +44092,6 @@
     <addaction name="actionData_Lists"/>
     <addaction name="actionCopy"/>
     <addaction name="actionWrite"/>
-    <addaction name="actionBulk_Dump"/>
     <addaction name="actionDB_Maint"/>
    </widget>
    <addaction name="menu_File"/>

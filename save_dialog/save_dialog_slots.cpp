@@ -10,7 +10,7 @@
  * on_Save_UserPerformance_button_toggled()
  * on_Save_UserPatch_button_toggled()
  * on_Save_UserRhythm_button_toggled()
- * on_Save_UserDump_button_toggled()
+ * on_Save_AllUserDump_button_toggled()
  * on_Save_buttonBox_rejected()
  * on_Save_buttonBox_helpRequested()
  * on_Save_buttonBox_accepted()
@@ -543,6 +543,11 @@ void Save_Dialog::on_Save_ReceiveUserDump_button_toggled(bool val) {
   ui->Save_Name_edit->setText("Full User Dump");
 }
 
+void Save_Dialog::on_Save_AllUserDump_button_toggled() {
+  ui->Save_All_button->setEnabled(false);
+  ui->Save_Name_edit->setText("Full User Dump");
+}
+
 void Save_Dialog::on_Save_All_button_toggled(bool val) {
   if (!val) {
     if (ui->Save_UserRhythm_button->isChecked()) on_Save_UserRhythm_button_toggled(true);
@@ -603,6 +608,7 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     ui->Save_Comment_edit->setFocus();
     return;
   }
+  // process the selected data
   if (ui->Save_System_button->isChecked()) {
     table_name = "Dumps";
     sz = 0x28;
@@ -625,13 +631,28 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
     db_insert_data(table_name, ptr, sz);
   }
   if (ui->Save_UserRhythm_button->isChecked()) {
-    SaveUserRhythm(ui->Save_RhythmNumber_select->value());
+    if (!ui->Save_All_button->isChecked()) {
+      SaveUserRhythm(ui->Save_RhythmNumber_select->value());
+    }
+    else {
+      SaveAllUserRhythmDump();
+    }
   }
   if (ui->Save_UserPatch_button->isChecked()) {
-    SaveUserPatch(ui->Save_PatchNumber_select->value());
+    if (!ui->Save_All_button->isChecked()) {
+      SaveUserPatch(ui->Save_PatchNumber_select->value());
+    }
+    else {
+      SaveAllUserPatchDump();
+    }
   }
   if (ui->Save_UserPerformance_button->isChecked()) {
-    SaveUserPerf();
+    if (!ui->Save_All_button->isChecked()) {
+      SaveUserPerf();
+    }
+    else {
+      SaveAllUserPerfDump();
+    }
   }
   if (ui->Save_CurrentTuning_button->isChecked()) {
     Tuning_currentTuning.truncate(0);
@@ -642,15 +663,13 @@ void Save_Dialog::on_Save_buttonBox_accepted() {
       Tuning_currentTuning.setRawData(&JVlibForm::system_area->sys_part_scale_tune[0].scale[0], 12*16);      
     }
     db_insert_data("Tuning", (char *)Tuning_currentTuning.constData(), Tuning_currentTuning.size());
-//hexdump((unsigned char *)JVlibForm::Tuning_currentTuning.constData(), Tuning_currentTuning.size());
-  }	// end IF Tuning
-  
+  }
+  if (ui->Save_AllUserDump_button->isChecked()) {
+    SaveAllDump();
+  }
   if (ui->Save_ReceiveUserDump_button->isChecked()) {
-    // save all entries of User Performance, Patch or Rhythm
-    table_name = "Dumps";
-//    sz = 0;	// NOTE: tbd
-//    ptr = NULL;	// NOTE: tbd
-//    db_insert_data(table_name, ptr, sz);
+    // save a dump initiated from the JV
+    ReceiveDump();
   }
   this->close();
 }	// end on_Save_buttonBox_accepted
