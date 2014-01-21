@@ -99,8 +99,9 @@ config
   - improve aesthetics
 
 save_dialog
-  - save every Perf Part Patch that has a sync flag as part of a group save
+01/20/2014  - implement Bulk dump save functions
   - create Receive User Dump function
+  - save every Perf Part Patch that has a sync flag as part of a group save
   - connect something to the Help button
 
 load_dialog

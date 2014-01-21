@@ -26,16 +26,18 @@ bool Save_Dialog::ReceiveDump() {
   unsigned short revents;
   
   this->setCursor(Qt::WaitCursor);
-  timeout = ui->Save_Timeout_select->value() * 1000;
+  timeout = ui->Save_Timeout_select->value() * 1000; // milliseconds for poll to timeout
   // open the selected midi port
-  if (JVlibForm::open_ports() == EXIT_FAILURE) {this->setCursor(Qt::ArrowCursor); return false; }
+  if (!JVlibForm::state_table->midiPorts_open) {
+    if (JVlibForm::open_ports() == EXIT_FAILURE) {this->setCursor(Qt::ArrowCursor); return false; }
+  }
   // set up polling structs, prepare for reading data
   time=0;
   npfds = snd_rawmidi_poll_descriptors_count(JVlibForm::midiInHandle);
   pfds = new pollfd;
   snd_rawmidi_poll_descriptors(JVlibForm::midiInHandle, pfds, npfds);
   snd_rawmidi_nonblock(JVlibForm::midiInHandle,1);         // set to nonblocking mode
-  memset(recv_buf,0xF7,sizeof(recv_buf));
+  memset(recv_buf,0,sizeof(recv_buf));
   int readBytes=0;
   buf.clear();
   // big loop to read data
@@ -44,10 +46,8 @@ bool Save_Dialog::ReceiveDump() {
     // process poll status/errors
     if (err < 0 && errno == EINTR) { this->setCursor(Qt::ArrowCursor); return false; }
     if (err < 0) { printf("poll failed: %s", strerror(errno)); this->setCursor(Qt::ArrowCursor); return false; }
-    // timeout is the only good ways to exit this loop
+    // timeout (err=0) is the only good ways to exit this loop
     if (err == 0) {
-      time += 200;
-      if (timeout && time >= timeout) {
 	if (buf.isEmpty()) {
 	  puts("SaveDump exceeded wait timeout, no data received"); 
 	  this->setCursor(Qt::ArrowCursor);
@@ -56,36 +56,34 @@ bool Save_Dialog::ReceiveDump() {
 	else
 	  break;
       }
-      usleep(40000); continue;
-    }
     if ((err = snd_rawmidi_poll_descriptors_revents(JVlibForm::midiInHandle, pfds, npfds, &revents)) < 0) {
       printf("Cannot get poll events: %s\n", snd_strerror(err));
       this->setCursor(Qt::ArrowCursor);
       return false;
     }
     if (revents & (POLLERR | POLLHUP)) { this->setCursor(Qt::ArrowCursor); return false; }
-    if (!(revents & POLLIN)) { usleep(40000); continue; }       // loop if no data and still polling
+    if (!(revents & POLLIN)) { usleep(20000); continue; }       // loop if no data and still polling
     // read the incoming data
     err = snd_rawmidi_read(JVlibForm::midiInHandle, recv_buf, sizeof(recv_buf));
-    if (err == -EAGAIN) { usleep(40000); continue; }
+    if (err == -EAGAIN) { usleep(20000); continue; }
     if (err < 0) {
       printf("cannot read from port \"%s\": %s", JVlibForm::MIDI_dev, snd_strerror(err));
       delete pfds;
       this->setCursor(Qt::ArrowCursor);
       return false;        // signal possible retry to calling routine
     }
-    if (err == 0) { usleep(40000); continue; }
+    if (err == 0) { usleep(20000); continue; }
     time = 0;   // data received, reset the timeout value
     readBytes += err;
     buf.append((const char *)&recv_buf,(int)err);
   }	// end FOR big loop
-  
   // pause before parsing/saving data
-  usleep(40000);
+  usleep(20000);
   delete pfds;
+  if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports();
   // save the data to the database
-  
-  
+//hexdump((unsigned char *)buf.constData(), buf.size());
+  db_insert_data("Dumps",(char *)buf.constData(), buf.size());
   this->setCursor(Qt::ArrowCursor); 
   return true;
 }	// end SaveDump
