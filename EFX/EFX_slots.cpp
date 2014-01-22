@@ -70,7 +70,7 @@ void JVlibForm::on_PerfEFXtype_select_currentIndexChanged(int val) {
   buf[7] = 0x0C;	// number of parms to download
   if (open_ports() == EXIT_FAILURE) return;
   RetryA:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&active_area->active_performance.perf_common.EFX_parameter[0], (char *)&EFX_parm_size);
   if (err == EXIT_FAILURE) return;
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
@@ -97,7 +97,7 @@ void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
       buf[7] = 0x0C;	// number of parms to download
       if (open_ports() == EXIT_FAILURE) return;
       RetryB:
-      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
       err = sysex_get((unsigned char *)&active_area->active_patch_patch.patch_common.EFX_parameter[0], (char *)&EFX_parm_size);
       if (err == EXIT_FAILURE) return;
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
@@ -118,7 +118,7 @@ void JVlibForm::on_PatchEFX_Type_select_currentIndexChanged(int val) {
       buf[7] = 0x0C;	// number of parms to download
       if (open_ports() == EXIT_FAILURE) return;
       RetryF:
-      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+      if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
       err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_common.EFX_parameter[0], (char *)&EFX_parm_size);
       if (err == EXIT_FAILURE) return;
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryF; }

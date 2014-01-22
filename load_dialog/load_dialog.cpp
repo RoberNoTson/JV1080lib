@@ -62,10 +62,10 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   oneSize[3] = 1;
   newBuf[0] = 0x10;
   newBuf[4] = 0x7F;
-  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_request(buf);
   JVlibForm::sysex_get(&oldCh, oneSize);
   JVlibForm::sysex_update(newBuf, 5);
-  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_request(buf);
   JVlibForm::sysex_get(&newCh, oneSize);
   if (newCh == oldCh) {	// did not update
     ui->Load_UserPerformance_button->setEnabled(false);
@@ -77,7 +77,7 @@ Load_Dialog::Load_Dialog(QWidget *parent) :
   else {
     newBuf[4] = oldCh;
     JVlibForm::sysex_update(newBuf, 5);
-    JVlibForm::sysex_request(buf, 8);
+    JVlibForm::sysex_request(buf);
     JVlibForm::sysex_get(&newCh, oneSize);
     if (newCh != oldCh)  // OOPS, did not replace the original char
       QMessageBox::critical(this, "Load_Dialog", "Unable to undo testing\nUser 1 Performance name is corrupted");
@@ -244,32 +244,28 @@ void Load_Dialog::load_tuning() {
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
-//hexdump((unsigned char*)SysEx.constData(), SysEx.size());
-  unsigned char* buf = new unsigned char[12*16 + 4];
-  memset(buf,0,sizeof(buf));
+  int sz = SysEx.size();
   if (ui->Load_UpdateLocal_select->isChecked()) {
     if (JVlibForm::state_table->patch_mode)
-      memcpy(&JVlibForm::system_area->sys_patch_scale_tune.scale[0], SysEx.constData(), 12);
+      memcpy(&JVlibForm::system_area->sys_patch_scale_tune.scale[0], SysEx.constData(), sz);
     else
-      memcpy(&JVlibForm::system_area->sys_part_scale_tune[0].scale[0], SysEx.constData(), SysEx.size());
+      memcpy(&JVlibForm::system_area->sys_part_scale_tune[0].scale[0], SysEx.constData(), sz);
   }
-  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
   this->setCursor(Qt::WaitCursor);
-  usleep(20000);
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
   if (JVlibForm::state_table->patch_mode) {
-    buf[2] = 0x20;
-    memcpy((void *)&buf[4], SysEx.constData(), 12);
-    JVlibForm::sysex_update(buf, 16);
+    SysEx[2] = 0x20;
+    JVlibForm::sysex_update((unsigned char *)SysEx.constData(), sz+4);
   }
   else {
     for (int x=0;x<16;x++) {
-      buf[2] = 0x10 + x;
-      memcpy((void *)&buf[4], SysEx.mid(x*12, 12), 12);
-      JVlibForm::sysex_update(buf, 16);
+      SysEx[2] = 0x10 + x;
+      JVlibForm::sysex_update((unsigned char *)SysEx.constData(), sz+4);
     }
   }
-  JVlibForm::close_ports();
-  delete[] buf;
   query.finish();
   this->setCursor(Qt::ArrowCursor);
 }	// end load_tuning
@@ -284,23 +280,35 @@ void Load_Dialog::load_system() {
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
-  unsigned char* buf = new unsigned char[0x28+4];
-  memset(buf,0,sizeof(buf));
-  memcpy(&JVlibForm::system_area->sys_common.panel_mode, SysEx.constData(), 0x28);
-  if (JVlibForm::open_ports() == EXIT_FAILURE) return;
+  int sz = SysEx.size();
+  if (ui->Load_UpdateLocal_select->isChecked()) {
+    memcpy(&JVlibForm::system_area->sys_common.panel_mode, SysEx.constData(), sz);
+  }
   this->setCursor(Qt::WaitCursor);
-  usleep(20000);
-  memcpy((void *)&buf[4], SysEx.constData(), 0x28);
-  JVlibForm::sysex_update(buf, 0x28+4);
-  JVlibForm::close_ports();
-  delete[] buf;
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
+  SysEx.prepend('\0');
+  JVlibForm::sysex_update((unsigned char *)SysEx.constData(), sz+4);
   query.finish();
 //  JVlibForm::setSystemParms();
   this->setCursor(Qt::ArrowCursor);
 }
 
 void Load_Dialog::load_dump() {
-//  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
-  
+  int SerNum = ui->Load_Name_select->itemData(ui->Load_Name_select->currentIndex()).toInt();
+  QSqlQuery query(JVlibForm::db_mysql);
+  query.prepare("select sysex from Dumps where SerNumber = ?");
+  query.bindValue(0, SerNum);
+  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
+  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  query.first();
+  QByteArray SysEx;
+  SysEx = query.value(0).toByteArray();
+  int sz = SysEx.size();
+  this->setCursor(Qt::WaitCursor);
+
+ 
+  this->setCursor(Qt::ArrowCursor);
 }
 

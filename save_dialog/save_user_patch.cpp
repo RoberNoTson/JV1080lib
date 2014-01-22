@@ -23,7 +23,7 @@ int Save_Dialog::SaveUserPatch(int pn, int Part) {
   memcpy(buf+4,patch_common_size,4);
   if (JVlibForm::open_ports() == EXIT_FAILURE) return false;
   RetryG:
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
   err = JVlibForm::sysex_get((unsigned char *)&temp_r.patch_common.name[0], (char *)patch_common_size);
   if (err == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
@@ -35,7 +35,7 @@ int Save_Dialog::SaveUserPatch(int pn, int Part) {
   for (int y=0;y<4;y++) {
     buf[2] = 0x10+(y*2);	// tone address
     RetryH:
-    if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
+    if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
     err = JVlibForm::sysex_get((unsigned char *)&temp_r.patch_tone[y].tone, (char *)patch_tone_size);
     if (err == EXIT_FAILURE) { JVlibForm::close_ports(); return false; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }

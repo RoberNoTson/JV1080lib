@@ -74,7 +74,7 @@ QString JVlibForm::getPartPatchName(int val) {
   if (open_ports() == EXIT_FAILURE) return("");
   int	Stop=0;
   RetryA:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); puts("1 getPartPatchName failed!"); return(""); }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); puts("1 getPartPatchName failed!"); return(""); }
   int err = sysex_get((unsigned char *)&active_area->active_perf_patch[val].patch_common.name[0], (char *)&name_size);
   if (err == EXIT_FAILURE) { close_ports(); puts("2 getPartPatchName failed!"); return(""); }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; usleep(25000*Stop); goto RetryA; }

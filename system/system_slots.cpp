@@ -240,7 +240,7 @@ int JVlibForm::on_System_Sync_button_clicked() {
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return EXIT_FAILURE;
   RetryA:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   int err = sysex_get((unsigned char *)&system_area->sys_common.panel_mode, (char *)system_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return EXIT_FAILURE; }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }

@@ -29,7 +29,7 @@ int Save_Dialog::SaveUserPerf() {
   // open the selected midi port
   if (JVlibForm::open_ports() == EXIT_FAILURE) {this->setCursor(Qt::ArrowCursor); return false; }
   RetryG:
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
   err = JVlibForm::sysex_get((unsigned char *)&temp_r.perf_common.name[0], (char *)perf_common_size);
   if (err == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
@@ -42,7 +42,7 @@ int Save_Dialog::SaveUserPerf() {
     usleep(200000);
     buf[2] = 0x10+x;
     RetryB:
-    if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
+    if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
     err = JVlibForm::sysex_get((unsigned char *)&temp_r.perf_part[x].MIDI_receive, (char *)perf_part_size);
     if (err == EXIT_FAILURE) { JVlibForm::close_ports(); this->setCursor(Qt::ArrowCursor); return false; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryB; }

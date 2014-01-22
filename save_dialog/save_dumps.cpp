@@ -81,8 +81,13 @@ bool Save_Dialog::ReceiveDump() {
   usleep(20000);
   delete pfds;
   if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports();
+  // validate dump format
+  if (!(buf.startsWith(0xF0) && buf.endsWith(0xF7))) {
+    puts("Received incomplete or corrupted data, not a valid dump");
+    this->setCursor(Qt::ArrowCursor);
+    return false;        // signal possible retry to calling routine
+  }
   // save the data to the database
-//hexdump((unsigned char *)buf.constData(), buf.size());
   db_insert_data("Dumps",(char *)buf.constData(), buf.size());
   this->setCursor(Qt::ArrowCursor); 
   return true;
@@ -98,7 +103,7 @@ bool Save_Dialog::SaveAllUserRhythmDump() {
   buf[1] = 0x40;
   buf[5] = 0x02;
   this->setCursor(Qt::WaitCursor);
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { 
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { 
     this->setCursor(Qt::ArrowCursor);
     if (JVlibForm::state_table->midiPorts_open) { JVlibForm::close_ports(); return false; }
   }
@@ -121,7 +126,7 @@ bool Save_Dialog::SaveAllUserPatchDump() {
   buf[0] = 0x11;
   buf[4] = 0x01;
   this->setCursor(Qt::WaitCursor);
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { 
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { 
     this->setCursor(Qt::ArrowCursor);
     if (JVlibForm::state_table->midiPorts_open) { JVlibForm::close_ports(); return false; }
   }
@@ -144,7 +149,7 @@ bool Save_Dialog::SaveAllUserPerfDump() {
   buf[0] = 0x10;
   buf[5] = 0x20;
   this->setCursor(Qt::WaitCursor);
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { 
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { 
     this->setCursor(Qt::ArrowCursor);
     if (JVlibForm::state_table->midiPorts_open) { JVlibForm::close_ports(); return false; }
   }
@@ -168,7 +173,7 @@ bool Save_Dialog::SaveAllDump() {
   buf[0] = 0x10;
   buf[4] = 0x20;
   this->setCursor(Qt::WaitCursor);
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { 
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { 
     this->setCursor(Qt::ArrowCursor);
     if (JVlibForm::state_table->midiPorts_open) { JVlibForm::close_ports(); return false; }
   }

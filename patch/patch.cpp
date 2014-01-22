@@ -136,7 +136,7 @@ void JVlibForm::getSinglePerfPatch(int pn) {
   if (open_ports() == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
   RetryC:
   usleep(200000*Stop);
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
   err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_common.name[0], (char *)patch_common_size);
   if (err == EXIT_FAILURE) { close_ports(); puts("error1"); QApplication::restoreOverrideCursor(); return; }
   if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryC; }
@@ -150,7 +150,7 @@ void JVlibForm::getSinglePerfPatch(int pn) {
     usleep(200000);
     RetryD:
     usleep(200000*Stop);
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[pn].patch_tone[y].tone, (char *)patch_tone_size);
     if (err == EXIT_FAILURE) { close_ports(); puts("error3"); QApplication::restoreOverrideCursor(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; goto RetryD; }
@@ -232,7 +232,7 @@ void JVlibForm::getActivePatchMode() {
   progress.setMinimumDuration(0);
   RetryE:
   progress.setValue(0);
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&active_area->active_patch_patch.patch_common.name[0], (char *)patch_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryE; }
@@ -247,7 +247,7 @@ void JVlibForm::getActivePatchMode() {
     if (progress.wasCanceled()) return;
     buf[2] = 0x10+(y*2);	// tone address
     RetryF:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_patch_patch.patch_tone[y].tone, (char *)patch_tone_size);
     if (err == EXIT_FAILURE) { close_ports(); puts("error3"); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryF; }

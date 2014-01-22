@@ -165,7 +165,7 @@ bool Save_Dialog::bulk_get(unsigned char *buf, int sz) {
   int timeout = 4000;
   struct pollfd *pfds;
   unsigned char recv_buf[256];
-  unsigned char hold_buf[109000];
+  QByteArray hold_buf;
   unsigned short revents;
   snd_rawmidi_status_t *ptr;
   // set up polling structs, prepare for reading data
@@ -175,6 +175,7 @@ bool Save_Dialog::bulk_get(unsigned char *buf, int sz) {
   snd_rawmidi_poll_descriptors(JVlibForm::midiInHandle, pfds, npfds);
   snd_rawmidi_nonblock(JVlibForm::midiInHandle,1);		// set to nonblocking mode
   read=0;
+  hold_buf.clear();
   // big loop to read data
   puts("receiving Bulk Dump");
   for (;;) {
@@ -207,7 +208,7 @@ bool Save_Dialog::bulk_get(unsigned char *buf, int sz) {
     }
     if (err == 0) { usleep(20000); continue; }
     time = 0;	// data received, reset the timeout value
-    memcpy(hold_buf+read, recv_buf, err);
+    hold_buf.append((char *)recv_buf, err);
     read += err;
 printf("Read %d bytes\n",read);
     if (read >= sz) break;
@@ -234,8 +235,13 @@ printf("Read %d bytes\n",read);
     delete pfds;
     return EXIT_FAILURE;	// signal possible retry to calling routine
   }
-  // valid data, copy to the request buffer
-  memcpy(buf, (char *)hold_buf, sz);
+  // validate dump format
+  if (!(hold_buf.startsWith(0xF0) && hold_buf.endsWith(0xF7))) {
+    puts("Received incomplete or corrupted data, not a valid dump");
+    return false;        // signal possible retry to calling routine
+  }
+  // save valid data
+  memcpy(buf, (char *)hold_buf.constData(), sz);
   delete pfds;
   JVlibForm::close_ports();
   puts("Bulk Dump received");

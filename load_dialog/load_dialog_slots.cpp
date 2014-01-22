@@ -22,7 +22,7 @@
 #include <QtGui>
 #include <QtSql>
 
-const char* Load_Dialog::DumpsQuery = "select name, date, comment, SerNumber from Dumps where name like \"Full%\" order by date";
+const char* Load_Dialog::DumpsQuery = "select name, date, comment, SerNumber from Dumps where name not like \"%Sys%\" order by date";
 const char* Load_Dialog::SystemQuery = "select name, date, comment, SerNumber from Dumps where name like \"Sys%\" order by date";
 const char* Load_Dialog::PatchQuery = "select name, date, comment, SerNumber from Patches order by date";
 const char* Load_Dialog::PerfQuery = "select name, date, comment, SerNumber from Performances order by date";

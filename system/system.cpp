@@ -27,7 +27,7 @@ void JVlibForm::getSysPatchName() {
   // open the selected midi port
   if (open_ports() == EXIT_FAILURE) return;
   RetryA:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&r_buf, (char *)&name_size);
   if (err == EXIT_FAILURE) return;
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
@@ -53,7 +53,7 @@ void JVlibForm::getSysPerfName() {
     // open the selected midi port
     if (open_ports() == EXIT_FAILURE) return;
     RetryA:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)r_buf, (char *)&name_size);
     if (err == EXIT_FAILURE) return;
     if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }

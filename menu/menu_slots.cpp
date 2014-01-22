@@ -119,10 +119,10 @@ void JVlibForm::slotactionWrite() {
   oneSize[3] = 1;
   newBuf[0] = 0x10;
   newBuf[4] = 0x7F;
-  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_request(buf);
   JVlibForm::sysex_get(&oldCh, oneSize);
   JVlibForm::sysex_update(newBuf, 5);
-  JVlibForm::sysex_request(buf, 8);
+  JVlibForm::sysex_request(buf);
   JVlibForm::sysex_get(&newCh, oneSize);
   if (newCh == oldCh) {	// did not update
     QMessageBox::critical(this, "Load_Dialog", "Exclusive protect is ON\nUser (permanent) memory cannot be written");
@@ -131,7 +131,7 @@ void JVlibForm::slotactionWrite() {
   else {
     newBuf[4] = oldCh;
     JVlibForm::sysex_update(newBuf, 5);
-    JVlibForm::sysex_request(buf, 8);
+    JVlibForm::sysex_request(buf);
     JVlibForm::sysex_get(&newCh, oneSize);
     if (newCh != oldCh) { // OOPS, did not replace the original char
       QMessageBox::warning(this, "Load_Dialog", "Unable to undo write testing\nUser 1 Performance name is corrupted");

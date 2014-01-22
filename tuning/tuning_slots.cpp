@@ -132,7 +132,7 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
       printf("Scale #%d\n",x);
       buf[2] = 0x10 + x;		// scale number
       RetryB:
-      if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+      if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
       err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
       if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
       if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
@@ -147,7 +147,7 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
     // get one patch scale tune
     buf[2] = 0x20;
     RetryC:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
     if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }

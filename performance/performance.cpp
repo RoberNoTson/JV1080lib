@@ -32,7 +32,7 @@ void JVlibForm::getActivePerfCommon() {
   progress.setMinimumDuration(0);
   progress.setValue(0);
   RetryA:
-  if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
   err = sysex_get((unsigned char *)&active_area->active_performance.perf_common.name[0], (char *)perf_common_size);
   if (err == EXIT_FAILURE) { close_ports(); return; }
   if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryA; }
@@ -47,7 +47,7 @@ void JVlibForm::getActivePerfCommon() {
     usleep(200000);
     buf[2] = 0x10+x;
     RetryB:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_performance.perf_part[x].MIDI_receive, (char *)perf_part_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryB; }
@@ -66,7 +66,7 @@ void JVlibForm::getActivePerfCommon() {
     usleep(200000);
     buf[1] = x;		// Patch number
     RetryC:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)name_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryC; }
@@ -97,7 +97,7 @@ void JVlibForm::getActivePatchNames() {
     usleep(200000);
     buf[1] = x;		// Patch number
     RetryC:
-    if (sysex_request(buf,8) == EXIT_FAILURE) { close_ports(); return; }
+    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
     err = sysex_get((unsigned char *)&active_area->active_perf_patch[x].patch_common.name[0], (char *)name_size);
     if (err == EXIT_FAILURE) { close_ports(); return; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; sleep(1*Stop); goto RetryC; }

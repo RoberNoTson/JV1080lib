@@ -32,7 +32,7 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
   progress.setMinimumDuration(0);
   progress.setValue(0);
   RetryG:
-  if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
+  if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
   err = JVlibForm::sysex_get((unsigned char *)&temp_r.rhythm_common.name[0], (char *)rhythm_common_size);
   if (err == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
   if (err==2 && Stop<MAX_RETRIES) {  Stop++; usleep(20000*Stop); goto RetryG; }
@@ -47,7 +47,7 @@ int Save_Dialog::SaveUserRhythm(int pn, int Part) {
     if (progress.wasCanceled()) break;
     buf[2] = 0x23+y;	// note address
     RetryH:
-    if (JVlibForm::sysex_request(buf,8) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
+    if (JVlibForm::sysex_request(buf) == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
     err = JVlibForm::sysex_get((unsigned char *)&temp_r.rhythm_note[y].tone, (char *)rhythm_note_size);
     if (err == EXIT_FAILURE) { if (JVlibForm::state_table->midiPorts_open) JVlibForm::close_ports(); return false; }
     if (err==2 && Stop<MAX_RETRIES) { Stop++; usleep(20000*Stop); goto RetryH; }

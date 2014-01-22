@@ -63,27 +63,29 @@ int JVlibForm::change_2(int A, int B) {
     return 0;
 }
 
-int JVlibForm::sysex_request(const unsigned char *buf, int buf_size) {
+int JVlibForm::sysex_request(const unsigned char *buf) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
-  unsigned char *SysEx = new unsigned char[buf_size+7];
-  char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x11 };
-  for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  unsigned char SysEx[15];
+  SysEx[0] = 0xF0;
+  SysEx[1] = 0x41;
   SysEx[2] = state_table->Dev_ID-1;
-  for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
-  SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
-  SysEx[buf_size+6] = 0xF7;
+  SysEx[3] = 0x6A;
+  SysEx[4] = 0x11;
+  for (int x=0;x<8;x++) SysEx[x+5] = buf[x];
+  SysEx[13] = chksum(&SysEx[5], 8);
+  SysEx[14] = 0xF7;
   // transmit the data
-  int rc = JVlibForm::change_send(SysEx, buf_size+7);
-  delete[] SysEx;
-  return rc;
+  return(JVlibForm::change_send(SysEx, 15));
 }	// end SYSEX_SEND
 
 int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
   unsigned char *SysEx = new unsigned char[buf_size+7];
-  char    JV_header[5] = { 0xF0,0x41,0x10,0x6A,0x12 };
-  for (int x=0;x<5;x++) SysEx[x]=JV_header[x];
+  SysEx[0] = 0xF0;
+  SysEx[1] = 0x41;
   SysEx[2] = state_table->Dev_ID-1;
+  SysEx[3] = 0x6A;
+  SysEx[4] = 0x12;
   for (int x=0;x<buf_size;x++) SysEx[x+5] = buf[x];
   SysEx[buf_size+5] = chksum(&SysEx[5], buf_size);
   SysEx[buf_size+6] = 0xF7;
@@ -101,7 +103,7 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
   int timeout = 2000;
   struct pollfd *pfds;
   unsigned char	recv_buf[256];
-  unsigned char hold_buf[109000];
+  QByteArray hold_buf;
   unsigned short revents;
   snd_rawmidi_status_t *ptr;
   
@@ -149,14 +151,14 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
     }
     if (err == 0) { usleep(40000); continue; }
     time = 0;	// data received, reset the timeout value
-    memcpy(hold_buf+read, recv_buf, err);
+    hold_buf.append((const char *)recv_buf, err);
     read += err;
     if (read >= buf_size) break;
   }	// end FOR bigloop
   // pause before parsing data and returning
   usleep(40000);
   // validate the data received
-  if ((chksum((unsigned char *)&hold_buf[5], buf_size-7)) != hold_buf[buf_size-2]) { 
+  if ((chksum((unsigned char *)hold_buf.constData()+5, buf_size-7)) != hold_buf.at(buf_size-2)) { 
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
       printf("Can't get snd_rawmidi_status_t: %s\n", snd_strerror(err));
@@ -172,9 +174,9 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
       snd_rawmidi_status_free(ptr);
     }
     delete pfds;
-    return(3);	// signal possible retry to calling routine
+    return(3);	// chksum not matched, signal possible retry to calling routine
   }
-  if (hold_buf[buf_size-1] != 0xF7) { 
+    if (!hold_buf.endsWith(0xF7)) {
     puts("#### Incomplete data received! ####");
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
@@ -194,7 +196,7 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
     return(2);	// signal possible retry to calling routine
   }
   // valid data, copy to the request buffer
-  memcpy(buf, (char *)hold_buf+9, data_size);
+  memcpy(buf, (char *)hold_buf.constData()+9, data_size);
   delete pfds;
   return EXIT_SUCCESS;
 }	// end SYSEX_GET
