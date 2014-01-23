@@ -176,7 +176,7 @@ int JVlibForm::sysex_get(unsigned char *buf, char *req_size) {
     delete pfds;
     return(3);	// chksum not matched, signal possible retry to calling routine
   }
-    if (!hold_buf.endsWith(0xF7)) {
+  if (!(hold_buf.startsWith(0xF0) && hold_buf.endsWith(0xF7))) {
     puts("#### Incomplete data received! ####");
     // We need to get a snd_rawmidi_status_t struct
     if ((err = snd_rawmidi_status_malloc(&ptr)) < 0)
