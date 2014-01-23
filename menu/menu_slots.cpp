@@ -4,7 +4,6 @@
  * selectedPort()
  * slotOffline()
  * slotactionWhats_This()
- * slotactionBulk_Dump()
  * slotactionWrite()
  * slotactionCopy()
  * slotDB_Maint()
@@ -231,9 +230,6 @@ void JVlibForm::slotactionCopy() {
 }
 void JVlibForm::slotDB_Maint() {
   // NOTE: tbd  
-}
-void JVlibForm::slotactionBulk_Dump() {
-  // NOTE: tbd
 }
 
 void  JVlibForm::slotConfig() {

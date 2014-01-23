@@ -106,23 +106,22 @@ Load_Dialog::~Load_Dialog()
 
 bool Load_Dialog::fill_Data(const char* buf) {
   QByteArray sysex;
-  QSqlQuery query(JVlibForm::db_mysql);
-  if (!query.exec(buf)) {
-    QMessageBox::critical(this, "Load Dialog", QString("Query exec failed\n%1") .arg(query.lastError().text()));
-    query.finish();
-    return false;
-  }
   Dates.clear();
   Comments.clear();
   ui->Load_Comment_display->clear();
   ui->Load_Timestamp_display->clear();
   ui->Load_Name_select->blockSignals(true);
   ui->Load_Name_select->clear();
+  QSqlQuery query(JVlibForm::db_mysql);
+  if (!query.exec(buf)) {
+    QMessageBox::critical(this, "Load Dialog", QString("Query exec failed\n%1") .arg(query.lastError().text()));
+    query.finish();
+    return false;
+  }
   if (query.size()==0) {
+    QMessageBox::critical(this, "Load Dialog", QString("0 rows found in init_LoadDialog"));
     puts("0 rows found in init_LoadDialog");
     ui->Load_Name_select->blockSignals(false);
-//    ui->Load_Comment_display->clear();
-//    ui->Load_Timestamp_display->clear();
     query.finish();
     return false;
   }
@@ -239,12 +238,27 @@ void Load_Dialog::load_tuning() {
   QSqlQuery query(JVlibForm::db_mysql);
   query.prepare("select cents from Tuning where SerNumber = ?");
   query.bindValue(0, SerNum);
-  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
-  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  if (query.exec() == false) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error\nJV-1080 was not updated");
+    puts("query error - failed");
+    query.finish();
+    return;
+  }
+  if (query.size() == 0) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    query.finish();
+    return;
+  }
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
   int sz = SysEx.size();
+  if (!sz) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    return; 
+  }
   if (ui->Load_UpdateLocal_select->isChecked()) {
     if (JVlibForm::state_table->patch_mode)
       memcpy(&JVlibForm::system_area->sys_patch_scale_tune.scale[0], SysEx.constData(), sz);
@@ -275,12 +289,28 @@ void Load_Dialog::load_system() {
   QSqlQuery query(JVlibForm::db_mysql);
   query.prepare("select sysex from Dumps where SerNumber = ?");
   query.bindValue(0, SerNum);
-  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
-  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  if (query.exec() == false) {
+    puts("query error - failed");
+    QMessageBox::critical(0, "Load_Dialog", "Query error\nJV-1080 was not updated");
+    query.finish();
+    return;
+  }
+  if (query.size() == 0) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    query.finish();
+    return;
+  }
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
+  query.finish();
   int sz = SysEx.size();
+  if (!sz) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    return; 
+  }
   if (ui->Load_UpdateLocal_select->isChecked()) {
     memcpy(&JVlibForm::system_area->sys_common.panel_mode, SysEx.constData(), sz);
   }
@@ -290,7 +320,6 @@ void Load_Dialog::load_system() {
   SysEx.prepend('\0');
   SysEx.prepend('\0');
   JVlibForm::sysex_update((unsigned char *)SysEx.constData(), sz+4);
-  query.finish();
 //  JVlibForm::setSystemParms();
   this->setCursor(Qt::ArrowCursor);
 }
@@ -300,15 +329,35 @@ void Load_Dialog::load_dump() {
   QSqlQuery query(JVlibForm::db_mysql);
   query.prepare("select sysex from Dumps where SerNumber = ?");
   query.bindValue(0, SerNum);
-  if (query.exec() == false) { puts("query error - failed"); query.finish(); return; }
-  if (query.size() == 0) { puts("query error - empty"); query.finish(); return; }
+  if (query.exec() == false) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error\nJV-1080 was not updated");
+    puts("query error - failed");
+    query.finish();
+    return;
+  }
+  if (query.size() == 0) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    return;
+  }
   query.first();
   QByteArray SysEx;
   SysEx = query.value(0).toByteArray();
+  query.finish();
   int sz = SysEx.size();
+  if (!sz) {
+    QMessageBox::critical(0, "Load_Dialog", "Query error - no data found\nJV-1080 was not updated");
+    puts("query error - empty");
+    return; 
+  }
+  // validate this is a dump file
+  if (!(SysEx.startsWith(0xF0) && SysEx.endsWith(0xF7))) {
+    QMessageBox::critical(0, "Load_Dialog", "Selected data is not in Dump File format\nJV-1080 was not updated");
+    puts("Selected data is not in Dump File format, cannot load it");
+    hexdump((unsigned char*)SysEx.constData(), SysEx.size());
+    return;
+  }
   this->setCursor(Qt::WaitCursor);
-
- 
+  JVlibForm::sysex_update((unsigned char *)SysEx.constData(),SysEx.size());
   this->setCursor(Qt::ArrowCursor);
 }
-

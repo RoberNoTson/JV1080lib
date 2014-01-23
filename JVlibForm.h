@@ -69,7 +69,6 @@ private slots:
   void slotactionCopy();
   void slotactionWrite();
   void slotDB_Maint();
-  void slotactionBulk_Dump(); 
   void slotactionWhats_This();
   void on_actionData_Lists_triggered();
   QString funcNoteCalc(int);
