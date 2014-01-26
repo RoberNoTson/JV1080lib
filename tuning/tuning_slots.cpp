@@ -115,21 +115,18 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
   if (!state_table->jv_connect || !state_table->updates_enabled) return;
   Tuning_Sync_status->off();
-//  get_scales();	// download all scale data, relative to Patch or Perf mode
+  // download all scale data, relative to Patch or Perf mode
   int	x,err;
   int	Stop=0;
   unsigned char	buf[8];
   char scale_size[] = { 0x0,0x0,0x0,0x0C };
-  
   JVlibForm::statusbar->showMessage("Loading scale tunings",0);
   memset(buf,0,sizeof(buf));
   buf[7] = 0x0C;	// scale size
-  if (open_ports() == EXIT_FAILURE) return;
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   if (state_table->perf_mode) {
     // get the 16 Part scales
     for (x=0;x<16;x++) {
-      printf("Scale #%d\n",x);
       buf[2] = 0x10 + x;		// scale number
       RetryB:
       if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
@@ -139,8 +136,6 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
       if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
       if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
       Stop=0;
-//      Tuning_currentTuning.insert(x*12, (char *)&system_area->sys_part_scale_tune[x].scale[0], 12);
-//      Tuning_currentTuning.replace(x*12, 12, (char *)&system_area->sys_part_scale_tune[x].scale[0]);
     }	// end FOR 16 part scales
   } 
   else if (state_table->patch_mode) {
@@ -154,9 +149,7 @@ void JVlibForm::on_Tuning_Sync_button_clicked() {
     if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
     if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
     Stop=0;
-//    Tuning_currentTuning.setRawData((char *)&system_area->sys_patch_scale_tune.scale[0], 12);
   }
-  close_ports();
   statusbar->showMessage("Scale tunings downloaded",0);
   state_table->tuning_modified = false;
   state_table->tuning_sync = true;
@@ -215,12 +208,12 @@ void JVlibForm::slotTuning_TempButtons(int val) {
     case 0: default:	// Equal temp
       state_table->tuning_type = EqualTemp;
       Tuning_BaseKey_C_select->blockSignals(true);
-      Tuning_BaseKey_C_select->setChecked(true);
+      Tuning_BaseKey_C_select->setChecked(true);	// Equal Temp will always be based on CMaj
       Tuning_BaseKey_C_select->blockSignals(false);
       Tuning_BaseKey_box->setEnabled(false);
       Tuning_QueryTemp(0);
       break;
-    case 1:		// Just temp
+    case 1:		// Just
       state_table->tuning_type = JustTemp;
       Tuning_BaseKey_box->setEnabled(true);
       Tuning_QueryTemp(1);

@@ -17,16 +17,24 @@
 #include	"JVlibForm.h"
 #include	"ui_JVlib.h"
 
+// Form-level variables
 QString db_name;
 QString db_user;
 QString PORT_NAME;
 QString JVlibForm::CFGfile;
+// static variables
 struct STATE_TABLE *JVlibForm::state_table = 0;
 struct SYSTEM_AREA *JVlibForm::system_area=0;
 struct ACTIVE_AREA *JVlibForm::active_area=0;
 char JVlibForm::MIDI_dev[] = { 0 };
 snd_rawmidi_t *JVlibForm::midiInHandle = 0;
 snd_rawmidi_t *JVlibForm::midiOutHandle = 0;
+QByteArray JVlibForm::Tuning_Just = 0;
+QByteArray JVlibForm::Tuning_Pythag = 0;
+QByteArray JVlibForm::Tuning_Pure = 0;
+QByteArray JVlibForm::Tuning_WTC = 0;
+QByteArray JVlibForm::Tuning_MeanTone = 0;
+QByteArray JVlibForm::Tuning_Arabic = 0;
 
 JVlibForm::~JVlibForm() {
   Data_List.close();
@@ -135,6 +143,19 @@ void JVlibForm::setInitial() {
   active_area = new ACTIVE_AREA;
   system_area = new SYSTEM_AREA;
   state_table = new STATE_TABLE;
+  char Temp[12];
+  Temp = { 0x40, 0x4C, 0x44, 0x50, 0x32, 0x3E, 0x2E, 0x42, 0x24, 0x30, 0x52, 0x34 };
+  Tuning_Just.replace(0,12,Temp);
+  Temp = {  0x40, 0x36, 0x44, 0x3A, 0x48, 0x3E, 0x4C, 0x42, 0x38, 0x46, 0x3C, 0x4A};
+  Tuning_Pythag.replace(0,12,Temp);
+  Temp = { 0x40, 0x38, 0x44, 0x50, 0x32, 0x3E, 0x36, 0x42, 0x4E, 0x30, 0x4E, 0x34 };
+  Tuning_Pure.replace(0,12,Temp);
+  Temp = { 0x46, 0x40, 0x42, 0x44, 0x3E, 0x46, 0x3E, 0x44, 0x42, 0x40, 0x46, 0x3E };
+  Tuning_WTC.replace(0,12,Temp);
+  Temp = { 0x40, 0x28, 0x39, 0x4B, 0x32, 0x44, 0x2B, 0x3D, 0x24, 0x36, 0x47, 0x2E };
+  Tuning_MeanTone.replace(0,12,Temp);
+  Temp = { 0x3A, 0x6D, 0x3E, 0x34, 0x0D, 0x38, 0x6B, 0x3C, 0x6F, 0x40, 0x36, 0x0F };
+  Tuning_Arabic.replace(0,12,Temp);
   initStateTable();
   initGraphics();
   createStatusBar();

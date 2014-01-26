@@ -16,8 +16,7 @@ Menu
 12/20/2013  - create Data lookup function
 01/13/2014  - create Utility function Write
   - create Utility function Copy
-  - create Utility function Bulk Dump
-  - create Utility function DB Maint
+  - create Utility function DB Maint (rename, change comment, delete...)
 
 database
 01/04/2014  - fill in missing database info for waves/patch
@@ -32,6 +31,7 @@ System_tab
 01/13/2014  - create "Write" (to Synth) function to write current settings to permanent User Perf/Patch
   - default to GM mode if unable to load System
   - disable Mode switch, Sync button and light, etc. when in GM mode; no switching back is possible
+  - configure for "Offline" mode
   - when "Offline" is checked, change config file to start offline, et vice versa
   - add master volume control for MIDI playback
   - MIDI player locks up system after Open and before Play pressed the first time. Works fine after Play pressed.
@@ -50,9 +50,9 @@ Patch_tab
 11/28/2013  - BUG: changing Patch number on Patch tab causes focus to jump to Tuning tab
 12/11/2013  - update related PerfPart when group/number/name changes
   - change "Play Patch" button to setCheckable(false) when patch is a one-shot, e.g. Pizzicato
+  - monitor Patch Pan control to not exceed the max in combination with the Tone Pan settings. It is cumulative
   - update other tabs when Patch name is edited (PatchEFX, Tone, ToneEFX, ToneTVF, ToneTVA, Pitch)
   - set Patch_Name_edit Read-Only unless in Patch mode and the Patch_Group is "User"
-  - monitor Patch Pan control to not exceed the max in combination with the Tone Pan settings. It is cumulative
 
 Rhythm_tab
 11/30/2013  - change to ComboBox for Group, SpinBox for Number; sync with Parts Tab part#10
@@ -60,7 +60,7 @@ Rhythm_tab
 12/22/2013  - link "MIDI Receive" checkbox corresponding to Perf Part 10 MIDI Receive
 12/31/2013  - add button to "List Notes" listing all instruments by pitch for the selected Rhythm Set
   - add enhanced capabilities to Note List: synth query, db search functions
-  - can Rhythm use the same tabs as other Patch Tones, eg TVF, TVA, Pitch, Tone? (yes, except for mute_group, envelope_key and source_key)
+  - could Rhythm use the same tabs as other Patch Tones, eg TVF, TVA, Pitch, Tone? (yes, except for mute_group, envelope_key and source_key)
   - auto-update Rhythm_EnvMode_select based on whether Tone is Loop or OneShot. Dep: database updates to support this
   - remove Rhythm_EnvMode_select and auto set checkable status of "Play Note" based on tone being Loop/OneShot
 
@@ -109,6 +109,6 @@ load_dialog
 11/04/2013  - connect Local Loading to related Set Parms function for Perf, Patch, Rhythm, Tuning, System
 12/26/2013  - research why it locks up using Load function
 01/07/2014  - BUG: loading saved User Perf issues: name not set correctly, loads current settings instead of desired data
-  - create Load System function
-  - create Load Dump function
+01/23/2014  - create Load Dump function
+01/23/2014  - create Load System function
   - connect something to the Help button

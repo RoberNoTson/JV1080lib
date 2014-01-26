@@ -30,6 +30,7 @@ void JVlibForm::setScaleTunings(int partnum) {
     Tuning_PartTune_select->setEnabled(false);
     Tuning_Parts_box->setEnabled(false);
     Tuning_PartNoneTuning_select->setChecked(true);
+hexdump((unsigned char *)&system_area->sys_patch_scale_tune.scale[0],12);
     cur_chksum = qChecksum((char *)&system_area->sys_patch_scale_tune.scale[0],12);
   }	// end Patch mode
   else if (state_table->perf_mode) {	// Performance mode
@@ -58,12 +59,15 @@ void JVlibForm::setScaleTunings(int partnum) {
       Tuning_PartTune_select->setEnabled(Tuning_ScaleTuning_enable->isEnabled());
       Tuning_Parts_box->setEnabled(Tuning_ScaleTuning_enable->isEnabled());
     }
+hexdump((unsigned char *)&system_area->sys_part_scale_tune[partnum-1].scale[0],12);
     cur_chksum = qChecksum((char *)&system_area->sys_part_scale_tune[partnum-1].scale[0],12);
   }	// end Perf mode
 
   Tuning_PartTuning_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
   Tuning_Temperament_box->setEnabled(Tuning_ScaleTuning_enable->isChecked() && state_table->tuning_sync);
   // query the cur_chksum value to determine which temperament we are in
+  // NOTE: this only works when C is the base key. Other keys will default to Custom Tuning
+printf("cur_chksum = %d\n",cur_chksum);
   if (cur_chksum==35508) {Tuning_ArabicTemp_button->setChecked(true); state_table->tuning_type=ArabicTemp; Tuning_BaseKey_box->setEnabled(true);}
   else if (cur_chksum==14340) {Tuning_EqualTemp_button->setChecked(true); state_table->tuning_type=EqualTemp; Tuning_BaseKey_box->setEnabled(false);}
   else if (cur_chksum==53569) {Tuning_JustTemp_button->setChecked(true); state_table->tuning_type=JustTemp; Tuning_BaseKey_box->setEnabled(true);}
@@ -76,10 +80,8 @@ void JVlibForm::setScaleTunings(int partnum) {
   Tuning_SaveCustomTemp_button->setEnabled(Tuning_CustomTemp_button->isChecked());
   Tuning_CustomName_display->clear();
   Tuning_CustomComment_display->clear();
-  
   state_table->updates_enabled = true;
   Tuning_Sync_status->on();
   state_table->tuning_sync = true;
   state_table->tuning_modified = false;
 }	// end setScaleTunings
-

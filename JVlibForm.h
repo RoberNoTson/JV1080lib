@@ -1173,12 +1173,17 @@ private:
   void setScaleTunings(int);
   int get_scales();
   QButtonGroup *Tuning_ButtonGroup;
-  static QByteArray Tuning_currentTuning;
   void Tuning_BulkUpdate(int, int, int);
   void Tuning_QueryTemp(int);
   void Tuning_BaseKey_select(int);
   void Tuning_BaseKey_set(int);
-//  void Tuning_setScaleTuning(int);
+  static QByteArray Tuning_currentTuning;
+  static QByteArray Tuning_Just;
+  static QByteArray Tuning_Pythag;
+  static QByteArray Tuning_Pure;
+  static QByteArray Tuning_WTC;
+  static QByteArray Tuning_MeanTone;
+  static QByteArray Tuning_Arabic;
 
   // for Rhythm
   static bool getActiveRhythm();

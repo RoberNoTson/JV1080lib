@@ -6,6 +6,7 @@
  * Tuning_NoteUpdate
  * Tuning_QueryTemp
  * Tuning_BaseKey_select
+ * Tuning_BaseKey_set
  */
 
 #include	"JVlibForm.h"
@@ -24,13 +25,10 @@ void JVlibForm::setScaleSingleValue(int addr, int val) {
     buf[2] = 0x10 + Tuning_PartTune_select->value() - 1;
   buf[3] = addr;
   buf[4] = val;
-//  if (open_ports() == EXIT_FAILURE) return;
   if (sysex_update(&buf[0], sizeof(buf)) == EXIT_FAILURE) {
     puts("tuning udpate failed");
-//    close_ports();
     return;
   }
-//  close_ports();
   state_table->tuning_modified = true;
 }	// end setScaleSingleValue
 
@@ -40,8 +38,7 @@ void JVlibForm::Tuning_BulkUpdate(int pn, int offset, int val) {
   Tuning_PartTune_select->blockSignals(true);
   Tuning_PartTune_select->setValue(pn);	// set this part number for use by setScaleSingleValue
   Tuning_PartTune_select->blockSignals(false);
-  if (state_table->jv_connect)
-    setScaleSingleValue(offset,val);  
+  setScaleSingleValue(offset,val);  
 }	// end Tuning_BulkUpdate
 
 void JVlibForm::Tuning_NoteUpdate(int offset, int val) {
@@ -53,40 +50,34 @@ void JVlibForm::Tuning_NoteUpdate(int offset, int val) {
     if (state_table->perf_mode) {
       system_area->sys_part_scale_tune[Tuning_PartTune_select->value()-1].scale[offset] = val;
     }
-    if (state_table->jv_connect)
-      setScaleSingleValue(offset,val);
+    setScaleSingleValue(offset,val);
     state_table->tuning_modified = true;
 }	// end Tuning_NoteUpdate
 
 void JVlibForm::Tuning_QueryTemp(int val) {
   static char Temp[12];
+  Cents.clear();
   switch(val) {
     case 0:	// Equal
       Cents.fill(0x40, 12);
       break;
     case 1:	// Just
-      Temp = { 0x40, 0x4C, 0x44, 0x50, 0x32, 0x3E, 0x2E, 0x42, 0x24, 0x30, 0x52, 0x34 };
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_Just;
       break;
     case 2:	// Pythagorean
-      Temp = {  0x40, 0x36, 0x44, 0x3A, 0x48, 0x3E, 0x4C, 0x42, 0x38, 0x46, 0x3C, 0x4A};
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_Pythag;
       break;
     case 3:	// Pure
-      Temp = { 0x40, 0x38, 0x44, 0x50, 0x32, 0x3E, 0x36, 0x42, 0x4E, 0x30, 0x4E, 0x34 };
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_Pure;
       break;
     case 4:	// Well
-      Temp = { 0x46, 0x40, 0x42, 0x44, 0x3E, 0x46, 0x3E, 0x44, 0x42, 0x40, 0x46, 0x3E };
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_WTC;
       break;
     case 5:	// Meantone
-      Temp = { 0x40, 0x28, 0x39, 0x4B, 0x32, 0x44, 0x2B, 0x3D, 0x24, 0x36, 0x47, 0x2E };
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_MeanTone;
       break;
     case 6:	// Arabic
-      Temp = { 0x3A, 0x6D, 0x3E, 0x34, 0x0D, 0x38, 0x6B, 0x3C, 0x6F, 0x40, 0x36, 0x0F };
-      Cents = QByteArray::fromRawData(Temp, 12);
+      Cents = Tuning_Arabic;
       break;
     default:
       return;
