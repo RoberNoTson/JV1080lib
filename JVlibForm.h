@@ -1181,9 +1181,10 @@ private:
   static QByteArray Tuning_Just;
   static QByteArray Tuning_Pythag;
   static QByteArray Tuning_Pure;
-  static QByteArray Tuning_WTC;
-  static QByteArray Tuning_MeanTone;
+  static QByteArray Tuning_Well;
+  static QByteArray Tuning_Meantone;
   static QByteArray Tuning_Arabic;
+  void calc_tuning();
 
   // for Rhythm
   static bool getActiveRhythm();

@@ -32,8 +32,8 @@ snd_rawmidi_t *JVlibForm::midiOutHandle = 0;
 QByteArray JVlibForm::Tuning_Just = 0;
 QByteArray JVlibForm::Tuning_Pythag = 0;
 QByteArray JVlibForm::Tuning_Pure = 0;
-QByteArray JVlibForm::Tuning_WTC = 0;
-QByteArray JVlibForm::Tuning_MeanTone = 0;
+QByteArray JVlibForm::Tuning_Well = 0;
+QByteArray JVlibForm::Tuning_Meantone = 0;
 QByteArray JVlibForm::Tuning_Arabic = 0;
 
 JVlibForm::~JVlibForm() {
@@ -151,9 +151,9 @@ void JVlibForm::setInitial() {
   Temp = { 0x40, 0x38, 0x44, 0x50, 0x32, 0x3E, 0x36, 0x42, 0x4E, 0x30, 0x4E, 0x34 };
   Tuning_Pure.replace(0,12,Temp);
   Temp = { 0x46, 0x40, 0x42, 0x44, 0x3E, 0x46, 0x3E, 0x44, 0x42, 0x40, 0x46, 0x3E };
-  Tuning_WTC.replace(0,12,Temp);
+  Tuning_Well.replace(0,12,Temp);
   Temp = { 0x40, 0x28, 0x39, 0x4B, 0x32, 0x44, 0x2B, 0x3D, 0x24, 0x36, 0x47, 0x2E };
-  Tuning_MeanTone.replace(0,12,Temp);
+  Tuning_Meantone.replace(0,12,Temp);
   Temp = { 0x3A, 0x6D, 0x3E, 0x34, 0x0D, 0x38, 0x6B, 0x3C, 0x6F, 0x40, 0x36, 0x0F };
   Tuning_Arabic.replace(0,12,Temp);
   initStateTable();

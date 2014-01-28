@@ -37,8 +37,53 @@
 #include	"JVlibForm.h"
 #include	<QtGui>
 
+void JVlibForm::on_Tuning_Sync_button_clicked() {
+  // get Scale Tuning data
+  if (!state_table->jv_connect || !state_table->updates_enabled) return;
+  Tuning_Sync_status->off();
+  // download all scale data, relative to Patch or Perf mode
+  int	x,err;
+  int	Stop=0;
+  unsigned char	buf[8];
+  char scale_size[] = { 0x0,0x0,0x0,0x0C };
+  JVlibForm::statusbar->showMessage("Loading scale tunings",0);
+  memset(buf,0,sizeof(buf));
+  buf[7] = 0x0C;	// scale size
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  if (state_table->perf_mode) {
+    // get the 16 Part scales
+    for (x=0;x<16;x++) {
+      buf[2] = 0x10 + x;		// scale number
+      RetryB:
+      if (sysex_request(buf) == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
+      err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
+      if (err == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
+      if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
+      if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
+      if (err != EXIT_SUCCESS) { QApplication::restoreOverrideCursor(); return; }
+      Stop=0;
+    }	// end FOR 16 part scales
+  } 
+  else if (state_table->patch_mode) {
+    // get one patch scale tune
+    buf[2] = 0x20;
+    RetryC:
+    if (sysex_request(buf) == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
+    err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
+    if (err == EXIT_FAILURE) { QApplication::restoreOverrideCursor(); return; }
+    if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
+    if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
+    if (err != EXIT_SUCCESS) { QApplication::restoreOverrideCursor(); return; }
+    Stop=0;
+  }
+  statusbar->showMessage("Scale tunings downloaded",0);
+  state_table->tuning_modified = false;
+  state_table->tuning_sync = true;
+  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);	// set for currently synced Part Patch, if any; parm is ignored when in Patch mode
+  QApplication::restoreOverrideCursor();
+}	// end on_Tuning_Sync_button_clicked
+
 void JVlibForm::on_Tuning_ScaleTuning_enable_toggled(bool status) {
-  // Tuning_ScaleTuning_enable
   if (state_table->perf_mode)  { 
     Tuning_Parts_box->setEnabled(status && state_table->tuning_sync);
     Tuning_PartTune_select->setEnabled(status && state_table->tuning_sync);
@@ -110,52 +155,6 @@ void JVlibForm::on_Tuning_PartTune_select_valueChanged(int val) {
 void JVlibForm::on_Tuning_MasterTune_select_valueChanged(double val) {
   setSysSingleValue(0x06, (val-427.4) / 0.2);
 }
-
-void JVlibForm::on_Tuning_Sync_button_clicked() {
-  // get Scale Tuning data
-  if (!state_table->jv_connect || !state_table->updates_enabled) return;
-  Tuning_Sync_status->off();
-  // download all scale data, relative to Patch or Perf mode
-  int	x,err;
-  int	Stop=0;
-  unsigned char	buf[8];
-  char scale_size[] = { 0x0,0x0,0x0,0x0C };
-  JVlibForm::statusbar->showMessage("Loading scale tunings",0);
-  memset(buf,0,sizeof(buf));
-  buf[7] = 0x0C;	// scale size
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  if (state_table->perf_mode) {
-    // get the 16 Part scales
-    for (x=0;x<16;x++) {
-      buf[2] = 0x10 + x;		// scale number
-      RetryB:
-      if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-      err = sysex_get((unsigned char *)&system_area->sys_part_scale_tune[x].scale[0], (char *)scale_size);
-      if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-      if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
-      if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryB; }
-      if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-      Stop=0;
-    }	// end FOR 16 part scales
-  } 
-  else if (state_table->patch_mode) {
-    // get one patch scale tune
-    buf[2] = 0x20;
-    RetryC:
-    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-    err = sysex_get((unsigned char *)&system_area->sys_patch_scale_tune.scale[0], (char *)scale_size);
-    if (err == EXIT_FAILURE) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-    if (err==2 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
-    if (err==3 && Stop<MAX_RETRIES) { if (debug) puts("Retrying"); Stop++; sleep(1*Stop); goto RetryC; }
-    if (err != EXIT_SUCCESS) { close_ports(); QApplication::restoreOverrideCursor(); return; }
-    Stop=0;
-  }
-  statusbar->showMessage("Scale tunings downloaded",0);
-  state_table->tuning_modified = false;
-  state_table->tuning_sync = true;
-  setScaleTunings(Patch_PerfPartNum_select->currentIndex()+1);	// set for currently synced Part Patch, if any; parm is ignored when in Patch mode
-  QApplication::restoreOverrideCursor();
-}	// end on_Tuning_Sync_button_clicked
 
 void JVlibForm::on_Tuning_BaseKey_A_select_toggled(bool status) {
   if (status) Tuning_BaseKey_set(3);

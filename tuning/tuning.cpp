@@ -62,22 +62,22 @@ void JVlibForm::Tuning_QueryTemp(int val) {
       Cents.fill(0x40, 12);
       break;
     case 1:	// Just
-      Cents = Tuning_Just;
+      Cents.replace(0,12,Tuning_Just);
       break;
     case 2:	// Pythagorean
-      Cents = Tuning_Pythag;
+      Cents.replace(0,12,Tuning_Pythag);
       break;
     case 3:	// Pure
-      Cents = Tuning_Pure;
+      Cents.replace(0,12,Tuning_Pure);
       break;
     case 4:	// Well
-      Cents = Tuning_WTC;
+      Cents.replace(0,12,Tuning_Well);
       break;
     case 5:	// Meantone
-      Cents = Tuning_MeanTone;
+      Cents.replace(0,12,Tuning_Meantone);
       break;
     case 6:	// Arabic
-      Cents = Tuning_Arabic;
+      Cents.replace(0,12,Tuning_Arabic);
       break;
     default:
       return;

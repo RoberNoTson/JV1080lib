@@ -153,6 +153,7 @@ SOURCES += main.cpp \
 	save_dialog/save_dumps.cpp \
 	tuning/set_tuning_initial.cpp \
 	tuning/tuning.cpp \
+	tuning/calc_tuning.cpp \
 	tuning/tuning_slots.cpp \
 	pitch/set_pitch_initial.cpp \
 	pitch/pitch_slots.cpp \
