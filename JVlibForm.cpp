@@ -315,6 +315,7 @@ void JVlibForm::getPort() {
     err = snd_ctl_rawmidi_next_device(cardHandle, &dev_num);
     if (err < 0) { 
       // card exists, but no midi device was found
+      printf("No MIDI device on card #%d\n", card_num);
       snd_card_next(&card_num);
       continue;
     }
@@ -351,9 +352,10 @@ void JVlibForm::getPort() {
   }	// end WHILE card_num
   int x = PortBox->findText(PORT_NAME, Qt::MatchContains);
   if (x == -1) {
+    puts("Port not found, not connected to JV");
     state_table->jv_connect = false;
   } else {
-    PortBox->setCurrentIndex(x);	// NOTE: this will trigger the System Sync button
     state_table->jv_connect = true;
+    PortBox->setCurrentIndex(x);	// NOTE: this will trigger the System Sync button
   }
 }	// end get_port()

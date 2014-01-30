@@ -39,7 +39,7 @@
 
 void JVlibForm::on_Tuning_Sync_button_clicked() {
   // get Scale Tuning data
-  if (!state_table->jv_connect || !state_table->updates_enabled) return;
+  if (!state_table->jv_connect) return;
   Tuning_Sync_status->off();
   // download all scale data, relative to Patch or Perf mode
   int	x,err;

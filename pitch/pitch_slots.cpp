@@ -1,15 +1,43 @@
 // pitch_slots.cpp
+/* Contains:
+ * PitchStdUpdate(int offset, int val)
+ * on_Pitch_TestTone_switch_toggled(bool val)
+ * on_Pitch_StretchTuning_select_valueChanged(int val)
+ * on_Pitch_LowLimit_select_valueChanged(int val)
+ * on_Pitch_HighLimit_select_valueChanged(int val)
+ * on_Pitch_TimeKeyfollow_select_currentIndexChanged(int val)
+ * on_Pitch_Transpose_select_valueChanged(int val)
+ * on_Pitch_TuneAdj_select_valueChanged(int val)
+ * on_Pitch_RandPitchDepth_select_currentIndexChanged(int val)
+ * on_Pitch_Depth_select_valueChanged(int val)
+ * on_Pitch_OctaveShift_select_currentIndexChanged(int val)
+ * on_Pitch_KeyFollow_select_currentIndexChanged(int val)
+ * on_Pitch_VelocSens_select_valueChanged(int val)
+ * on_Pitch_Time1Sens_select_currentIndexChanged(int val)
+ * on_Pitch_Time4Sens_select_currentIndexChanged(int val)
+ * on_Pitch_Time1_select_valueChanged(int val)
+ * on_Pitch_Time2_select_valueChanged(int val)
+ * on_Pitch_Time3_select_valueChanged(int val)
+ * on_Pitch_Time4_select_valueChanged(int val)
+ * on_Pitch_Lvl1_select_valueChanged(int val)
+ * on_Pitch_Lvl2_select_valueChanged(int val)
+ * on_Pitch_Lvl3_select_valueChanged(int val)
+ * on_Pitch_Lvl4_select_valueChanged(int val)
+ * on_Pitch_LFO1Depth_select_valueChanged(int val)
+ * on_Pitch_LFO2Depth_select_valueChanged(int val)
+ */
+
 #include        "JVlibForm.h"
 #include        <QtGui>
 
 void JVlibForm::PitchStdUpdate(int offset, int val) {
   if (!state_table->updates_enabled) return;
-    bool *ptr;
+    char *ptr;
     int tn = Tone_ToneNumber_select->value() - 1;
     if (state_table->perf_mode)
-      ptr = &active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_tone[tn].tone;
+      ptr = (char *)&active_area->active_perf_patch[Patch_PerfPartNum_select->currentIndex()].patch_tone[tn].tone;
     else
-      ptr = &active_area->active_patch_patch.patch_tone[tn].tone;
+      ptr = (char *)&active_area->active_patch_patch.patch_tone[tn].tone;
     ptr[offset] = val;
     if (state_table->jv_connect) 
       setToneSingleValue(tn,offset, val);

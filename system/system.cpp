@@ -37,7 +37,6 @@ void JVlibForm::getSysPatchName() {
   SysPatchName->setEnabled(true);
   SysPatchName->setText(QString::fromAscii(r_buf,12));
   Patch_Name_edit->setText(SysPatchName->text());
-//  PatchEFX_Name_display->setText(SysPatchName->text());
 }
   
 void JVlibForm::getSysPerfName() {
@@ -133,12 +132,9 @@ if (state_table->updates_enabled) {
     memset(buf,0,sizeof(buf));
     buf[3] = addr;
     buf[4] = val;
-//    if (open_ports() == EXIT_FAILURE) return;
     if (sysex_update(&buf[0],5) == EXIT_FAILURE) {
-//      close_ports(); 
       return;
     }
-//    close_ports();
   }	// end jv_connect
   else  {	// System settings modified but synth not updated
     System_Sync_status->off();
@@ -152,7 +148,6 @@ void JVlibForm::EnableSys(bool val) {
   SysPreviewBox->setEnabled(val);
   SysSourceBox->setEnabled(val);
   SysTestTone_button->setEnabled(val);
-//  System_Upload_button->setEnabled(val);
   SysPanic_button->setEnabled(val);
   SysMode_select->setEnabled(val);
   System_Sync_button->setEnabled(val);
@@ -185,8 +180,5 @@ void JVlibForm::EnableSys(bool val) {
     SysPatchName->setEnabled(val);
     SysPatchNumber->setEnabled(val);
     Patch_Sync_button->setEnabled(val);
-//    Patch_Group_select->setEnabled(val);
-//    Patch_Number_select->setEnabled(val);
-//    Patch_Name_edit->setEnabled(val);
   }
 }	// end EnableSys

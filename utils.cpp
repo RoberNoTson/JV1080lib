@@ -23,6 +23,7 @@
 
 int JVlibForm::change_send(const unsigned char *buf, int buf_size) {
   if (!state_table->jv_connect) return EXIT_FAILURE;
+//  if (!state_table->jv_connect || !state_table->updates_enabled) return EXIT_FAILURE;
   // set to blocking mode
   if (!state_table->midiPorts_open)
     if (open_ports() == EXIT_FAILURE) return(EXIT_FAILURE);
@@ -79,7 +80,7 @@ int JVlibForm::sysex_request(const unsigned char *buf) {
 }	// end SYSEX_SEND
 
 int JVlibForm::sysex_update(const unsigned char *buf, int buf_size) {
-  if (!state_table->jv_connect) return EXIT_FAILURE;
+  if (!state_table->jv_connect || !state_table->updates_enabled) return EXIT_FAILURE;
   unsigned char *SysEx = new unsigned char[buf_size+7];
   SysEx[0] = 0xF0;
   SysEx[1] = 0x41;
