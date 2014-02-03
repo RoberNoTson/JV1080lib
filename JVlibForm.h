@@ -15,6 +15,7 @@
 #include	"load_dialog/load_dialog.h"
 #include	"data_list/data_list.h"
 #include	"rhythm/note_list.h"
+#include	"menu/jv_copy/jv_copy.h"
 
 #ifndef MAX_RETRIES
 #define	MAX_RETRIES 2	//number of times to retry after a timeout
@@ -39,6 +40,7 @@ class JVlibForm : public QMainWindow, private Ui::JVlibForm
   friend class DATA_LIST;
   friend class INI_CONF;
   friend class NOTE_LIST;
+  friend class JV_COPY;
   
   Q_OBJECT
 

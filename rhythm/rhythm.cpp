@@ -13,7 +13,8 @@ void JVlibForm::RhythmStdUpdate(int offset, int val) {
 //  if (!state_table->perf_mode) return;
   if (!state_table->updates_enabled) return;
   int tn = Rhythm_KeyPress_select->value();
-  bool *ptr = &active_area->active_rhythm.rhythm_note[tn-35].tone;
+  char *ptr;
+  ptr = (char *)&active_area->active_rhythm.rhythm_note[tn-35].tone;
   ptr[offset] = val;
   if (!state_table->jv_connect) return;
   unsigned char buf[5];

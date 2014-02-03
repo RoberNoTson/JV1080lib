@@ -226,10 +226,19 @@ void JVlibForm::slotactionWrite() {
 }	// end slotactionWrite
 
 void JVlibForm::slotactionCopy() {
-  // NOTE: tbd  
+  if (!state_table->jv_connect) return;	// JV is OFFLINE, just quit now
+  // verify the data to be written is valid, else abort
+  if (state_table->perf_mode && !state_table->performance_sync) return;
+  if (state_table->patch_mode && !state_table->patch_sync) return;
+  if (state_table->rhythm_mode && !state_table->rhythm_sync) return;
+  // all good, proceed with copying the data
+  JV_COPY jv_copy;
+  jv_copy.exec();
 }
+
 void JVlibForm::slotDB_Maint() {
   // NOTE: tbd  
+  // Rename, delete an entry, change comment
 }
 
 void  JVlibForm::slotConfig() {

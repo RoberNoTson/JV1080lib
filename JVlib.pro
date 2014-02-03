@@ -14,7 +14,8 @@ FORMS += JVlib.ui \
 	config/ini_conf.ui \
 	load_dialog/Load_Dialog.ui \
 	data_list/data_list.ui \
-	rhythm/note_list.ui
+	rhythm/note_list.ui \
+	menu/jv_copy/jv_copy.ui
 HEADERS	+= JVlibForm.h \
 	JV-struct-defs.h \
 	State_Table.h \
@@ -27,7 +28,8 @@ HEADERS	+= JVlibForm.h \
 	save_dialog/Save_Dialog.h \
 	load_dialog/Load_Dialog.h \
 	data_list/data_list.h \
-	rhythm/note_list.h
+	rhythm/note_list.h \
+	menu/jv_copy/jv_copy.h
 SOURCES += main.cpp \
 	JVlibForm.cpp \
 	utils.cpp \
@@ -174,4 +176,5 @@ SOURCES += main.cpp \
 	load_dialog/load_current_perf.cpp \
 	load_dialog/load_current_patch.cpp \
 	load_dialog/load_current_rhythm.cpp \
-	data_list/data_list.cpp
+	data_list/data_list.cpp \
+	menu/jv_copy/jv_copy.cpp
