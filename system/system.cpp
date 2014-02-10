@@ -23,47 +23,46 @@ void JVlibForm::getSysPatchName() {
   char r_buf[16];
   memset(buf,0,sizeof(buf));
   buf[0] = 0x03;	// addr of active patch-mode patch
-  buf[7] = name_size[3];
-  // open the selected midi port
-  if (open_ports() == EXIT_FAILURE) return;
+  buf[7] =0x0C;
   RetryA:
-  if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
+  if (sysex_request(buf) == EXIT_FAILURE) return;
   err = sysex_get((unsigned char *)&r_buf, (char *)&name_size);
   if (err == EXIT_FAILURE) return;
   if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
   if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
-  if (err != EXIT_SUCCESS) { close_ports(); return; }
-  close_ports();
+  if (err != EXIT_SUCCESS) return;
   SysPatchName->setEnabled(true);
   SysPatchName->setText(QString::fromAscii(r_buf,12));
   Patch_Name_edit->setText(SysPatchName->text());
+  strncpy(state_table->patch_name, r_buf, 12);
+  strncpy(state_table->patch_group, (const char *)SysPatchSelect->currentText().toAscii().data(), 12);
+  state_table->patch_num = SysPatchNumber->value();
 }
   
 void JVlibForm::getSysPerfName() {
   // get the current active Performance name from the synth
-  if (state_table->jv_connect) {
-    int	err;
-    int	Stop=0;
-    unsigned char buf[8];
-    char r_buf[256];
-    memset(buf,0,sizeof(buf));
-    buf[0] = 0x01;	// address of active_area->perf_common.name
-    buf[7] = name_size[3];
-    // open the selected midi port
-    if (open_ports() == EXIT_FAILURE) return;
-    RetryA:
-    if (sysex_request(buf) == EXIT_FAILURE) { close_ports(); return; }
-    err = sysex_get((unsigned char *)r_buf, (char *)&name_size);
-    if (err == EXIT_FAILURE) return;
-    if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
-    if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
-    if (err != EXIT_SUCCESS) { close_ports(); return; }
-    close_ports();
-    SysPerfName->setText(QString::fromAscii(r_buf,12));
-    SysPerfName->setEnabled(true);
-    PerfName_edit->setText(SysPerfName->text());
-    PartsPerfName_display->setText(SysPerfName->text());
-  }	// end state_table->jv_connect
+  if (!state_table->jv_connect) return;
+  int	err;
+  int	Stop=0;
+  unsigned char buf[8];
+  char r_buf[16];
+  memset(buf,0,sizeof(buf));
+  buf[0] = 0x01;	// address of active_area->perf_common.name
+  buf[7] = 0x0C;
+  RetryA:
+  if (sysex_request(buf) == EXIT_FAILURE) return;
+  err = sysex_get((unsigned char *)r_buf, (char *)&name_size);
+  if (err == EXIT_FAILURE) return;
+  if (err==2 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
+  if (err==3 && Stop<MAX_RETRIES) { if (debug) qDebug() << "Retrying"; Stop++; sleep(1*Stop); goto RetryA; }
+  if (err != EXIT_SUCCESS) return;
+  SysPerfName->setText(QString::fromAscii(r_buf,12));
+  SysPerfName->setEnabled(true);
+  PerfName_edit->setText(SysPerfName->text());
+  PartsPerfName_display->setText(SysPerfName->text());
+  strncpy(state_table->perf_name, r_buf, 12);
+  strncpy(state_table->perf_group, (const char *)SysPerfSelect->currentText().toAscii().data(), 12);
+  state_table->perf_num = SysPerfNumber->value();
 }	// end getSysPerfName
 
 void JVlibForm::setSysGmMode(bool GM) {

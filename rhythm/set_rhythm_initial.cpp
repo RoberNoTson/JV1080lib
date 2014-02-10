@@ -127,5 +127,8 @@ void JVlibForm::setRhythmParms(int val) {
     Rhythm_TestTone_switch->setCheckable(true);
   else
     Rhythm_TestTone_switch->setCheckable(false);
+  strncpy(state_table->rhythm_name, (const char *)Rhythm_PatchName_display->text().toAscii().data(), 12);
+  strncpy(state_table->rhythm_group, (const char *)Rhythm_PatchGroup_select->currentText().toAscii().data(), 12);
+  state_table->rhythm_num = Rhythm_PatchNumber_select->value();
   state_table->updates_enabled = true;
 }	// end setRhythmParms

@@ -25,7 +25,8 @@ P=`amidi -l |grep Turtle |gawk '{printf "%s",$2}'`
 if [ $P ]; then
   amidi -p $P -S "F0 41 10 6A 12 00 00 00 00 01 7F F7";
 else
-  exit;		# OOPS! No connection to JV
+  echo OOPS! No connection to JV
+  exit;
 fi
 # Query loop through patch_list database by SeqNum
 Result=(`mysql -s -u music -e "select SeqNum, p.group_area, p.number from patch_list p order by SeqNum" JV1080`)

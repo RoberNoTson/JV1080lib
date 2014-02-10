@@ -372,51 +372,9 @@ void JVlibForm::on_Rhythm_TestTone_switch_clicked(bool val) {
 
 void JVlibForm::on_Rhythm_ListNotes_button_clicked() {
   // rhythmNote_list
-//  NOTE_LIST Note_List;
   Note_List.show();
   Note_List.raise();
   Note_List.activateWindow();
-/*  
-  QString Group;
-  int Num;
-  QString WaveName;
-  QSqlQuery NameQuery(mysql);
-  
-  NameQuery.prepare("Select name from wave_list where group_area = ? and number = ?");
-  for (int x=0;x<64;x++) {
-    Group.clear();
-    switch(active_area->active_rhythm.rhythm_note[x].wave_group_id) {
-      case 0x1:	// Int A
-	Group = "Internal A";
-	break;
-      case 0x2:	// Int B or Exp A
-	Group = active_area->active_rhythm.rhythm_note[x].wave_group==0 ? "Internal B" : "Expansion A";
-	break;
-      case 0x10:	// Exp B
-	Group = "Expansion B";
-	break;
-      case 0x62:	// Exp C
-	Group = "Expansion C";
-	break;      
-    }	// end switch Group
-    Num = active_area->active_rhythm.rhythm_note[x].wave_num_high*16;
-    Num += active_area->active_rhythm.rhythm_note[x].wave_num_low;
-    Num++;
-    NameQuery.bindValue(0, Group);
-    NameQuery.bindValue(1, Num);
-    if (NameQuery.exec() == false) { puts("Query exec failed"); return; }
-    if (NameQuery.size()==0) { printf("0 rows found in WaveName_query for %s %d\n",Group.toAscii().data(), Num); continue; }
-    NameQuery.first();
-    WaveName = NameQuery.value(0).toString();
-    WaveName = WaveName.leftJustified(12, ' ');
-    // output the results
-    Group.prepend(funcNoteCalc(x+35)+"   ");
-    Group.append(" "+QString::number(Num));
-    Group.append("    "+WaveName);
-printf("%s\n",Group.toAscii().data());   
-  }	// end FOR
-  NameQuery.finish();
-*/
 }	// end on_Rhythm_ListNotes_button_clicked
 
 void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
@@ -482,6 +440,9 @@ void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
     puts("OOPS 2!"); return;
   }
   Rhythm_PatchName_display->setText(getPartPatchName(9));
+  strncpy(state_table->rhythm_name, (const char *)Rhythm_PatchName_display->text().toAscii().data(), 12);
+  strncpy(state_table->rhythm_group, (const char *)Rhythm_PatchGroup_select->currentText().toAscii().data(), 12);
+  state_table->rhythm_num = Rhythm_PatchNumber_select->value();
 }
 
 void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
@@ -493,6 +454,9 @@ void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
   }
   if (state_table->perf_mode) {
     Part10_PatchNumber_select->setValue(val);
+    strncpy(state_table->rhythm_name, (const char *)Rhythm_PatchName_display->text().toAscii().data(), 12);
+    strncpy(state_table->rhythm_group, (const char *)Rhythm_PatchGroup_select->currentText().toAscii().data(), 12);
+    state_table->rhythm_num = Rhythm_PatchNumber_select->value();
     return;
   }
   if (!state_table->rhythm_mode) return;

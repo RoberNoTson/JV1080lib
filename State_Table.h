@@ -65,5 +65,14 @@ struct STATE_TABLE {
   int Dev_ID;		// internal device ID of the JV-1080
   bool updates_enabled;	// used to avoid re-setting memory values when controls are initialized
   bool initialized;	// an initial instance of the main form has been created.
+  char perf_name[13];
+  char perf_group[13];
+  int perf_num;
+  char patch_name[13];
+  char patch_group[13];
+  int patch_num;
+  char rhythm_name[13];
+  char rhythm_group[13];
+  int rhythm_num;
 };
 #endif
