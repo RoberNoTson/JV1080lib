@@ -143,4 +143,5 @@ void JVlibForm::EnablePerf(bool val) {
   state_table->performance_sync = val;
   System_Upload_button->setEnabled(val);
   actionWrite->setEnabled(val);
+  actionCopy->setEnabled(val);
 }

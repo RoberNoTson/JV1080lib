@@ -30,6 +30,12 @@ else
 fi
 # Query loop through patch_list database by SeqNum
 Result=(`mysql -s -u music -e "select SeqNum, p.group_area, p.number from patch_list p order by SeqNum" JV1080`)
+if [[ -z $Result ]]; then
+  echo Error retrieving SeqNum data
+  echo Abandoning update
+  exit;
+fi;
+
 let count=`echo ${#Result[@]}`;
 let looper=0;
 let y=0;

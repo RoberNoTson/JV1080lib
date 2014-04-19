@@ -172,8 +172,10 @@ void JV_COPY::on_Copy_Source_type_currentIndexChanged(int val) {
 
 void JV_COPY::on_Copy_Source_select_currentIndexChanged(QString t_name) {
   int pn = ui->Copy_Source_value->value() - 1;
-  int x;
-  if (t_name == "Temp") {}
+  if (t_name == "Temp") {
+    if (JVlibForm::state_table->perf_mode) {
+    }
+  }
   else if (t_name == "User") {}
   else if (t_name == "Preset A") {}
   else if (t_name == "Preset B") {}

@@ -474,4 +474,5 @@ void::JVlibForm::setPatchParms(int val) {
   state_table->updates_enabled = true;
   System_Upload_button->setEnabled(true);
   actionWrite->setEnabled(true);
+  actionCopy->setEnabled(true);
 }	// end setPatchParms

@@ -86,6 +86,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
     state_table->rhythm_sync = true;
     System_Upload_button->setEnabled(true);
     actionWrite->setEnabled(true);
+    actionCopy->setEnabled(true);
     state_table->rhythm_modified = false;
     state_table->updates_enabled=true;
   }	// end if getActiveRhythm
@@ -114,6 +115,7 @@ void JVlibForm::on_Rhythm_Sync_button_clicked() {
       state_table->rhythm_sync=false;
       System_Upload_button->setEnabled(false);
       actionWrite->setEnabled(false);
+      actionCopy->setEnabled(false);
       Rhythm_EnableAll(false);
     }
     state_table->updates_enabled=false;
@@ -383,6 +385,7 @@ void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
     Rhythm_EnableAll(false);
     System_Upload_button->setEnabled(false);
     actionWrite->setEnabled(false);
+    actionCopy->setEnabled(false);
   }
   if (state_table->perf_mode) {
     Part10_PatchGroup_select->setCurrentIndex(val);
@@ -437,13 +440,13 @@ void JVlibForm::on_Rhythm_PatchGroup_select_currentIndexChanged(int val) {
   buf[3] = 0x02;
   memcpy((void *)&buf[4], (const void *)&active_area->active_performance.perf_part[9].patch_group,4);
   if (sysex_update((const unsigned char*)&buf,8) == EXIT_FAILURE) {
-    puts("OOPS 2!"); return;
+    puts("ERROR - unable to update JV in rhythm_slots.cpp"); return;
   }
   Rhythm_PatchName_display->setText(getPartPatchName(9));
   strncpy(state_table->rhythm_name, (const char *)Rhythm_PatchName_display->text().toAscii().data(), 12);
   strncpy(state_table->rhythm_group, (const char *)Rhythm_PatchGroup_select->currentText().toAscii().data(), 12);
   state_table->rhythm_num = Rhythm_PatchNumber_select->value();
-}
+}	// end on_Rhythm_PatchGroup_select_currentIndexChanged
 
 void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
   if (state_table->rhythm_sync) {
@@ -451,6 +454,7 @@ void JVlibForm::on_Rhythm_PatchNumber_select_valueChanged(int val) {
     Rhythm_EnableAll(false);
     System_Upload_button->setEnabled(false);
     actionWrite->setEnabled(false);
+    actionCopy->setEnabled(false);
   }
   if (state_table->perf_mode) {
     Part10_PatchNumber_select->setValue(val);
