@@ -129,128 +129,150 @@
       <property name="title">
        <string notr="true">Master Receive Switches</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
-        <widget class="QSplitter" name="splitter">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <widget class="QCheckBox" name="EFX_switch">
-          <property name="toolTip">
-           <string notr="true">Enable the master EFX receive switch</string>
-          </property>
-          <property name="text">
-           <string notr="true">EFX</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="Chorus_switch">
-          <property name="toolTip">
-           <string notr="true">Enable the master Chorus receive switch</string>
-          </property>
-          <property name="text">
-           <string notr="true">Chorus</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="Reverb_switch">
-          <property name="toolTip">
-           <string notr="true">Enable the master Reverb receive switch</string>
-          </property>
-          <property name="text">
-           <string notr="true">Reverb</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="PatchRemain_switch">
-          <property name="toolTip">
-           <string notr="true">When enabled, patches continue to sound through controller changes</string>
-          </property>
-          <property name="text">
-           <string notr="true">Patch Remain</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QSplitter" name="splitter_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <widget class="QCheckBox" name="AcceptProgramChg_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Program Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Program Change</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptBankSel_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Bank Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Bank Select</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptControlChange_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Control Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Control Change</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptModulation_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Modulation change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Modulation</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QSplitter" name="splitter_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <widget class="QCheckBox" name="AcceptVolumeChg_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Volume Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Volume Change</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptHold1Chg_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Hold-1 Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Hold-1 Change</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptBender_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Bender Change messages</string>
-          </property>
-          <property name="text">
-           <string notr="true">Bender</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="AcceptAftertouch_switch">
-          <property name="toolTip">
-           <string notr="true">Select to allow Aftertouch messages</string>
-          </property>
-          <property name="whatsThis">
-           <string notr="true">Aftertouch adds qualities such as vibrato, bending or other changes when a key that has already been played is then pressed with greater force. Not all keyboards send aftertouch messages.</string>
-          </property>
-          <property name="text">
-           <string notr="true">Aftertouch</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QSplitter" name="splitter_2">
+       <property name="geometry">
+        <rect>
+         <x>167</x>
+         <y>29</y>
+         <width>157</width>
+         <height>75</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QCheckBox" name="AcceptProgramChg_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Program Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Program Change</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptBankSel_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Bank Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Bank Select</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptControlChange_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Control Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Control Change</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptModulation_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Modulation change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Modulation</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QSplitter" name="splitter_3">
+       <property name="geometry">
+        <rect>
+         <x>328</x>
+         <y>29</y>
+         <width>156</width>
+         <height>75</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QCheckBox" name="AcceptVolumeChg_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Volume Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Volume Change</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptHold1Chg_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Hold-1 Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Hold-1 Change</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptBender_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Bender Change messages</string>
+        </property>
+        <property name="text">
+         <string notr="true">Bender</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="AcceptAftertouch_switch">
+        <property name="toolTip">
+         <string notr="true">Select to allow Aftertouch messages</string>
+        </property>
+        <property name="whatsThis">
+         <string notr="true">Aftertouch adds qualities such as vibrato, bending or other changes when a key that has already been played is then pressed with greater force. Not all keyboards send aftertouch messages.</string>
+        </property>
+        <property name="text">
+         <string notr="true">Aftertouch</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QSplitter" name="splitter">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>29</y>
+         <width>157</width>
+         <height>75</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <widget class="QCheckBox" name="Reverb_switch">
+        <property name="toolTip">
+         <string notr="true">Enable the master Reverb receive switch</string>
+        </property>
+        <property name="text">
+         <string notr="true">Reverb</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="Chorus_switch">
+        <property name="toolTip">
+         <string notr="true">Enable the master Chorus receive switch</string>
+        </property>
+        <property name="text">
+         <string notr="true">Chorus</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="EFX_switch">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string notr="true">Enable the master EFX receive switch</string>
+        </property>
+        <property name="text">
+         <string notr="true">EFX</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="PatchRemain_switch">
+        <property name="toolTip">
+         <string notr="true">When enabled, patches continue to sound through controller changes</string>
+        </property>
+        <property name="text">
+         <string notr="true">Patch Remain</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="SysSourceBox">
       <property name="enabled">
@@ -5728,7 +5750,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>800</width>
+         <width>94</width>
          <height>2071</height>
         </rect>
        </property>
