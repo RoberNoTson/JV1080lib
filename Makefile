@@ -12,7 +12,8 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_NO_DEBUG_OUTPUT -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
 CFLAGS        = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
-CXXFLAGS      = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
+#CXXFLAGS      = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
+CXXFLAGS      = -std=c++0x -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
 INCPATH       = -I/usr/share/qt4/mkspecs/default -I. -I/usr/include/QtCore -I/usr/include/QtGui -I/usr/include/QtSql -I/usr/include -Iobjects -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
