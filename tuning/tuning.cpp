@@ -55,7 +55,6 @@ void JVlibForm::Tuning_NoteUpdate(int offset, int val) {
 }	// end Tuning_NoteUpdate
 
 void JVlibForm::Tuning_QueryTemp(int val) {
-  static char Temp[12];
   Cents.clear();
   switch(val) {
     case 0:	// Equal

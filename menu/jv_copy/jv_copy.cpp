@@ -171,7 +171,7 @@ void JV_COPY::on_Copy_Source_type_currentIndexChanged(int val) {
 }
 
 void JV_COPY::on_Copy_Source_select_currentIndexChanged(QString t_name) {
-  int pn = ui->Copy_Source_value->value() - 1;
+//  int pn = ui->Copy_Source_value->value() - 1;
   if (t_name == "Temp") {
     if (JVlibForm::state_table->perf_mode) {
     }
@@ -189,12 +189,12 @@ void JV_COPY::on_Copy_Source_select_currentIndexChanged(QString t_name) {
 }	// end on_Copy_Source_select_currentIndexChanged
 
 void JV_COPY::on_Copy_Source_value_valueChanged(int val) {
-  int pn = val-1;
+//  int pn = val-1;
 }
 void JV_COPY::on_Copy_Source_Subtype_value_valueChanged(int val) {
-  int pn = val-1;
+//  int pn = val-1;
 }
 void JV_COPY::on_Copy_Dest_Subtype_value_valueChanged(int val) {
-  int pn = val-1;
+//  int pn = val-1;
 }
 
