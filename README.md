@@ -5,6 +5,16 @@ Linux based Manager/librarian for the Roland JV-1080.
 This program will not run on Windoze - it is strictly for Linux systems.
 All basic functions work correctly, see the file TODO.txt for remaining fixes.
 
-It currently requires a MySQL database to hold the instrument definitions and other data (future enhancements will make this optional.)
+It currently requires a MySQL database to hold the instrument definitions and other data (future enhancements might make this optional.)
+MySQL versions:
+5.1
+5.5
 
-Compiling the file requires that the KDE Development and ALSA development packages are installed on the system.
+Compiled with gcc versions: 
+4.5.1
+4.7.1
+
+Compiling the file requires the following packages:
+KDE Development
+ALSA development
+MySQL dev

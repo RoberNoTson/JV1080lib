@@ -1,6 +1,7 @@
 General updates
 10/29/2013  - change cursor to "Wait" wherever ProgressBox is not displayed
 12/23/2013  - refactor "updates_enabled" test in functions
+10/20/2014  - process password for db connect
   - fill in Tool Tips and What Is text for all controls
   - context sensitive Help docs
   - fix Color gradient error message from QDials throughout 
@@ -97,6 +98,8 @@ Tuning_tab
 
 config
 11/06/2013  - add JV-1080 Device ID
+  - add unix_socket
+  - add database port option
   - improve aesthetics
 
 save_dialog

@@ -18,8 +18,11 @@
 #include	"ui_JVlib.h"
 
 // Form-level variables
+QString db_host;
 QString db_name;
 QString db_user;
+QString db_pass;
+QString unix_socket;
 QString PORT_NAME;
 QString JVlibForm::CFGfile;
 // static variables
@@ -206,7 +209,7 @@ void JVlibForm::setInitial() {
   setPerfTabs(false);
   setPatchTabs(false);
   if (readConfigFile()) return;
-  db_connect(db_name, db_user);
+  db_connect(db_name, db_user, db_host, db_pass, unix_socket);
   getPort();
   if (!state_table->jv_connect) {
     action_Offline->setChecked(true);
@@ -231,20 +234,26 @@ int JVlibForm::readConfigFile() {
     CFGfile = myHome+"/"+fi.fileName()+".cfg";
   } else {
     QFileInfo fi(app->arguments().at(1));
-    CFGfile = fi.fileName();
+    CFGfile = fi.filePath();
   }
+  printf("Using %s\n", CFGfile.toAscii().data());
   QFile file(CFGfile);
   if (!file.exists()) {
     statusbar->showMessage("Not found "+CFGfile);
+    printf("%s not found\n", CFGfile.toAscii().data());
     return 1;
   }
   // open and parse the config file
   QSettings settings(CFGfile,QSettings::IniFormat);
-  db_name = settings.value("mysql/database").toString();
-  db_user = settings.value("mysql/username").toString();
+  db_host = settings.value("mysql/host", "localhost").toString();
+  db_name = settings.value("mysql/database", "JV1080").toString();
+  db_user = settings.value("mysql/username", "music").toString();
+  db_pass = settings.value("mysql/password", "").toString();
+  unix_socket = settings.value("mysql/socket", "/var/lib/mysql/mysql.sock").toString();
   strcpy(MIDI_dir, settings.value("JV1080/midi_dir").toByteArray().data());
   PORT_NAME = settings.value("JV1080/port_name").toString();
   state_table->Dev_ID = settings.value("JV1080/Dev_ID", 17).toInt();
+printf("Connect using %s@%s to db %s\n", db_user.toAscii().data(), db_host.toAscii().data(), db_name.toAscii().data());
   return 0;
 }	// end readConfigFile
 
@@ -296,19 +305,25 @@ void JVlibForm::createStatusBar()
 }	// end createStatusBar
 
 
-int JVlibForm::db_connect(QString db_name, QString user_name) {
+int JVlibForm::db_connect(QString db_name, QString user_name, QString host_name, QString password, QString socket) {
   if (mysql.isOpen()) return EXIT_SUCCESS;
   QSqlDatabase mysql = QSqlDatabase::addDatabase("QMYSQL");
-  if (mysql.isValid()) puts("created db connection");
-  else puts("invalid db connection");
-  mysql.setConnectOptions("UNIX_SOCKET=/var/lib/mysql/mysql.sock");
+  if (!mysql.isValid()) {
+    puts("invalid db instance");
+    return EXIT_FAILURE;
+  }
+  if (socket.length())
+    mysql.setConnectOptions("UNIX_SOCKET="+socket);
+  mysql.setHostName(host_name);
   mysql.setDatabaseName(db_name);
   mysql.setUserName(user_name);
+  if (password.length())
+    mysql.setPassword(password);
   if (mysql.open() == false) {
     // ERROR!
     QMessageBox::critical(this, "JVlib", tr("Database could not be opened\n%1") .arg(mysql.lastError().databaseText()));
     puts("Unable to open the database");
-    statusbar->showMessage(mysql.lastError().databaseText());
+printf("Host %s, user %s, db %s\n", host_name.toAscii().data(),user_name.toAscii().data(), db_name.toAscii().data());
     return EXIT_FAILURE;
   }
   state_table->db_connect = true;
