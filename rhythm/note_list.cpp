@@ -51,6 +51,7 @@ void NOTE_LIST::on_NoteList_Select_button_clicked()
   ui->NoteList_RhythmSet->setText(QString::fromAscii(&JVlibForm::active_area->active_rhythm.rhythm_common.name[0],12));
   ui->NoteList_Result_list->clear();
   QSqlQuery query(JVlibForm::db_mysql);
+  
   for (int y=0x23;y<0x63;y++) {
     NoteGroup.clear();
     int x = y-0x23;
@@ -83,12 +84,13 @@ void NOTE_LIST::on_NoteList_Select_button_clicked()
     NoteName = query.value(0).toString();
     NoteName = NoteName.leftJustified(12, ' ');
     // output the results
-    NoteResults.append("<tr><td width=20%>"+funcNoteCalc(y)+"</td>");
+    NoteResults.append("<tr><td width=4%>"+QString::number(y)+"</td><td width=16%>"+funcNoteCalc(y)+"</td>");
     NoteResults.append("<td width=40%>"+NoteGroup+" "+QString::number(Num)+"</td>");
     NoteResults.append("<td width=40%>"+NoteName);
 //    NoteResults.append("<td width=25%>"+RhythmSet);
     NoteResults.append("</td></tr>");
   }       // end FOR
+  
   query.finish();   
   NoteResults.append("</table>");
   ui->NoteList_Result_list->setHtml(NoteResults);
