@@ -108,7 +108,7 @@
      </attribute>
      <widget class="QGroupBox" name="SysSwitchBox">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -224,7 +224,7 @@
       </widget>
       <widget class="QSplitter" name="splitter">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -255,7 +255,7 @@
        </widget>
        <widget class="QCheckBox" name="EFX_switch">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="toolTip">
          <string notr="true">Enable the master EFX receive switch</string>
